@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "The Entangled Mind: Quantum Cognition as a Cognitive Architecture for Language Models"
+authors:
+  - family-names: Pharris
+    given-names: Sean
+    affiliation: Independent researcher
+type: software
+version: 0.1.0
+date-released: 2026-11-03
+license: MIT
+repository-code: "https://github.com/GitPhar/entangled-mind"
+keywords:
+  - quantum cognition
+  - language models
+  - qiskit
+  - pre-registration

@@ -8,10 +8,10 @@ RESULTS = ROOT / "results"
 EXPERIMENTS = ROOT / "experiments"
 
 # --- language models -------------------------------------------------------
-BASE_MODEL = "claude-sonnet-5-5"
+BASE_MODEL = "claude-haiku-5-5"   # DEVIATIONS.md, D5 (run 1 used claude-sonnet-5-5 at xhigh)
 EXTRACTOR_MODEL = "claude-sonnet-5-5"
 JUDGE_MODEL = "claude-haiku-5-5"
-BASE_EFFORT = "xhigh"         # adaptive thinking skips the thinking block entirely at low/medium/high on these items
+BASE_EFFORT = None            # model default; run 1 used "xhigh"
 EXTRACTOR_EFFORT = "low"
 JUDGE_EFFORT = "low"
 

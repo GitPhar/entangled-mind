@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "entangled-mind"
+version = "0.1.0"
+description = "Encoding a language model's competing beliefs as one entangled quantum state, tested against classical controls."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Sean Pharris" }]
+dependencies = [
+    "qiskit>=2.0",
+    "qiskit-aer>=0.17",
+    "qiskit-ibm-runtime>=0.40",
+    "anthropic>=2.0",
+    "python-dotenv>=1.0",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

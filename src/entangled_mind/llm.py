@@ -81,6 +81,7 @@ class BaseAnswer:
     thinking_tokens: int
     usage: Usage
     request_id: str | None
+    truncated: bool = False     # hit max_tokens: recorded as no answer, excluded from the split
 
 
 def ask_base(question: str) -> BaseAnswer:
@@ -88,17 +89,19 @@ def ask_base(question: str) -> BaseAnswer:
         model=config.BASE_MODEL,
         max_tokens=16000,
         thinking={"type": "adaptive", "display": "summarized"},
-        output_config={"effort": config.BASE_EFFORT},
+        **({"output_config": {"effort": config.BASE_EFFORT}} if config.BASE_EFFORT else {}),
         messages=[{"role": "user", "content": BASE_PROMPT.format(question=question)}],
     )
-    _check_stop(resp, "base")
+    truncated = resp.stop_reason == "max_tokens"
+    if not truncated:
+        _check_stop(resp, "base")
     text = "\n".join(b.text for b in resp.content if b.type == "text").strip()
     summary = "\n".join(b.thinking for b in resp.content if b.type == "thinking").strip()
     m = re.findall(r"FINAL ANSWER:\s*(YES|NO)", text, flags=re.I)
     details = getattr(resp.usage, "output_tokens_details", None)
-    return BaseAnswer(text, m[-1].lower() if m else None, summary,
+    return BaseAnswer(text, None if truncated or not m else m[-1].lower(), summary,
                       int(getattr(details, "thinking_tokens", 0) or 0), _usage(resp),
-                      getattr(resp, "_request_id", None))
+                      getattr(resp, "_request_id", None), truncated)
 
 
 # --- 2. claim extraction (claims become 'contentions', one qubit each) ---------------------------------------------

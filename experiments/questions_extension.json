@@ -1,0 +1,527 @@
+[
+  {
+    "id": "x01",
+    "category": "computation",
+    "question": "Is 92,499 \u00d7 85,758 equal to 7,932,529,342?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x02",
+    "category": "computation",
+    "question": "Is 70,251 \u00d7 26,298 equal to 1,847,460,798?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x03",
+    "category": "calendar",
+    "question": "Was January 19, 1639 a Monday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x04",
+    "category": "computation",
+    "question": "Is 83,437,883 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x05",
+    "category": "calendar",
+    "question": "Was August 8, 1721 a Monday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x06",
+    "category": "computation",
+    "question": "Is 95,146,201 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x07",
+    "category": "words",
+    "question": "Does the sentence \"Never underestimate the patience of a determined beekeeper in September\" contain exactly 19 occurrences of the letter 'e' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x08",
+    "category": "computation",
+    "question": "Are there exactly 10 prime numbers between 3,383 and 3,482 inclusive?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x09",
+    "category": "computation",
+    "question": "Is 58,842,989 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x10",
+    "category": "computation",
+    "question": "Is 88,647 \u00d7 79,932 equal to 7,085,732,004?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x11",
+    "category": "computation",
+    "question": "Are there exactly 11 prime numbers between 16,688 and 16,787 inclusive?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x12",
+    "category": "calendar",
+    "question": "Was July 11, 2047 a Saturday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x13",
+    "category": "computation",
+    "question": "Are there exactly 13 prime numbers between 4,083 and 4,182 inclusive?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x14",
+    "category": "computation",
+    "question": "Are there exactly 6 prime numbers between 16,705 and 16,804 inclusive?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x15",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^79 equal to 107?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x16",
+    "category": "words",
+    "question": "Does the sentence \"Mammals in the Amazon commonly communicate at dawn and dusk\" contain exactly 9 occurrences of the letter 'm' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x17",
+    "category": "computation",
+    "question": "Is 9,808,651 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x18",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^108 equal to 148?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x19",
+    "category": "calendar",
+    "question": "Was January 30, 1993 a Tuesday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x20",
+    "category": "words",
+    "question": "Does the sentence \"Tattered banners fluttered atop the battered fortress tower\" contain exactly 11 occurrences of the letter 't' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x21",
+    "category": "calendar",
+    "question": "Was April 3, 1620 a Monday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x22",
+    "category": "calendar",
+    "question": "Was December 31, 2375 a Monday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x23",
+    "category": "computation",
+    "question": "Are there exactly 13 prime numbers between 1,490 and 1,589 inclusive?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x24",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^156 equal to 217?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x25",
+    "category": "words",
+    "question": "Does the sentence \"Interstellar travelers rarely remember the terrible turbulence there\" contain exactly 12 occurrences of the letter 'r' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x26",
+    "category": "calendar",
+    "question": "Was April 21, 1958 a Friday (in the Gregorian calendar)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x27",
+    "category": "computation",
+    "question": "Is 25,878,241 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x28",
+    "category": "computation",
+    "question": "Is 74,829 \u00d7 36,068 equal to 2,698,932,372?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x29",
+    "category": "calendar",
+    "question": "Was April 23, 2206 a Wednesday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x30",
+    "category": "computation",
+    "question": "Is 72,441,529 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x31",
+    "category": "computation",
+    "question": "Is 11,503,259 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x32",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^103 equal to 110?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x33",
+    "category": "words",
+    "question": "Does the sentence \"Interstellar travelers rarely remember the terrible turbulence there\" contain exactly 12 occurrences of the letter 'r' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x34",
+    "category": "calendar",
+    "question": "Was September 5, 1903 a Saturday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x35",
+    "category": "computation",
+    "question": "Are there exactly 8 prime numbers between 14,030 and 14,129 inclusive?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x36",
+    "category": "computation",
+    "question": "Are there exactly 10 prime numbers between 8,523 and 8,622 inclusive?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x37",
+    "category": "computation",
+    "question": "Is 38,396,819 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x38",
+    "category": "computation",
+    "question": "Is 86,202,629 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x39",
+    "category": "computation",
+    "question": "Are there exactly 8 prime numbers between 17,241 and 17,340 inclusive?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x40",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^110 equal to 121?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x41",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^73 equal to 110?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x42",
+    "category": "words",
+    "question": "Does the sentence \"Peter Piper picked a peck of pickled peppers from the pepper patch\" contain exactly 13 occurrences of the letter 'p' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x43",
+    "category": "words",
+    "question": "Does the sentence \"Eleven elegant elephants entered the evergreen enclosure every evening\" contain exactly 20 occurrences of the letter 'e' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x44",
+    "category": "words",
+    "question": "Does the sentence \"Lollipops and gumballs fill the small yellow balloon stall\" contain exactly 15 occurrences of the letter 'l' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x45",
+    "category": "words",
+    "question": "Does the sentence \"The committee reconvened to reconsider the necessary preparations\" contain exactly 11 occurrences of the letter 'e' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x46",
+    "category": "computation",
+    "question": "Is 16,059,473 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x47",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^120 equal to 181?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x48",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^140 equal to 205?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x49",
+    "category": "computation",
+    "question": "Is 23,403 \u00d7 96,274 equal to 2,253,100,422?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x50",
+    "category": "words",
+    "question": "Does the sentence \"Assessing successive assistants is a necessary business process\" contain exactly 18 occurrences of the letter 's' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x51",
+    "category": "calendar",
+    "question": "Was March 3, 2257 a Tuesday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x52",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^116 equal to 166?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x53",
+    "category": "words",
+    "question": "Does the sentence \"Peter Piper picked a peck of pickled peppers from the pepper patch\" contain exactly 13 occurrences of the letter 'p' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x54",
+    "category": "computation",
+    "question": "Is 34,246,787 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x55",
+    "category": "computation",
+    "question": "Is 43,659,433 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x56",
+    "category": "calendar",
+    "question": "Was February 11, 1729 a Friday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x57",
+    "category": "computation",
+    "question": "Are there exactly 14 prime numbers between 1,716 and 1,815 inclusive?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x58",
+    "category": "calendar",
+    "question": "Was July 2, 2131 a Monday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x59",
+    "category": "words",
+    "question": "Does the sentence \"The committee reconvened to reconsider the necessary preparations\" contain exactly 13 occurrences of the letter 'e' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x60",
+    "category": "computation",
+    "question": "Is 67,843 \u00d7 26,677 equal to 1,809,838,711?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x61",
+    "category": "computation",
+    "question": "Are there exactly 9 prime numbers between 16,224 and 16,323 inclusive?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x62",
+    "category": "computation",
+    "question": "Is 9,236,891 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x63",
+    "category": "words",
+    "question": "Does the sentence \"She sells seashells by the seashore while the seagulls screech overhead\" contain exactly 10 occurrences of the letter 's' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x64",
+    "category": "words",
+    "question": "Does the sentence \"She sells seashells by the seashore while the seagulls screech overhead\" contain exactly 12 occurrences of the letter 's' (ignoring case)?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x65",
+    "category": "calendar",
+    "question": "Was February 24, 1777 a Monday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x66",
+    "category": "computation",
+    "question": "Is 32,407 \u00d7 99,764 equal to 3,233,052,048?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x67",
+    "category": "calendar",
+    "question": "Was January 4, 1650 a Tuesday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x68",
+    "category": "words",
+    "question": "Does the sentence \"Never underestimate the patience of a determined beekeeper in September\" contain exactly 19 occurrences of the letter 'e' (ignoring case)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x69",
+    "category": "computation",
+    "question": "Is 13,621 \u00d7 96,951 equal to 1,320,568,571?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x70",
+    "category": "calendar",
+    "question": "Was September 19, 1843 a Tuesday (in the Gregorian calendar)?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x71",
+    "category": "computation",
+    "question": "Is 54,460,039 a prime number?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x72",
+    "category": "computation",
+    "question": "Is the sum of the decimal digits of 2^99 equal to 98?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x73",
+    "category": "computation",
+    "question": "Is 30,586 \u00d7 48,079 equal to 1,470,553,294?",
+    "answer": "no",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x74",
+    "category": "computation",
+    "question": "Is 83,977 \u00d7 52,265 equal to 4,389,057,905?",
+    "answer": "yes",
+    "answer_source": "computed"
+  },
+  {
+    "id": "x75",
+    "category": "computation",
+    "question": "Is 58,881,457 a prime number?",
+    "answer": "yes",
+    "answer_source": "computed"
+  }
+]
