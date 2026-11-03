@@ -72,6 +72,13 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 - Arm B (the 20-circuit hardware arm) was not submitted, because the simulator gate (A beating every control) was not met in either run.
 - **QPU seconds used so far: 0** of the 600 s monthly allowance.
 
+## What the hardware does and does not show
+
+- **No speedup.** Every belief state here has 5–16 qubits, so it is exactly classically simulable. A laptop computes the same state exactly (arm A0) or under a device noise model (arm A). Running on a quantum processor provides **no computational advantage** at this size.
+- **What hardware is for here: demonstration and certification.** It can confirm that a physical device held the entangled state the encoding describes, and that the effect survives real noise.
+- **What it cannot show:** that the quantum structure helps the judgment. On the simulator, Stage 2 shows it does not.
+- **Planned use of the QPU budget:** an **entanglement witness**. Two-qubit tomography of the most strongly entangled pair of contentions in the belief state of 3 test items, with negativity as the witness, is designed in [`experiments/witness.md`](experiments/witness.md). It is about 45 QPU seconds, and all three items pass on the noisy simulator. It has **not been submitted** and waits for budget approval.
+
 ## Pre-registration deviations
 
 The full record, with dates and reasons, is in [`DEVIATIONS.md`](DEVIATIONS.md). In short:

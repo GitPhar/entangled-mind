@@ -1,0 +1,66 @@
+{
+ "shots_per_circuit": 4000,
+ "rep_delay_s": 0.00025,
+ "items": [
+  {
+   "id": "h221",
+   "pair": [
+    0,
+    6
+   ],
+   "coupling_J": 0.5,
+   "n_qubits": 8,
+   "cz_per_setting": 137,
+   "physical_qubits": [
+    10,
+    9
+   ],
+   "negativity_ideal": 0.18418007363263256,
+   "negativity_noisy_sim": 0.16722017778931988,
+   "noisy_sim_bootstrap_95_lower": 0.15353654554848756,
+   "certified_on_noisy_sim": true,
+   "circuit_duration_s": 9.08000000000001e-06
+  },
+  {
+   "id": "h088",
+   "pair": [
+    5,
+    6
+   ],
+   "coupling_J": 0.8,
+   "n_qubits": 8,
+   "cz_per_setting": 162,
+   "physical_qubits": [
+    44,
+    37
+   ],
+   "negativity_ideal": 0.17543915226510629,
+   "negativity_noisy_sim": 0.11881410622132146,
+   "noisy_sim_bootstrap_95_lower": 0.10700400232627684,
+   "certified_on_noisy_sim": true,
+   "circuit_duration_s": 1.2084000000000008e-05
+  },
+  {
+   "id": "h268",
+   "pair": [
+    5,
+    6
+   ],
+   "coupling_J": 0.7,
+   "n_qubits": 9,
+   "cz_per_setting": 230,
+   "physical_qubits": [
+    4,
+    16
+   ],
+   "negativity_ideal": 0.16150918076269138,
+   "negativity_noisy_sim": 0.11282206707973526,
+   "noisy_sim_bootstrap_95_lower": 0.09968245158808355,
+   "certified_on_noisy_sim": true,
+   "circuit_duration_s": 1.612000000000002e-05
+  }
+ ],
+ "n_circuits": 39,
+ "estimated_shot_time_s": 40.422768000000005,
+ "estimated_qpu_seconds": 45.422768000000005
+}
