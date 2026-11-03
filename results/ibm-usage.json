@@ -1,0 +1,90 @@
+[
+  {
+    "when": "2026-11-03 23:06:47",
+    "purpose": "Stage 1 pipe test (1 circuit)",
+    "backend": "ibm_fez",
+    "job_id": "dbl423dgg49c73dk0db0",
+    "batch_id": "b01c18f3-d6bb-4bac-a3f1-b9a9def4a0a8",
+    "circuits": 1,
+    "shots": 1000,
+    "quantum_seconds": 2.0,
+    "job_metrics_usage": {
+      "qpu_charge_time_seconds": 2,
+      "value": 0.032787,
+      "unit": "resource_units",
+      "status": "pending",
+      "details": [
+        {
+          "value": 0.032787,
+          "unit": "resource_units",
+          "metric": {
+            "id": "caffe3ca-729c-5750-8777-df63bbf8bfd9",
+            "value": 2
+          }
+        }
+      ]
+    },
+    "service_before": {
+      "usage_consumed_seconds": 0,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 600,
+      "usage_period": {
+        "start_time": "2026-10-06T20:16:13.002Z",
+        "end_time": "2026-11-03T20:16:13.002Z"
+      }
+    },
+    "service_after": {
+      "usage_consumed_seconds": 0,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 600,
+      "usage_period": {
+        "start_time": "2026-10-06T23:06:47.131Z",
+        "end_time": "2026-11-03T23:06:47.131Z"
+      }
+    }
+  },
+  {
+    "when": "2026-11-03 23:07:41",
+    "purpose": "Entanglement witness run 1 (39 circuits)",
+    "backend": "ibm_fez",
+    "job_id": "dbl6e1d8mdtc73d5gesg",
+    "batch_id": "c7a152dc-d677-42ae-90a8-fef9ad5e3a28",
+    "circuits": 39,
+    "shots": 4000,
+    "quantum_seconds": 44.0,
+    "job_metrics_usage": {
+      "qpu_charge_time_seconds": 44,
+      "value": 0.721221,
+      "unit": "resource_units",
+      "status": "complete",
+      "details": [
+        {
+          "value": 0.721221,
+          "unit": "resource_units",
+          "metric": {
+            "id": "caffe3ca-729c-5750-8777-df63bbf8bfd9",
+            "value": 44
+          }
+        }
+      ]
+    },
+    "service_before": {
+      "usage_consumed_seconds": 0,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 600,
+      "usage_period": {
+        "start_time": "2026-10-06T22:58:12.081Z",
+        "end_time": "2026-11-03T22:58:12.081Z"
+      }
+    },
+    "service_after": {
+      "usage_consumed_seconds": 2,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 598,
+      "usage_period": {
+        "start_time": "2026-10-06T23:07:41.498Z",
+        "end_time": "2026-11-03T23:07:41.498Z"
+      }
+    }
+  }
+]

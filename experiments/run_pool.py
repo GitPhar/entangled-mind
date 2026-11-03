@@ -5,6 +5,7 @@ then fix the test / calibration split.
     python experiments/run_pool.py 2   # base claude-haiku-5-5, default effort (DEVIATIONS.md, D5)
     python experiments/run_pool.py 3   # hard pool, base claude-haiku-5-5 (D6)
     python experiments/run_pool.py 4   # hard pool, base claude-sonnet-5-5, default effort (D6)
+    python experiments/run_pool.py 5   # v2 training pool, base claude-haiku-5-5 (D9)
 
 Questions run on 4 worker threads sharing a stop flag. If any API call is
 refused, no new call starts (calls already in flight may finish), the refused
@@ -30,6 +31,7 @@ USAGE_MD = config.RESULTS / "api-usage.md"
 UNITEMISED_USD = 0.25
 SPEND_STOP_USD = 8.50                 # DEVIATIONS.md, D4
 HARD_BUDGET_USD = 15.0                # D6: runs 3 + 4 together
+TRAIN_BUDGET_USD = 20.0               # D9: run 5
 STANDARD = ("questions.json", "questions_extension.json")
 HARD = ("questions-hard.json",)
 RUNS = {
@@ -37,7 +39,9 @@ RUNS = {
     2: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": STANDARD},
     3: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
     4: {"base_model": "claude-sonnet-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
+    5: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": ("questions-train.json",)},
 }
+BUDGET_GROUP = {1: "standard", 2: "standard", 3: "hard", 4: "hard", 5: "train"}
 
 
 def paths(run: int):
@@ -63,7 +67,13 @@ def process(q: dict) -> dict:
            "thinking_tokens": base.thinking_tokens,
            "request_ids": {"base": base.request_id},
            "usage": {"base": base.usage.as_dict()}}
-    cs, u = llm.extract_contentions(q["question"], base)
+    try:
+        cs, u = llm.extract_contentions(q["question"], base)
+    except llm.RefusalError:
+        raise
+    except RuntimeError as e:   # e.g. fewer than 5 claims after one retry: excluded, never counted as wrong
+        print(f"{q['id']} excluded: {e}", flush=True)
+        return {**rec, "correct": None, "excluded_reason": str(e), "cost_usd": round(base.usage.cost, 6)}
     rec["contentions"], rec["usage"]["extract"] = cs, u.as_dict()
     pairs, u, missing = llm.judge_relations(q["question"], cs)
     rec["pairs"], rec["judge_missing_pairs"], rec["usage"]["judge"] = pairs, missing, u.as_dict()
@@ -80,13 +90,14 @@ def session_spend() -> float:
 def session_spend_with(done: dict, current: int) -> float:
     """Spend counted against the run's cap, using in-memory records for the run in progress.
     Runs 1-2 count against SPEND_STOP_USD (with unitemised calls); runs 3-4 against HARD_BUDGET_USD."""
-    group = [r for r in RUNS if (r >= 3) == (current >= 3)]
+    group = [r for r in RUNS if BUDGET_GROUP[r] == BUDGET_GROUP[current]]
     other = sum(r["cost_usd"] for run in group if run != current for r in load(run)["records"])
-    return (0 if current >= 3 else UNITEMISED_USD) + other + sum(r["cost_usd"] for r in done.values())
+    base = UNITEMISED_USD if BUDGET_GROUP[current] == "standard" else 0
+    return base + other + sum(r["cost_usd"] for r in done.values())
 
 
 def cap(run: int) -> float:
-    return HARD_BUDGET_USD if run >= 3 else SPEND_STOP_USD
+    return {"standard": SPEND_STOP_USD, "hard": HARD_BUDGET_USD, "train": TRAIN_BUDGET_USD}[BUDGET_GROUP[run]]
 
 
 def write_usage() -> None:
@@ -112,6 +123,7 @@ def write_usage() -> None:
               "and one extension base call that hit the 16,000-token cap before truncation was handled.",
               "", f"**Standard pool, runs 1-2 (incl. unitemised): ${UNITEMISED_USD + sum(r['cost_usd'] for run in (1, 2) for r in load(run)['records']):.2f}** of the ${config.API_BUDGET_USD:.2f} budget.",
               f"**Hard pool, runs 3-4: ${sum(r['cost_usd'] for run in (3, 4) for r in load(run)['records']):.2f}** of the ${HARD_BUDGET_USD:.2f} budget (D6).",
+              f"**v2 training pool, run 5: ${sum(r['cost_usd'] for r in load(5)['records']):.2f}** of the ${TRAIN_BUDGET_USD:.2f} budget (D9).",
               f"**Session total: ${session_spend():.2f}.**"]
     USAGE_MD.write_text("\n".join(lines) + "\n")
 
@@ -130,6 +142,9 @@ def split(records: list[dict], run: int) -> dict:
     wrong = sorted(r["id"] for r in records if r["correct"] is False)
     right = sorted(r["id"] for r in records if r["correct"] is True)
     rng = random.Random(config.SPLIT_SEED)
+    if run == 5:   # D9: the v2 split is made separately (experiments/lock_split_v2.py), not here
+        return {"rule": "none (v2 split locked separately in experiments/split-v2.json)", "test_wrong": [],
+                "test_right": [], "calibration": [], "excluded_truncated": sorted(r["id"] for r in records if r["correct"] is None)}
     if run >= 3:   # D6: all wrong items (at most 40) + as many right items, both at random
         rule = "D6: all wrong items (at most 40, at random) + an equal number of right items at random (seed 2026)"
         test_wrong = sorted(rng.sample(wrong, min(40, len(wrong))))
@@ -215,7 +230,7 @@ def main(run: int) -> None:
               "|---|---|---|---|---|---|---|---|---|"]
     for r in records:
         if r["correct"] is None:
-            why = "truncated" if r.get("truncated") else "no FINAL ANSWER"
+            why = "truncated" if r.get("truncated") else (r.get("excluded_reason") or "no FINAL ANSWER")
             lines.append(f"| {r['id']} | {r['category']} | {r['answer']} | ({why}) | — | excluded | | | |")
             continue
         st = "—" if not s else ("test" if r["id"] in s["test_wrong"] + s["test_right"] else "calib")

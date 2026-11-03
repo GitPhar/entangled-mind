@@ -8,7 +8,7 @@
 
 Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. This project asks whether the same idea is useful as an architecture around a language model. For each yes/no question, a language model answers and briefly explains the considerations for and against. Those claims are extracted, and every pair is judged to support, contradict, or be unrelated to the other. The resulting web becomes one entangled quantum state: one qubit per claim, with confidence setting the amplitude and a solved phase setting the stance. RZZ gates link related claims, and a short Ising-style evolution runs before measurement in a "yes"-oriented basis. The readout gives a judgment, a confidence, and a conflict flag for shots that split between strongly opposed configurations. The pre-registered test is whether that flag picks out the model's wrong answers better than three controls: the same circuit with no entanglement, the same circuit with a shuffled relation web, and plain classical contradiction-counting. The last is the control that matters most.
 
-**Status:** Stage 2 runs 1–2 complete on the noisy simulator. **The primary hypothesis H2 failed:** the entangled readout flags the model's wrong answers worse than the non-quantum and unentangled controls. No hardware arm has run; the one Stage 1 hardware job is still in IBM's queue.
+**Status:** Stage 2 runs 1–2 complete on the noisy simulator. **The primary hypothesis H2 failed:** the entangled readout flags the model's wrong answers worse than the non-quantum and unentangled controls. No hardware arm has run (the simulator gate was not met); the Stage 1 hardware job returned real counts after 2 h 50 min in the queue (2 QPU s).
 
 ## Hypotheses, and the null result that falsifies each
 
@@ -68,16 +68,18 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 
 **Hardware.**
 - Backend: `ibm_fez` (Heron r2, 156 qubits). Noise models for arms A, C and D come from this backend.
-- Stage 1 (one circuit): job `dbl423dgg49c73dk0db0`, submitted 2026-11-03 20:16 UTC. It is **still queued** on the Open Plan, and status checks are logged in [`results/ibm-job-status-log.md`](results/ibm-job-status-log.md).
+- **Stage 1 (one circuit) returned real counts.** Job `dbl423dgg49c73dk0db0` encoded the bat-and-ball item as 9 qubits with 33 RZZ gates (117 CZ after transpiling). It waited 2 h 50 min in the Open Plan queue, then returned 1,000 shots across 336 distinct bitstrings, for **2 QPU seconds**. See [`results/stage1-run-1.md`](results/stage1-run-1.md). Real hardware washed the state out much more than the noise model predicts: P(yes) was 0.50 on hardware, against 0.25 on the noisy simulator and 0.29 ideal.
 - Arm B (the 20-circuit hardware arm) was not submitted, because the simulator gate (A beating every control) was not met in either run.
-- **QPU seconds used so far: 0** of the 600 s monthly allowance.
+- **QPU seconds used so far: 46** (Stage 1: 2 s; witness: 44 s) of the 600 s monthly allowance (ledger: [`results/ibm-usage.md`](results/ibm-usage.md)).
 
 ## What the hardware does and does not show
 
 - **No speedup.** Every belief state here has 5–16 qubits, so it is exactly classically simulable. A laptop computes the same state exactly (arm A0) or under a device noise model (arm A). Running on a quantum processor provides **no computational advantage** at this size.
 - **What hardware is for here: demonstration and certification.** It can confirm that a physical device held the entangled state the encoding describes, and that the effect survives real noise.
 - **What it cannot show:** that the quantum structure helps the judgment. On the simulator, Stage 2 shows it does not.
-- **Planned use of the QPU budget:** an **entanglement witness**. Two-qubit tomography of the most strongly entangled pair of contentions in the belief state of 3 test items, with negativity as the witness, is designed in [`experiments/witness.md`](experiments/witness.md). It is about 45 QPU seconds, and all three items pass on the noisy simulator. It has **not been submitted** and waits for budget approval.
+- **Use of the QPU budget:** an **entanglement witness**, designed in [`experiments/witness.md`](experiments/witness.md). It is two-qubit tomography of the most strongly entangled pair of contentions in the belief state of 3 test items, with negativity as the witness. After Sean approved the budget it ran as job `dbl6e1d8mdtc73d5gesg` on `ibm_fez` (39 circuits, 44 QPU seconds).
+
+  **Entanglement was certified on real hardware for 3 of 3 items**, meeting the pre-registered rule of at least 2 of 3. Hardware negativity was 0.147 [0.134, 0.157], 0.063 [0.051, 0.075] and 0.067 [0.055, 0.081]. It also clears zero without readout mitigation. Hardware loses more than the noise model predicts: two items reached about half their simulated negativity. One of the three pairs is decoupled from the rest of its belief state, so it is effectively a two-qubit test. Details: [`results/witness-run-1.md`](results/witness-run-1.md).
 
 ## Pre-registration deviations
 

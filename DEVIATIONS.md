@@ -121,3 +121,61 @@ Nothing extracted under run 1 can be reused, because contentions depend on the b
 Two arms were added: **F**, the classical Ising twin of arm A, and **G**, the base model's self-reported confidence. Two statistics were added for every arm: AUROC with 95% bootstrap intervals, and a 200-shuffle null distribution for arm D in place of the single shuffle. Full definitions are in `experiments/preregistration.md`, Addendum A.
 
 They are first applied as a re-scoring of run 2 (`results/stage2-run-2b.md`). Arms A–E are not re-run. H2 is unchanged, and the F/G comparison is reported alongside it.
+
+## D8 — Witness run: readout calibration pinned to the measured qubits
+
+**Date:** 2026-11-03, before submission.
+
+`experiments/witness.md` specifies readout-calibration circuits "on the same two physical qubits". `witness_design.py` passed those circuits through the optimizing transpiler, which is free to move them onto other qubits. `experiments/witness_run.py` instead builds them directly on the physical qubits that each item's settings measure. They use only native gates (`x`, `measure`) and are submitted untranspiled.
+
+The noisy-simulator prediction is recomputed with this corrected calibration and reported next to the hardware result. Circuits, settings, shots and pass rule are otherwise exactly as designed: 39 circuits, 4,000 shots each, one Batch. Sean approved the budget of about 45 QPU seconds.
+
+## D9 — v2 training pool
+
+**Date:** 2026-11-03 (before any v2 fitting, and before the v2 split existed)
+
+**Pool:** `experiments/questions-train.json`, 598 yes/no items (302 yes, 296 no), built by `experiments/make_train_pool.py` (seed 2718). Every item records its source and license. The pool leans toward errors that come from deliberation rather than ignorance:
+- **150 SimpleQA items.** None are reused from the hard pool.
+- **200 MMLU-Pro items**: 50 each from biology, engineering, physics and chemistry. The Hugging Face `/filter` endpoint was still failing, so biology and engineering rows were paged through the public `/rows` endpoint, using the dataset's category blocks.
+- **150 two-sided computed puzzles**, with every claim placed 3–15% above or below the exact value (fractions):
+  - base rates
+  - sampling without replacement
+  - birthday problems
+  - expected values
+  - three-dice totals
+  - a conditional coin
+  - combinations
+  - average speed (the harmonic-mean trap)
+  - compound growth
+  - power comparisons
+- **98 code-verified claims**: element numbers and symbols with near-miss false versions, plus computed numeric facts with small off-by-one or near-miss false versions.
+
+**Leakage guard:** any item whose question stem also appears in the run-2 hard pool is dropped. Two element claims duplicated hard-pool claims and were removed. The run-2 hard pool, and in particular its 80-item test set, stays a separate held-out set.
+
+**Run:** base model `claude-haiku-5-5` with the unchanged pipeline (pool run 5). The budget is $20, enforced in code. The target is at least 120 wrong items.
+
+**Split:** the train / validation / test split (60/20/20, seed 2026, stratified by wrong/right × item type) is locked in `experiments/split-v2.json` and committed before any fitting.
+
+## D10 — QPU-seconds parsing bug (fixed)
+
+**Date:** 2026-11-03
+
+IBM Runtime reports a job's billed QPU time as `metrics()["usage"]["qpu_charge_time_seconds"]`. `backends.run_hardware` read `quantum_seconds`, which doesn't exist in this runtime, so it logged the Stage 1 job as 0.0 s when it had used 2 s.
+
+`backends.qpu_seconds` now reads the correct key. `backends.repair_ledger` recomputed every ledger entry from the stored raw metrics, so the 420 s hard stop sums correctly.
+
+The witness job had already been submitted with the old code, so its ledger entry is repaired the same way when it returns.
+
+**D9b addendum: one supplement to the training pool (same day, before the split was locked and before any fitting).**
+
+Partway through pool run 5, Haiku's errors came almost entirely from SimpleQA (20% wrong) and MMLU-Pro engineering, physics and chemistry (12–20%). It got 0 of 82 computed puzzles wrong, 0 of 48 verified claims, and 4% of biology items. The full pool would yield about 55 wrong items, against the target of at least 120.
+
+One supplement of 450 items was added as t599–t1048 (`make_train_pool.py --supplement`, seed 2719):
+- 300 MMLU-Pro items: 100 each from engineering, physics and chemistry. Science is the larger share, following the brief's "deliberation over ignorance" weighting.
+- 150 SimpleQA items.
+
+The supplement excludes every existing training item and the held-out hard pool. The original 598 items are unchanged.
+
+Also handled in this addendum: an item whose explanation yields fewer than 5 claims after one retry is now recorded as excluded, not counted as wrong, instead of crashing the run. This happened once.
+
+**Finding:** the two-sided computed puzzles do not elicit errors from Haiku 5.5. Its errors on this pool are ignorance-type (SimpleQA) and multi-step science, not the base-rate or harmonic-mean traps.
