@@ -8,7 +8,7 @@
 
 Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. This project asks whether the same idea is useful as an architecture around a language model. For each yes/no question, a language model answers and briefly explains the considerations for and against. Those claims are extracted, and every pair is judged to support, contradict, or be unrelated to the other. The resulting web becomes one entangled quantum state: one qubit per claim, with confidence setting the amplitude and a solved phase setting the stance. RZZ gates link related claims, and a short Ising-style evolution runs before measurement in a "yes"-oriented basis. The readout gives a judgment, a confidence, and a conflict flag for shots that split between strongly opposed configurations. The pre-registered test is whether that flag picks out the model's wrong answers better than three controls: the same circuit with no entanglement, the same circuit with a shuffled relation web, and plain classical contradiction-counting. The last is the control that matters most.
 
-**Status:** Stage 2 runs 1–2 complete on the noisy simulator. **The primary hypothesis H2 failed:** the entangled readout flags the model's wrong answers worse than the non-quantum and unentangled controls. No hardware arm has run; the one Stage 1 hardware job is still in IBM's queue.
+**Status:** Stage 2 runs 1–2 complete on the noisy simulator. **The primary hypothesis H2 failed:** the entangled readout flags the model's wrong answers worse than the non-quantum and unentangled controls. No hardware arm has run (the simulator gate was not met); the Stage 1 hardware job returned real counts after 2 h 50 min in the queue (2 QPU s).
 
 ## Hypotheses, and the null result that falsifies each
 
@@ -68,9 +68,9 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 
 **Hardware.**
 - Backend: `ibm_fez` (Heron r2, 156 qubits). Noise models for arms A, C and D come from this backend.
-- Stage 1 (one circuit): job `dbl423dgg49c73dk0db0`, submitted 2026-11-03 20:16 UTC. It is **still queued** on the Open Plan, and status checks are logged in [`results/ibm-job-status-log.md`](results/ibm-job-status-log.md).
+- **Stage 1 (one circuit) returned real counts.** Job `dbl423dgg49c73dk0db0` encoded the bat-and-ball item as 9 qubits with 33 RZZ gates (117 CZ after transpiling). It waited 2 h 50 min in the Open Plan queue, then returned 1,000 shots across 336 distinct bitstrings, for **2 QPU seconds**. See [`results/stage1-run-1.md`](results/stage1-run-1.md). Real hardware washed the state out much more than the noise model predicts: P(yes) was 0.50 on hardware, against 0.25 on the noisy simulator and 0.29 ideal.
 - Arm B (the 20-circuit hardware arm) was not submitted, because the simulator gate (A beating every control) was not met in either run.
-- **QPU seconds used so far: 0** of the 600 s monthly allowance.
+- **QPU seconds used so far: 2** of the 600 s monthly allowance (ledger: [`results/ibm-usage.md`](results/ibm-usage.md)).
 
 ## What the hardware does and does not show
 

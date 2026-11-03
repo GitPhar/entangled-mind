@@ -88,6 +88,24 @@ def _log(entry: dict) -> None:
     USAGE_MD.write_text("\n".join(lines) + "\n")
 
 
+def qpu_seconds(usage: dict) -> float:
+    """IBM reports the billed QPU time as `qpu_charge_time_seconds`; older runtimes used `quantum_seconds`."""
+    for key in ("qpu_charge_time_seconds", "quantum_seconds", "seconds"):
+        if usage.get(key) is not None:
+            return float(usage[key])
+    return 0.0
+
+
+def repair_ledger() -> None:
+    """Recompute each entry's QPU seconds from the stored job metrics (fixes entries logged before qpu_seconds existed)."""
+    ledger = _ledger()
+    for e in ledger:
+        e["quantum_seconds"] = qpu_seconds(e.get("job_metrics_usage") or {})
+    USAGE_JSON.write_text(json.dumps(ledger[:-1], indent=2)) if ledger else None
+    if ledger:
+        _log(ledger[-1])
+
+
 def run_hardware(isa_circuits: list[QuantumCircuit], purpose: str, shots: int = config.SHOTS) -> tuple[list[dict], dict]:
     """Submit all circuits as ONE SamplerV2 job inside a Batch. Returns counts per circuit and the usage entry."""
     from qiskit_ibm_runtime import Batch, SamplerV2
@@ -103,7 +121,7 @@ def run_hardware(isa_circuits: list[QuantumCircuit], purpose: str, shots: int = 
         result = job.result()
     counts = [pub.data.meas.get_counts() for pub in result]
     metrics = job.metrics()
-    qsec = float(metrics.get("usage", {}).get("quantum_seconds") or metrics.get("usage", {}).get("seconds") or 0)
+    qsec = qpu_seconds(metrics.get("usage") or {})
     entry = {
         "when": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
         "purpose": purpose,
