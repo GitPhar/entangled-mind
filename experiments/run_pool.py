@@ -3,15 +3,20 @@ then fix the test / calibration split.
 
     python experiments/run_pool.py 1   # base claude-sonnet-5-5, effort xhigh (archived; 0 wrong)
     python experiments/run_pool.py 2   # base claude-haiku-5-5, default effort (DEVIATIONS.md, D5)
+    python experiments/run_pool.py 3   # hard pool, base claude-haiku-5-5 (D6)
+    python experiments/run_pool.py 4   # hard pool, base claude-sonnet-5-5, default effort (D6)
 
-Questions run one at a time. If any API call is refused, the run stops at once,
-records the call, request ID and exact refusal in results/refusal.md, and exits;
+Questions run on 4 worker threads sharing a stop flag. If any API call is
+refused, no new call starts (calls already in flight may finish), the refused
+call, request ID and exact refusal go to results/refusal.md, and the run exits;
 nothing is reworded or retried. Finished questions are cached in the run's JSON,
 so a crash never pays twice."""
 
 import json
 import random
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 from dotenv import load_dotenv
@@ -24,9 +29,14 @@ USAGE_MD = config.RESULTS / "api-usage.md"
 # capped extension call before truncation handling existed); see api-usage.md.
 UNITEMISED_USD = 0.25
 SPEND_STOP_USD = 8.50                 # DEVIATIONS.md, D4
+HARD_BUDGET_USD = 15.0                # D6: runs 3 + 4 together
+STANDARD = ("questions.json", "questions_extension.json")
+HARD = ("questions-hard.json",)
 RUNS = {
-    1: {"base_model": "claude-sonnet-5-5", "base_effort": "xhigh", "extension_stop_wrong": 13},
-    2: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None},
+    1: {"base_model": "claude-sonnet-5-5", "base_effort": "xhigh", "extension_stop_wrong": 13, "pool": STANDARD},
+    2: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": STANDARD},
+    3: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
+    4: {"base_model": "claude-sonnet-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
 }
 
 
@@ -46,7 +56,8 @@ def process(q: dict) -> dict:
         return {**q, "model_answer": None, "correct": None, "truncated": True,
                 "thinking_tokens": base.thinking_tokens, "request_ids": {"base": base.request_id},
                 "usage": {"base": base.usage.as_dict()}, "cost_usd": round(base.usage.cost, 6)}
-    rec = {**q, "model_answer": base.answer, "correct": base.answer == q["answer"],
+    # an answer with no parseable FINAL ANSWER line is excluded, not counted as wrong
+    rec = {**q, "model_answer": base.answer, "correct": None if base.answer is None else base.answer == q["answer"],
            # deliberation record: archived here, never sent to another call
            "deliberation_record": {"thinking_summary": base.thinking_summary, "visible_answer": base.text},
            "thinking_tokens": base.thinking_tokens,
@@ -64,6 +75,18 @@ def process(q: dict) -> dict:
 
 def session_spend() -> float:
     return UNITEMISED_USD + sum(r["cost_usd"] for run in RUNS for r in load(run)["records"])
+
+
+def session_spend_with(done: dict, current: int) -> float:
+    """Spend counted against the run's cap, using in-memory records for the run in progress.
+    Runs 1-2 count against SPEND_STOP_USD (with unitemised calls); runs 3-4 against HARD_BUDGET_USD."""
+    group = [r for r in RUNS if (r >= 3) == (current >= 3)]
+    other = sum(r["cost_usd"] for run in group if run != current for r in load(run)["records"])
+    return (0 if current >= 3 else UNITEMISED_USD) + other + sum(r["cost_usd"] for r in done.values())
+
+
+def cap(run: int) -> float:
+    return HARD_BUDGET_USD if run >= 3 else SPEND_STOP_USD
 
 
 def write_usage() -> None:
@@ -87,7 +110,9 @@ def write_usage() -> None:
     lines += ["", f"Not itemised, about ${UNITEMISED_USD:.2f}: pilot calls made while choosing the base effort level "
               "(8 short calls), the base + refused extractor calls of the two abandoned designs (see DEVIATIONS.md), "
               "and one extension base call that hit the 16,000-token cap before truncation was handled.",
-              "", f"**Session total: ${session_spend():.2f}** of the ${config.API_BUDGET_USD:.2f} budget."]
+              "", f"**Standard pool, runs 1-2 (incl. unitemised): ${UNITEMISED_USD + sum(r['cost_usd'] for run in (1, 2) for r in load(run)['records']):.2f}** of the ${config.API_BUDGET_USD:.2f} budget.",
+              f"**Hard pool, runs 3-4: ${sum(r['cost_usd'] for run in (3, 4) for r in load(run)['records']):.2f}** of the ${HARD_BUDGET_USD:.2f} budget (D6).",
+              f"**Session total: ${session_spend():.2f}.**"]
     USAGE_MD.write_text("\n".join(lines) + "\n")
 
 
@@ -101,11 +126,15 @@ def answer_support(r: dict) -> float:
     return v if r["model_answer"] == "yes" else -v
 
 
-def split(records: list[dict]) -> dict:
+def split(records: list[dict], run: int) -> dict:
     wrong = sorted(r["id"] for r in records if r["correct"] is False)
     right = sorted(r["id"] for r in records if r["correct"] is True)
     rng = random.Random(config.SPLIT_SEED)
-    if len(wrong) >= config.N_TEST_WRONG:
+    if run >= 3:   # D6: all wrong items (at most 40) + as many right items, both at random
+        rule = "D6: all wrong items (at most 40, at random) + an equal number of right items at random (seed 2026)"
+        test_wrong = sorted(rng.sample(wrong, min(40, len(wrong))))
+        test_right = sorted(rng.sample(right, len(test_wrong)))
+    elif len(wrong) >= config.N_TEST_WRONG:
         rule = "random 10 wrong + random 10 right (seed 2026)"
         test_wrong = sorted(rng.sample(wrong, config.N_TEST_WRONG))
         test_right = sorted(rng.sample(right, config.N_TEST_RIGHT))
@@ -125,43 +154,55 @@ def main(run: int) -> None:
     spec = RUNS[run]
     config.BASE_MODEL, config.BASE_EFFORT = spec["base_model"], spec["base_effort"]
     out, md = paths(run)
-    questions = json.loads((config.EXPERIMENTS / "questions.json").read_text())
-    questions += json.loads((config.EXPERIMENTS / "questions_extension.json").read_text())   # D4
-    if run > 1:   # items that hit the token cap in run 1 are excluded (D5)
+    questions = [q for f in spec["pool"] for q in json.loads((config.EXPERIMENTS / f).read_text())]   # D4, D6
+    if run == 2:   # items that hit the token cap in run 1 are excluded (D5)
         capped = {r["id"] for r in load(1)["records"] if r.get("truncated")}
         questions = [q for q in questions if q["id"] not in capped]
     done = {r["id"]: r for r in load(run)["records"]}
-    # run 1 is archived: finalise its files from the cache, make no further calls
-    for q in [] if run == 1 else [q for q in questions if q["id"] not in done]:
-        n_wrong = sum(r["correct"] is False for r in done.values())
+    stop, lock, refusal = threading.Event(), threading.Lock(), {}
+
+    def work(q):
+        with lock:
+            n_wrong = sum(r["correct"] is False for r in done.values())
+            spent = session_spend_with(done, run)
         stop_wrong = spec["extension_stop_wrong"]
-        if q["id"].startswith("x") and stop_wrong and n_wrong >= stop_wrong:
-            print(f"extension stopped before {q['id']}: {n_wrong} wrong")
-            break
-        if session_spend() >= SPEND_STOP_USD:
-            print(f"spend stop before {q['id']}: ${session_spend():.2f}")
-            break
+        if stop.is_set() or (q["id"].startswith("x") and stop_wrong and n_wrong >= stop_wrong) \
+                or spent >= cap(run):
+            return
         try:
             rec = process(q)
         except llm.RefusalError as e:
-            (config.RESULTS / "refusal.md").write_text(
-                f"# Pipeline stopped on a refusal\n\nPool run {run}, question `{q['id']}`: {q['question']}\n\n"
-                f"Refused call: **{e.call}**\n\nRequest ID: `{e.request_id}`\n\nExact stop details:\n\n"
-                f"```\n{e.stop_details}\n```\n\n{len(done)} questions had completed. Nothing was reworded or "
-                "retried; the next step is a support ticket with the request ID.\n")
-            print(f"STOPPED: {e}")
-            sys.exit(3)
-        done[q["id"]] = rec
-        out.write_text(json.dumps({"records": sorted(done.values(), key=lambda r: r["id"])}, indent=1))
+            refusal.setdefault("first", (q, e))
+            stop.set()
+            return
+        with lock:
+            done[q["id"]] = rec
+            out.write_text(json.dumps({"records": sorted(done.values(), key=lambda r: r["id"])}, indent=1))
+
+    # run 1 is archived: finalise its files from the cache, make no further calls
+    todo = [] if run == 1 else [q for q in questions if q["id"] not in done]
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        list(ex.map(work, todo))
+    if refusal:
+        q, e = refusal["first"]
+        (config.RESULTS / "refusal.md").write_text(
+            f"# Pipeline stopped on a refusal\n\nPool run {run}, question `{q['id']}`: {q['question']}\n\n"
+            f"Refused call: **{e.call}**\n\nRequest ID: `{e.request_id}`\n\nExact stop details:\n\n"
+            f"```\n{e.stop_details}\n```\n\n{len(done)} questions had completed. Nothing was reworded or "
+            "retried; the next step is a support ticket with the request ID.\n")
+        print(f"STOPPED: {e}")
+        sys.exit(3)
+    if session_spend_with(done, run) >= cap(run):
+        print(f"spend stop: ${session_spend_with(done, run):.2f}")
     records = sorted(done.values(), key=lambda r: r["id"])
     write_usage()
     n_wrong = sum(r["correct"] is False for r in records)
     n_trunc = sum(r["correct"] is None for r in records)
-    s = split(records) if n_wrong else None
+    s = split(records, run) if n_wrong else None
     out.write_text(json.dumps({"base_model": spec["base_model"], "base_effort": spec["base_effort"],
                                "split": s, "records": records}, indent=1))
     lines = [f"# Pool run {run}: base `{spec['base_model']}` (effort {spec['base_effort'] or 'default'}, adaptive thinking)", "",
-             f"{len(records)} questions processed; {n_trunc} hit the 16,000-token cap and are excluded; "
+             f"{len(records)} questions processed; {n_trunc} hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; "
              f"base model wrong on **{n_wrong}** of {len(records) - n_trunc} answered. "
              f"API cost ${sum(r['cost_usd'] for r in records):.4f}. "
              "Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).", ""]
@@ -174,7 +215,8 @@ def main(run: int) -> None:
               "|---|---|---|---|---|---|---|---|---|"]
     for r in records:
         if r["correct"] is None:
-            lines.append(f"| {r['id']} | {r['category']} | {r['answer']} | (truncated) | — | excluded | | | |")
+            why = "truncated" if r.get("truncated") else "no FINAL ANSWER"
+            lines.append(f"| {r['id']} | {r['category']} | {r['answer']} | ({why}) | — | excluded | | | |")
             continue
         st = "—" if not s else ("test" if r["id"] in s["test_wrong"] + s["test_right"] else "calib")
         lines.append(f"| {r['id']} | {r['category']} | {r['answer']} | {r['model_answer']} | "
@@ -182,6 +224,13 @@ def main(run: int) -> None:
                      f"{sum(p['relation'] != 'unrelated' for p in r['pairs'])} | "
                      f"{sum(p['relation'] == 'contradicts' for p in r['pairs'])} |")
     if n_wrong:
+        by_cat = {}
+        for r in records:
+            if r["correct"] is not None:
+                c = by_cat.setdefault(r["category"], [0, 0])
+                c[0] += r["correct"] is False
+                c[1] += 1
+        lines += ["", "Wrong by category: " + ", ".join(f"{k} {w}/{n}" for k, (w, n) in sorted(by_cat.items())), ""]
         lines += ["", "Wrong items:", ""]
         lines += [f"- {r['id']}: {r['question']} (truth {r['answer']}, model {r['model_answer']})"
                   for r in records if r["correct"] is False]

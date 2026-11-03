@@ -93,3 +93,23 @@ Pool run 2 covers every original and extension item except the 10 that hit the t
 **Unchanged:** the H2 criterion, the five arms, the encoding, the readout and the threshold rule.
 
 Nothing extracted under run 1 can be reused, because contentions depend on the base model's own answer. Run 1's spend stays in `results/api-usage.md`.
+
+## D6 — Second, harder question pool (Stage 2 run 2)
+
+**Date:** 2026-11-03 (after Stage 2 run 1 was fixed and running, before any hard-pool result existed)
+
+**Why:** the standard pool of trick puzzles, misconceptions and computation yielded only 4 known-wrong items on `claude-haiku-5-5`, out of 125. At that count H2 is underpowered.
+
+**New pool:** `experiments/questions-hard.json`, 300 yes/no items, 150 yes and 150 no, built by `experiments/make_hard_pool.py` (seed 1729). Every item records its source and license.
+- **120 SimpleQA items** (OpenAI simple-evals, MIT). Each is the question plus a candidate answer: the gold answer for half the items, and for the other half the gold answer of a different SimpleQA question with the same topic and answer type.
+- **120 MMLU-Pro physics and chemistry items** (TIGER-Lab, MIT). Each is the stem plus either the correct option or a random wrong one. Stems that depend on seeing the option list are dropped. GPQA Diamond was not used: it is gated, and its authors ask that items not be published in plain text, which this public repository would do.
+- **60 author-written claims**: 30 true and 30 plausible fabrications, each a near-miss of a true fact.
+
+**Pipeline:** unchanged, with the same base prompt, extractor, judge, encoding, readout, threshold rule, arms and H2 criterion.
+- The hard pool runs first through `claude-haiku-5-5` (pool run 3).
+- If Haiku gets fewer than 30 wrong, the pool also runs through `claude-sonnet-5-5` at default effort (pool run 4), and both result sets are kept.
+- An answer with no parseable `FINAL ANSWER` line is excluded, not counted as wrong.
+
+**Split:** all wrong items (at most 40, at random), plus an equal number of right items at random (seed 2026). Everything else is the calibration pool.
+
+**Budget:** $15 for runs 3 and 4 together, enforced in code.

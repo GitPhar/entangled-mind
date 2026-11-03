@@ -1,0 +1,2702 @@
+[
+  {
+    "id": "h001",
+    "category": "simpleqa",
+    "question": "In what year did the mathematician Joachim Neubüser graduate from the University of Kiel? Is the answer \"1957\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2375; gold answer: 1957"
+  },
+  {
+    "id": "h002",
+    "category": "claim",
+    "question": "Is the following claim true? Watson and Crick published the double-helix structure of DNA in 1953.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h003",
+    "category": "simpleqa",
+    "question": "On which day, month, and year was Prof. Narinder Kumar Gupta (a professor of Mechanics at the Indian Institute of Technology in Delhi) born? Is the answer \"10 July 1902\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3363; gold answer: 22 August 1942"
+  },
+  {
+    "id": "h004",
+    "category": "simpleqa",
+    "question": "Marc Julian Bradley, the first black Republican to serve in the Wisconsin Senate and only the second black Republican to serve in the Wisconsin Legislature, was born in 1981 and graduated from which high school? Is the answer \"La Crosse Central High School\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1903; gold answer: La Crosse Central High School"
+  },
+  {
+    "id": "h005",
+    "category": "simpleqa",
+    "question": "What position did the album \"Different World\" by Alan Walker land in the year-end 2019 US Top Dance/Electronic Albums (Billboard)? Is the answer \"7\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3169; gold answer: 7"
+  },
+  {
+    "id": "h006",
+    "category": "claim",
+    "question": "Is the following claim true? The Battle of Agincourt took place in 1066.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h007",
+    "category": "science-chemistry",
+    "question": "Calculate the de Broglie wavelength for (a) an electron with a kinetic energy of $100 \\mathrm{eV}$\nIs the correct answer \"0.080nm\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3733 (scibench-chemmc); correct option: 0.123nm"
+  },
+  {
+    "id": "h008",
+    "category": "claim",
+    "question": "Is the following claim true? The first transatlantic telegraph cable was completed in 1858.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h009",
+    "category": "claim",
+    "question": "Is the following claim true? Insulin was first isolated at the University of Toronto.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h010",
+    "category": "claim",
+    "question": "Is the following claim true? Mars has no natural moons.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h011",
+    "category": "claim",
+    "question": "Is the following claim true? The Rosetta Stone is held in the Louvre.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h012",
+    "category": "simpleqa",
+    "question": "Who was awarded the V. M. Goldschmidt Award in 2015? Is the answer \"Miriam Kastner\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1419; gold answer: Miriam Kastner"
+  },
+  {
+    "id": "h013",
+    "category": "science-chemistry",
+    "question": "Calculate the magnetic moment (μI) of a 13C nucleus.\nIs the correct answer \"9.1445 x 10^-27 J T-1\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3725 (ori_mmlu-college_chemistry); correct option: 9.1445 x 10^-27 J T-1"
+  },
+  {
+    "id": "h014",
+    "category": "science-chemistry",
+    "question": "A student made three successiveweighingsof an object as follows: 9.17 g, 9.15 g, and 9.20 g. What is the average weight of the object in milligrams?\nIs the correct answer \"9170 mg\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3772 (stemez-Chemistry); correct option: 9170 mg"
+  },
+  {
+    "id": "h015",
+    "category": "science-chemistry",
+    "question": "Assume all gases are perfect unless stated otherwise. Unless otherwise stated, thermodynamic data are for 298.15 K. A chemical reaction takes place in a container of cross-sectional area $100 \\mathrm{~cm}^2$. As a result of the reaction, a piston is pushed out through $10 \\mathrm{~cm}$ against an external pressure of $1.0 \\mathrm{~atm}$. Calculate the work done by the system.\nIs the correct answer \"$-1.0 \\times 10^2$$\\mathrm{J}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3736 (scibench-atkins); correct option: $-1.0 \\times 10^2$$\\mathrm{J}$"
+  },
+  {
+    "id": "h016",
+    "category": "simpleqa",
+    "question": "What year did Kathryn Shaw step down as the Artistic Director of Studio 58? Is the answer \"1992\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 729; gold answer: 2020"
+  },
+  {
+    "id": "h017",
+    "category": "science-chemistry",
+    "question": "A very crude model of the buckminsterfullerene molecule $\\left(\\mathrm{C}_{60}\\right)$ is to treat it as a collection of electrons in a cube with sides of length equal to the mean diameter of the molecule $(0.7 \\mathrm{~nm})$. Suppose that only the $\\pi$ electrons of the carbon atoms contribute, and predict the wavelength of the first excitation of $\\mathrm{C}_{60}$. (The actual value is $730 \\mathrm{~nm}$.)\nIs the correct answer \"1.6 $\\mu \\mathrm{m}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3728 (scibench-matter); correct option: 1.6 $\\mu \\mathrm{m}$"
+  },
+  {
+    "id": "h018",
+    "category": "simpleqa",
+    "question": "What is the name of the university from which Thabo Cecil Makgoba, Chancellor of the University of the Western Cape in South Africa since 2012, first graduated with a PhD degree in 2009? Is the answer \"University of Cape Town\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2344; gold answer: University of Cape Town"
+  },
+  {
+    "id": "h019",
+    "category": "science-chemistry",
+    "question": "For the indicator phenolphthalein (In^-),HInis colorless and In^- is red;K_dissis 10^-9. If one has a colorless solution of 50 ml phenolphthalein, how much 0.10 MNaOHsolution would one have to add to make itred: K_W = 10^-14 .\nIs the correct answer \"5.0 × 10^-5 liters\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3746 (stemez-Chemistry); correct option: 5.0 × 10^-5 liters"
+  },
+  {
+    "id": "h020",
+    "category": "science-chemistry",
+    "question": "You are a chemist employed by a geological company to date the age of rocks by radioactive testing. You are told by an assistant that the sample he just handed to you contains a substantial quantity of ^40Ar. Through analysis you discover the sample contains 3 percent K (by weight), that there is 95.0 × 10^-7 (m^3 of / kg sample)^40Ar at STP, and the ^40Ar / ^36Ar ratio is an incredible 75,200. Determine the age of the sample. How do you do it? The percent abundance of ^40K is 0.0118.\nIs the correct answer \"9.00 × 10^9 y\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3796 (stemez-PhysicalChemistry); correct option: 7.10 × 10^9 y"
+  },
+  {
+    "id": "h021",
+    "category": "claim",
+    "question": "Is the following claim true? The capital of Kazakhstan is Astana.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h022",
+    "category": "claim",
+    "question": "Is the following claim true? The Battle of Hastings took place in 1066.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h023",
+    "category": "simpleqa",
+    "question": "Who was awarded the 1998 Gödel Prize for an outstanding journal article in the area of theoretical computer science for the paper \"PP is as Hard as the Polynomial-Time Hierarchy\"? Is the answer \"Icie G. Macy-Hoobler\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1701; gold answer: Seinosuke Toda"
+  },
+  {
+    "id": "h024",
+    "category": "science-physics",
+    "question": "(a) A filter represented as filter #1 has a thickness of 2mm. In addition, its transmittance \\tau_1\\lambda = 0.512 and its internal optical density \\delta_1\\lambda = 0.2518 . Compute the internal transmittance v_1\\lambda of filter 1. (b) Now consider filter #1', which is composed of the same glass as is filter #1, but which has a thickness of 5mm. If the internal transmittance v_1\\lambda' of filter #1' is 0.235, determine the values of the internal optical density \\delta_1\\lambda' and the transmittance \\tau_1\\lambda' of filter #1'. In this problem, the computations are to be carried out for normal incidence of light, and with a constant relative refractive index between the filters and the surrounding media of n = 1.53.\nIs the correct answer \"v_1\\lambda = 0.560, \\delta_1\\lambda' = 0.6295, \tau_1\\lambda' = 0.215\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9857 (stemez-Optics); correct option: v_1\\lambda = 0.560, \\delta_1\\lambda' = 0.6295, \tau_1\\lambda' = 0.215"
+  },
+  {
+    "id": "h025",
+    "category": "simpleqa",
+    "question": "What were the names of the two commanders sent by Mughal Emperor Aurangzeb to Sadabad Cantonment in order to suppress the rebellion in Tilpat in 1669? Is the answer \"Hasan Ali Khan and Brahmdev Sisodia.\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 392; gold answer: Hasan Ali Khan and Brahmdev Sisodia."
+  },
+  {
+    "id": "h026",
+    "category": "simpleqa",
+    "question": "What is the full name of the mathematician who started the publication \"Mathematica Japonicae\" using his own funds in 1948? Is the answer \"Tatsujiro Shimizu\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 996; gold answer: Tatsujiro Shimizu"
+  },
+  {
+    "id": "h027",
+    "category": "simpleqa",
+    "question": "What is the surname of the individual who won the Applied Inorganic Chemistry Award in 2015? Is the answer \"Lu\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2342; gold answer: Lu"
+  },
+  {
+    "id": "h028",
+    "category": "science-physics",
+    "question": "The osmotic pressure of an unknown substance is measured at $298 \\mathrm{~K}$. Determine the molecular weight if the concentration of this substance is $31.2 \\mathrm{~kg} \\mathrm{~m}^{-3}$ and the osmotic pressure is $5.30 \\times 10^4 \\mathrm{~Pa}$. The density of the solution is $997 \\mathrm{~kg} \\mathrm{~m}^{-3}$.\nIs the correct answer \"1.60 $10^3 \\mathrm{~g} \\mathrm{~mol}^{-1}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9884 (scibench-thermo); correct option: 1.45 $10^3 \\mathrm{~g} \\mathrm{~mol}^{-1}$"
+  },
+  {
+    "id": "h029",
+    "category": "claim",
+    "question": "Is the following claim true? Ulaanbaatar is the capital of Kyrgyzstan.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h030",
+    "category": "science-physics",
+    "question": "Find the Q value for the disintegration _60Nd^144 \\ding{217} _2He^4 + _58Ce^140 .\nIs the correct answer \"1.20 eV\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9796 (stemez-Physics); correct option: 1.79 eV"
+  },
+  {
+    "id": "h031",
+    "category": "science-physics",
+    "question": "A pure lead bar 10 cm long is maintained with one end at T &=300 K and the other at 310 K. The thermoelectric potential difference thus induced across the ends is 12.8 micro-volts. Find the thermoelectric power for lead in this temperature range in V/K. (Note: Q varies nonlinearly with temperature, but over this narrow temperature range, you may use a linear approximation.)\nIs the correct answer \"3.20e-07\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9833 (theoremQA-Physics); correct option: 1.28e-06"
+  },
+  {
+    "id": "h032",
+    "category": "science-physics",
+    "question": "At what distance along the central perpendicular axis of a uniformly charged plastic disk of radius $0.600 \\mathrm{~m}$ is the magnitude of the electric field equal to one-half the magnitude of the field at the center of the surface of the disk?\nIs the correct answer \"$0.500 \\mathrm{~m}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9852 (scibench-fund); correct option: $0.346$$\\mathrm{~m}$"
+  },
+  {
+    "id": "h033",
+    "category": "claim",
+    "question": "Is the following claim true? Mount Kilimanjaro is in Tanzania.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h034",
+    "category": "science-physics",
+    "question": "A pendulum which has a period of 1 s in London, where g = 32.200 ft\\bullets^-2, is taken to Paris, where it is found to lose 20 s per day. What is the value of g in Paris?\nIs the correct answer \"32.185ft\bullets^-2\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9790 (stemez-Physics); correct option: 32.185ft\bullets^-2"
+  },
+  {
+    "id": "h035",
+    "category": "science-physics",
+    "question": "How many electrons would have to be removed from a coin to leave it with a charge of $+1.0 \\times 10^{-7} \\mathrm{C}$ ?\nIs the correct answer \"$3.8 \\times 10^{11}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9853 (scibench-fund); correct option: $6.3$$10^{11}$"
+  },
+  {
+    "id": "h036",
+    "category": "simpleqa",
+    "question": "What are the dimensions in centimeters of the painting \"Moving House\" by Vasnetsov? Is the answer \"40\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3743; gold answer: 53.5 x 67.2 cm"
+  },
+  {
+    "id": "h037",
+    "category": "science-physics",
+    "question": "A crystal reflects 70% at the wavelength of its residual rays, and 4% at adjacent wavelengths. How many reflec-tions are necessary in order that the residual ray shall be 100 times as intense as the light of adjacent wave-lengths?\nIs the correct answer \"2 reflections\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9862 (stemez-Optics); correct option: 2 reflections"
+  },
+  {
+    "id": "h038",
+    "category": "science-chemistry",
+    "question": "If the vapor pressure of CCl_4 (carbon tetrachloride) is .132 atm at 23°C and .526 atm at 58°C, what is the ∆H' in this temperature range?\nIs the correct answer \"37,000 (J / mole)\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3755 (stemez-Chemistry); correct option: 32,000 (J / mole)"
+  },
+  {
+    "id": "h039",
+    "category": "science-physics",
+    "question": "The complementary color of blue is\nIs the correct answer \"yellow\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9829 (ori_mmlu-conceptual_physics); correct option: yellow"
+  },
+  {
+    "id": "h040",
+    "category": "simpleqa",
+    "question": "What are the year and month when Europe approved nirsevimab? Is the answer \"August 2022\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2442; gold answer: November 2022"
+  },
+  {
+    "id": "h041",
+    "category": "claim",
+    "question": "Is the following claim true? The Hubble Space Telescope was launched in 1986.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h042",
+    "category": "science-chemistry",
+    "question": "The yellow light of a sodium lamp has an average wavelength of 5890 \\AA. Calculate the energy in (a) electron volts and (b) kilocalories per mole.\nIs the correct answer \"(a) 2.8eV and (b) 64.7 Kcal/mole\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3787 (stemez-Chemistry); correct option: (a) 2.1eV and (b) 48.4 Kcal/mole"
+  },
+  {
+    "id": "h043",
+    "category": "science-physics",
+    "question": "a) The maximum pressure variation P that the ear can tolerate in loud sounds is about 28 N / m^2 (=28 Pa). Normal atmospheric pressure is about 100,000 Pa. Find the corresponding maximum displacement for a sound wave in air having a frequency of 1000 Hz. b) In the faintest sound that can be heard at 1000 Hz the pressure amplitude is about 2.0 × 10^-5 Pa. Find the correspond-ing displacement amplitude.\nIs the correct answer \"1.2 × 10^-5m, 10^-8m\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9793 (stemez-Physics); correct option: 1.1 × 10^-5m, 10^-11m"
+  },
+  {
+    "id": "h044",
+    "category": "simpleqa",
+    "question": "In what year did artist Doris Lusk create a painting of the Tuai Power Station? Is the answer \"1776\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2119; gold answer: 1948"
+  },
+  {
+    "id": "h045",
+    "category": "claim",
+    "question": "Is the following claim true? Lake Titicaca lies on the border between Chile and Bolivia.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h046",
+    "category": "simpleqa",
+    "question": "In which month and year was Firozabad district first established from Agra district in India? Is the answer \"February 1989\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 368; gold answer: February 1989"
+  },
+  {
+    "id": "h047",
+    "category": "simpleqa",
+    "question": "In Severance, whom does Mark Scout replace as department head? Is the answer \"Peter \"Petey\" Kilmer\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2370; gold answer: Peter \"Petey\" Kilmer"
+  },
+  {
+    "id": "h048",
+    "category": "science-chemistry",
+    "question": "The atomic radius of hydrogen is 0.037 nm, Compare this figure with the length of the first Bohr radius. Explain any differences.\nIs the correct answer \"The atomic radius of hydrogen is smaller than the first Bohr radius\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3743 (stemez-Chemistry); correct option: The atomic radius of hydrogen is smaller than the first Bohr radius"
+  },
+  {
+    "id": "h049",
+    "category": "science-physics",
+    "question": "A load dissipates 1.5kW of power in an ac series RC circuit. Given that the power factor is 0.75, what is its reactive power $(P_r)$? What is its apparent power $(P_a)$? Represent the answer in a list [$P_r, P_a$] with unit kVA and kVAR respectively.\nIs the correct answer \"[1.2, 1.0]\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9838 (theoremQA-Physics); correct option: [2.0, 1.32]"
+  },
+  {
+    "id": "h050",
+    "category": "science-chemistry",
+    "question": "Assume that all gases are perfect and that data refer to 298.15 K unless otherwise stated. The change in the Gibbs energy of a certain constant-pressure process was found to fit the expression $\\Delta G / \\text{J}=-85.40+36.5(T / \\text{K})$. Calculate the value of $\\Delta S$ for the process.\nIs the correct answer \"-36.5$\\mathrm{J} \\mathrm{K}^{-1}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3741 (scibench-atkins); correct option: -36.5$\\mathrm{J} \\mathrm{K}^{-1}$"
+  },
+  {
+    "id": "h051",
+    "category": "science-physics",
+    "question": "A string 100 centimeters long has a mass of 4 grams and emits a frequency of 250 vibrations per second. Another string 100 centimeter long has a mass of 1 gram. What is the frequency of the second string if it is put under the same tension as the first?\nIs the correct answer \"500vps\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9797 (stemez-Physics); correct option: 500vps"
+  },
+  {
+    "id": "h052",
+    "category": "science-chemistry",
+    "question": "Assume all gases are perfect unless stated otherwise. Note that 1 atm = 1.013 25 bar. Unless otherwise stated, thermochemical data are for 298.15 K. An average human produces about $10 \\mathrm{MJ}$ of heat each day through metabolic activity. If a human body were an isolated system of mass $65 \\mathrm{~kg}$ with the heat capacity of water, what temperature rise would the body experience?\nIs the correct answer \"+45$\\text{K}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3735 (scibench-atkins); correct option: +37$\\text{K}$"
+  },
+  {
+    "id": "h053",
+    "category": "simpleqa",
+    "question": "In 2022, which university did Honda Battle of the Bands (HBOB) select to be the first-ever HBCU campus to host the in-person event? Is the answer \"Alabama State University\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 47; gold answer: Alabama State University"
+  },
+  {
+    "id": "h054",
+    "category": "simpleqa",
+    "question": "From whom did Kip Fulbeck, the Professor of Art at UC Santa Barbara, receive his black belt in Shotokan karate? Is the answer \"Alfred Carlton Gilbert\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2096; gold answer: Steve Ubl"
+  },
+  {
+    "id": "h055",
+    "category": "simpleqa",
+    "question": "What is the name of Nepal's first technical university that offers agricultural workforce development? Is the answer \"Agriculture and Forestry University\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1389; gold answer: Agriculture and Forestry University"
+  },
+  {
+    "id": "h056",
+    "category": "simpleqa",
+    "question": "What is the full name of the first Black woman to become president of an NFL (National Football League) team? Is the answer \"Sandra Douglass Morgan\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2430; gold answer: Sandra Douglass Morgan"
+  },
+  {
+    "id": "h057",
+    "category": "science-chemistry",
+    "question": "Calculate the density of the tightly coiled tropocollagen molecule, which may be considered to be a cylinder 2,800 \\AA long and 14 \\AA in diameter. It contains three poly-peptide chains of 1,000 amino acid residues each.\nIs the correct answer \"1.39 g/ cm^3\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3762 (stemez-Chemistry); correct option: 1.39 g/ cm^3"
+  },
+  {
+    "id": "h058",
+    "category": "science-physics",
+    "question": "What is the frequency of a 2-cm sound wave in sea water? What is the frequency of a 2-cm sound wave in sea water? The velocity of sound in sea water is \\upsilon = 1.53 × 10^5 cm/sec.\nIs the correct answer \"76 kHz\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9854 (stemez-Physics); correct option: 76 kHz"
+  },
+  {
+    "id": "h059",
+    "category": "science-physics",
+    "question": "An electron is released from rest in a uniform electric field of magnitude $2.00 \\times 10^4 \\mathrm{~N} / \\mathrm{C}$. Calculate the acceleration of the electron. (Ignore gravitation.)\nIs the correct answer \"$3.51$$10^{15} \\mathrm{~m} / \\mathrm{s}^2$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9851 (scibench-fund); correct option: $3.51$$10^{15} \\mathrm{~m} / \\mathrm{s}^2$"
+  },
+  {
+    "id": "h060",
+    "category": "claim",
+    "question": "Is the following claim true? The element with atomic number 74 is tungsten.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h061",
+    "category": "simpleqa",
+    "question": "What is the name of the project that won the 2021 ACM Software System Award? Is the answer \"CompCert\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2521; gold answer: CompCert"
+  },
+  {
+    "id": "h062",
+    "category": "science-physics",
+    "question": "Find the fraction of the standard solar flux reaching the Earth (about 1000 W/m^2) available to a solar collector lying flat on the Earth’s surface at Miami (latitude 26°N) at noon on the winter solstice.\nIs the correct answer \"0.615\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9840 (theoremQA-Physics); correct option: 0.656"
+  },
+  {
+    "id": "h063",
+    "category": "simpleqa",
+    "question": "In which city did pianist David Eugene Tudor set up India’s first electronic music studio? Is the answer \"Ahmedabad.\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3186; gold answer: Ahmedabad."
+  },
+  {
+    "id": "h064",
+    "category": "science-physics",
+    "question": "A glass contains 0.25 kg of Omni-Cola (mostly water) initially at 25°C. How much ice, initially at -20°C must you add to obtain a final temperature of 0°C with all the ice melted? Neglect the heat capacity of the glass. (Unit: g)\nIs the correct answer \"70\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9834 (theoremQA-Physics); correct option: 70"
+  },
+  {
+    "id": "h065",
+    "category": "science-physics",
+    "question": "A converging lens of 5.0 cm focal length is used as a simple magnifier, producing a virtual image 25 cm from the eye. How far from the lens should the object be placed? What is the magnification?\nIs the correct answer \"4.2cm, 5.9\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9799 (stemez-Physics); correct option: 4.2cm, 5.9"
+  },
+  {
+    "id": "h066",
+    "category": "science-physics",
+    "question": "What is the total charge in coulombs of $75.0 \\mathrm{~kg}$ of electrons?\nIs the correct answer \"$-1.32$ $10^{13} \\mathrm{C}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9882 (scibench-fund); correct option: $-1.32$ $10^{13} \\mathrm{C}$"
+  },
+  {
+    "id": "h067",
+    "category": "simpleqa",
+    "question": "What was the name of the Yale Bright Star Catalogue's direct predecessor, published in 1908? Is the answer \"JSRV\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 546; gold answer: Harvard Revised Photometry Catalogue"
+  },
+  {
+    "id": "h068",
+    "category": "claim",
+    "question": "Is the following claim true? The Suez Canal opened in 1869.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h069",
+    "category": "claim",
+    "question": "Is the following claim true? The SI base unit of luminous intensity is the candela.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h070",
+    "category": "science-physics",
+    "question": "In what distance can a 3000-lb automobile be stopped from a speed of 30 mi/hr (44 ft/sec) if the coefficient of friction between tires and roadway is 0.70?\nIs the correct answer \"43 ft\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9795 (stemez-Physics); correct option: 43 ft"
+  },
+  {
+    "id": "h071",
+    "category": "claim",
+    "question": "Is the following claim true? The Berlin Wall fell in 1991.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h072",
+    "category": "claim",
+    "question": "Is the following claim true? Marie Curie was born in Kraków.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h073",
+    "category": "claim",
+    "question": "Is the following claim true? Kurt Gödel published his incompleteness theorems in 1921.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h074",
+    "category": "simpleqa",
+    "question": "Which lake in Kashmir is connected to the Khushal Sar and Gil Sar lakes via a channel known as Nallah Amir Khan? Is the answer \"Walhonding River\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3365; gold answer: Nigeen Lake"
+  },
+  {
+    "id": "h075",
+    "category": "simpleqa",
+    "question": "How many children did Hank Williams have? Is the answer \"2\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1491; gold answer: 2"
+  },
+  {
+    "id": "h076",
+    "category": "claim",
+    "question": "Is the following claim true? Ulaanbaatar is the capital of Mongolia.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h077",
+    "category": "science-physics",
+    "question": "What will be the maximum kinetic energy of the photoelectrons ejected from magnesium (for which the work function \\varphi = 3.7eV) when irradiated by ultraviolet light of frequency 1.5 × 10^15 sec^-1 ?\nIs the correct answer \"2.5eV\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9794 (stemez-Physics); correct option: 2.5eV"
+  },
+  {
+    "id": "h078",
+    "category": "science-chemistry",
+    "question": "Assume all gases are perfect unless stated otherwise. Unless otherwise stated, thermodynamic data are for 298.15 K. Calculate the final temperature of a sample of argon of mass $12.0 \\mathrm{~g}$ that is expanded reversibly and adiabatically from $1.0 \\mathrm{dm}^3$ at $273.15 \\mathrm{~K}$ to $3.0 \\mathrm{dm}^3$.\nIs the correct answer \"131 $\\mathrm{K}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3737 (scibench-atkins); correct option: 131 $\\mathrm{K}$"
+  },
+  {
+    "id": "h079",
+    "category": "science-physics",
+    "question": "Passengers on a carnival ride move at constant speed in a horizontal circle of radius 5.0 m, making a complete circle in 4.0 s. What is their acceleration? (Unit: m/s^2))\nIs the correct answer \"7.2\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9832 (theoremQA-Physics); correct option: 12"
+  },
+  {
+    "id": "h080",
+    "category": "claim",
+    "question": "Is the following claim true? The Berlin Wall fell in 1989.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h081",
+    "category": "science-physics",
+    "question": "How much energy in electron volts must be expended to separate the atoms in the potassium iodide molecule, 39_k 127_I, if the ions are originally separated by a distance R = 3.04 × 10^\\rule{1em}{1pt}10 m? The potential energy for coulomb's law of force is, E_P = \\rule{1em}{1pt}ke^2 / d where e is the electric charge of each ion and d is the distance between the charges. K = 9 × 10^9 N \\textbullet m^2 / c^2\nIs the correct answer \"5.7 eV\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9804 (stemez-Physics); correct option: 4.8 eV"
+  },
+  {
+    "id": "h082",
+    "category": "simpleqa",
+    "question": "In 1927, what tour did Cab Calloway join with his older sister? Is the answer \"Plantation Days.\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3931; gold answer: Plantation Days."
+  },
+  {
+    "id": "h083",
+    "category": "simpleqa",
+    "question": "Who received the Richard Dawkins Award in 2007? Is the answer \"Superboy-Prime\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3747; gold answer: Daniel Dennett"
+  },
+  {
+    "id": "h084",
+    "category": "simpleqa",
+    "question": "Who was the Guy Medal in Gold awarded to in 1973? Is the answer \"Takao Kondo\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3588; gold answer: David Cox"
+  },
+  {
+    "id": "h085",
+    "category": "simpleqa",
+    "question": "What quote did Dr. Richard Trager say to Miles Upshur while opening the elevator door right before he died in the 2013 video game Outlast? Is the answer \"College of Lore\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1534; gold answer: I'm not giving up on you"
+  },
+  {
+    "id": "h086",
+    "category": "simpleqa",
+    "question": "In which year was the stool \"Nkosuostool\" (Development stool) created by Asantehene, Otumfuo Opoku Ware II? Is the answer \"1880\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1870; gold answer: 1985"
+  },
+  {
+    "id": "h087",
+    "category": "claim",
+    "question": "Is the following claim true? Alan Turing's paper 'On Computable Numbers' was published in the 1930s.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h088",
+    "category": "science-chemistry",
+    "question": "One of the major atmospheric pollutants emitted by fuel combustion power stations is a sulfur oxide mixture general-ly designated as S0_x. It consists mainly of SO_2 but may contain anywhere from 1 to 10% SO_3 computed as percent by weight of the total mass. What would be the approximate range to assign to x?\nIs the correct answer \"x = 3.14/1.56\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3784 (stemez-Chemistry); correct option: x = 3.14/1.56"
+  },
+  {
+    "id": "h089",
+    "category": "simpleqa",
+    "question": "In what year was the beetle species Paraconalia brasiliensis described by Ermisch? Is the answer \"1968\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2328; gold answer: 1968"
+  },
+  {
+    "id": "h090",
+    "category": "claim",
+    "question": "Is the following claim true? Penicillin was discovered by Alexander Fleming.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h091",
+    "category": "claim",
+    "question": "Is the following claim true? The chemical symbol for antimony is An.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h092",
+    "category": "science-physics",
+    "question": "A cyclotron has an oscillator frequency of 11.4 Mc \\bullet s^-1 and a radius of 60 cm. What magnetic induction is required to accelerate protons of mass 1.67 x 10^-27 kg and charge 1.6 × 10^-1 9 C, and what is the final energy that they acquire? What error is made by assuming that the mass of the protons remains constant?\nIs the correct answer \"0.748Wb\bulletm^-2, 0.154 × 10^-11 J, 1.02%\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9808 (stemez-Physics); correct option: 0.748Wb\bulletm^-2, 0.154 × 10^-11 J, 1.02%"
+  },
+  {
+    "id": "h093",
+    "category": "science-chemistry",
+    "question": "Your supervisor asks you to determine the enthalpy of a certain chemical reaction. Which would you do?\nIs the correct answer \"Use a solution calorimeter such as a coffee-cup calorimeter to measure the heat.\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3804 (ori_mmlu-high_school_chemistry); correct option: Use a solution calorimeter such as a coffee-cup calorimeter to measure the heat."
+  },
+  {
+    "id": "h094",
+    "category": "simpleqa",
+    "question": "In which year was the municipality of Boavita, Boyacá, Colombia, founded? Is the answer \"1613\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1470; gold answer: 1613"
+  },
+  {
+    "id": "h095",
+    "category": "claim",
+    "question": "Is the following claim true? Venus has no natural moons.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h096",
+    "category": "simpleqa",
+    "question": "In what position did Romania finish in the 2022 Rugby Europe Championship? Is the answer \"Second position\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2066; gold answer: Second position"
+  },
+  {
+    "id": "h097",
+    "category": "claim",
+    "question": "Is the following claim true? Insulin was first isolated at the University of Edinburgh.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h098",
+    "category": "claim",
+    "question": "Is the following claim true? The SI base unit of luminous intensity is the lumen.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h099",
+    "category": "simpleqa",
+    "question": "In which year did Gary Schreider, the Canadian football player, die? Is the answer \"2011\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1953; gold answer: 2011"
+  },
+  {
+    "id": "h100",
+    "category": "simpleqa",
+    "question": "Julie Mehretu was awarded the Barnett and Annalee Newman Award for the first time in what year? Is the answer \"1995\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 257; gold answer: 2013"
+  },
+  {
+    "id": "h101",
+    "category": "simpleqa",
+    "question": "From which university did Louise M. Antony (American philosopher) receive her bachelor's degree in philosophy? Is the answer \"Duke University\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3010; gold answer: Syracuse University"
+  },
+  {
+    "id": "h102",
+    "category": "simpleqa",
+    "question": "In what year was the beetle species Glipa angustilineata described? Is the answer \"1993\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2262; gold answer: 1993"
+  },
+  {
+    "id": "h103",
+    "category": "science-physics",
+    "question": "A 20 gallon automobile gasoline tank is filled exactly to the top at 0°F just before the automobile is parked in a garage where the temperature is maintained at 70°F. How much gasoline is lost due to expansion as the car warms up? Assume the coefficient of volume expansion of gasoline to be .0012/°C.\nIs the correct answer \".94 gal\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9792 (stemez-Physics); correct option: .94 gal"
+  },
+  {
+    "id": "h104",
+    "category": "claim",
+    "question": "Is the following claim true? The Rosetta Stone is held in the British Museum.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h105",
+    "category": "science-chemistry",
+    "question": "Calculate theCoulombicbarrier in the bombardment of ^209Bi Calculate theCoulombicbarrier in the bombardment of ^209Bi with alpha particles.\nIs the correct answer \"21.2MeV\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3789 (stemez-PhysicalChemistry); correct option: 21.2MeV"
+  },
+  {
+    "id": "h106",
+    "category": "simpleqa",
+    "question": "What specific day, month, and year was Beyoncé's album \"Lemonade\" certified platinum by the British Phonographic Industry? Is the answer \"January 25, 1991\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2684; gold answer: 9, September 2016"
+  },
+  {
+    "id": "h107",
+    "category": "science-chemistry",
+    "question": "Iron (III) oxide is reacted with carbon monoxide in a blast furnace to produce iron. The balanced reaction is: Fe2O_3 + 3CO + 2Fe + 3CO_2 What volume of CO at STP is required to completely use up 31.94 kg of iron oxide? (MW of Fe_2O_3 = 159.7, MW of CO = 28.)\nIs the correct answer \"18.720 l\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3760 (stemez-Chemistry); correct option: 13.440 l"
+  },
+  {
+    "id": "h108",
+    "category": "science-chemistry",
+    "question": "When a solid melts, the entropy change and enthalpy changes expected are\nIs the correct answer \"negative entropy change and positive enthalpy change\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3810 (ori_mmlu-high_school_chemistry); correct option: positive enthalpy change and positive entropy change"
+  },
+  {
+    "id": "h109",
+    "category": "simpleqa",
+    "question": "What is the area between the River Indus and the River Jhelum called? Is the answer \"Ganderbal\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3551; gold answer: Sindh Sagar Doab"
+  },
+  {
+    "id": "h110",
+    "category": "simpleqa",
+    "question": "The Château style originated in Québec in the early 1880s under which architect? Is the answer \"Eugène-Étienne Taché\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1784; gold answer: Eugène-Étienne Taché"
+  },
+  {
+    "id": "h111",
+    "category": "science-physics",
+    "question": "The planet Mercury travels around the Sun with a mean orbital radius of 5.8x10^10 m. The mass of the Sun is 1.99x10^30 kg. Use Newton's version of Kepler's third law to determine how long it takes Mercury to orbit the Sun. Give your answer in Earth days.\nIs the correct answer \"88.3\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9839 (theoremQA-Physics); correct option: 88.3"
+  },
+  {
+    "id": "h112",
+    "category": "simpleqa",
+    "question": "What college did Anna Moriah Wilson graduate from in 2014? Is the answer \"Emory & Henry College\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3245; gold answer: Burke Mountain Academy"
+  },
+  {
+    "id": "h113",
+    "category": "science-physics",
+    "question": "Does an ideal gas get hotter or colder when it expands according to the law pV^2 = Const?\nIs the correct answer \"colder\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9807 (stemez-Physics); correct option: colder"
+  },
+  {
+    "id": "h114",
+    "category": "claim",
+    "question": "Is the following claim true? Alan Turing's paper 'On Computable Numbers' was published in 1946.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h115",
+    "category": "simpleqa",
+    "question": "To whom did Ragnar say, \"When everyone wanted you dead, I kept you alive\" in the Vikings episode \"The Profit and the Loss\"? Is the answer \"Rollo\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4160; gold answer: Rollo"
+  },
+  {
+    "id": "h116",
+    "category": "simpleqa",
+    "question": "What Terraria patch added biome-specific stalactites to the underground areas? Is the answer \"Now, my son\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 735; gold answer: 1.2.3"
+  },
+  {
+    "id": "h117",
+    "category": "claim",
+    "question": "Is the following claim true? The chemical formula of table salt is KCl.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h118",
+    "category": "science-chemistry",
+    "question": "Assume all gases are perfect unless stated otherwise. Note that 1 atm = 1.013 25 bar. Unless otherwise stated, thermochemical data are for 298.15 K. An average human produces about $10 \\mathrm{MJ}$ of heat each day through metabolic activity. Human bodies are actually open systems, and the main mechanism of heat loss is through the evaporation of water. What mass of water should be evaporated each day to maintain constant temperature?\nIs the correct answer \"8.5 kg\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3734 (scibench-atkins); correct option: 4.09$\\text{kg}$"
+  },
+  {
+    "id": "h119",
+    "category": "science-physics",
+    "question": "A charge of 1 C flows from a 100-V outlet through a 100-W light bulb each second. How much work is done each second by this electrical source?\nIs the correct answer \"100 joules\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9889 (stemez-Physics); correct option: 100 joules"
+  },
+  {
+    "id": "h120",
+    "category": "science-physics",
+    "question": "Air consists of a mixture of gas molecules which are constantly moving. Compute the kinetic energy K of a molecule that is moving with a speed of 500 m/s. Assume that the mass of this particle is 4.6 × 10^-26 kg.\nIs the correct answer \"1.15 × 10^-20 J\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9891 (stemez-Physics); correct option: 5.75 × 10^-21 J"
+  },
+  {
+    "id": "h121",
+    "category": "simpleqa",
+    "question": "What is the name of the dedicated infrared flash used to project invisible infrared light onto the user's face to properly read the 30,000 facial points? Is the answer \"Flood Illuminator\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1172; gold answer: Flood Illuminator"
+  },
+  {
+    "id": "h122",
+    "category": "science-chemistry",
+    "question": "Ethanol boils at 78.5°C. If 10 g of sucrose (C_12H_22O_11) is dissolved in 150 g of ethanol, at what temperature will the solution boil? Assume k_b = (1.20°C / M) for the alcohol.\nIs the correct answer \"78.73°C\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3763 (stemez-Chemistry); correct option: 78.73°C"
+  },
+  {
+    "id": "h123",
+    "category": "simpleqa",
+    "question": "Who was the Prime Minister of Japan who served from June 30, 1898, to November 8, 1898? Is the answer \"Count Ōkuma Shigenobu\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3090; gold answer: Count Ōkuma Shigenobu"
+  },
+  {
+    "id": "h124",
+    "category": "claim",
+    "question": "Is the following claim true? The Peace of Westphalia was signed in 1648.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h125",
+    "category": "science-physics",
+    "question": "A boy who is holding a suitcase stands in an elevator. The elevator has an acceleration A^\\ding{217}, which may be directed upward (A^\\ding{217}. positive) or downward (A^\\ding{217} negative). What force does the suitcase exert on the boy's hand?\nIs the correct answer \"m(A/g)\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9867 (stemez-Mechanics); correct option: m(g + A)"
+  },
+  {
+    "id": "h126",
+    "category": "science-physics",
+    "question": "What is the source of the material that causes meteor showers?\nIs the correct answer \"The nuclei of comets gradually disintegrate and spread out along the comet's orbital path. When the Earth passes through the orbit of a comet we are bombarded by sand-sized particles which cause a meteor shower.\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9871 (ori_mmlu-astronomy); correct option: The nuclei of comets gradually disintegrate and spread out along the comet's orbital path. When the Earth passes through the orbit of a comet we are bombarded by sand-sized particles which cause a meteor shower."
+  },
+  {
+    "id": "h127",
+    "category": "simpleqa",
+    "question": "What was the original name of the show that conductor David Randolph hosted on the radio station WNYC? Is the answer \"Music for the Connoisseur\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2244; gold answer: Music for the Connoisseur"
+  },
+  {
+    "id": "h128",
+    "category": "simpleqa",
+    "question": "In what year did John Constable (English landscape painter) refuse the position of drawing master at Great Marlow Military College? Is the answer \"1802\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3684; gold answer: 1802"
+  },
+  {
+    "id": "h129",
+    "category": "science-physics",
+    "question": "The vertical tail propeller on a helicopter prevents the cab from rotating when the speed of the main propeller changes. Knowing that the cab has a centroidal moment of in-ertia of 700 lb \\textbullet ft \\textbullet sec^2 and that the four main blades are 14 ft slender rods weighing 55 lbs, determine the final angu-lar momentum of the cab after the speed of the main blades changes from 200 to 280 rpm. Assume the tail propeller of the helicopter to be inoperational.\nIs the correct answer \"-446.3 lb*ft*sec^2\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9886 (stemez-Mechanics); correct option: 2283.2 lb*ft*sec"
+  },
+  {
+    "id": "h130",
+    "category": "science-physics",
+    "question": "When focused on a star, the distance of the eye lens of a simple telescope from the objective lens is 82 cm. The focal length of the eye lens is 2.0 cm. To see a certain tree (with the same eye accommodation), the eye lens must be drawn out 1.0 cm. Find the distance of the tree from the telescope.\nIs the correct answer \"64.8 meters\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9865 (stemez-Optics); correct option: 64.8 meters"
+  },
+  {
+    "id": "h131",
+    "category": "claim",
+    "question": "Is the following claim true? The Danube flows into the Adriatic Sea.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h132",
+    "category": "claim",
+    "question": "Is the following claim true? The first transatlantic telegraph cable was completed in 1838.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h133",
+    "category": "simpleqa",
+    "question": "What are the names of the two mathematicians who received the Salem Prize in 1988? Is the answer \"James Demmel\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 478; gold answer: Alexander Volberg, Jean-Christophe Yoccoz"
+  },
+  {
+    "id": "h134",
+    "category": "simpleqa",
+    "question": "Who was the tenth EGOT (Emmy, Grammy, Oscar, and Tony Awards) winner? Is the answer \"Mark A. Nook\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1305; gold answer: Whoopi Goldberg"
+  },
+  {
+    "id": "h135",
+    "category": "science-chemistry",
+    "question": "A sample of bristle cone pine wood of age 7,000 \\pm 100 years, known by counting growth rings, possesses an activity of 6.6 d(disintegrations) / minute-g of carbon. Calculate the exact age of the wood sample from radiochemical evidence.\nIs the correct answer \"6,225 years old\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3797 (stemez-Chemistry); correct option: 6,225 years old"
+  },
+  {
+    "id": "h136",
+    "category": "science-chemistry",
+    "question": "Nitroglycerin (C_3 H_5 ( NO_3) _3) explodes according to the follow-ing reaction: 4C_3 H_5 (NO_3) _3 (l) \\rightarrow 12CO_2 (g) + 6N_2 (g) + O_2 (g) + 10H_2 O (g), producing only gaseous products. What is the total volume of gaseous products produced at standard temperature and pressure (STP) when 454 g of nitroglycerin explodes? The molecular weight of nitroglycerin is 227 g/mole.\nIs the correct answer \"325 liters\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3757 (stemez-Chemistry); correct option: 325 liters"
+  },
+  {
+    "id": "h137",
+    "category": "simpleqa",
+    "question": "How many papers did Kunihiko Kodaira publish by 1941? Is the answer \"10\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2876; gold answer: 10"
+  },
+  {
+    "id": "h138",
+    "category": "science-chemistry",
+    "question": "Consider the reaction I_2 \\rightarrow 2I at 1000°K and 1 atm. The fundamental vibration frequency ѵof I_2 is 214.4 cm^-1, and the internuclear distance is 0.2667 nm. Calculate the equilibrium constant K_P for the reaction if the ground state of I is a doublet ^2P_3/2,1/2 With a separation of 7603 cm^-1 . The dissociation energy of I_2 is 1.542 eV.\nIs the correct answer \"1.571 × 10^-3\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3792 (stemez-PhysicalChemistry); correct option: 1.571 × 10^-3"
+  },
+  {
+    "id": "h139",
+    "category": "simpleqa",
+    "question": "Who appointed the Chief Justice of India, Mirza Hameedullah Beg, in 1977? Is the answer \"Paul Benedict Cullen\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 7; gold answer: Fakhruddin Ali Ahmed"
+  },
+  {
+    "id": "h140",
+    "category": "simpleqa",
+    "question": "What battery does the G-Shock GG-B100-8A come with? Is the answer \"CR2025\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4106; gold answer: CR2025"
+  },
+  {
+    "id": "h141",
+    "category": "simpleqa",
+    "question": "What is the name of the voice actor who voices Alvina in the game Dark Souls? Is the answer \"Daisuke Kishio.\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4093; gold answer: Ève Karpf"
+  },
+  {
+    "id": "h142",
+    "category": "simpleqa",
+    "question": "What was the day, month, and year when BSNL (Bharat Sanchar Nigam Limited) launched \"BSNL Wings Services\" in 22 telecom circles, in which there is no need for a SIM card or cable wiring as it is a VoIP (Voice Over Internet Protocol) service through an app throughout India? Is the answer \"16 August 2018\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1495; gold answer: 16 August 2018"
+  },
+  {
+    "id": "h143",
+    "category": "simpleqa",
+    "question": "What is the half-life of radon-224 in hours? Is the answer \"1200 nits\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3755; gold answer: 1.8"
+  },
+  {
+    "id": "h144",
+    "category": "simpleqa",
+    "question": "On which day, month, and year was the first episode of the 12th season of \"Say Yes to the Dress\" aired? Is the answer \"November 30, 1949\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4224; gold answer: October 10, 2014"
+  },
+  {
+    "id": "h145",
+    "category": "simpleqa",
+    "question": "In what year was the beetle species Conaliamorpha lutea described by Ermisch? Is the answer \"1968\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 812; gold answer: 1968"
+  },
+  {
+    "id": "h146",
+    "category": "science-chemistry",
+    "question": "Calculate the work done a) at 25°C, b) at 100°C, when 100 g of nitrogen at a pressure of 760 torr is expanded reversibly and isothermally to a pressure of 100 torr.\nIs the correct answer \"a) 4287 cal, b) 5366 cal\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3800 (stemez-PhysicalChemistry); correct option: a) 4287 cal, b) 5366 cal"
+  },
+  {
+    "id": "h147",
+    "category": "science-physics",
+    "question": "A sphere, a cube, and a cylinder, all of equal mass, are released from rest from the top of a short incline. The surface of the incline is extremely slick, so much so that the objects do not rotate when released, but rather slide with negligible friction. Which reaches the base of the incline first?\nIs the correct answer \"The object in the middle\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9820 (ori_mmlu-high_school_physics); correct option: All reach the base at the same time."
+  },
+  {
+    "id": "h148",
+    "category": "claim",
+    "question": "Is the following claim true? The Suez Canal opened in 1859.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h149",
+    "category": "simpleqa",
+    "question": "What day, month, and year did the Nvidia GeForce GTX 460 SE (2010) launch? Is the answer \"15th of November, 2010\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2778; gold answer: 15th of November, 2010"
+  },
+  {
+    "id": "h150",
+    "category": "simpleqa",
+    "question": "What is the full name of the German chemist who won the Bourke Award in 1965? Is the answer \"Heinz Gerischer\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4228; gold answer: Heinz Gerischer"
+  },
+  {
+    "id": "h151",
+    "category": "simpleqa",
+    "question": "What are the first, middle, and last names of the spouse of Silas A. Holcomb, the ninth Governor of Nebraska? Is the answer \"Dr. Debendra Nath Ray\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 461; gold answer: Martha Alice Brinson"
+  },
+  {
+    "id": "h152",
+    "category": "simpleqa",
+    "question": "What was the last year Charles Boyle, Viscount Dungarvan, 3rd Baron Clifford, was Member of Parliament for Tamworth in the British House of Commons? Is the answer \"1679\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3293; gold answer: 1679"
+  },
+  {
+    "id": "h153",
+    "category": "science-chemistry",
+    "question": "What is the volume in liters of a rectangular tank which measures2.0 m by 50 cm by 200 mm?\nIs the correct answer \"500 liters\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3761 (stemez-Chemistry); correct option: 200 liters"
+  },
+  {
+    "id": "h154",
+    "category": "science-chemistry",
+    "question": "An automobile travelling at 10 miles per hour produces 0.33 1b of CO gas per mile. How many moles of CO are produced per mile?\nIs the correct answer \"7.3 moles per mile\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3756 (stemez-Chemistry); correct option: 5.4 moles per mile"
+  },
+  {
+    "id": "h155",
+    "category": "claim",
+    "question": "Is the following claim true? Saturn's largest moon is Titan.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h156",
+    "category": "science-chemistry",
+    "question": "In the infrared spectrum of $\\mathrm{H}^{127} \\mathrm{I}$, there is an intense line at $2309 \\mathrm{~cm}^{-1}$. Calculate the force constant of $\\mathrm{H}^{127} \\mathrm{I}$.\nIs the correct answer \"325 $\\mathrm{~N} \\cdot \\mathrm{m}^{-1}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3822 (scibench-chemmc); correct option: 313 $ \\mathrm{~N} \\cdot \\mathrm{m}^{-1}$"
+  },
+  {
+    "id": "h157",
+    "category": "science-physics",
+    "question": "One of the tubes of a Rayleighrefractometeris filled with air, the other is evacuated. Then the second tube is filled with air at the same temperature and pressure as the first tube. During this process 98 fringes are seen to pass the field of view. What is the index of refraction of the air if sodium light is used and the tubes are each 20 cm long?\nIs the correct answer \"1.00069\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9858 (stemez-Optics); correct option: 1.00029"
+  },
+  {
+    "id": "h158",
+    "category": "claim",
+    "question": "Is the following claim true? Pluto was discovered by Clyde Tombaugh.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h159",
+    "category": "science-chemistry",
+    "question": "Predict the number of lines in the EPR spectrum of a solution of dimethylnitroxide (CH3)2NO• assuming the lines do not overlap.\nIs the correct answer \"3\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3814 (ori_mmlu-college_chemistry); correct option: 3"
+  },
+  {
+    "id": "h160",
+    "category": "science-chemistry",
+    "question": "For a macroscopic object of mass $1.0 \\mathrm{~g}$ moving with speed $1.0 \\mathrm{~cm} / \\mathrm{s}$ in a one-dimensional box of length $1.0 \\mathrm{~cm}$, find the quantum number $n$.\nIs the correct answer \"3$10^{26}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3820 (scibench-quan); correct option: 3$10^{26}$"
+  },
+  {
+    "id": "h161",
+    "category": "science-physics",
+    "question": "Photoelectrons may be emitted from sodium (phi = 2.36 eV) even for light intensities as low as 10^-8 W/m^2. Calculate classically how much time (in seconds) the light must shine to produce a photoelectron of kinetic energy 1.00 eV. Return the numeric value.\nIs the correct answer \"530000000.0\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9843 (theoremQA-Physics); correct option: 463000000.0"
+  },
+  {
+    "id": "h162",
+    "category": "simpleqa",
+    "question": "What was South African ballet dancer Maryon Lane's birth name? Is the answer \"Norman Rockwell\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3749; gold answer: Patricia Mills"
+  },
+  {
+    "id": "h163",
+    "category": "simpleqa",
+    "question": "What's the first and last name of the linguist who wrote the paper \"Pre- and postnominal onymic genitives in (Early) New High German: A multifactorial analysis\"? Is the answer \"Grigor Sargsyan\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 476; gold answer: Tanja Ackermann"
+  },
+  {
+    "id": "h164",
+    "category": "science-chemistry",
+    "question": "Nitrous acid, HNO2, has a pKa value of 3.3. If a solution of nitrous acid is found to have a pH of 4.2, what can be said about the concentration of the conjugate acid/base pair found in solution?\nIs the correct answer \"[NO2-] > [HNO2]\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3809 (ori_mmlu-high_school_chemistry); correct option: [NO2-] > [HNO2]"
+  },
+  {
+    "id": "h165",
+    "category": "science-chemistry",
+    "question": "Assume that all gases are perfect and that data refer to 298.15 K unless otherwise stated. A sample consisting of $3.00 \\mathrm{~mol}$ of diatomic perfect gas molecules at $200 \\mathrm{~K}$ is compressed reversibly and adiabatically until its temperature reaches $250 \\mathrm{~K}$. Given that $C_{V, \\mathrm{~m}}=27.5 \\mathrm{~J} \\mathrm{~K}^{-1} \\mathrm{~mol}^{-1}$, calculate $\\Delta U$.\nIs the correct answer \"+7.0 kJ\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3740 (scibench-atkins); correct option: +4.1$\\text{kJ}$"
+  },
+  {
+    "id": "h166",
+    "category": "simpleqa",
+    "question": "Undercover's first Paris runway show was named what? Is the answer \"Scab\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1556; gold answer: Scab"
+  },
+  {
+    "id": "h167",
+    "category": "science-physics",
+    "question": "Why are the season's in Mars' southern hemisphere so extreme?\nIs the correct answer \"because Mars has more carbon dioxide in its atmosphere than the Earth\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9872 (ori_mmlu-astronomy); correct option: because Mars has a more eccentric orbit than the Earth"
+  },
+  {
+    "id": "h168",
+    "category": "science-physics",
+    "question": "A cylinder with a movable piston contains a gas at pressure P = 1 × 10^5 Pa, volume V = 20 cm^3, and temperature T = 273 K. The piston is moved downward in a slow steady fashion allowing heat to escape the gas and the temperature to remain constant. If the final volume of the gas is 5 cm^3, what will be the resulting pressure?\nIs the correct answer \"0.25 × 10^5 Pa\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9821 (ori_mmlu-high_school_physics); correct option: 4 × 10^5 Pa"
+  },
+  {
+    "id": "h169",
+    "category": "science-physics",
+    "question": "If a normal eye cannot separate two objects (or images) subtending an angle of less than 1.5 minutes, approximate the magnifying power that is necessary to make use (visually) of the full resolving power of a telescope whose objective has a diameter of 40 inches. (Assume a mean wavelength of 5.5 × 10^-5 cm.)\nIs the correct answer \"750\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9866 (stemez-Optics); correct option: 660.6"
+  },
+  {
+    "id": "h170",
+    "category": "simpleqa",
+    "question": "To whom was Claude Bourdet married? Is the answer \"Ida Adamoff\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1278; gold answer: Ida Adamoff"
+  },
+  {
+    "id": "h171",
+    "category": "simpleqa",
+    "question": "Who suggested the idea of shooting liquid carbon dioxide into rain clouds to induce rainfall? Is the answer \"Louis Gathmann\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3600; gold answer: Louis Gathmann"
+  },
+  {
+    "id": "h172",
+    "category": "science-physics",
+    "question": "Two masses $m_1=100 \\mathrm{~g}$ and $m_2=200 \\mathrm{~g}$ slide freely in a horizontal frictionless track and are connected by a spring whose force constant is $k=0.5 \\mathrm{~N} / \\mathrm{m}$. Find the frequency of oscillatory motion for this system.\nIs the correct answer \"3.50 $\\mathrm{rad} \\cdot \\mathrm{s}^{-1}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9848 (scibench-class); correct option: 2.74$\\mathrm{rad} \\cdot \\mathrm{s}^{-1}$"
+  },
+  {
+    "id": "h173",
+    "category": "simpleqa",
+    "question": "Cornelia Parker curated the \"Black and White Room\" for which exhibition? Is the answer \"Titian Gallery\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3868; gold answer: Royal Academy Summer Exhibition"
+  },
+  {
+    "id": "h174",
+    "category": "simpleqa",
+    "question": "What is the forest cover area of Uttarakhand in square kilometers according to the interpretation of IRS Resourcesat-2 LISS III satellite data from 2017-2018? Is the answer \"34\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3827; gold answer: 24,303.04"
+  },
+  {
+    "id": "h175",
+    "category": "science-chemistry",
+    "question": "Liquid nitrogen is an excellent bath for keeping temperatures around 77°K, its normal boiling point. What pressure would you need to maintain over the liquid nitrogen if you wanted to set the bath temperature at 85°K? Heat of vaporization is about 5560 (J / mole).\nIs the correct answer \"3.0 atm\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3780 (stemez-Chemistry); correct option: 2.26 atm"
+  },
+  {
+    "id": "h176",
+    "category": "science-chemistry",
+    "question": "Find the pH of a solution of 0.3 M acetic acid. Assume a K_a value of 1.8 × 10^-5.\nIs the correct answer \"2.87\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3773 (stemez-Chemistry); correct option: 2.63"
+  },
+  {
+    "id": "h177",
+    "category": "simpleqa",
+    "question": "In which year did Jacinda Kate Laurell Ardern receive a Harvard honorary degree? Is the answer \"February 9, 2006\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3221; gold answer: 2022"
+  },
+  {
+    "id": "h178",
+    "category": "simpleqa",
+    "question": "Who was the first-ever personality to hoist the Indian National Flag in the Metaverse at the 'Azadi Ka Amrit Mahotsav' Metaverse event in 2022? Is the answer \"Iris Litt\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1734; gold answer: Adil Hussain"
+  },
+  {
+    "id": "h179",
+    "category": "claim",
+    "question": "Is the following claim true? The atomic number of gold is 78.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h180",
+    "category": "science-physics",
+    "question": "A fluid of density ρ flows through a horizontal pipe with negligible viscosity. The flow is streamlined with constant flow rate. The diameter of the pipe at Point 1 is d and the flow speed is V. If the diameter of the pipe at Point 2 is d/3, then the pressure at Point 2 is\nIs the correct answer \"less than the pressure at Point 1 by 4 ρv^2\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9818 (ori_mmlu-high_school_physics); correct option: less than the pressure at Point 1 by 40 ρv^2"
+  },
+  {
+    "id": "h181",
+    "category": "science-physics",
+    "question": "What voltage will send a current of 2 amperes through a bell circuit if the resistance of the circuit is 3 ohms?\nIs the correct answer \"9 volts\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9887 (stemez-Physics); correct option: 6 volts"
+  },
+  {
+    "id": "h182",
+    "category": "claim",
+    "question": "Is the following claim true? The atomic number of gold is 79.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h183",
+    "category": "claim",
+    "question": "Is the following claim true? Saturn's largest moon is Enceladus.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h184",
+    "category": "science-physics",
+    "question": "A particle executing simple harmonic motion given by y = 4 sin {(2\\pit / 6) + \\alpha} is displaced +1 unit when t = 0. Find: (a) the phase angle when t = 0; (b) the difference in phase between any two positions of the particle 2 seconds apart? (c) the phase angle corresponding to a displacement of +2; (d) the time necessary to reach a displacement of +3 from the initial position.\nIs the correct answer \"Phase angle at t = 0: π/8 radians, Phase difference between two positions 2 seconds apart: 45 degrees, Phase angle corresponding to a displacement of +2: 11.25 degrees, Time to reach a displacement of +3: 1.52 seconds\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9864 (stemez-Optics); correct option: Phase angle at t = 0: π/12.4 radians, Phase difference between two positions 2 seconds apart: 120 degrees, Phase angle corresponding to a displacement of +2: 30 degrees, Time to reach a displacement of +3: 0.57 seconds"
+  },
+  {
+    "id": "h185",
+    "category": "simpleqa",
+    "question": "Who was the most prominent figure of the 1986 People Power Revolution? Is the answer \"Tijjibai\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4069; gold answer: Corazon Aquino"
+  },
+  {
+    "id": "h186",
+    "category": "simpleqa",
+    "question": "What style are the roofs of the ten buildings at the Wasyl Negrych Homestead? Is the answer \"Fleur d’ajonc\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1435; gold answer: long-shingled Carpathian roof"
+  },
+  {
+    "id": "h187",
+    "category": "simpleqa",
+    "question": "What day, month, and year was Aniello Formisano, an Italian politician and lawyer, born? Is the answer \"June 10, 1954.\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4259; gold answer: June 10, 1954."
+  },
+  {
+    "id": "h188",
+    "category": "claim",
+    "question": "Is the following claim true? Johannes Kepler published Astronomia Nova in 1609.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h189",
+    "category": "simpleqa",
+    "question": "What contestant from Season 16 of The Bachelorette is from South Dakota? Is the answer \"Lark Voorhies\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3705; gold answer: Dale Moss"
+  },
+  {
+    "id": "h190",
+    "category": "simpleqa",
+    "question": "What is the name of the organization to which the Society of Illustrators sold the rights to their Illustrator Show skits in 1925? Is the answer \"Vice & Virtue\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2393; gold answer: Shubert Organization"
+  },
+  {
+    "id": "h191",
+    "category": "simpleqa",
+    "question": "Who won the 1991 Ig Nobel Prize for Peace? Is the answer \"Patricia Mary Edmondson\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 40; gold answer: Edward Teller"
+  },
+  {
+    "id": "h192",
+    "category": "science-physics",
+    "question": "A nonconducting spherical shell, with an inner radius of $4.0 \\mathrm{~cm}$ and an outer radius of $6.0 \\mathrm{~cm}$, has charge spread nonuniformly through its volume between its inner and outer surfaces. The volume charge density $\\rho$ is the charge per unit volume, with the unit coulomb per cubic meter. For this shell $\\rho=b / r$, where $r$ is the distance in meters from the center of the shell and $b=3.0 \\mu \\mathrm{C} / \\mathrm{m}^2$. What is the net charge in the shell?\nIs the correct answer \"$3.8$ $10^{-8} \\mathrm{C}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9850 (scibench-fund); correct option: $3.8$ $10^{-8} \\mathrm{C}$"
+  },
+  {
+    "id": "h193",
+    "category": "simpleqa",
+    "question": "What is the full name of the individual who was awarded the Spearman Medal in 1992? Is the answer \"Usha Claire Goswami\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4180; gold answer: Usha Claire Goswami"
+  },
+  {
+    "id": "h194",
+    "category": "simpleqa",
+    "question": "What were the month, day, and year that Thomas Randolph wrote to the Earl of Leicester, stating that he was unable and unwilling to commit his opinions on Mary's actions on paper for fear of appearing \"malicieus foolyshe and unadvised\"? Is the answer \"14 February 1566\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 159; gold answer: 14 February 1566"
+  },
+  {
+    "id": "h195",
+    "category": "claim",
+    "question": "Is the following claim true? Marie Curie was born in Warsaw.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h196",
+    "category": "claim",
+    "question": "Is the following claim true? The Eiffel Tower was completed in 1899.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h197",
+    "category": "simpleqa",
+    "question": "Between what dates was the Stanford University exhibition titled \"Sam Richardson: Islands, Ice, and Sand\" on view? Please give me the full dates (month, date, and year). Is the answer \"23 September, 2021 to 13 March, 2022\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4111; gold answer: 23 September, 2021 to 13 March, 2022"
+  },
+  {
+    "id": "h198",
+    "category": "simpleqa",
+    "question": "How many concurrent FM synthesis channels (voices) can the Yamaha YM2203 from the 1980s handle? Is the answer \"3\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3646; gold answer: 3"
+  },
+  {
+    "id": "h199",
+    "category": "simpleqa",
+    "question": "Which date, month, and year was the Nepal Tourism Board established? Is the answer \"28 June 2022\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3449; gold answer: December 31st, 1998"
+  },
+  {
+    "id": "h200",
+    "category": "science-chemistry",
+    "question": "At standard conditions, 1 liter of oxygen gas weighs almost 1.44 g, whereas 1 liter of hydrogen weighs only .09 g. Which gas diffuses faster? Calculate how much faster.\nIs the correct answer \"Oxygen diffuses faster than hydrogen\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3768 (stemez-Chemistry); correct option: Hydrogen diffuses 4 times faster than oxygen"
+  },
+  {
+    "id": "h201",
+    "category": "simpleqa",
+    "question": "Which sculptor designed the Order of the Liberator General San Martín? Is the answer \"Ángel Eusebio Ibarra García\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3029; gold answer: Ángel Eusebio Ibarra García"
+  },
+  {
+    "id": "h202",
+    "category": "simpleqa",
+    "question": "In what year was the Logic Theorist computer program written? Is the answer \"1927\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2974; gold answer: 1956."
+  },
+  {
+    "id": "h203",
+    "category": "science-physics",
+    "question": "One astronomical unit (AU) is equal to approximately ...\nIs the correct answer \"150 million km\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9878 (ori_mmlu-astronomy); correct option: 150 million km"
+  },
+  {
+    "id": "h204",
+    "category": "simpleqa",
+    "question": "In what month and year was the Flitzer on Surfside Pier retired? Is the answer \"September 2018\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 968; gold answer: September 2018"
+  },
+  {
+    "id": "h205",
+    "category": "science-chemistry",
+    "question": "How much area, in square meters, will one liter of paint cover if it is brushed out to a uniform thickness of 100 microns?\nIs the correct answer \"25 m^2\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3775 (stemez-Chemistry); correct option: 10 m^2"
+  },
+  {
+    "id": "h206",
+    "category": "simpleqa",
+    "question": "What was the name of the observatory in which 1994 Shane was discovered in 1961? Is the answer \"Leyden University\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3850; gold answer: Goethe Link."
+  },
+  {
+    "id": "h207",
+    "category": "science-chemistry",
+    "question": "At a certain temperature,Keqfor the reaction 3C_2H_2 \\rightleftarrows C_6H_6 is 4. If the equilibrium concentration of C_2H_2 is 0.5 mole/liter, what is the concentration of C6H_6 ?\nIs the correct answer \"0.5 moles/liter\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3764 (stemez-Chemistry); correct option: 0.5 moles/liter"
+  },
+  {
+    "id": "h208",
+    "category": "claim",
+    "question": "Is the following claim true? The element with atomic number 74 is molybdenum.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h209",
+    "category": "claim",
+    "question": "Is the following claim true? Kurt Gödel published his incompleteness theorems in 1931.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h210",
+    "category": "science-physics",
+    "question": "Suppose that the speed of an electron is 1 × 10^6 m/s and the measurementprecision involves an uncertainty in speed of 1 percent. How precisely can the position of the electronbe simultaneouslydetermined?\nIs the correct answer \"5.8 × 10^-9 m\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9798 (stemez-Physics); correct option: 5.8 × 10^-9 m"
+  },
+  {
+    "id": "h211",
+    "category": "simpleqa",
+    "question": "On what day, month, and year did Balendra Shah (Balen Shah) take office as mayor of Kathmandu? Is the answer \"25 October, 1999\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2299; gold answer: 30 May 2022"
+  },
+  {
+    "id": "h212",
+    "category": "simpleqa",
+    "question": "In what year was John Williams inducted into the Classical Music Hall of Fame? Is the answer \"May 10 2023\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 51; gold answer: 2004."
+  },
+  {
+    "id": "h213",
+    "category": "science-chemistry",
+    "question": "The 13C spectrum of which isomer of C6H14 has lines with five distinct chemical shifts?\nIs the correct answer \"hexane\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3812 (ori_mmlu-college_chemistry); correct option: 2-methylpentane"
+  },
+  {
+    "id": "h214",
+    "category": "simpleqa",
+    "question": "In what year was the Krieger–Nelson Prize awarded to Penny Haxell? Is the answer \"2006\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3951; gold answer: 2006"
+  },
+  {
+    "id": "h215",
+    "category": "simpleqa",
+    "question": "Who played Tiffany in the miniseries \"The Last Don\" (1997)? Is the answer \"Lark Voorhies\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3034; gold answer: Lark Voorhies"
+  },
+  {
+    "id": "h216",
+    "category": "claim",
+    "question": "Is the following claim true? Pluto was discovered by Edwin Hubble.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h217",
+    "category": "simpleqa",
+    "question": "What was the engine size, in cc, of the Grillot engine that was placed in the 1935 Amilcar Pégase? Is the answer \"359,083\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2327; gold answer: 2490 cc"
+  },
+  {
+    "id": "h218",
+    "category": "simpleqa",
+    "question": "How is the virus that killed Dolly the sheep abbreviated? Is the answer \"2024\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2196; gold answer: JSRV"
+  },
+  {
+    "id": "h219",
+    "category": "simpleqa",
+    "question": "Which Indian state is also known as Veer Bhumi? Is the answer \"Himachal Pradesh\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2885; gold answer: Himachal Pradesh"
+  },
+  {
+    "id": "h220",
+    "category": "claim",
+    "question": "Is the following claim true? Johannes Kepler published Astronomia Nova in 1619.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h221",
+    "category": "simpleqa",
+    "question": "How many years was the scholarship that Mary Fairchild MacMonnies Low won from the St. Louis School of Fine Arts for? Is the answer \"three\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 867; gold answer: three"
+  },
+  {
+    "id": "h222",
+    "category": "simpleqa",
+    "question": "What was the release price for the Sonic Free Riders original soundtrack in Japan in Japanese Yen? Is the answer \"1800 JPY\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2371; gold answer: 1800 JPY"
+  },
+  {
+    "id": "h223",
+    "category": "claim",
+    "question": "Is the following claim true? The capital of Kazakhstan is Almaty.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h224",
+    "category": "claim",
+    "question": "Is the following claim true? The Eiffel Tower was completed in 1889.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h225",
+    "category": "science-physics",
+    "question": "The magnitude of the electrostatic force between two identical ions that are separated by a distance of $5.0 \\times 10^{-10} \\mathrm{~m}$ is $3.7 \\times 10^{-9}$ N.  What is the charge of each ion?\nIs the correct answer \"$3.2$ $10^{-19} \\mathrm{C}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9881 (scibench-fund); correct option: $3.2$ $10^{-19} \\mathrm{C}$"
+  },
+  {
+    "id": "h226",
+    "category": "simpleqa",
+    "question": "In what city was the mathematician Enrico D'Ovidio born? Is the answer \"Campobasso\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1490; gold answer: Campobasso"
+  },
+  {
+    "id": "h227",
+    "category": "claim",
+    "question": "Is the following claim true? The Hubble Space Telescope was launched in 1990.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h228",
+    "category": "simpleqa",
+    "question": "Which school did Lyndon B. Johnson briefly teach in Pearsall? Is the answer \"Loyola University, New Orleans\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2452; gold answer: Pearsall High School"
+  },
+  {
+    "id": "h229",
+    "category": "science-physics",
+    "question": "A house near a lake is kept warm by a heat engine. In winter, water from beneath the ice covering the lake is pumped through the heat engine. Heat is extracted until the water is on the point of freezing when it is ejected. The outside air is used as a sink. Assume that the air temperature is -15 °C and the temperature of the water from the lake is 2°C. Calculate the rate at which water must be pumped to the engine. The efficiency of the engine is one-fifth that of a Carnot engine and the house requires 10 kW.\nIs the correct answer \"102.4 liters/s\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9888 (stemez-Physics); correct option: 102.4 liters/s"
+  },
+  {
+    "id": "h230",
+    "category": "simpleqa",
+    "question": "What day, month, and year was an exhibition of Horiyoshi's silk scroll paintings, \"The Art of Horiyoshi III,\" first displayed at Somerset House? Is the answer \"1893 to 1895\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1826; gold answer: March 21, 2012"
+  },
+  {
+    "id": "h231",
+    "category": "simpleqa",
+    "question": "What was the magnitude of the solar eclipse that occurred on June 21, 2001? Is the answer \"6\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 970; gold answer: 1.0495"
+  },
+  {
+    "id": "h232",
+    "category": "simpleqa",
+    "question": "How many teraelectronvolts (TeV) of energy per beam were achieved in the first collisions of the Large Hadron Collider in 2010? Is the answer \"65W\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2841; gold answer: 3.5"
+  },
+  {
+    "id": "h233",
+    "category": "science-physics",
+    "question": "A researcher notices that the frequency of a note emitted by an automobile horn appears to drop from 284 cycles \\bullet s^-1 to 266 cycles \\bullet s^-1 as the automobile passes him. From this observation he is able to calculate the speed of the car, knowing that the speed of sound in air is 1100 ft \\bullet s^-1. What value does he obtain for the speed?\nIs the correct answer \"24.5 mph\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9802 (stemez-Physics); correct option: 24.5 mph"
+  },
+  {
+    "id": "h234",
+    "category": "claim",
+    "question": "Is the following claim true? Lake Titicaca lies on the border between Peru and Bolivia.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h235",
+    "category": "simpleqa",
+    "question": "What is the horsepower of the Pratt & Whitney R-1340-30 Wasp? Is the answer \"2\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1869; gold answer: 550 hp"
+  },
+  {
+    "id": "h236",
+    "category": "claim",
+    "question": "Is the following claim true? Penicillin was discovered by Louis Pasteur.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h237",
+    "category": "science-physics",
+    "question": "Calculate the momentum uncertainty of a tennis ball constrained to be in a fence enclosure of length 35 m surrounding the court in kg m/s.\nIs the correct answer \"3e-36\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9835 (theoremQA-Physics); correct option: 3e-36"
+  },
+  {
+    "id": "h238",
+    "category": "science-chemistry",
+    "question": "A chemical reaction takes place in a container of cross-sectional area $50 \\mathrm{~cm}^2$. As a result of the reaction, a piston is pushed out through $15 \\mathrm{~cm}$ against an external pressure of $1.0 \\mathrm{~atm}$. Calculate the work done by the system.\nIs the correct answer \"-75 $\\mathrm{~J}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3815 (scibench-matter); correct option: -75 $\\mathrm{~J}$"
+  },
+  {
+    "id": "h239",
+    "category": "science-chemistry",
+    "question": "The units for the rate of a chemical reaction are\nIs the correct answer \"it depends on the particular reaction\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3808 (ori_mmlu-high_school_chemistry); correct option: mol L-1 s-1"
+  },
+  {
+    "id": "h240",
+    "category": "science-chemistry",
+    "question": "A) Determine the pH of a solution with a hydrogen ion concentration of 3.5 × 10^-4. B) If a solution has a pH of 4.25, what is the hydrogen ion concentration?\nIs the correct answer \"A) 4.46, B) 6.6 × 10^-5 mole/liter\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3771 (stemez-Chemistry); correct option: A) 3.46, B) 5.6 × 10^-5 mole/liter"
+  },
+  {
+    "id": "h241",
+    "category": "science-chemistry",
+    "question": "What is the theoretical density for calcium, since it crystallizes in the face-centered cubic unit cell, where a = 3.48°A, z = content = 3.\nIs the correct answer \"5.238 × 10^3 kg/m^3\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3803 (stemez-PhysicalChemistry); correct option: 4.738 × 10^3 kg/m^3"
+  },
+  {
+    "id": "h242",
+    "category": "claim",
+    "question": "Is the following claim true? The Treaty of Utrecht was signed in 1648.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h243",
+    "category": "science-physics",
+    "question": "A racing car traveling in a circular path maintains a constant speed of 120 miles per hour. If the radius of the circular track is 1000 ft, what if any acceleration does the center of gravity of the car exhibit?\nIs the correct answer \"0 ft/s^2 (no acceleration)\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9806 (stemez-Physics); correct option: 30.98 ft/s^2"
+  },
+  {
+    "id": "h244",
+    "category": "science-physics",
+    "question": "The cornea of the eye is a convex mirror, and the high-light usually seen in it is a reflected image. Suppose that a circular object 20 cm in diameter is located 40 cm from the eye. If the radius of the cornea is 0.8 cm, how far is the virtual image from the cornea and what is its size?\nIs the correct answer \"4 mm inside the cornea, 2 mm in diameter\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9870 (stemez-Optics); correct option: 4 mm inside the cornea, 2 mm in diameter"
+  },
+  {
+    "id": "h245",
+    "category": "science-chemistry",
+    "question": "Calculate the sedimentation coefficient of tobacco mosaic virus from the fact that the boundary moves with a velocity of 0.454 (cm/hr) in an ultracentrifuge at a speed of 10,000 rpm at a distance of 6.5 cm from the axis of the centrifuge rotor.\nIs the correct answer \"3.5 × 10^-13 sec\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3781 (stemez-Chemistry); correct option: 1.76 × 10^-11 sec"
+  },
+  {
+    "id": "h246",
+    "category": "claim",
+    "question": "Is the following claim true? The speed of sound in dry air at 20 °C is about 443 metres per second.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h247",
+    "category": "science-chemistry",
+    "question": "2.3 g of ethanol (C_2H_5OH, molecular weight = 46 g/mole) is added to 500 g of water. Determine the molality of the resulting solution.\nIs the correct answer \"0.1 molal\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3758 (stemez-Chemistry); correct option: 0.1 molal"
+  },
+  {
+    "id": "h248",
+    "category": "science-chemistry",
+    "question": "The mass of an electron is 9.109 × 10^-28 g. What is the atomic weight of electrons?\nIs the correct answer \"9.109 × 10^-31 g/mole\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3748 (stemez-Chemistry); correct option: 5.48 × 10^-4 g/mole"
+  },
+  {
+    "id": "h249",
+    "category": "simpleqa",
+    "question": "Until what month and year did Gerald Ford serve as the Honorary Grand Master of the International Supreme Council, Order of DeMolay? Is the answer \"January 1977\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2241; gold answer: January 1977"
+  },
+  {
+    "id": "h250",
+    "category": "simpleqa",
+    "question": "What is the first name of the South African politician who served as Minister of Higher Education and Training and Minister of Home Affairs under President Jacob Zuma and was Deputy Minister in the Presidency for Women, Youth, and Persons with Disabilities? Is the answer \"Beji Caid Essebsi\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3811; gold answer: Hlengiwe"
+  },
+  {
+    "id": "h251",
+    "category": "simpleqa",
+    "question": "What engraver did Thomas Ryder apprentice under? Is the answer \"Alfred Lamontagne\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3559; gold answer: James Basire."
+  },
+  {
+    "id": "h252",
+    "category": "simpleqa",
+    "question": "As a child, at what temple did Sesshū Tōyō enter the Buddhist community? Is the answer \"31 King Street East\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4144; gold answer: Hofukuji temple"
+  },
+  {
+    "id": "h253",
+    "category": "science-chemistry",
+    "question": "A particle of mass $1.0 \\mathrm{~g}$ is released near the surface of the Earth, where the acceleration of free fall is $g=8.91 \\mathrm{~m} \\mathrm{~s}^{-2}$. What will be its kinetic energy after  $1.0 \\mathrm{~s}$. Ignore air resistance?\nIs the correct answer \"48 $\\mathrm{~mJ}$\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3816 (scibench-matter); correct option: 48 $\\mathrm{~mJ}$"
+  },
+  {
+    "id": "h254",
+    "category": "simpleqa",
+    "question": "On what month, day, and year did Ketanji Brown Jackson's service as a circuit judge end? Is the answer \"February 1942\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 799; gold answer: June 29 2022"
+  },
+  {
+    "id": "h255",
+    "category": "science-chemistry",
+    "question": "Solve 6x^2 - 7x - 20 = 0.\nIs the correct answer \"5/3, -4/2\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3754 (stemez-Chemistry); correct option: 5/2, -4/3"
+  },
+  {
+    "id": "h256",
+    "category": "simpleqa",
+    "question": "What are the day, date, month, and year of birth of the first Prime Minister of the Gold Coast (now Ghana)? Is the answer \"21 September 1909\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 915; gold answer: 21 September 1909"
+  },
+  {
+    "id": "h257",
+    "category": "science-physics",
+    "question": "A single-electron atom has the electron in the l = 2 state. The number of allowed values of the quantum number m_l is\nIs the correct answer \"4\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9880 (ori_mmlu-college_physics); correct option: 5"
+  },
+  {
+    "id": "h258",
+    "category": "simpleqa",
+    "question": "In what year did Dr. Lorne Warneke retire? Is the answer \"19 of July of 2023\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3496; gold answer: 2017"
+  },
+  {
+    "id": "h259",
+    "category": "claim",
+    "question": "Is the following claim true? The chemical symbol for antimony is Sb.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h260",
+    "category": "simpleqa",
+    "question": "What is a bridge called in the Kashmiri language? Is the answer \"Kadal\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3891; gold answer: Kadal"
+  },
+  {
+    "id": "h261",
+    "category": "simpleqa",
+    "question": "On what date did the last total lunar eclipse for three years occur? Is the answer \"November 8, 2022\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2153; gold answer: November 8, 2022"
+  },
+  {
+    "id": "h262",
+    "category": "science-physics",
+    "question": "A math book and a physics book sitting on a table are tied together with a length of string. With the string taut one book is pushed off the edge of the table. As it falls the other book is dragged horizontally across the table surface. With no friction acceleration of the books is\nIs the correct answer \"dependent on the weight of the books\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9827 (ori_mmlu-conceptual_physics); correct option: a value between zero and g"
+  },
+  {
+    "id": "h263",
+    "category": "science-chemistry",
+    "question": "A solution of 10.0 g of HF in 500 g H_2O freezes at - 1.98°C. Calculate the degree of ionization of HF. (M.W. HF = 20.0 The Freezing point depression of H_2O is 1.86°.)\nIs the correct answer \"2%\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3749 (stemez-Chemistry); correct option: 6%"
+  },
+  {
+    "id": "h264",
+    "category": "science-physics",
+    "question": "An airplane is flying at Mach 1.75 at an altitude of 8000 m, where the speed of sound is How long after the plane passes directly overhead will you hear the sonic boom? (Unit: m/s)\nIs the correct answer \"560\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9841 (theoremQA-Physics); correct option: 560"
+  },
+  {
+    "id": "h265",
+    "category": "simpleqa",
+    "question": "What is the name of the small town near which the Douglas C-47A ZS-EJK, operated by Comair Ltd, crashed into a mountain in October 1982? Is the answer \"Graskop\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1426; gold answer: Graskop"
+  },
+  {
+    "id": "h266",
+    "category": "science-physics",
+    "question": "The first line of the principal series of sodium is the \"D\" line at 5890A°. This corresponds to a transition from the first excited state (3p) to the ground state (3s). What is the energy ineVof the first excited state?\nIs the correct answer \"2.305 eV\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9863 (stemez-Optics); correct option: 2.105 eV"
+  },
+  {
+    "id": "h267",
+    "category": "science-chemistry",
+    "question": "An explorer, lost in. the desert, stumbled on an abandoned automobile whose gas tank still held 5 liters of fuel. Gasoline has a density of 0.67 g / cc. Assuming gasoline to be composed of C_7H_16 molecules, how many liters of water could he produce by burning the fuel and trapping the products ? The reaction is C_7H_16(l) + O_2(g) \\ding{217} CO_2(g) + H_2O(g)\nIs the correct answer \"12,060 g\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3801 (stemez-Chemistry); correct option: 603.0 g"
+  },
+  {
+    "id": "h268",
+    "category": "science-chemistry",
+    "question": "A saturated solution of the strong electrolyte Ca(OH)_2 is prepared by adding sufficient water to 5.0 × 10^-4 mole of Ca(OH)_2 to form 100 ml of solution. What is the pH of this solution?\nIs the correct answer \"12\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3751 (stemez-Chemistry); correct option: 12"
+  },
+  {
+    "id": "h269",
+    "category": "science-physics",
+    "question": "What is the force between two positive charges of 100\\mu coulombs and 200\\mu coulombs, respectively, when they are separated a distance of 3 centimeters?\nIs the correct answer \"2 x 10^5nt\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9890 (stemez-Physics); correct option: 2 x 10^5nt"
+  },
+  {
+    "id": "h270",
+    "category": "science-chemistry",
+    "question": "A chemist dissolvesPbSin water . TheK_spis found to be 1 × 10-^28 . What is themolarityof each ion in solution ?\nIs the correct answer \"1 × 10-^14 M\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3753 (stemez-Chemistry); correct option: 1 × 10-^14 M"
+  },
+  {
+    "id": "h271",
+    "category": "claim",
+    "question": "Is the following claim true? Neptune was discovered in 1781.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h272",
+    "category": "science-chemistry",
+    "question": "For the reaction Cd(Hg) + Hg_2SO_4(s) + (8/3)H_2O \\rightleftarrows CdSO_4 \\bullet (8/3)H_2O(s) + 3Hg(l) the voltage as a function of temperature is given by \\epsilon = 1.01845 - (4.1 × 10^-5)(\\texttheta - 20) - (9.5 × 10^-7)(\\texttheta - 20)^2 where \\texttheta is the temperature in °C. Calculate the value of \\DeltaS at 25°C given that one mole of CdSO_4. (8/3) H_2O is formed and \\DeltaS =nF(d\\epsilon/dT) wheren = 2 andF = 9.648456 × 10^4 C mol^-1\nIs the correct answer \"1.9J / K\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3798 (stemez-PhysicalChemistry); correct option: - 9.74J / K"
+  },
+  {
+    "id": "h273",
+    "category": "claim",
+    "question": "Is the following claim true? Neptune was discovered in 1846.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h274",
+    "category": "claim",
+    "question": "Is the following claim true? Watson and Crick published the double-helix structure of DNA in 1949.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h275",
+    "category": "simpleqa",
+    "question": "What team came second in Group C in the 2018–19 UEFA Champions League? Is the answer \"Colorado 1 - 0 Boston\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3672; gold answer: Liverpool FC"
+  },
+  {
+    "id": "h276",
+    "category": "science-chemistry",
+    "question": "A turn of \\alpha-helix (3.6 residues) is 5,41 \\AA in length measured parallel to the helix axis. If your hair grows 6 in. per year, how many amino acid residues must be added to each \\alpha-helix in the keratin fiber per second?\nIs the correct answer \"26 res/sec\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3779 (stemez-Chemistry); correct option: 32 res/sec"
+  },
+  {
+    "id": "h277",
+    "category": "science-chemistry",
+    "question": "Carbon dioxide is reduced by hydrogen according to the equation CO_2(g) + H_2(g) \\rightleftarrows CO(g) + H_2O(g) . One mole of CO_2 is reacted with one mole of H_2 at 825K and it is found that, at equilibrium, 0.27atmof CO is present. Determine the equilibrium constant, K, at 825K .\nIs the correct answer \"0.137\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3766 (stemez-Chemistry); correct option: 0.137"
+  },
+  {
+    "id": "h278",
+    "category": "science-chemistry",
+    "question": "The X-band (9.5 GHz) EPR spectrum of a matrix isolated Na atom reveals four hyperfine lines with resonant field positions of 3074 G, 3174 G, 3274 G and 3374 G. Calculate the g value of the atom.\nIs the correct answer \"g = 2.020\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3727 (ori_mmlu-college_chemistry); correct option: g = 2.002"
+  },
+  {
+    "id": "h279",
+    "category": "simpleqa",
+    "question": "In the 2012 research paper titled \"Multiplication of EEG Samples through Replicating, Biasing, and Overlapping\" by Adham Atyabi et al., between what frequencies was the EEG dataset bandpass filtered, in hertz (Hz)? Is the answer \"1 & 50\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 429; gold answer: 1 & 50"
+  },
+  {
+    "id": "h280",
+    "category": "simpleqa",
+    "question": "What is the surname of the individual who won the Perkin Prize for Organic Chemistry in 2017? Is the answer \"Lennart Lindegren\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2550; gold answer: Leigh"
+  },
+  {
+    "id": "h281",
+    "category": "simpleqa",
+    "question": "Which day, month, and year did Loris Fortuna, an Italian left-wing politician, die? Is the answer \"5 December 1985\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3701; gold answer: 5 December 1985"
+  },
+  {
+    "id": "h282",
+    "category": "science-physics",
+    "question": "A body moving in the positive x direction passes the origin at time t = 0. Between t = 0 and t = 1 second, the body has a constant speed of 24 meters per second. At t = 1 second, the body is given a constant acceleration of 6 meters per second squared in the negative x direction. The position x of the body at t = 11 seconds is\nIs the correct answer \"-99m\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9817 (ori_mmlu-high_school_physics); correct option: -36m"
+  },
+  {
+    "id": "h283",
+    "category": "science-physics",
+    "question": "Ordinary light is incident on a pile of eight glass plates at the polarizing angle. If the index of refraction of each plate, n, is 1.75, find the percentage polarization of the light transmitted.\nIs the correct answer \"73.5%\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9869 (stemez-Optics); correct option: 73.5%"
+  },
+  {
+    "id": "h284",
+    "category": "science-chemistry",
+    "question": "Two 50 kg pieces of copper, one at 175°C and the other at 40°C, are in contact with each other. The heat flow between the two pieces of copper is given by q =mC_P\\DeltaT, where C_P = 385 J kg^-1 K^-1 . Calculate the final tempera-ture and the amount of heat transferred between the two pieces of copper.\nIs the correct answer \"120°C and -1000 kJ\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3783 (stemez-PhysicalChemistry); correct option: 107.5°C and -1299.4 kJ"
+  },
+  {
+    "id": "h285",
+    "category": "science-physics",
+    "question": "AFabry-Perot etalon is adjusted so that for a wavelength of 5461A°, interference fringes are observed in a tele-scope focused for infinity. The etalon, of thickness 1.01 cm, is enclosed in a box with transparent windows from which the air can be exhausted. It is found that there is a shift of one fringe when the pressure is changed by 6.46 cm Hg. Find the index of refraction of the air at room temperature and at the original pressure, which was 77 cm Hg.\nIs the correct answer \"0.99789\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9859 (stemez-Optics); correct option: 1.000323"
+  },
+  {
+    "id": "h286",
+    "category": "claim",
+    "question": "Is the following claim true? The Danube flows into the Black Sea.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h287",
+    "category": "simpleqa",
+    "question": "How many bottles and glasses are depicted in \"The Day After,\" Munch's painting in number of each? Is the answer \"405 x 480 cm\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 4026; gold answer: 2 glasses and 2 bottles"
+  },
+  {
+    "id": "h288",
+    "category": "science-chemistry",
+    "question": "A chemist has one mole of X atoms. He finds that when half of the X atoms transfer one electron to the other half, 409 kJ must be added. If all of the resulting X^- ions are subsequently converted to X+ ions, an additional 733 kJ must be added. Find the ionization potential, and the electron affinity of X.\nIs the correct answer \"Ionization potential: 11.84eV/atom, Electron affinity: 3.36eV/atom\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3759 (stemez-Chemistry); correct option: Ionization potential: 11.84eV/atom, Electron affinity: 3.36eV/atom"
+  },
+  {
+    "id": "h289",
+    "category": "simpleqa",
+    "question": "What is the molar heat capacity of selenium at STP in joules per kelvin per mole? Is the answer \"DB06626\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 329; gold answer: 25.363"
+  },
+  {
+    "id": "h290",
+    "category": "claim",
+    "question": "Is the following claim true? The Magna Carta was sealed in 1215.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  },
+  {
+    "id": "h291",
+    "category": "science-chemistry",
+    "question": "A line in the Lyman series of hydrogen has a wavelength of $1.03 \\times 10^{-7} \\mathrm{~m}$. Find the original energy level of the electron.\nIs the correct answer \"3\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3732 (scibench-chemmc); correct option: 3"
+  },
+  {
+    "id": "h292",
+    "category": "simpleqa",
+    "question": "Give the names of two sisters of Mukul Chandra Dey, a Bengali artist. Is the answer \"Dick Oram\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 1468; gold answer: Annapura and Rani Chanda"
+  },
+  {
+    "id": "h293",
+    "category": "simpleqa",
+    "question": "In which year was the Kangri cancer effect first studied? Is the answer \"1866\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 700; gold answer: 1866"
+  },
+  {
+    "id": "h294",
+    "category": "science-physics",
+    "question": "Include air resistance proportional to the square of the ball's speed in the previous problem. Let the drag coefficient be $c_W=0.5$, the softball radius be $5 \\mathrm{~cm}$ and the mass be $200 \\mathrm{~g}$. Find the initial speed of the softball needed now to clear the fence.\nIs the correct answer \"32.4$\\mathrm{~m} \\cdot \\mathrm{s}^{-1}$\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 9847 (scibench-class); correct option: 35.2$\\mathrm{~m} \\cdot \\mathrm{s}^{-1}$"
+  },
+  {
+    "id": "h295",
+    "category": "claim",
+    "question": "Is the following claim true? Mount Kilimanjaro is in Kenya.",
+    "answer": "no",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "fabrication"
+  },
+  {
+    "id": "h296",
+    "category": "simpleqa",
+    "question": "On what day, month, and year did Umar Farouk Abdulmutallab appear in front of Judge Paul D. Borman for his attempt to blow up an American civil aircraft? Is the answer \"2003\"?",
+    "answer": "no",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 3387; gold answer: 26 December 2009"
+  },
+  {
+    "id": "h297",
+    "category": "simpleqa",
+    "question": "On which day, month, and year was Limpho Hani born? Is the answer \"31 January 1948\"?",
+    "answer": "yes",
+    "source": "OpenAI SimpleQA (openai/simple-evals, simple_qa_test_set.csv)",
+    "license": "MIT",
+    "source_ref": "row 2906; gold answer: 31 January 1948"
+  },
+  {
+    "id": "h298",
+    "category": "science-chemistry",
+    "question": "The diffusion coefficient for serum globulin at 20° in a dilute aqueous salt solution is 4.0 × 10^-11 m^2 s^-1. If the molecules are assumed to be spherical, calculate their molecular weight. Given \\etaH_2O = 0.001005 Pascal sec at 20° andѵ= 0.75 (cm^3/g) for the protein.\nIs the correct answer \"4.0 × 10^-11 m^2/s\"?",
+    "answer": "no",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3769 (stemez-Chemistry); correct option: 5.15 × 10^5 g/mole"
+  },
+  {
+    "id": "h299",
+    "category": "science-chemistry",
+    "question": "The maximum weekly dose for the hands and forearms, as-suming a mass of 6kg and a surface area of 950 cm^2, is 2.0 rem. How long would it take for a person to receive this dose from a 15millicuriesource emitting a 3.0MeVgamma ray? The distance between the source and the receiving surface is 15 cm. Assume no radiation is absorbed by the air.\nIs the correct answer \"22.6 min\"?",
+    "answer": "yes",
+    "source": "TIGER-Lab/MMLU-Pro, test split",
+    "license": "MIT",
+    "source_ref": "question_id 3799 (stemez-PhysicalChemistry); correct option: 22.6 min"
+  },
+  {
+    "id": "h300",
+    "category": "claim",
+    "question": "Is the following claim true? The speed of sound in dry air at 20 °C is about 343 metres per second.",
+    "answer": "yes",
+    "source": "author-written for this project; verified by the author",
+    "license": "MIT",
+    "source_ref": "true claim"
+  }
+]
