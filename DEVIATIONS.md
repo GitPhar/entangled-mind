@@ -165,3 +165,17 @@ IBM Runtime reports a job's billed QPU time as `metrics()["usage"]["qpu_charge_t
 `backends.qpu_seconds` now reads the correct key. `backends.repair_ledger` recomputed every ledger entry from the stored raw metrics, so the 420 s hard stop sums correctly.
 
 The witness job had already been submitted with the old code, so its ledger entry is repaired the same way when it returns.
+
+**D9b addendum: one supplement to the training pool (same day, before the split was locked and before any fitting).**
+
+Partway through pool run 5, Haiku's errors came almost entirely from SimpleQA (20% wrong) and MMLU-Pro engineering, physics and chemistry (12–20%). It got 0 of 82 computed puzzles wrong, 0 of 48 verified claims, and 4% of biology items. The full pool would yield about 55 wrong items, against the target of at least 120.
+
+One supplement of 450 items was added as t599–t1048 (`make_train_pool.py --supplement`, seed 2719):
+- 300 MMLU-Pro items: 100 each from engineering, physics and chemistry. Science is the larger share, following the brief's "deliberation over ignorance" weighting.
+- 150 SimpleQA items.
+
+The supplement excludes every existing training item and the held-out hard pool. The original 598 items are unchanged.
+
+Also handled in this addendum: an item whose explanation yields fewer than 5 claims after one retry is now recorded as excluded, not counted as wrong, instead of crashing the run. This happened once.
+
+**Finding:** the two-sided computed puzzles do not elicit errors from Haiku 5.5. Its errors on this pool are ignorance-type (SimpleQA) and multi-step science, not the base-rate or harmonic-mean traps.
