@@ -51,7 +51,7 @@
     "batch_id": "c7a152dc-d677-42ae-90a8-fef9ad5e3a28",
     "circuits": 39,
     "shots": 4000,
-    "quantum_seconds": 0.0,
+    "quantum_seconds": 44.0,
     "job_metrics_usage": {
       "qpu_charge_time_seconds": 44,
       "value": 0.721221,
