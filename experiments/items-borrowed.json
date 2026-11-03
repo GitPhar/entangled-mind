@@ -1,0 +1,1502 @@
+{
+ "schema_version": "items-borrowed/1",
+ "created": "2026-11-03",
+ "purpose": "Test items and protocols borrowed from the quantum-cognition and LLM-evaluation literature (see paper/related-work.md). Nothing here has been run.",
+ "how_to_use": {
+  "pool_items": "linda_variants.pool_items use the questions*.json schema (id, category, question, answer, source, license, source_ref) and have yes/no normative answers, so run_pool.py can take json.load(f)['linda_variants']['pool_items'] as-is.",
+  "no_ground_truth": "Items with answer = null (CHSH, QQ pairs, co-occurrence) have no right answer. Do NOT pass them to run_pool.py: it scores answer == q['answer'] and would mark every one wrong. They need their own runners, specified in each block's 'protocol' / 'measurement' and not yet written.",
+  "licences": "Every item carries source and license. Tversky & Kahneman wording is APA-copyrighted and is quoted for research; everything marked MIT is either the llm-qq repository's or written for this project."
+ },
+ "chsh_animal_acts": {
+  "what": "Bell/CHSH test on the conceptual combination 'The Animal Acts' (four 4-way forced choices).",
+  "source": "Aerts & Sozzo 2011 (LNCS 7052:116-127, doi:10.1007/978-3-642-24971-6_12, arXiv:1104.1322) for the design and human data; Aerts et al. 2026 (Entropy 28(6):622, arXiv:2511.21731, Appendix B) for the LLM prompts and LLM data.",
+  "license": "Prompt wording quoted from arXiv:2511.21731, CC BY 4.0 (attribution required). Human counts are factual data from arXiv:1104.1322 (arXiv non-exclusive licence), reproduced with citation. The scoring code and the CbD check are this project's (MIT).",
+  "bib_keys": [
+   "aerts2011quantum",
+   "aerts2026identifying",
+   "aerts2014quantum",
+   "aerts2019quantum",
+   "dzhafarov2014selective",
+   "kujala2016proof"
+  ],
+  "observables": {
+   "A": {
+    "concept": "Animal",
+    "+1": "Horse",
+    "-1": "Bear"
+   },
+   "A'": {
+    "concept": "Animal",
+    "+1": "Tiger",
+    "-1": "Cat"
+   },
+   "B": {
+    "concept": "Acts (makes a sound)",
+    "+1": "Growls",
+    "-1": "Whinnies"
+   },
+   "B'": {
+    "concept": "Acts (makes a sound)",
+    "+1": "Snorts",
+    "-1": "Meows"
+   }
+  },
+  "single_concept_measurements": [
+   {
+    "id": "chsh-A",
+    "question": "What is a good example of Animal?",
+    "options": [
+     "Horse",
+     "Bear"
+    ]
+   },
+   {
+    "id": "chsh-A'",
+    "question": "What is a good example of Animal?",
+    "options": [
+     "Tiger",
+     "Cat"
+    ]
+   },
+   {
+    "id": "chsh-B",
+    "question": "What is a good example of Acts?",
+    "options": [
+     "Growls",
+     "Whinnies"
+    ]
+   },
+   {
+    "id": "chsh-B'",
+    "question": "What is a good example of Acts?",
+    "options": [
+     "Snorts",
+     "Meows"
+    ]
+   }
+  ],
+  "pipeline_items": [
+   {
+    "id": "chsh-AB",
+    "category": "chsh_choice4",
+    "setting": "AB",
+    "question": "Pick what you consider to be a good example of the sentence 'The Animal Acts' from the following four: (1) The Horse Growls; (2) The Bear Whinnies; (3) The Horse Whinnies; (4) The Bear Growls. State only the number of your choice.",
+    "options": [
+     {
+      "n": 1,
+      "text": "The Horse Growls",
+      "a": 1,
+      "b": 1,
+      "score": 1
+     },
+     {
+      "n": 2,
+      "text": "The Bear Whinnies",
+      "a": -1,
+      "b": -1,
+      "score": 1
+     },
+     {
+      "n": 3,
+      "text": "The Horse Whinnies",
+      "a": 1,
+      "b": -1,
+      "score": -1
+     },
+     {
+      "n": 4,
+      "text": "The Bear Growls",
+      "a": -1,
+      "b": 1,
+      "score": -1
+     }
+    ],
+    "answer": null,
+    "source": "Aerts & Sozzo 2011; wording of Aerts et al. 2026 Appendix B, prompt 2 ('neutral')",
+    "license": "CC BY 4.0 (arXiv:2511.21731)",
+    "source_ref": "coincidence measurement AB"
+   },
+   {
+    "id": "chsh-AB'",
+    "category": "chsh_choice4",
+    "setting": "AB'",
+    "question": "Pick what you consider to be a good example of the sentence 'The Animal Acts' from the following four: (1) The Horse Snorts; (2) The Bear Meows; (3) The Horse Meows; (4) The Bear Snorts. State only the number of your choice.",
+    "options": [
+     {
+      "n": 1,
+      "text": "The Horse Snorts",
+      "a": 1,
+      "b": 1,
+      "score": 1
+     },
+     {
+      "n": 2,
+      "text": "The Bear Meows",
+      "a": -1,
+      "b": -1,
+      "score": 1
+     },
+     {
+      "n": 3,
+      "text": "The Horse Meows",
+      "a": 1,
+      "b": -1,
+      "score": -1
+     },
+     {
+      "n": 4,
+      "text": "The Bear Snorts",
+      "a": -1,
+      "b": 1,
+      "score": -1
+     }
+    ],
+    "answer": null,
+    "source": "Aerts & Sozzo 2011; wording of Aerts et al. 2026 Appendix B, prompt 2 ('neutral')",
+    "license": "CC BY 4.0 (arXiv:2511.21731)",
+    "source_ref": "coincidence measurement AB'"
+   },
+   {
+    "id": "chsh-A'B",
+    "category": "chsh_choice4",
+    "setting": "A'B",
+    "question": "Pick what you consider to be a good example of the sentence 'The Animal Acts' from the following four: (1) The Tiger Growls; (2) The Cat Whinnies; (3) The Tiger Whinnies; (4) The Cat Growls. State only the number of your choice.",
+    "options": [
+     {
+      "n": 1,
+      "text": "The Tiger Growls",
+      "a": 1,
+      "b": 1,
+      "score": 1
+     },
+     {
+      "n": 2,
+      "text": "The Cat Whinnies",
+      "a": -1,
+      "b": -1,
+      "score": 1
+     },
+     {
+      "n": 3,
+      "text": "The Tiger Whinnies",
+      "a": 1,
+      "b": -1,
+      "score": -1
+     },
+     {
+      "n": 4,
+      "text": "The Cat Growls",
+      "a": -1,
+      "b": 1,
+      "score": -1
+     }
+    ],
+    "answer": null,
+    "source": "Aerts & Sozzo 2011; wording of Aerts et al. 2026 Appendix B, prompt 2 ('neutral')",
+    "license": "CC BY 4.0 (arXiv:2511.21731)",
+    "source_ref": "coincidence measurement A'B"
+   },
+   {
+    "id": "chsh-A'B'",
+    "category": "chsh_choice4",
+    "setting": "A'B'",
+    "question": "Pick what you consider to be a good example of the sentence 'The Animal Acts' from the following four: (1) The Tiger Snorts; (2) The Cat Meows; (3) The Tiger Meows; (4) The Cat Snorts. State only the number of your choice.",
+    "options": [
+     {
+      "n": 1,
+      "text": "The Tiger Snorts",
+      "a": 1,
+      "b": 1,
+      "score": 1
+     },
+     {
+      "n": 2,
+      "text": "The Cat Meows",
+      "a": -1,
+      "b": -1,
+      "score": 1
+     },
+     {
+      "n": 3,
+      "text": "The Tiger Meows",
+      "a": 1,
+      "b": -1,
+      "score": -1
+     },
+     {
+      "n": 4,
+      "text": "The Cat Snorts",
+      "a": -1,
+      "b": 1,
+      "score": -1
+     }
+    ],
+    "answer": null,
+    "source": "Aerts & Sozzo 2011; wording of Aerts et al. 2026 Appendix B, prompt 2 ('neutral')",
+    "license": "CC BY 4.0 (arXiv:2511.21731)",
+    "source_ref": "coincidence measurement A'B'"
+   }
+  ],
+  "prompts_verbatim": {
+   "prompt_1_exploratory_test_line": "Test AB: Using all aspects of your cognition and imagination, pick what you consider to be a good example of the sentence 'The Animal Acts' from the following four: (1) The Horse Growls; (2) The Bear Whinnies; (3) The Horse Whinnies; (4) The Bear Growls.",
+   "prompt_1_preamble": "The following is a test about how we think about sentences, and I would like you to participate in it. The sentence in question is 'The Animal Acts', which combines the concepts 'Animal' and 'Acts'. You will take 4 different tests called test-AB, test-AB', test-A'B, and test-A'B'. For each test, you must select only one of the 4 provided examples of the sentence 'The Animal Acts'. When responding, use all aspects of your cognition, including unconventional ones. Logic can be at play, as can imagination, creativity and originality. In other words, feel free to be also exploratory in your answers. There are no right or wrong answers, only your answers.",
+   "prompt_2_neutral": "Same as prompt 1, but each test simply asks to pick a 'good example' of the sentence 'The Animal Acts', with no instruction to use all aspects of cognition and imagination or to be exploratory."
+  },
+  "scoring": {
+   "per_trial": "score = a*b, which is +1 for options (1) and (2) and -1 for options (3) and (4)",
+   "E(X,Y)": "P(+1,+1) + P(-1,-1) - P(+1,-1) - P(-1,+1) within setting XY",
+   "CHSH": "E(A',B') + E(A',B) + E(A,B') - E(A,B)",
+   "classical_bound": 2,
+   "tsirelson_bound": 2.8284,
+   "algebraic_max": 4,
+   "required_companion_statistic": "Delta = |<A>_AB - <A>_AB'| + |<A'>_A'B - <A'>_A'B'| + |<B>_AB - <B>_A'B| + |<B'>_AB' - <B'>_A'B'|, where <X>_ctx is the +/-1 expectation of X in that setting. Contextuality-by-Default (Kujala & Dzhafarov 2016, cyclic rank 4): the system is contextual only if s_odd(E) > 2 + Delta, where s_odd is the largest signed sum of the four E values with an odd number of minus signs. A CHSH value above 2 with Delta > CHSH - 2 is fully accounted for by direct influences (signalling) and must not be reported as entanglement."
+  },
+  "reference_results": {
+   "humans_Aerts_Sozzo_2011": {
+    "N": 81,
+    "sample": "friends and colleagues of the authors (convenience sample), one questionnaire per person, all four settings within subject",
+    "counts": {
+     "AB": [
+      4,
+      51,
+      21,
+      5
+     ],
+     "AB'": [
+      48,
+      2,
+      24,
+      7
+     ],
+     "A'B": [
+      63,
+      7,
+      7,
+      4
+     ],
+     "A'B'": [
+      12,
+      7,
+      8,
+      54
+     ]
+    },
+    "reported_CHSH": 2.4197,
+    "reported_p_vs_2": 0.0171,
+    "recomputed": {
+     "E": {
+      "AB": -0.7778,
+      "AB'": 0.358,
+      "A'B": 0.6543,
+      "A'B'": 0.6296
+     },
+     "CHSH": 2.4198,
+     "s_odd": 2.4198,
+     "marginals_expectation": {
+      "A (Horse=+1) in AB, AB'": [
+       0.358,
+       0.2346
+      ],
+      "A' (Tiger=+1) in A'B, A'B'": [
+       0.7284,
+       -0.5309
+      ],
+      "B (Growls=+1) in AB, A'B": [
+       -0.3827,
+       0.7284
+      ],
+      "B' (Snorts=+1) in AB', A'B'": [
+       0.7778,
+       -0.5062
+      ]
+     },
+     "Delta_marginal_inconsistency": 3.7778,
+     "CbD_bound_2_plus_Delta": 5.7778,
+     "CbD_contextual": false
+    }
+   },
+   "ChatGPT_Aerts_et_al_2026": {
+    "model_version": "not stated in the paper ('ChatGPT')",
+    "collection": "10 or 11 sessions of the four tests requested inside a single response, repeated in 8 conversations, for 81 sets per prompt; not independent samples",
+    "reported": {
+     "prompt_1_exploratory": 2.25,
+     "prompt_2_neutral": 3.09
+    },
+    "recomputed_from_printed_tables": {
+     "prompt_1_exploratory": {
+      "E": {
+       "AB": -0.802,
+       "AB'": 0.284,
+       "A'B": 0.234,
+       "A'B'": 0.926
+      },
+      "CHSH": 2.246,
+      "s_odd": 2.246,
+      "marginals_expectation": {
+       "A (Horse=+1) in AB, AB'": [
+        0.086,
+        0.334
+       ],
+       "A' (Tiger=+1) in A'B, A'B'": [
+        0.234,
+        -0.704
+       ],
+       "B (Growls=+1) in AB, A'B": [
+        -0.036,
+        1.0
+       ],
+       "B' (Snorts=+1) in AB', A'B'": [
+        0.902,
+        -0.63
+       ]
+      },
+      "Delta_marginal_inconsistency": 3.754,
+      "CbD_bound_2_plus_Delta": 5.754,
+      "CbD_contextual": false
+     },
+     "prompt_2_neutral": {
+      "E": {
+       "AB": -0.852,
+       "AB'": 0.68,
+       "A'B": 1.0,
+       "A'B'": 1.0
+      },
+      "CHSH": 3.532,
+      "s_odd": 3.532,
+      "marginals_expectation": {
+       "A (Horse=+1) in AB, AB'": [
+        0.062,
+        0.68
+       ],
+       "A' (Tiger=+1) in A'B, A'B'": [
+        0.556,
+        -0.926
+       ],
+       "B (Growls=+1) in AB, A'B": [
+        0.086,
+        0.556
+       ],
+       "B' (Snorts=+1) in AB', A'B'": [
+        1.0,
+        -0.926
+       ]
+      },
+      "Delta_marginal_inconsistency": 4.496,
+      "CbD_bound_2_plus_Delta": 6.496,
+      "CbD_contextual": false
+     }
+    },
+    "note": "For prompt 2 the printed Table 3 gives E(A',B) = 1.000, not the 0.556 stated in the text (0.556 is the marginal <A'> in setting A'B), so the table implies CHSH = 3.53 rather than 3.09. Either way it is non-contextual under CbD."
+   },
+   "Gemini_Aerts_et_al_2026": {
+    "reported": {
+     "prompt_1_exploratory": 2.12,
+     "prompt_2_neutral": 4.0
+    },
+    "tables": "not published"
+   },
+   "guided_conversation_Aerts_et_al_2026": {
+    "reported_CHSH": 4.0,
+    "note": "single guided conversation; the model gives the most typical answer in every setting"
+   }
+  },
+  "protocol_for_this_project": {
+   "independence": "One fresh API call per trial. Never ask for many sessions inside one response.",
+   "trials": "At least 81 per setting, to match the human N; 200 recommended so that Delta and E have standard errors near 0.05.",
+   "option_order": "Randomise the order of the four options on every trial, with seed and permutation recorded; score by option text, not position.",
+   "single_concept_arms": "Run the four single-concept questions as well (same R), so that marginals outside the joint context are measured.",
+   "report": [
+    "E for each setting",
+    "CHSH",
+    "s_odd",
+    "Delta",
+    "the CbD verdict",
+    "bootstrap 95% CI for s_odd - (2 + Delta)"
+   ],
+   "pre_registered_reading": "Entanglement-like contextuality is claimed only if the lower 95% bound of s_odd - (2 + Delta) is above 0. CHSH > 2 alone is reported as 'Bell-type inequality exceeded, explained by signalling' whenever CbD is not exceeded.",
+   "link_to_this_project": "Optionally, also run each trial through the deliberation pipeline (brief explanation, then claims, then relation web) to see whether the conflict score of arm A tracks which settings the model finds hard to choose in. This is exploratory, not pre-registered."
+  }
+ },
+ "linda_variants": {
+  "what": "Conjunction-fallacy items (Linda, Bill), recast as yes/no questions with a normative answer so the existing pool pipeline can score them. 'Wrong' means the model asserts that a conjunction is more probable than one of its conjuncts.",
+  "bib_keys": [
+   "tversky1983extensional",
+   "hertwig1999conjunction",
+   "fiedler1988dependence",
+   "binz2023using",
+   "mccoy2024embers",
+   "beuria2026emergent",
+   "imannezhad2026divergent"
+  ],
+  "published_human_rates": {
+   "Tversky_Kahneman_1983": {
+    "ranking_8_statements_direct": {
+     "Linda": {
+      "naive": [
+       0.89,
+       88
+      ],
+      "informed": [
+       0.9,
+       53
+      ],
+      "sophisticated": [
+       0.85,
+       32
+      ]
+     },
+     "Bill": {
+      "naive": [
+       0.92,
+       94
+      ],
+      "informed": [
+       0.86,
+       56
+      ],
+      "sophisticated": [
+       0.83,
+       32
+      ]
+     },
+     "format": "[violation rate, N]",
+     "overall": 0.88
+    },
+    "transparent_two_option_Linda": [
+     0.85,
+     142
+    ],
+    "rating_9_point_Linda": {
+     "rate": 0.82,
+     "N": 119,
+     "mean_T": 3.5,
+     "mean_T&F": 5.6
+    },
+    "T_star_whether_or_not": [
+     0.57,
+     75
+    ],
+    "betting_version": [
+     0.56,
+     60
+    ],
+    "statistically_trained_grad_students_rating": [
+     0.36,
+     64
+    ]
+   },
+   "frequency_formats": {
+    "Fiedler_1988_Linda": {
+     "Exp1": 0.22,
+     "Exp2": 0.17,
+     "note": "as reported by Hertwig & Gigerenzer 1999; original not read"
+    },
+    "Hertwig_Gigerenzer_1999_Linda_frequency": [
+     [
+      0.0,
+      20
+     ],
+     [
+      0.13,
+      23
+     ],
+     [
+      0.2,
+      25
+     ]
+    ],
+    "Hertwig_Gigerenzer_1999_Linda_probability_ranking": [
+     [
+      0.83,
+      18
+     ],
+     [
+      0.88,
+      24
+     ],
+     [
+      0.82,
+      22
+     ]
+    ]
+   },
+   "LLM_reference": {
+    "Binz_Schulz_2023_GPT3_davinci": "committed the fallacy on the 3-option Linda prompt (T, T&F, NRA filler); vignette likely seen in training",
+    "Imannezhad_et_al_2026_GPT5": "18.8% of conjunction judgments contained any fallacy vs 58.5% for humans (election-forecast items, not Linda)"
+   }
+  },
+  "pool_items": [
+   {
+    "id": "lin01",
+    "category": "conjunction_linda",
+    "question": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Which is more probable: (a) Linda is a bank teller, or (b) Linda is a bank teller and is active in the feminist movement? Is (b) more probable than (a)?",
+    "answer": "no",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "p. 299 transparent two-option version; yes/no framing is ours",
+    "human_rate": {
+     "fallacy": 0.85,
+     "N": 142,
+     "population": "UBC undergraduates",
+     "format": "choose the more probable of T and T&F; reversing option order had no effect"
+    }
+   },
+   {
+    "id": "lin02",
+    "category": "conjunction_linda",
+    "question": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Which is more probable: (a) Linda is a bank teller and is active in the feminist movement, or (b) Linda is a bank teller? Is (a) more probable than (b)?",
+    "answer": "no",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "lin01 with option order reversed (order control)",
+    "human_rate": {
+     "fallacy": 0.85,
+     "N": 142,
+     "note": "TK report no effect of reversing the option order"
+    }
+   },
+   {
+    "id": "lin03",
+    "category": "conjunction_linda",
+    "question": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Which is more probable: (a) Linda is a bank teller, or (b) Linda is a bank teller and is active in the feminist movement? Is (a) at least as probable as (b)?",
+    "answer": "yes",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "lin01 with the normative answer flipped to yes (acquiescence control)",
+    "human_rate": null
+   },
+   {
+    "id": "lin04",
+    "category": "conjunction_linda",
+    "question": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Is it more probable that Linda is a bank teller and is active in the feminist movement than that Linda is a bank teller whether or not she is active in the feminist movement?",
+    "answer": "no",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "p. 299, T* ('whether or not') version, rating task",
+    "human_rate": {
+     "fallacy": 0.57,
+     "N": 75,
+     "format": "9-point rating; 57% rated T&F above T*, 16% below"
+    }
+   },
+   {
+    "id": "lin05",
+    "category": "conjunction_linda",
+    "question": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Imagine 200 women who fit this description. Are there more of them who are bank tellers and active in the feminist movement than there are bank tellers?",
+    "answer": "no",
+    "source": "Hertwig & Gigerenzer 1999, J. Behav. Decis. Making 12(4):275-305 (frequency format); vignette from Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "frequency ('200 women') format",
+    "human_rate": {
+     "fallacy": [
+      0.0,
+      0.13,
+      0.2
+     ],
+     "N": [
+      20,
+      23,
+      25
+     ],
+     "note": "Hertwig & Gigerenzer's frequency conditions; Fiedler 1988 reports 22% and 17% for Linda in frequency format; probability-ranking controls were 82-88%"
+    }
+   },
+   {
+    "id": "lin06",
+    "category": "conjunction_bill",
+    "question": "Bill is 34 years old. He is intelligent, but unimaginative, compulsive, and generally lifeless. In school, he was strong in mathematics but weak in social studies and humanities. Is it more probable that Bill is an accountant who plays jazz for a hobby than that Bill plays jazz for a hobby?",
+    "answer": "no",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "p. 297 Bill vignette, A&J vs J; yes/no framing is ours",
+    "human_rate": {
+     "fallacy": 0.92,
+     "N": 94,
+     "population": "naive undergraduates",
+     "format": "rank 8 statements; % ranking A&J above J (direct test). Informed 86% (N=56), sophisticated 83% (N=32)"
+    }
+   },
+   {
+    "id": "lin07",
+    "category": "conjunction_novel",
+    "question": "Tomas is 29 years old, quiet and meticulous. He studied electrical engineering and spends his weekends restoring vintage radios. Is it more probable that Tomas is a primary-school teacher who repairs electronics as a hobby than that Tomas is a primary-school teacher?",
+    "answer": "no",
+    "source": "author-written for this project",
+    "license": "MIT",
+    "source_ref": "Linda-structured item with novel content (contamination control, after Binz & Schulz 2023 and McCoy et al. 2024)",
+    "human_rate": null
+   },
+   {
+    "id": "lin08",
+    "category": "conjunction_novel",
+    "question": "Priya is 45 years old. She is careful with money, reads company annual reports for fun, and chairs her neighbourhood budget committee. Is it more probable that Priya is a professional cellist and does her own tax returns than that Priya is a professional cellist?",
+    "answer": "no",
+    "source": "author-written for this project",
+    "license": "MIT",
+    "source_ref": "novel conjunction item, representative conjunct second",
+    "human_rate": null
+   },
+   {
+    "id": "lin09",
+    "category": "conjunction_control",
+    "question": "A person is described only as analytical and intelligent. Is it more probable that this person is a scientist and enjoys mathematics than that this person is a scientist?",
+    "answer": "no",
+    "source": "author-written for this project, after the non-stereotyped control battery of Beuria 2026 (Sci. Rep., doi:10.1038/s41598-026-65824-7)",
+    "license": "MIT",
+    "source_ref": "weak-stereotype control; paraphrase, not Beuria's wording",
+    "human_rate": null
+   },
+   {
+    "id": "lin10",
+    "category": "conjunction_perturbed",
+    "question": "Marta is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations. Is it more probable that Marta is a bank teller and is active in the feminist movement than that Marta is a bank teller?",
+    "answer": "no",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293 with the name changed",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "source_ref": "name-swap contamination control (after Kang 2026, stratum S2)",
+    "human_rate": null
+   }
+  ],
+  "notes": [
+   "pool_items use the same schema as experiments/questions*.json; json.load(f)['linda_variants']['pool_items'] gives a list that run_pool.py can take directly.",
+   "lin01/lin02 are an option-order pair and lin01/lin03 a polarity pair; report fallacy rates per pair, not just pooled.",
+   "Linda and Bill are almost certainly in the base model's training data. Compare lin01-lin06 with the novel or perturbed items lin07-lin10 before reading any rate as human-like.",
+   "The original studies used ranking, rating or choice formats; our yes/no framing is a different measurement, so the human rates are a reference point, not a matched benchmark."
+  ]
+ },
+ "qq_order_protocol": {
+  "what": "Question-order (QQ equality) audit for sequential yes/no judgments, following Kang 2026's committed multi-turn forced-branch protocol, with human joint data from Wang & Busemeyer 2013.",
+  "bib_keys": [
+   "kang2026auditing",
+   "wang2013quantum",
+   "wang2014context",
+   "moore2002measuring",
+   "boyerkassem2016testing",
+   "kujala2016proof",
+   "khrennikov2014quantum",
+   "fuyama2025quantum"
+  ],
+  "definitions": {
+   "notation": "Joint arguments are written in asking order. p_AB(Ay,Bn) is from the A-first condition; p_BA(By,An) is from the B-first condition.",
+   "q_QQ": "[p_AB(Ay,Bn) + p_AB(An,By)] - [p_BA(By,An) + p_BA(Bn,Ay)], the difference between orders in the probability that the two answers disagree (Wang & Busemeyer 2013, off-diagonal convention; PNAS 2014 also prints a diagonal form with opposite sign, so state the convention)",
+   "QQ_equality": "q_QQ = 0, a parameter-free prediction of the projective (Lueders) quantum question-order model whenever nothing intervenes between the two questions",
+   "OE_A": "p_BA(Ay) - p_AB(Ay), the change in A's yes-rate when it is asked second",
+   "OE_B": "p_AB(By) - p_BA(By)",
+   "OSS": "|OE_A| + |OE_B|",
+   "Gamma": "|q_QQ| - OSS. Gamma <= 0 means non-contextual under rank-2 Contextuality-by-Default (Kang 2026, Corollary 7, from Kujala & Dzhafarov 2016). Only Gamma > 0 certifies residual contextuality.",
+   "z_test_humans": "standard two-proportion test: z = q / sqrt(p (1-p) / N), with p the pooled disagreement rate and N = (1/N_AB + 1/N_BA)^-1; reject QQ if |z| > 1.96. Wang & Busemeyer 2013 (p. 699) print the variance as 2p(1-p)/N, but their reported |z| values (Rose-Jackson 5.30) match p(1-p)/N, which is what is used here."
+  },
+  "decision_rules_Kang_2026": {
+   "equivalence_band": "SATISFIED if the whole uncertainty interval for q lies within |q| <= 0.02; VIOLATED if it lies entirely outside; otherwise INDETERMINATE",
+   "saturation_gate": "an item is saturated if more than half of its measured positions have max(p, 1-p) > 0.99. Saturated items are reported but not interpreted.",
+   "label_counterbalancing": "map the two semantic options to neutral single-token labels A/B under both assignments; canonicalise back to semantic options; pool the two mappings with equal weight; report per-mapping q as a label-effect diagnostic",
+   "certification": "certified non-contextual if Gamma_upper <= 0; certified contextual if Gamma_lower > 0; otherwise indeterminate"
+  },
+  "protocol": {
+   "conversation_per_branch": [
+    "system: 'You are asked a series of judgment questions. For each question, answer with exactly one letter: \"A\" or \"B\". Do not explain.' (Kang 2026, Appendix B.2)",
+    "user: two-line legend (A = <option>, B = <option>), then question 1",
+    "read the first-answer distribution p_1",
+    "forced branch: append an assistant turn containing exactly the label for answer y (and, separately, for answer n)",
+    "user: legend, then question 2; read the branch-conditional distribution K(. | first answer)",
+    "repeat with the order reversed, and under the swapped label mapping"
+   ],
+   "joint": "p_AB(alpha, beta) = p_A(alpha) * K_AB(beta | alpha). Never multiply independently measured marginals.",
+   "adaptation_for_Anthropic_API": "The Messages API returns no token log-probabilities, so estimate p_1 and K by sampling: R = 50 independent calls per position at default temperature, with thinking off or display 'omitted' and nothing read from it. The forced branch is the assistant turn we write into the history. The saturation gate becomes: the minority answer appears in fewer than 1 of R samples at more than half the positions. Clopper-Pearson intervals per position feed the q and Gamma envelopes.",
+   "controls": [
+    "name-swapped S2 twins of famous S1 items (memorisation)",
+    "qq-rose-jackson (intervening information; projective QQ should fail)",
+    "placebo rewording of question 2 with the order unchanged (after Tjuatja et al. 2024)"
+   ],
+   "relation_to_exp3": "experiments/exp3-order-effects.md asks about the model's own contentions. This protocol uses fixed external pairs with human joint data, so the two give independent evidence on whether order effects exist at all in the base model."
+  },
+  "pairs": [
+   {
+    "id": "qq-s1-01",
+    "kang_id": "s1-01",
+    "stratum": "S1",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1997,
+    "matched_to": null,
+    "question_A": "Do you generally think Bill Clinton is honest and trustworthy?",
+    "question_B": "Do you generally think Al Gore is honest and trustworthy?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-01; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.28,
+     "OE_B": 0.462,
+     "OSS": 0.742,
+     "q": 0.182,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    },
+    "human_reference": {
+     "source": "Wang & Busemeyer 2013, Table 1",
+     "pair": "Clinton / Gore honest and trustworthy",
+     "survey": "Gallup, 6-7 Sept 1997",
+     "joint_A_first_yy_yn_ny_nn": [
+      0.4899,
+      0.0447,
+      0.1767,
+      0.2886
+     ],
+     "N_A_first": 447,
+     "joint_B_first_yy_yn_ny_nn": [
+      0.5625,
+      0.1991,
+      0.0255,
+      0.213
+     ],
+     "N_B_first": 432,
+     "computed": {
+      "q": -0.0032,
+      "z": -0.1139,
+      "OE_A": 0.0534,
+      "OE_B": -0.095,
+      "OSS": 0.1484,
+      "Gamma": -0.1452
+     }
+    }
+   },
+   {
+    "id": "qq-s1-02",
+    "kang_id": "s1-02",
+    "stratum": "S1",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1995,
+    "matched_to": null,
+    "question_A": "Do you generally think Newt Gingrich is honest and trustworthy?",
+    "question_B": "Do you generally think Bob Dole is honest and trustworthy?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-02; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.482,
+     "OE_B": 0.498,
+     "OSS": 0.981,
+     "q": 0.981,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    },
+    "human_reference": {
+     "source": "Wang & Busemeyer 2013, Table 1",
+     "pair": "Gingrich / Dole honest and trustworthy",
+     "survey": "Gallup, 27-29 Mar 1995",
+     "joint_A_first_yy_yn_ny_nn": [
+      0.3936,
+      0.0824,
+      0.3204,
+      0.2037
+     ],
+     "N_A_first": 437,
+     "joint_B_first_yy_yn_ny_nn": [
+      0.3448,
+      0.3422,
+      0.0637,
+      0.2493
+     ],
+     "N_B_first": 377,
+     "computed": {
+      "q": -0.0031,
+      "z": -0.0899,
+      "OE_A": -0.0675,
+      "OE_B": 0.027,
+      "OSS": 0.0945,
+      "Gamma": -0.0914
+     }
+    }
+   },
+   {
+    "id": "qq-s1-04",
+    "kang_id": "s1-04",
+    "stratum": "S1",
+    "pair_type": "contrast",
+    "sensitive": true,
+    "options": [
+     "A few",
+     "Many"
+    ],
+    "yes_option": "A few",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1996,
+    "matched_to": null,
+    "question_A": "Do you think that only a few or many white people dislike black people?",
+    "question_B": "Do you think that only a few or many black people dislike white people?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-04; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.216,
+     "OE_B": -0.19,
+     "OSS": 0.406,
+     "q": 0.001,
+     "QQ_verdict": "SATISFIED",
+     "saturated": true
+    },
+    "human_reference": {
+     "source": "Wang & Busemeyer 2013, Table 1",
+     "pair": "White / Black racial hostility ('many' or 'almost all' coded yes)",
+     "survey": "Gallup, 27-30 Jun 1996",
+     "joint_A_first_yy_yn_ny_nn": [
+      0.3987,
+      0.0174,
+      0.1612,
+      0.4227
+     ],
+     "N_A_first": 459,
+     "joint_B_first_yy_yn_ny_nn": [
+      0.4012,
+      0.0597,
+      0.1379,
+      0.4012
+     ],
+     "N_B_first": 486,
+     "computed": {
+      "q": -0.019,
+      "z": -0.7466,
+      "OE_A": 0.123,
+      "OE_B": 0.099,
+      "OSS": 0.222,
+      "Gamma": -0.203
+     }
+    }
+   },
+   {
+    "id": "qq-s1-05",
+    "kang_id": "s1-05",
+    "stratum": "S1",
+    "pair_type": "reciprocity",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": "The following question is from a survey conducted during the Cold War era. Answer the question as written, based on your own assessment of that period.",
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Do you think the United States should let Communist newspaper reporters from other countries come in here and send back to their papers the news as they see it?",
+    "question_B": "Do you think a Communist country like Russia should let American newspaper reporters come in and send back to America the news as they see it?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-05; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.001,
+     "OE_B": -0.731,
+     "OSS": 0.733,
+     "q": -0.73,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-06",
+    "kang_id": "s1-06",
+    "stratum": "S1",
+    "pair_type": "context_contrast",
+    "sensitive": true,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1979,
+    "matched_to": null,
+    "question_A": "Do you think it should be possible for a pregnant woman to obtain a legal abortion if she is married and does not want any more children?",
+    "question_B": "Do you think it should be possible for a pregnant woman to obtain a legal abortion if there is a strong chance of serious defect in the baby?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-06; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.007,
+     "OE_B": 0.002,
+     "OSS": 0.009,
+     "q": -0.006,
+     "QQ_verdict": "SATISFIED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-07",
+    "kang_id": "s1-07",
+    "stratum": "S1",
+    "pair_type": "reciprocity",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Do you think the Japanese government should be allowed to set limits on how much American industry can sell in Japan?",
+    "question_B": "Do you think the American government should be allowed to set limits on how much Japanese industry can sell in the United States?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-07; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.387,
+     "OE_B": 0.387,
+     "OSS": 0.774,
+     "q": -0.0,
+     "QQ_verdict": "SATISFIED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-09",
+    "kang_id": "s1-09",
+    "stratum": "S1",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Approve",
+     "Disapprove"
+    ],
+    "yes_option": "Approve",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Do you approve or disapprove of the job the Republican leaders in Congress are doing?",
+    "question_B": "Do you approve or disapprove of the job the Democratic leaders in Congress are doing?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-09; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.131,
+     "OE_B": -0.178,
+     "OSS": 0.309,
+     "q": -0.309,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-10",
+    "kang_id": "s1-10",
+    "stratum": "S1",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Approve",
+     "Disapprove"
+    ],
+    "yes_option": "Approve",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Do you approve or disapprove of the way Barack Obama handled the problems faced by US automakers like General Motors and Chrysler?",
+    "question_B": "Do you approve or disapprove of the way Barack Obama handled the problems faced by major US banks and financial institutions?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-10; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.001,
+     "OE_B": 0.024,
+     "OSS": 0.025,
+     "q": -0.023,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-11",
+    "kang_id": "s1-11",
+    "stratum": "S1",
+    "pair_type": "reciprocity",
+    "sensitive": false,
+    "options": [
+     "Too personally critical",
+     "Not too personally critical"
+    ],
+    "yes_option": "Too personally critical",
+    "vignette": null,
+    "historical_header": "The following question is from a survey conducted in 2008. Answer the question as written, based on your own assessment of that period.",
+    "reference_year": 2008,
+    "matched_to": null,
+    "question_A": "In the past presidential election campaign, do you think Barack Obama has been too personally critical of John McCain, or not?",
+    "question_B": "In the past presidential election campaign, do you think John McCain has been too personally critical of Barack Obama, or not?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-11; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.346,
+     "OE_B": -0.395,
+     "OSS": 0.741,
+     "q": -0.049,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s1-12",
+    "kang_id": "s1-12",
+    "stratum": "S1",
+    "pair_type": "consistency",
+    "sensitive": true,
+    "options": [
+     "Favor",
+     "Oppose"
+    ],
+    "yes_option": "Favor",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 2012,
+    "matched_to": null,
+    "question_A": "Do you generally favor or oppose affirmative action programs for racial minorities?",
+    "question_B": "Do you generally favor or oppose affirmative action programs for women?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s1-12; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.005,
+     "OE_B": 0.0,
+     "OSS": 0.006,
+     "q": 0.005,
+     "QQ_verdict": "SATISFIED",
+     "saturated": true
+    },
+    "human_reference": {
+     "source": "Wang & Busemeyer 2013, Table 1",
+     "pair": "Affirmative action for racial minorities / women (lab)",
+     "survey": "Wang & Busemeyer lab experiment, replicating Wilson et al. 2008",
+     "joint_A_first_yy_yn_ny_nn": [
+      0.4831,
+      0.0424,
+      0.161,
+      0.3136
+     ],
+     "N_A_first": 118,
+     "joint_B_first_yy_yn_ny_nn": [
+      0.566,
+      0.1321,
+      0.0283,
+      0.2736
+     ],
+     "N_B_first": 106,
+     "computed": {
+      "q": 0.043,
+      "z": 0.8309,
+      "OE_A": 0.0688,
+      "OE_B": -0.054,
+      "OSS": 0.1228,
+      "Gamma": -0.0798
+     }
+    }
+   },
+   {
+    "id": "qq-s2-01",
+    "kang_id": "s2-01",
+    "stratum": "S2",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1997,
+    "matched_to": "qq-s1-01",
+    "question_A": "Do you generally think Tony Blair is honest and trustworthy?",
+    "question_B": "Do you generally think Gordon Brown is honest and trustworthy?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s2-01; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.493,
+     "OE_B": -0.311,
+     "OSS": 0.804,
+     "q": 0.182,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s2-02",
+    "kang_id": "s2-02",
+    "stratum": "S2",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": 1995,
+    "matched_to": "qq-s1-02",
+    "question_A": "Do you generally think Dick Armey is honest and trustworthy?",
+    "question_B": "Do you generally think Trent Lott is honest and trustworthy?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s2-02; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.0,
+     "OE_B": 0.0,
+     "OSS": 0.0,
+     "q": 0.0,
+     "QQ_verdict": "SATISFIED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s2-09",
+    "kang_id": "s2-09",
+    "stratum": "S2",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Approve",
+     "Disapprove"
+    ],
+    "yes_option": "Approve",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": "qq-s1-09",
+    "question_A": "Do you approve or disapprove of the job the Conservative members of the UK Parliament are doing?",
+    "question_B": "Do you approve or disapprove of the job the Labour members of the UK Parliament are doing?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s2-09; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.051,
+     "OE_B": -0.544,
+     "OSS": 0.595,
+     "q": 0.468,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s3-01",
+    "kang_id": "s3-01",
+    "stratum": "S3",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": "Two candidates applied for the same software engineering role. Candidate K has strong qualifications but a two-year employment gap. Candidate L has equivalent qualifications but changed jobs five times in six years.",
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Should Candidate K advance to the interview stage?",
+    "question_B": "Should Candidate L advance to the interview stage?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s3-01; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.0,
+     "OE_B": -0.562,
+     "OSS": 0.562,
+     "q": 0.562,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s3-03",
+    "kang_id": "s3-03",
+    "stratum": "S3",
+    "pair_type": "contrast",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": "A bank's automated system denied two loan applications. Applicant P had high income but a very short credit history. Applicant Q had modest income but a long, clean credit history.",
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Was the automated denial of Applicant P justified?",
+    "question_B": "Was the automated denial of Applicant Q justified?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s3-03; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.007,
+     "OE_B": 0.493,
+     "OSS": 0.5,
+     "q": 0.5,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s3-08",
+    "kang_id": "s3-08",
+    "stratum": "S3",
+    "pair_type": "contrast",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": "Two employees received identical performance scores. Employee R was described by their manager as 'assertive and demanding'. Employee S was described as 'collaborative and accommodating'.",
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Does Employee R deserve a promotion this cycle?",
+    "question_B": "Does Employee S deserve a promotion this cycle?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s3-08; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": 0.378,
+     "OE_B": 0.991,
+     "OSS": 1.369,
+     "q": -0.614,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s3-09",
+    "kang_id": "s3-09",
+    "stratum": "S3",
+    "pair_type": "consistency",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": "Two defendants were convicted of the same non-violent fraud of equal amounts. Defendant T is a first-time offender with stable employment. Defendant U is a first-time offender who was unemployed at the time.",
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Is a two-year prison sentence appropriate for Defendant T?",
+    "question_B": "Is a two-year prison sentence appropriate for Defendant U?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s3-09; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.044,
+     "OE_B": -0.731,
+     "OSS": 0.775,
+     "q": 0.687,
+     "QQ_verdict": "VIOLATED",
+     "saturated": true
+    }
+   },
+   {
+    "id": "qq-s3-11",
+    "kang_id": "s3-11",
+    "stratum": "S3",
+    "pair_type": "mutual_obligation",
+    "sensitive": false,
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "yes_option": "Yes",
+    "vignette": null,
+    "historical_header": null,
+    "reference_year": null,
+    "matched_to": null,
+    "question_A": "Should online platforms be required to share advertising revenue with the creators whose content they host?",
+    "question_B": "Should content creators be required to follow the content guidelines set by the platforms that host them?",
+    "answer": null,
+    "source": "Kang 2026, arXiv:2607.17219, item file items/pilot_v1_2.json (github.com/pilsungk/llm-qq, tag arxiv-v2)",
+    "license": "MIT (llm-qq repository)",
+    "source_ref": "s3-11; S1 wordings derive from Gallup/Pew/SRC survey items via Wang et al. 2014",
+    "llm_reference_Kang_TrackM": {
+     "OE_A": -0.924,
+     "OE_B": -0.034,
+     "OSS": 0.959,
+     "q": -0.89,
+     "QQ_verdict": "VIOLATED",
+     "saturated": false
+    }
+   },
+   {
+    "id": "qq-rose-jackson",
+    "kang_id": null,
+    "stratum": "negative_control",
+    "pair_type": "intervening_information",
+    "options": [
+     "Should",
+     "Should not"
+    ],
+    "yes_option": "Should",
+    "question_A": "As you may know, former Major League player Pete Rose is ineligible for baseball's Hall of Fame due to charges that he had gambled on baseball games. Do you think Rose should or should not be eligible for admission to the Hall of Fame?",
+    "question_B": "As you may know, Shoeless Joe Jackson is ineligible for baseball's Hall of Fame due to charges that he took money from gamblers in exchange for fixing the 1919 World Series. Do you think Jackson should or should not be eligible for admission to the Hall of Fame?",
+    "wording_status": "Background sentences are quoted in Wang & Busemeyer 2013 (p. 701-702) with trailing ellipses, so the survey text continued; the question sentence is their quotation with Rose/Jackson split out. Check against Moore 2002 before running.",
+    "answer": null,
+    "source": "Moore 2002 (Gallup, 13-14 Jul 1999) as reported in Wang & Busemeyer 2013",
+    "license": "Public-poll item wording quoted with citation from Wang & Busemeyer 2013.",
+    "source_ref": "negative control: background information precedes each question, so the projective QQ model predicts a violation",
+    "human_reference": {
+     "source": "Wang & Busemeyer 2013, Table 1",
+     "pair": "Rose / Jackson Hall of Fame eligibility",
+     "survey": "Gallup, 13-14 Jul 1999",
+     "joint_A_first_yy_yn_ny_nn": [
+      0.3379,
+      0.3241,
+      0.0178,
+      0.3202
+     ],
+     "N_A_first": 506,
+     "joint_B_first_yy_yn_ny_nn": [
+      0.4156,
+      0.0671,
+      0.1234,
+      0.3939
+     ],
+     "N_B_first": 462,
+     "computed": {
+      "q": 0.1514,
+      "z": 5.3018,
+      "OE_A": -0.123,
+      "OE_B": -0.127,
+      "OSS": 0.25,
+      "Gamma": -0.0986
+     }
+    }
+   }
+  ],
+  "notes": [
+   "The human values in 'computed' are recomputed here from the printed cells. They match Wang & Busemeyer's q to rounding (Clinton-Gore -0.0031 vs printed -0.0031; Rose-Jackson +0.1514, z = 5.30 vs printed 5.30). Gamma is negative for every human pair, including Rose-Jackson: human order data are non-contextual under rank-2 CbD even where QQ fails.",
+   "Kang's s1-04 offers 'A few' / 'Many'; Wang & Busemeyer collapsed a three-option answer (only a few / many / almost all) with many or almost all coded as yes. 'yes_option' follows Kang's option_1, so for s1-04 flip the sign convention before comparing with the human q.",
+   "Kang's Track M values come from Qwen3-4B-Instruct-2507 log-probabilities. They are a reference for what an instruction-tuned model did, not a benchmark."
+  ]
+ },
+ "cooccurrence_rule": {
+  "what": "Yearsley & Trueblood's co-occurrence prediction, written as testable rules on one item set where both conjunction and order are measured.",
+  "source": "Yearsley & Trueblood 2018 (Psychon Bull Rev 25(4):1517-1525, doi:10.3758/s13423-017-1371-z), building on Busemeyer et al. 2011 (Psych Rev 118(2):193-218)",
+  "license": "Rules restated in our own words (MIT). The items below are author-written (MIT).",
+  "bib_keys": [
+   "yearsley2018quantum",
+   "busemeyer2011quantum",
+   "pothos2013can",
+   "boyerkassem2016conjunction"
+  ],
+  "stated_prediction": "Order effects and conjunction fallacies both arise from incompatible (non-commuting) events, so 'these effects should co-occur ... not just for the same stimuli but also in the same individuals' (Yearsley & Trueblood 2018). The paper states this qualitatively; it reports that 'the majority of participants display both' but gives no correlation or count.",
+  "rules": [
+   {
+    "id": "R1_necessity",
+    "status": "follows from the Lueders rule in Busemeyer et al. 2011; Yearsley & Trueblood's premise",
+    "rule": "If P(X and Y) > P(Y) for an item, the quantum account requires X and Y to be incompatible; incompatible events then predict a nonzero order effect when X and Y are judged in sequence. An item with a reliable single conjunction fallacy and a sequential order effect indistinguishable from 0 counts against the account."
+   },
+   {
+    "id": "R2_order_bound",
+    "status": "our derivation from ||P_Y P_X psi||^2 <= ||P_X psi||^2; not stated in Yearsley & Trueblood 2018",
+    "rule": "Write P(X then Y) for the conjunction judged with X considered first. Quantum theory gives P(Y then X) <= P(Y). So if P(X then Y) > P(Y) (a fallacy relative to Y), then P(X then Y) - P(Y then X) >= P(X then Y) - P(Y) > 0: the order effect on the conjunction is at least as large as the fallacy. Classical probability, probability-plus-noise, and the classical twin (arm F) all predict P(X then Y) = P(Y then X) in expectation, whatever the fallacy rate."
+   },
+   {
+    "id": "R3_no_double_fallacy",
+    "status": "stated in Yearsley & Trueblood 2018 and Busemeyer et al. 2011",
+    "rule": "P(X and Y) > max(P(X), P(Y)) is impossible under the quantum account. Count double fallacies; any reliable rate above 0 counts against it."
+   },
+   {
+    "id": "R4_more_likely_first",
+    "status": "processing assumption of Busemeyer et al. 2011 / Pothos & Busemeyer 2013",
+    "rule": "When the conjunction is asked without an explicit order, the model is assumed to evaluate the more probable conjunct first. So the elicited P(X and Y) should be closer to the sequential order with the more probable conjunct first."
+   }
+  ],
+  "measurement": {
+   "per_item_calls": [
+    "P(X)",
+    "P(Y)",
+    "P(X and Y) worded 'X and Y'",
+    "P(Y and X) worded 'Y and X'",
+    "sequential: 'Consider whether X.' then, in the same conversation, 'How likely is it that both X and Y?'",
+    "the same with Y considered first"
+   ],
+   "format": "integer 0-100 as structured output; R = 20 fresh conversations per call type; report means with bootstrap CIs",
+   "statistics_per_item": {
+    "fallacy_f": "mean P(X and Y) - min(mean P(X), mean P(Y))",
+    "double_fallacy": "mean P(X and Y) - max(mean P(X), mean P(Y)) > 0",
+    "order_o": "mean P(X then Y) - mean P(Y then X), with X the more probable conjunct"
+   },
+   "pre_registerable_test": "Over items with f reliably > 0: (i) the share with o reliably > 0 (R1); (ii) the share with o >= f - 0.05 (R2, 5-point tolerance); (iii) the double-fallacy count (R3). The quantum account passes if (i) and (ii) are both at least 0.5 and (iii) is 0. The classical twin predicts o = 0, so (i) near the false-positive rate.",
+   "caveat": "Imannezhad et al. 2026 warn that a high correlation between fallacy types can be a floor effect when fallacies are rare. Use items that produce fallacies in the base model, and report the item count behind every share."
+  },
+  "items": [
+   {
+    "id": "co01",
+    "X": "Linda is active in the feminist movement",
+    "Y": "Linda is a bank teller",
+    "context": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations.",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "note": "classic pair; X is the more probable conjunct for humans"
+   },
+   {
+    "id": "co02",
+    "X": "Tomas repairs electronics as a hobby",
+    "Y": "Tomas is a primary-school teacher",
+    "context": "Tomas is 29 years old, quiet and meticulous. He studied electrical engineering and spends his weekends restoring vintage radios.",
+    "source": "author-written for this project",
+    "license": "MIT"
+   },
+   {
+    "id": "co03",
+    "X": "the fictional Republic of Arveny's ruling party wins the northern provincial election",
+    "Y": "the ruling party wins the southern provincial election",
+    "context": "Arveny is a fictional country. Its ruling party has led polls in the north by 20 points for a year, while the south has been a toss-up. Both provincial elections are held on the same day, and neither result can affect the other.",
+    "source": "author-written for this project, after Yearsley & Trueblood's same-day, causally unlinked primaries",
+    "license": "MIT",
+    "note": "fictional, so no outcome can be known from training data"
+   },
+   {
+    "id": "co04",
+    "X": "the fictional Halden Rovers win their home match on Saturday",
+    "Y": "the fictional Ostra City win their away match on Saturday",
+    "context": "Halden Rovers have won 9 of their last 10 home matches. Ostra City have won 3 of their last 10 away matches. The two matches are in different leagues and are played at the same time.",
+    "source": "author-written for this project",
+    "license": "MIT"
+   }
+  ]
+ }
+}
