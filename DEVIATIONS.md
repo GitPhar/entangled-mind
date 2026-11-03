@@ -113,3 +113,11 @@ Nothing extracted under run 1 can be reused, because contentions depend on the b
 **Split:** all wrong items (at most 40, at random), plus an equal number of right items at random (seed 2026). Everything else is the calibration pool.
 
 **Budget:** $15 for runs 3 and 4 together, enforced in code.
+
+## D7 — Pre-registered additions: arms F and G, bootstrap intervals, a 200-shuffle null for arm D
+
+**Date:** 2026-11-03, written after Stage 2 run 2 was committed and before Stage 2 run 3 data were collected.
+
+Two arms were added: **F**, the classical Ising twin of arm A, and **G**, the base model's self-reported confidence. Two statistics were added for every arm: AUROC with 95% bootstrap intervals, and a 200-shuffle null distribution for arm D in place of the single shuffle. Full definitions are in `experiments/preregistration.md`, Addendum A.
+
+They are first applied as a re-scoring of run 2 (`results/stage2-run-2b.md`). Arms A–E are not re-run. H2 is unchanged, and the F/G comparison is reported alongside it.
