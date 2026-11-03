@@ -179,3 +179,16 @@ The supplement excludes every existing training item and the held-out hard pool.
 Also handled in this addendum: an item whose explanation yields fewer than 5 claims after one retry is now recorded as excluded, not counted as wrong, instead of crashing the run. This happened once.
 
 **Finding:** the two-sided computed puzzles do not elicit errors from Haiku 5.5. Its errors on this pool are ignorance-type (SimpleQA) and multi-step science, not the base-rate or harmonic-mean traps.
+
+## D11 — Experiment 4 (quantitative Yearsley & Trueblood) pre-registered
+
+**Date:** 2026-11-03, before any experiment-4 call.
+
+Pre-registered in `experiments/exp4-yearsley-trueblood.md`, with items in `experiments/exp4-items.json`. Choices made at pre-registration:
+
+1. **Items.** Only 4 co-occurrence items exist in `items-borrowed.json`, too few for a share-based rule. They were joined by the 4 Linda variants that convert cleanly to X/Y form (Bill, Priya, the analytical person, name-swapped Marta) and by 8 new author-written items (co05–co12), for 16 in all.
+2. **Letter-copying check.** Swapping the A/B labels on both questions together cannot detect a model that copies its first *letter*: under any shared mapping, a repeated letter is also a repeated content answer. The check therefore uses crossed mappings, where Q1 and Q2 use different label mappings, and compares how often the content answers agree under same versus crossed mappings.
+3. **"Beyond repetition."** The classical comparator is Kang (2026)'s symmetric repetition model, fitted per item, which predicts o_rep = r · (p_X − p_Y). The quantum claim is tested on o − o_rep as well as on o.
+4. **Thinking disabled for the base calls,** following the borrowed protocol's "thinking off". The base model is `claude-haiku-5-5`.
+
+The budget is $10, enforced in code. The experiment runs last in the queue.
