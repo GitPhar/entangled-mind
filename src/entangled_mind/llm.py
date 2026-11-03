@@ -1,4 +1,4 @@
-"""Language-model side of the pipeline: base answer, contention extraction,
+"""Language-model side of the pipeline: base answer, claim extraction,
 pairwise relation judging. Every call returns its token usage so callers can
 log cost per question."""
 
@@ -54,7 +54,8 @@ class RefusalError(RuntimeError):
 
     def __init__(self, call: str, resp):
         self.call, self.stop_details = call, resp.stop_details
-        super().__init__(f"{call} call refused (model {resp.model}): {resp.stop_details}")
+        self.request_id = getattr(resp, "_request_id", None)
+        super().__init__(f"{call} call refused (model {resp.model}, request {self.request_id}): {resp.stop_details}")
 
 
 def _check_stop(resp, call: str) -> None:
@@ -66,8 +67,7 @@ def _check_stop(resp, call: str) -> None:
 
 # --- 1. base model ---------------------------------------------------------
 
-BASE_PROMPT = """Answer the following yes/no question.
-In your response, reason step by step in writing: lay out the considerations on each side, work through any calculation, and say which considerations you accept or reject and why. Then give your answer.
+BASE_PROMPT = """Answer the following yes/no question. Give a brief explanation of the main considerations for and against, and say which of them decide the matter.
 End your response with a final line that is exactly "FINAL ANSWER: YES" or "FINAL ANSWER: NO".
 
 Question: {question}"""
@@ -75,43 +75,47 @@ Question: {question}"""
 
 @dataclass
 class BaseAnswer:
-    text: str                   # the visible written response - the only text used downstream
+    text: str                   # the visible answer - the only text sent to any later call
     answer: str | None          # "yes" / "no" / None if unparseable
-    thinking_tokens: int        # thinking stays on; its content is never requested or stored
+    thinking_summary: str       # summarized thinking blocks; archived locally, never sent anywhere
+    thinking_tokens: int
     usage: Usage
+    request_id: str | None
 
 
 def ask_base(question: str) -> BaseAnswer:
     resp = client().messages.create(
         model=config.BASE_MODEL,
         max_tokens=16000,
-        thinking={"type": "adaptive", "display": "omitted"},
+        thinking={"type": "adaptive", "display": "summarized"},
         output_config={"effort": config.BASE_EFFORT},
         messages=[{"role": "user", "content": BASE_PROMPT.format(question=question)}],
     )
     _check_stop(resp, "base")
     text = "\n".join(b.text for b in resp.content if b.type == "text").strip()
+    summary = "\n".join(b.thinking for b in resp.content if b.type == "thinking").strip()
     m = re.findall(r"FINAL ANSWER:\s*(YES|NO)", text, flags=re.I)
     details = getattr(resp.usage, "output_tokens_details", None)
-    return BaseAnswer(text, m[-1].lower() if m else None,
-                      int(getattr(details, "thinking_tokens", 0) or 0), _usage(resp))
+    return BaseAnswer(text, m[-1].lower() if m else None, summary,
+                      int(getattr(details, "thinking_tokens", 0) or 0), _usage(resp),
+                      getattr(resp, "_request_id", None))
 
 
-# --- 2. contention extraction ---------------------------------------------
+# --- 2. claim extraction (claims become 'contentions', one qubit each) ---------------------------------------------
 
-EXTRACT_SYSTEM = """You decompose a written answer to a yes/no question into discrete contentions.
-A contention is one distinct claim, consideration, intuition, or sub-conclusion stated in the written reasoning - including ones the writer raised and then rejected.
-For each contention give:
-- text: one short sentence stating it.
-- confidence: 0 to 1, how strongly the writer endorsed it in the end (a rejected idea gets a low value).
-- lean: -1 to 1, which way the contention pushes the answer if it is taken as true: positive toward YES, negative toward NO, 0 if it bears on neither.
-Report only what is in the reasoning. Do not add your own considerations and do not judge whether the writer was correct.
-Return between 5 and 16 contentions."""
+EXTRACT_SYSTEM = """Below is a short written argument answering a yes/no question.
+List the distinct claims the document makes, including claims it raises and then dismisses.
+For each claim give:
+- text: one short sentence stating the claim.
+- confidence: 0 to 1, the writer's apparent confidence in the claim (a dismissed claim gets a low value).
+- lean: -1 to 1, which way the claim pushes the answer if it is true: positive toward YES, negative toward NO, 0 if it bears on neither.
+Report only claims the document makes. Do not add claims of your own and do not assess whether the writer is right.
+List between 5 and 16 claims."""
 
 EXTRACT_SCHEMA = {
     "type": "object",
     "properties": {
-        "contentions": {
+        "claims": {
             "type": "array",
             "items": {
                 "type": "object",
@@ -125,7 +129,7 @@ EXTRACT_SCHEMA = {
             },
         }
     },
-    "required": ["contentions"],
+    "required": ["claims"],
     "additionalProperties": False,
 }
 
@@ -148,8 +152,8 @@ def _clip(x: float, lo: float, hi: float) -> float:
 
 
 def extract_contentions(question: str, base: BaseAnswer) -> tuple[list[dict], Usage]:
-    # Only the visible written response is passed on; thinking content never is.
-    user = f"Question: {question}\n\n<response>\n{base.text}\n</response>"
+    # Only the visible answer is passed on; thinking content never is.
+    user = f"Question: {question}\n\nDocument:\n{base.text}"
     total = Usage(config.EXTRACTOR_MODEL)
     for _ in range(2):
         data, u = _json_call(config.EXTRACTOR_MODEL, config.EXTRACTOR_EFFORT,
@@ -158,17 +162,17 @@ def extract_contentions(question: str, base: BaseAnswer) -> tuple[list[dict], Us
         total.output_tokens += u.output_tokens
         cs = [{"text": c["text"].strip(),
                "confidence": _clip(c["confidence"], 0, 1),
-               "lean": _clip(c["lean"], -1, 1)} for c in data["contentions"] if c["text"].strip()]
+               "lean": _clip(c["lean"], -1, 1)} for c in data["claims"] if c["text"].strip()]
         if len(cs) >= config.MIN_CONTENTIONS:
             return cs[: config.MAX_CONTENTIONS], total
-    raise RuntimeError(f"extractor returned {len(cs)} contentions")
+    raise RuntimeError(f"extractor returned {len(cs)} claims")
 
 
 # --- 3. pairwise relation judge -------------------------------------------
 
-JUDGE_SYSTEM = """You judge how pairs of contentions from one written answer relate to each other.
-For every pair (i, j) with i < j, decide:
-- "supports": if one is true, the other becomes more plausible, or they push toward the same conclusion for linked reasons.
+JUDGE_SYSTEM = """You are given a yes/no question and a numbered list of claims made about it.
+For every pair of claims (i, j) with i < j, decide:
+- "supports": if one is true, the other becomes more plausible, or one backs the other toward the same answer.
 - "contradicts": they cannot both be fully true, or one undercuts the other.
 - "unrelated": neither.
 strength: 0 to 1, how strong the relation is (use 0 for unrelated).
@@ -202,8 +206,8 @@ def judge_relations(question: str, contentions: list[dict]) -> tuple[list[dict],
     (filled in as unrelated)."""
     n = len(contentions)
     listing = "\n".join(f"{k}: {c['text']}" for k, c in enumerate(contentions))
-    user = (f"Question being reasoned about: {question}\n\nContentions:\n{listing}\n\n"
-            f"There are {n} contentions, so {n * (n - 1) // 2} pairs.")
+    user = (f"Question: {question}\n\nClaims:\n{listing}\n\n"
+            f"There are {n} claims, so {n * (n - 1) // 2} pairs.")
     data, usage = _json_call(config.JUDGE_MODEL, config.JUDGE_EFFORT, JUDGE_SYSTEM, user, JUDGE_SCHEMA, "judge")
     table: dict[tuple[int, int], dict] = {}
     for p in data["pairs"]:

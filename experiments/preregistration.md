@@ -5,7 +5,7 @@ Written 2026-11-03, while the pool run was in progress. Every arm was run on the
 ## Data
 
 - Pool: 60 yes/no questions with known answers (`experiments/questions.json`).
-- The base model (`claude-sonnet-5-5`, adaptive thinking at effort `xhigh`) answers every question with visible step-by-step reasoning. Contentions come from that visible response only (see `DEVIATIONS.md`).
+- The base model (`claude-sonnet-5-5`, adaptive thinking at effort `xhigh`) answers every question with a brief visible explanation of the considerations for and against. Contentions are the claims in that visible answer (see `DEVIATIONS.md`, D1–D3).
 - Test set: 10 wrong items and 10 right items, drawn at random with seed 2026. If the model gets more than 10 wrong, the extras go to calibration.
 - Calibration pool: the remaining 40 items. All thresholds are set here and nowhere else.
 

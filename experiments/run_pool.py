@@ -5,7 +5,7 @@ Questions run one at a time. If any API call is refused, the run stops at once,
 records which call and the exact refusal in results/refusal.md, and exits;
 nothing is reworded or retried.
 
-Writes results/pool-run-1.json (every trace, contention and pair table),
+Writes results/pool-run-1.json (every deliberation record, contention and pair table),
 results/pool-run-1.md, and results/api-usage.md. Re-running skips questions
 already processed, so a crash never pays twice."""
 
@@ -26,7 +26,10 @@ USAGE_MD = config.RESULTS / "api-usage.md"
 def process(q: dict) -> dict:
     base = llm.ask_base(q["question"])
     rec = {**q, "model_answer": base.answer, "correct": base.answer == q["answer"],
-           "response": base.text, "thinking_tokens": base.thinking_tokens,
+           # deliberation record: archived here, never sent to another call
+           "deliberation_record": {"thinking_summary": base.thinking_summary, "visible_answer": base.text},
+           "thinking_tokens": base.thinking_tokens,
+           "request_ids": {"base": base.request_id},
            "usage": {"base": base.usage.as_dict()}}
     cs, u = llm.extract_contentions(q["question"], base)
     rec["contentions"], rec["usage"]["extract"] = cs, u.as_dict()
@@ -55,7 +58,7 @@ def write_usage(records: list[dict]) -> None:
                      f"{u['judge']['input_tokens']} | {u['judge']['output_tokens']} | {r['cost_usd']:.4f} |")
     lines += ["", f"**Total: ${total:.4f}** of the ${config.API_BUDGET_USD:.2f} session budget.",
               "", "Not itemised: pilot calls made while choosing the base effort level (8 short calls, about $0.03), "
-              "and one refused extractor call from the abandoned thinking-trace design (see DEVIATIONS.md)."]
+              "and the base + refused extractor calls of the two abandoned designs (see DEVIATIONS.md)."]
     USAGE_MD.write_text("\n".join(lines) + "\n")
 
 
@@ -80,8 +83,8 @@ def main() -> None:
         except llm.RefusalError as e:
             (config.RESULTS / "refusal.md").write_text(
                 f"# Pipeline stopped on a refusal\n\nQuestion `{q['id']}`: {q['question']}\n\n"
-                f"Refused call: **{e.call}**\n\nExact stop details:\n\n```\n{e.stop_details}\n```\n\n"
-                f"{len(done)} questions had completed. Nothing was reworded or retried.\n")
+                f"Refused call: **{e.call}**\n\nRequest ID: `{e.request_id}`\n\nExact stop details:\n\n```\n{e.stop_details}\n```\n\n"
+                f"{len(done)} questions had completed. Nothing was reworded or retried; the next step is a support ticket with the request ID.\n")
             print(f"STOPPED: {e}")
             sys.exit(3)
         done[rec["id"]] = rec
