@@ -439,7 +439,14 @@ These are findings we can build on without re-arguing them.
    - The pre-registered negativity witness certified entanglement of the encoded contention pairs on `ibm_fez` for 3 of 3 items: N = 0.147, 0.063 and 0.067, all with lower 95% bounds above 0, with or without readout mitigation, for 44 QPU seconds.
    - This certifies the *encoding*, not its usefulness. The two questions are now answered separately: the entanglement is physically there, and on the simulator it does not help.
 4. **The window.**
-   - *(Our reading of the term.)* Every belief state here has 5–16 qubits. That is small enough that the quantum state, its classical twin, and every order-effect prediction can be computed **exactly** on a laptop, and large enough to hold genuine multi-party entanglement that hardware can certify.
-   - Inside this window nothing is approximated. A quantum-versus-classical difference cannot hide in sampling error or in a heuristic classical comparator.
-   - The same idea applies on the behavioural side. Kang's saturation finding shows that order effects are only measurable when the model's answers are dispersed rather than near-deterministic, so Experiment 3 needs a dispersion gate before it is read.
-   - What we offer the field is a regime where the quantum claim can be checked cleanly, and an honest record of what it did there.
+   - The window is the project's visual display of a single run.
+     - Each of the model's contentions is a point in a point cloud.
+     - Brightness is its amplitude (how strongly it is held) and hue is its phase (which way it leans).
+     - Dashed links show which contentions are entangled.
+     - A rewindable timeline steps through encoding, evolution and collapse to the readout.
+     - Every run is archived.
+   - Nothing like it exists in the work above. Quantum-cognition models are fitted to aggregate answer frequencies, so there is no per-item state to look at. The LLM studies observe only answers or probabilities.
+   - Here the state behind each judgment is constructed, simulable exactly at 5–16 qubits, and recorded. A reader can watch a contradiction pair settle into opposed camps, or fail to, on the very item the model got wrong, and compare that run with the classical twin's.
+   - The archive of runs is a dataset that cannot be rebuilt from the outside. Every arm's readout, including the raw counts, is already archived as JSON in `results/`.
+   - The display itself is designed (v1 proposal, Stage 3) but not yet built.
+   - Its scientific use is diagnostic rather than evidential. It shows *where* the entangling step moves probability mass on items that the classical contradiction count flags and the entangled readout misses (Stage 2, run 2). That is the most useful thing to look at next, given H2's result.
