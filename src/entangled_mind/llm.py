@@ -225,3 +225,35 @@ def judge_relations(question: str, contentions: list[dict]) -> tuple[list[dict],
                 missing += 1
                 table[(i, j)] = {"i": i, "j": j, "relation": "unrelated", "strength": 0.0}
     return [table[k] for k in sorted(table)], usage, missing
+
+
+# --- 4. arm G: self-reported confidence -----------------------------------
+
+CONFIDENCE_PROMPT = """Here is a yes/no question and an answer you gave to it.
+
+Question: {question}
+
+Your answer:
+{answer}
+
+How confident are you, from 0 to 100, that this final answer is correct? Give only the number."""
+
+CONFIDENCE_SCHEMA = {
+    "type": "object",
+    "properties": {"confidence": {"type": "integer"}},
+    "required": ["confidence"],
+    "additionalProperties": False,
+}
+
+
+def self_confidence(question: str, visible_answer: str) -> tuple[int, Usage, str | None]:
+    """One call to the base model; only its visible answer is shown back to it."""
+    resp = client().messages.create(
+        model=config.BASE_MODEL,
+        max_tokens=4000,
+        output_config={"format": {"type": "json_schema", "schema": CONFIDENCE_SCHEMA}},
+        messages=[{"role": "user", "content": CONFIDENCE_PROMPT.format(question=question, answer=visible_answer)}],
+    )
+    _check_stop(resp, "self_confidence")
+    text = next(b.text for b in resp.content if b.type == "text")
+    return int(_clip(json.loads(text)["confidence"], 0, 100)), _usage(resp), getattr(resp, "_request_id", None)
