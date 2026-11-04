@@ -294,6 +294,7 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D32** | Experiment 5's a priori QQ sub-test compared predicted non-commutativity with exact float inequality, so solver round-off ordered the pairs and gave a spurious 28–9. With a 10⁻⁶ tolerance it is 1–2 over 3 items. | Found after results. | The verdict does not use this sub-test and is unchanged. |
 | **D34, D35** | Gold-map direction 9 (NSIT on archived experiment 5 data, anchor (a) only) and direction 3's free look (the scale-direction gap against errors) pre-registered, each in its own commit, before analysis. | Sean's overnight brief: six gold-map directions in order, one scale direction for every new design, stop on any refusal. | Section 5.13. |
 | **D36** | Direction 1 pre-registered with a judge × author interaction as the primary statistic, matched framing in all four cells, and a recognition check for the paraphrase arm. | Changed from the gold map's sketch before freezing, after full-text reads (Xiao et al.; Panickssery et al.; Ashuach et al.). | Section 5.13. |
+| **D36 amendments** | Direction 1's step order changed mid-run, before steps 3 and 4, when Sonnet calls cost more than assumed. A token-cap crash then lost up to $0.20 of calls; token-capped judge calls are recorded as no rating. | Budget. | The paraphrase arm covers 60 of 80 questions and Sonnet's recognition check did not run. The primary result is unaffected. Spend may have exceeded the $3 cap by up to $0.02. |
 | **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
 
 **On sequencing.** The analysis grew in stages:
@@ -647,6 +648,73 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **Direction.** If anything the gap is larger on the items the model got right (41.3 points) than on those it got wrong (33.9). The 37-point gap looks like a reading slip in the reversed scale, not a mark of items with no settled view. The six-format run is the real test of direction 3.
 
 
+**Direction 1: does the model know its own errors better than another model reading the same answer?** (`results/gm1-self-knowledge.md`, `bc0f125`; pre-registered in `experiments/gm1-self-knowledge.md`, `28a20b2`, D36 with two amendments)
+- **Design.** Both models rate their confidence in both models' answers on the 298 hard-pool questions both answered. All four cells use one matched prompt ("an answer another assistant gave"), so authorship is the only difference between cells.
+- **Primary statistic.** The judge × author interaction I = HH + SS − SH − HS, which cancels each judge's overall skill. This replaced the gold map's per-author rule before freezing, because the full read of Xiao et al. showed capability dominating authorship.
+
+| set | HH | SH | SS | HS | I [95% CI] |
+|---|---|---|---|---|---|
+| all 298 | 0.845 | 0.932 | 0.903 | 0.872 | **−0.055 [−0.103, −0.007]** |
+| disagreement (authors' correctness differs, 26) | 0.432 | 0.850 | 0.865 | 0.583 | −0.135 [−0.496, +0.229] |
+| paraphrased answers (subset) | 0.798 | 0.887 | 0.808 | 0.759 | −0.040 [−0.157, +0.075] |
+
+(Cells read judge then author: SH is Sonnet judging Haiku's answers.)
+
+- **No self-advantage, and a small self-*disadvantage*.** Sonnet judges Haiku's errors better than Haiku does: 0.93 against 0.85. On the 26 questions where exactly one model was right, Haiku is near chance on its own answers (0.43) while Sonnet scores 0.85 on them.
+- **The framing makes no difference:** "an answer you gave" against "another assistant" changes the self cells by −0.011 (Haiku) and +0.007 (Sonnet).
+- **Haiku does not recognise its own answers:** AUROC 0.51 [0.36, 0.67] on originals.
+- **What was cut, and the cap.**
+  - The run cost more per Sonnet call than planned, and a token-cap crash lost some calls (D36 amendments 1 and 2).
+  - The paraphrase arm covers 60 of 80 planned questions, and Sonnet's recognition check did not run.
+  - Recorded spend is $2.82. The lost calls add at most $0.20, so the run may have exceeded its $3 cap by up to $0.02.
+  - The primary result uses all 298 questions and is not affected.
+- **Reading.** The 0.82–0.91 self-report signal of Sections 5.3–5.11 is a good reading of the answer text, not privileged self-knowledge. A stronger reader of the same text does better.
+
+
+**Direction 2: is the order effect the question, or the model seeing its own answers?** (`results/gm2-self-conditioning.md`, `4c5c34f`; pre-registered in `experiments/gm2-self-conditioning.md`, `9e23b6f`, D37; 2,000 conversations, $0.55)
+- **Design.** 10 experiment-5 items, chains O1–O4 and MF, on one scale direction. The model's earlier ratings were edited before each later turn:
+  - **shown:** left as given;
+  - **redacted:** replaced by "[rating recorded]";
+  - **planted:** replaced by its usual rating ±15 points, placed in the model's own turn.
+
+| condition | order effect across O1–O4 (points) | MF repeat agreement (within 5 points) |
+|---|---|---|
+| shown | 8.7 [4.1, 12.7] | 81% |
+| redacted | 16.7 [8.0, 24.1] | 23% |
+| planted high | 6.2 [3.6, 8.3] | 30% |
+| planted low | 3.2 [2.2, 4.0] | 40% |
+
+- **Pre-registered verdict: question-driven.** R = OE_redacted / OE_shown = **1.91 [0.92, 4.90]**, wholly above the 0.5 bar. With no record of its answers, the order of the questions still changes the final rating. In the gold map's terms this is the overturning direction, which it had put at P = 0.25.
+- **The record also steers.** The final main rating follows a planted first main rating at 1.27 [0.70, 2.14] points per point. Planting higher earlier ratings raises the next ratings by 5.6 [3.4, 7.6] points and the final rating by 10.4 [4.2, 16.8].
+- **The consistency is memory.** The main question repeated after the chain agrees with the first answer 81% of the time when that answer is visible, and 23% when it is hidden. Experiment 5's 84% replicability was the model reading its own earlier answer, not a stable judgment reached again.
+- **Caveats, stated in the results file.**
+  - There are only 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).
+  - "[rating recorded]" is itself an unusual turn. The redacted order effect is *larger* than the shown one, and the planted conditions, which keep a number in place, show smaller order effects than either. So the redaction placeholder may add variance of its own. The verdict that asking alone produces an order effect stands by the rule. The excess over the shown condition should not be read as the question's effect.
+- **Reading.** Both parts of the measurement change the model's judgment: the questions put to it, and its own recorded answers, which it treats as evidence. In the terms of `paper/clonable-minds.md`, both the question channel and the record channel are invasive.
+
+
+**Direction 3, six formats: does the model hold one credence per statement?** (`results/gm3b-format-invariance.md`, `1fd521d`; pre-registered in `experiments/gm3b-format-invariance.md`, `34eb191`, D38; 9,600 calls, $0.41)
+- **Design.** The 160 experiment-5 chain claims, each asked 10 times in six single-turn formats on one scale direction:
+  - a 0–100 rating;
+  - yes/no;
+  - a bet at a stated price;
+  - "likelier than a fair coin landing heads?";
+  - "how many of 100 such statements would be true";
+  - a 7-point verbal scale. This replaced the gold map's reversed scale, under the one-direction rule.
+- **The two models.** L1 has one latent credence per claim, read through a monotone link per format. L6 has a separate credence per claim and format. Both are scored on held-out repeats (2-fold, even against odd).
+- **Pre-registered verdict: no single credence.** L6 beats L1 on held-out repeats for **86%** of claims. The mean ΔLL is **+19.4 [+16.5, +22.1]** per claim.
+- **The formats rank the claims differently, which no monotone link can absorb:**
+  - pairwise Spearman correlations between formats are 0.37–0.74, and Kendall's W across all six is 0.56;
+  - 20–34% of claim pairs are ordered differently from the 0–100 rating;
+  - the coin comparison is the most out of line, choosing the statement 79% of the time where the mean rating is 55.
+- **Against the precedent.** Smolin & Wilder (2026) found one latent belief describes capable models well (concordance 0.8–0.95, held-out R² 60–90%). The gold map had lowered P from 0.45 to 0.25 for that reason. Their test and ours differ in three ways:
+  - **The criterion.** They asked whether one latent *predicts* new framings usefully. Ours asks whether format-specific credences predict held-out *repeats* better. A latent can be useful by their criterion and still lose by ours whenever format deviations are reproducible, which is likely for a model whose repeats barely vary.
+  - **The material.** Our statements are the model's own contested claims about hard questions.
+  - **The model.** Claude was not in their set.
+  So the two results need not conflict. Ours says this model's credences are not format-invariant on contested claims; it does not say a single latent is useless.
+- **Not done here.** The ranking disagreements are not compared against a noise baseline in the results file, and no held-out-*format* test was run.
+
+
 ---
 
 ## 6. Discussion
@@ -696,6 +764,8 @@ The relation judge's labels of *which* claims support or contradict which carry 
 
 This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On both models, the model can see them, and says so when asked.
 
+**But the self-report is not privileged.** Gold-map direction 1 (Section 5.13) had each model judge both models' answers with the same prompt. Authorship does not help: the judge × author interaction is −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does (0.93 against 0.85). The error signal is in the answer text, and a capable reader finds it.
+
 ### 6.3 Sequential judgment: real effects, classical account
 
 **What the graded ratings show.**
@@ -714,7 +784,7 @@ The sequential phenomena that quantum cognition was built to explain are present
 
 **Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them as well as the quantum ones.
 
-**What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remains is to set the first rating as the model's *own* earlier answer in the transcript (`paper/gold-map.md`, direction 2).
+**What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remained was to set the first rating as the model's *own* earlier answer in the transcript. Gold-map direction 2 did that for experiment 5's chains (Section 5.13). Planted own answers do move later ratings, about 1.3 points per point. Hiding the answers does not remove the order effect. So in those chains, the question and the record both act. That run did not use experiment 4's conjunction items, so for conjunctions the mechanism remains open.
 
 ### 6.4 The hardware result
 
@@ -732,7 +802,7 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 **Philosophy of mind.** A judgment layer built as a certified-entangled whole judged no better than one built as a list. When it was free to choose, it chose to be nearly a list. That does not settle anything about minds. It does show that being an indecomposable whole is not, by itself, an advantage for this kind of judgment.
 
-**Artificial intelligence.** The practical finding is about self-report, not quantum structure. For this model, on hard factual and scientific questions, one call asking how confident it is predicts its errors better than any analysis of its written reasoning we built, quantum or classical. A pipeline that wants an error flag should ask the model first, and should require any structural method to beat that baseline. Ours did not.
+**Artificial intelligence.** The practical finding is about self-report, not quantum structure. For this model, on hard factual and scientific questions, one call asking how confident it is predicts its errors better than any analysis of its written reasoning we built, quantum or classical. A pipeline that wants an error flag should ask for a confidence rating first, and should require any structural method to beat that baseline. Ours did not. The rating need not come from the model that wrote the answer: a stronger model reading the same answer did better than the author itself (direction 1, Section 5.13).
 
 ---
 
