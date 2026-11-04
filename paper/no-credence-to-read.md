@@ -377,13 +377,13 @@ Every table in this paper can be rebuilt from archived data.
 
 ## 8. Pending robustness runs
 
-Three robustness runs were planned, each to be pre-registered in its own commit before its data. One has landed. No other robustness run is planned, so every number without a tag is final as pre-registered.
+Three robustness runs were planned, each pre-registered in its own commit before its data. One has landed; the other two are pre-registered and not yet reported. No other robustness run is planned, so every number without a tag is final as pre-registered.
 
 | tag | run | what it tests | affects |
 |---|---|---|---|
-| [R-pending: direction 2, 40 items] | D45, $2.50 cap | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | Section 4.2 and the abstract: R, b_MF, the next-rating pull, MF agreement 81% against 23% |
+| [R-pending: direction 2, 40 items] | D45, pre-registered at `4894bfc`, $2.50 cap; running | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | Section 4.2 and the abstract: R, b_MF, the next-rating pull, MF agreement 81% against 23% |
 | landed | D46 (`52aedb6`, pre-registered at `1f2a837`), $0 | the held-out-format prediction | reported in Section 4.5 as test F′: Q = 0.39 [0.30, 0.50], "little format-free belief" |
-| [R-pending: source × distance × lag] | D47, $0.50 cap | own against other source, at distances ±10, ±30 and ±60 points and lags of 0 or 3 filler turns (the lag arm at ±30 only) | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
+| [R-pending: source × distance × lag] | D47, pre-registered at `8acc007`, $0.50 cap; starts after D45 | own against other source at ±10 and ±60 points (lag 0, R = 10); own at ±30 after 3 filler turns (R = 20); bm1's own ±30 and run 3's other ±30 reused. Readings: own > other; non-monotone or reversal at ±60; decay over lag | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
 
 ---
 
