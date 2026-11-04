@@ -59,21 +59,28 @@ def run(m):
 def analyse_one(cache_file, label):
     """Runs gm3b's frozen analysis and gm3c's held-out-format analysis on one model's calls, restricted to the 80 claims."""
     conv = {k: v for k, v in json.loads(cache_file.read_text()).items() if "value" in v and v["value"] is not None}
-    conv = {k: v for k, v in conv.items() if tuple([k.split("|")[0], int(k.split("|")[1])]) in set(claims80())}
+    # DM4a: only claims with all 60 calls (6 formats x 10 repeats) enter the analysis
+    done = [(q, k) for q, k in claims80() if all(f"{q}|{k}|{f}|{r}" in conv for f in g.FORMATS for r in range(g.R))]
+    conv = {key: v for key, v in conv.items() if (key.split("|")[0], int(key.split("|")[1])) in set(done)}
     tmp = config.RESULTS / f".mm-gm3b-{label}-tmp.json"
     tmp.write_text(json.dumps(conv))
-    g.CACHE, g.claims = tmp, claims80
+    g.CACHE, g.claims = tmp, (lambda: done)
     g.OUT_JSON, g.OUT_MD = config.RESULTS / f".mm-gm3b-{label}.json", config.RESULTS / f".mm-gm3b-{label}.md"
     g.write_md = lambda r: None
     g.analyse()
     res = json.loads(g.OUT_JSON.read_text())
     gc.OUT_JSON, gc.OUT_MD = config.RESULTS / f".mm-gm3c-{label}.json", config.RESULTS / f".mm-gm3c-{label}.md"
-    gc.main()
-    res["heldout_format"] = json.loads(gc.OUT_JSON.read_text())
+    if len(done) == len(claims80()):            # test F' only on complete arms: its fold rule needs the 20 items
+        gc.main()
+        res["heldout_format"] = json.loads(gc.OUT_JSON.read_text())
+    else:
+        res["heldout_format"] = None
     for p in (tmp, g.OUT_JSON, g.OUT_MD, gc.OUT_JSON, gc.OUT_MD):
         p.unlink(missing_ok=True)
     res["n_calls_used"] = len(conv)
     res["n_calls_expected"] = len(claims80()) * 6 * g.R
+    res["claims_complete"] = len(done)
+    res["items_complete"] = sorted({q for q, _ in done})
     return res
 
 
@@ -101,10 +108,10 @@ def write_md(o):
          "Haiku's row re-analyses its archived calls (D38) on the same 80 claims; Sonnet and Opus are new. Costs are at the batch rate.", "",
          "## In plain English", "", "(Hand-written after the run; excluded from reproduce.py's comparison.)", "",
          "## Primary: one credence (L1) against one per format (L6), held-out repeats", "",
-         "| model | calls used / expected | cost | mean ΔLL per claim [95% CI] | claims with ΔLL > 0 | reading |", "|---|---|---|---|---|---|"]
+         "| model | claims (items) complete | calls used / expected | cost | mean ΔLL per claim [95% CI] | claims with ΔLL > 0 | reading |", "|---|---|---|---|---|---|---|"]
     for m in models:
         r, d = o[m], o[m]["dLL"]
-        L.append(f"| {m} | {r['n_calls_used']} / {r['n_calls_expected']} | ${r['cost_usd']:.2f} | {d['mean']:+.2f} [{d['ci95'][0]:+.2f}, "
+        L.append(f"| {m} | {r['claims_complete']} ({len(r['items_complete'])}) | {r['n_calls_used']} / {r['n_calls_expected']} | ${r['cost_usd']:.2f} | {d['mean']:+.2f} [{d['ci95'][0]:+.2f}, "
                  f"{d['ci95'][1]:+.2f}] | {d['share_positive']:.0%} | **{r['reading']}** |")
     L += ["", "## Agreement between formats", "", "| model | Kendall's W | Spearman ρ range | discordant pairs vs the 0–100 rating, range |",
           "|---|---|---|---|"]
@@ -119,6 +126,9 @@ def write_md(o):
           "| model | mean Q [95% CI] | mean R² from the other five | reading |", "|---|---|---|---|"]
     for m in models:
         h = o[m]["heldout_format"]
+        if h is None:
+            L.append(f"| {m} | not computed: arm incomplete ({o[m]['claims_complete']} of 80 claims) | | |")
+            continue
         L.append(f"| {m} | {h['mean_Q']:.2f} [{h['mean_Q_ci95'][0]:.2f}, {h['mean_Q_ci95'][1]:.2f}] | {h['mean_R2_cross']:.2f} | {h['reading']} |")
     OUT_MD.write_text("\n".join(L) + "\n")
     print("\n".join(L))

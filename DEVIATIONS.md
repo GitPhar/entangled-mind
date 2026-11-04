@@ -795,3 +795,21 @@ Numbered DM so as not to collide with D-entries written on `main` at the same ti
 - The per-wave fallback (R = 4 → 3 → 2) is unchanged.
 
 The rule depends only on costs, and it was set before any DM4 data existed.
+
+## DM6 — Consequence demonstration: calibration (ECE) under two formats and two question orders pre-registered
+
+**Date:** 2026-11-04 08:35 MST, before any call for this test. Recorded in `experiments/cal-format-order.md`.
+
+**Design.**
+- Protocol: Tian et al.'s (2023) Verb. 1S top-1, verbatim (format P), and the same template with a frequency in place of the probability (format F).
+- Models: Haiku and Sonnet, on the 300 hard-pool questions.
+- Conditions:
+  - fresh, single-question calls in two replicates;
+  - ten-question conversations, in forward and reversed order (30 blocks, `random.Random(4041)`).
+- ECE: 10 equal-width bins.
+
+**Primary.** ΔECE between formats and between orders, with paired block-bootstrap CIs (seed 4042). The fresh replicate difference is the noise baseline.
+
+**Budget.** $3, separate from the $20: caps $0.30 (Haiku) and $2.60 (Sonnet), batch rate.
+
+**Testing.** The code was tested on random fake answers before freezing; no call had been made.
