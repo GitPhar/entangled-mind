@@ -475,3 +475,9 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 - **Experiment 5 run 2** (Addendum in `experiments/exp5-sequential-judgment.md`): B0 and the QQ block re-run on the first 10 candidates, anchor (a) only.
   - It is descriptive, with no refitting, and the reading is fixed in advance.
   - Budget $1, enforced in code.
+
+## D34 — Overnight gold-map run, 1 of 6: direction 9 (NSIT on archived experiment 5 data) pre-registered
+
+**Date:** 2026-11-04 03:55 MST, before the analysis. Sean's overnight brief runs six gold-map directions in order, each pre-registered in its own commit before its first call, every new design on one scale direction only, with stop-on-refusal for every call.
+- **Direction 9** (`experiments/gm9-nsit.md`) is a $0 analysis of the archived experiment 5 conversations. It uses anchor (a) only, six NSIT families, a within-cell permutation test, and Holm correction.
+- **Results files** for the overnight run open with a hand-written "In plain English" section. `reproduce.py` excludes that section from its comparison, as it already does for "## Reading".
