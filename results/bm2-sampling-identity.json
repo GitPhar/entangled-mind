@@ -1,0 +1,189 @@
+{
+ "mean_Z": -0.03362499999999998,
+ "ci95": [
+  -0.07050234374999997,
+  0.0020039062499999953
+ ],
+ "per_item": {
+  "co01": {
+   "Z": -0.050999999999999934,
+   "P_X": 0.85,
+   "P_Y": 0.06000000000000001,
+   "P_XY": 0.11099999999999999,
+   "P_XorY": 0.85,
+   "conj_fallacy": true,
+   "disj_fallacy": false,
+   "run2_fallacy_item": true
+  },
+  "co02": {
+   "Z": -0.014000000000000012,
+   "P_X": 0.9589999999999999,
+   "P_Y": 0.05850000000000001,
+   "P_XY": 0.06700000000000002,
+   "P_XorY": 0.9644999999999998,
+   "conj_fallacy": true,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  },
+  "co03": {
+   "Z": -0.0940000000000002,
+   "P_X": 0.86,
+   "P_Y": 0.5,
+   "P_XY": 0.45500000000000007,
+   "P_XorY": 0.999,
+   "conj_fallacy": false,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  },
+  "co04": {
+   "Z": -0.17400000000000004,
+   "P_X": 0.7475,
+   "P_Y": 0.29999999999999993,
+   "P_XY": 0.2955,
+   "P_XorY": 0.9259999999999999,
+   "conj_fallacy": false,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  },
+  "co-lin06": {
+   "Z": -0.00749999999999984,
+   "P_X": 0.8975,
+   "P_Y": 0.10900000000000003,
+   "P_XY": 0.11400000000000002,
+   "P_XorY": 0.8999999999999998,
+   "conj_fallacy": true,
+   "disj_fallacy": false,
+   "run2_fallacy_item": true
+  },
+  "co-lin08": {
+   "Z": -0.0389999999999997,
+   "P_X": 0.5450000000000002,
+   "P_Y": 0.045000000000000005,
+   "P_XY": 0.15899999999999997,
+   "P_XorY": 0.4699999999999999,
+   "conj_fallacy": true,
+   "disj_fallacy": true,
+   "run2_fallacy_item": true
+  },
+  "co-lin09": {
+   "Z": -0.01450000000000029,
+   "P_X": 0.7064999999999999,
+   "P_Y": 0.5824999999999998,
+   "P_XY": 0.5895,
+   "P_XorY": 0.714,
+   "conj_fallacy": true,
+   "disj_fallacy": false,
+   "run2_fallacy_item": true
+  },
+  "co-lin10": {
+   "Z": 0.005499999999999949,
+   "P_X": 0.85,
+   "P_Y": 0.046000000000000006,
+   "P_XY": 0.044500000000000005,
+   "P_XorY": 0.8460000000000001,
+   "conj_fallacy": false,
+   "disj_fallacy": true,
+   "run2_fallacy_item": true
+  },
+  "co05": {
+   "Z": -0.07750000000000007,
+   "P_X": 0.37999999999999995,
+   "P_Y": 0.07250000000000002,
+   "P_XY": 0.29,
+   "P_XorY": 0.24000000000000005,
+   "conj_fallacy": true,
+   "disj_fallacy": true,
+   "run2_fallacy_item": true
+  },
+  "co06": {
+   "Z": -0.10299999999999976,
+   "P_X": 0.44250000000000006,
+   "P_Y": 0.08450000000000002,
+   "P_XY": 0.25999999999999995,
+   "P_XorY": 0.36999999999999994,
+   "conj_fallacy": true,
+   "disj_fallacy": true,
+   "run2_fallacy_item": true
+  },
+  "co07": {
+   "Z": -0.16100000000000003,
+   "P_X": 0.54,
+   "P_Y": 0.3499999999999999,
+   "P_XY": 0.31249999999999994,
+   "P_XorY": 0.7384999999999999,
+   "conj_fallacy": false,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  },
+  "co08": {
+   "Z": -0.004999999999999782,
+   "P_X": 0.8000000000000002,
+   "P_Y": 0.14999999999999997,
+   "P_XY": 0.12000000000000002,
+   "P_XorY": 0.835,
+   "conj_fallacy": false,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  },
+  "co09": {
+   "Z": 0.123,
+   "P_X": 0.8000000000000002,
+   "P_Y": 0.10400000000000002,
+   "P_XY": 0.0,
+   "P_XorY": 0.7810000000000001,
+   "conj_fallacy": false,
+   "disj_fallacy": true,
+   "run2_fallacy_item": false
+  },
+  "co10": {
+   "Z": 0.0029999999999998916,
+   "P_X": 0.8525,
+   "P_Y": 0.028000000000000004,
+   "P_XY": 0.030000000000000006,
+   "P_XorY": 0.8475000000000001,
+   "conj_fallacy": true,
+   "disj_fallacy": true,
+   "run2_fallacy_item": false
+  },
+  "co11": {
+   "Z": 0.033500000000000085,
+   "P_X": 0.78,
+   "P_Y": 0.030000000000000006,
+   "P_XY": 0.029000000000000005,
+   "P_XorY": 0.7474999999999999,
+   "conj_fallacy": false,
+   "disj_fallacy": true,
+   "run2_fallacy_item": false
+  },
+  "co12": {
+   "Z": 0.03749999999999998,
+   "P_X": 0.5145000000000001,
+   "P_Y": 0.4534999999999999,
+   "P_XY": 0.27199999999999996,
+   "P_XorY": 0.6585,
+   "conj_fallacy": false,
+   "disj_fallacy": false,
+   "run2_fallacy_item": false
+  }
+ },
+ "reading": "flat Z slope: coherent, affine or PT+N 2014",
+ "mean_Z_reading": "undetermined",
+ "slope_b": 0.014587246606581745,
+ "intercept_a": -0.03212100099375601,
+ "slope_b_ci95": [
+  -0.16527261373626703,
+  0.16351651710703646
+ ],
+ "intercept_a_ci95": [
+  -0.0733347200279109,
+  0.018674639745906288
+ ],
+ "sd_vs_extremity_corr": -0.5408559040582341,
+ "conj_fallacy": {
+  "all": 8,
+  "run2_items": 6
+ },
+ "disj_fallacy": 7,
+ "n_calls": 1280,
+ "cost_usd": 0.045886
+}
