@@ -62,8 +62,15 @@ def snapshot() -> Path:
     return tmp
 
 
+PLAIN = "\n## In plain English\n"
+
+
 def generated_part(text: str) -> str:
-    return text.split(READING, 1)[0].rstrip("\n")
+    text = text.split(READING, 1)[0]
+    if PLAIN in text:                   # hand-written plain-English section (overnight gold-map runs, D34)
+        head, rest = text.split(PLAIN, 1)
+        text = head + PLAIN + ("\n## " + rest.split("\n## ", 1)[1] if "\n## " in rest else "")
+    return text.rstrip("\n")
 
 
 def main() -> int:
@@ -108,6 +115,7 @@ def main() -> int:
 
     step("exp5-pilot.md", lambda: importlib.import_module("exp5_run").cmd_pilot())
     step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
+    step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]
