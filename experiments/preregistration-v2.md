@@ -132,3 +132,21 @@ Both have 10 parameters, so they are matched to each other.
 5. **The run-2 held-out set** is scored once, noiseless only, as in Addendum B.
 
 Everything else in Addendum B is unchanged.
+
+## Addendum D — what is the Sonnet edge? A coupling ablation and a classical twin with the same readout geometry
+
+**Written 2026-11-03 21:03 MST, before any score below was computed.** Only D27's offline Sonnet scores (A2, F2, L, H) existed at this point.
+
+**Question.** On Sonnet's hard-pool errors, A2 beat F2 by +0.078 [+0.018, +0.137] (D27), with A2's fitted couplings near zero. Is the edge (i) the couplings, or (ii) single-claim geometry: the tilted readout α acting on each claim's confidence angle θ and phase φ? And if (ii), can a classical model carry it?
+
+**Models (no new API calls).**
+- **A2(κ=0):** the frozen v2 A2 parameters with every coupling set to exactly 0 (k_sup = k_con = 0), and nothing refitted. With no couplings the phase solve has only the lean anchors, the prep and evolution have no two-qubit terms, and the state is a product of tilted single-claim qubits. This gives 9 parameters (A2's), with the two couplings pinned at 0, so 7 are effectively free.
+- **F2+:** F2 with the same per-claim readout-angle feature. Its prior single-claim marginal becomes P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2. This is exactly what an uncoupled qubit with Bloch vector (sin θ cos φ, sin θ sin φ, cos θ) gives when measured along an axis tilted by α. Everything else is as in F2. That is 9 scored parameters (F2's 8 plus α, in [−π/2, π/2]) plus a flag threshold, so **10** in all, against A2's **9**.
+- **Fitting.** F2+ is fitted on the v2 train split only, by the v2 rule (400 random draws, then hill-climbing of the 10 best with 60 steps each, selection on validation AUROC; seed 707).
+- **Scoring.** A2(κ=0) and F2+ are each scored once on Haiku's locked v2 test set (209 items) and once on Sonnet's 298 hard-pool records. A2 and F2 are re-scored with their frozen parameters for the paired differences. The locked test set has been scored before (v2, v2.1); these are additional single scorings of new models, with no fitting on it.
+
+**Rule (fixed now).** "Matches" means the paired-bootstrap 95% interval of the AUROC difference (2,000 stratified resamples) contains 0 **on both sets**. "Falls short" means the interval of F2+ − A2 lies entirely below 0 on at least one set.
+1. **A2(κ=0) matches A2, and F2+ matches A2:** the edge is single-claim geometry, and a classical model can carry it. The paper says so.
+2. **A2(κ=0) matches A2, but F2+ falls short:** the single-claim geometry is the finding, and the next test is designed around it.
+3. **A2(κ=0) does not match A2** (A2(κ=0) − A2 entirely below 0 on at least one set): the small couplings matter, and that is reported as such.
+4. **Any other combination** is reported as is, with no verdict beyond the intervals.
