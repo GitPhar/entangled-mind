@@ -884,3 +884,28 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - **Why it was short.** The lag arm's conversations (three extra turns) cost about $0.00024 each, against the $0.00015 estimated.
 - **What was cut.** As pre-registered, every distance cell is complete (R = 10). The lag arm was cut to R = 17 of 20, plus 2 conversations at repeat 17.
 - **The analysis** is the frozen one, run with `--analyse` because the runner exits on a cap stop before analysing. Pre-registered reading: **self-consistency**.
+
+## D49 — Opus's six-format arm completed (54 more claims), with test F′ on all 80 pre-registered
+
+**Date:** 2026-11-04 09:50 MST, before any call of this run. Recorded in `experiments/mm-gm3b-opus-completion.md`; code `experiments/mm_gm3b_opus_complete.py`.
+
+**What it is.** It continues DM2, whose Opus arm was budget-stopped at 26 of 80 claims (DM4a). Sean asked for this run after the morning brief recommended it.
+
+**Design.**
+- **Unchanged from DM2:** the prompts, the settings, the cache, the analysis and test F′.
+- **Batches:** one batch per item, in a fixed order alternating Haiku-right and Haiku-wrong items.
+- **Size and cost:** 3,200 requests, about $6.21 at the observed rate.
+- **Budget:** **$6.40 cap on new spend**, enforced in code with DM2's 1.25 projection factor; stop on any refusal.
+
+**Readings.**
+- DM2's primary rule and D46's F′ rule.
+- A rule for the paper's Opus claim, frozen in its Section 4: F′ above 0.75 → "does not hold on Opus"; F′ below 0.5 with "no single credence" → "holds on Opus"; otherwise → "holds partly".
+
+**Disclosed before freezing.**
+- While testing the code, test F′ was computed on Opus's 6 already-complete items: Q = 0.96 [0.92, 0.98].
+- The paper rule had been written in code before that.
+- `results/mm-gm3b-opus-first26.json` freezes the arm as it stood.
+
+**Not yet fixed in `reproduce.py`** (found in this session's run, to be fixed after the Opus run):
+- `api-usage.md` differs by its price line, now that the multi-model merge added Opus's prices to `config.PRICES`;
+- the five multi-model results files have no regeneration step.
