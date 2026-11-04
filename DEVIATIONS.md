@@ -714,3 +714,15 @@ Concentration and within-order SD are reported alongside.
 - No QQ block: the test needs only the chain orders.
 
 **Check before freezing.** The analysis was run on simulated stable, moving and noisy-probe worlds, and returned DISSOCIATION, BELIEF MOVES and UNDECIDED respectively.
+
+**Implementation notes after freezing (no design change).**
+- **Memory limits.** The gate run slowed about 7× under system memory pressure (swap nearly full). MLX's freed-buffer cache was capped at 256 MB, and the model's memory is now wired with `mx.set_wired_limit`, as `mlx_lm.generate` does. The run was stopped and resumed twice. Conversations are keyed and seeded per (model, item, cell, repeat), and only completed repeats are saved, so resuming regenerates the same conversations.
+- **Probe training memory.** Training now runs in two passes, class sums first and then projections, rather than holding every activation in memory. The statements sampled, the directions and the scores are the same.
+
+**Result (D48).** Llama-3-8B passed the gate at exactly 3 of 10 items (h190, h101 and h191), so Qwen was not run. The probe is layer 13, with selection AUROC 0.90 and report-set AUROC 0.88. All four validity checks pass.
+- **Q = 3.72 [1.43, 7.03], r = +0.31 [−0.49, +0.99], p_P = 0.0001.**
+- **Frozen verdict: PROBE MOVES, BUT NOT WITH THE RATING.**
+- **Sensitivity:** layer 11 alone reads BELIEF MOVES (r = +0.60).
+- **Exploratory:** the rating follows the last sub-claim's lean (r = +0.54); the probe does not (+0.14).
+
+Details in `results/probe-dissociation.md`.

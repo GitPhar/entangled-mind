@@ -48,6 +48,8 @@ class _Rec:
 class LM:
     def __init__(self, name: str):
         self.name = name
+        mx.set_cache_limit(256 * 2**20)   # keep MLX's freed-buffer cache small: the Mac is memory-bound
+        mx.set_wired_limit(mx.device_info()["max_recommended_working_set_size"])   # as mlx_lm.generate does
         self.model, self.tok = load(MODELS[name])
         inner = self.model.model
         self.store: dict = {}
@@ -106,6 +108,7 @@ class Chat:
         self.cache = make_prompt_cache(lm.model)
         self.rng = np.random.default_rng(seed_for(f"{lm.name}|{key}"))
         self.last_rate_hidden = None
+        self.stats = {"fed": 0}
 
     def _sync(self, target: list[int], record=False):
         """Bring the cache to exactly `target` tokens; return logits at the last one."""
@@ -126,6 +129,7 @@ class Chat:
         self.lm.store["on"] = False
         mx.eval(logits)
         self.toks = list(target)
+        self.stats["fed"] += len(new)
         return logits
 
     def _hidden(self):

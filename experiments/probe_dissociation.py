@@ -262,24 +262,25 @@ def cmd_train(model):
     import local_lm
     lm = local_lm.LM(model)
     rng = np.random.default_rng(SEED)
-    feats = {}
-
-    def run(name, n):
-        rows = load_set(name, n, rng)
-        H = np.stack([lm.hidden_of(lm.statement_text(s)) for s, _ in rows])   # [n, L+1, d]
-        feats[name] = (H, np.array([y for _, y in rows]))
-        print(name, len(rows), flush=True)
+    # Same sampling order as a one-pass version; two passes keep memory small (class sums, then projections).
+    rows = {s: load_set(s, N_TRAIN, rng) for s in TRAIN_SETS}
+    rows.update({s: load_set(s, n, rng) for s, n in {**SELECT_SETS, **REPORT_SETS}.items()})
+    sums, counts = {1: 0.0, 0: 0.0}, {1: 0, 0: 0}
     for s in TRAIN_SETS:
-        run(s, N_TRAIN)
-    for s, n in {**SELECT_SETS, **REPORT_SETS}.items():
-        run(s, n)
-    Htr = np.concatenate([feats[s][0] for s in TRAIN_SETS])
-    ytr = np.concatenate([feats[s][1] for s in TRAIN_SETS])
-    theta = Htr[ytr == 1].mean(0) - Htr[ytr == 0].mean(0)            # mass-mean direction per layer
-    mid = ((Htr[ytr == 1].mean(0) + Htr[ytr == 0].mean(0)) / 2 * theta).sum(-1)
+        for st, y in rows[s]:
+            sums[y] = sums[y] + lm.hidden_of(lm.statement_text(st))
+            counts[y] += 1
+        print("train", s, len(rows[s]), flush=True)
+    mu1, mu0 = sums[1] / counts[1], sums[0] / counts[0]
+    theta = mu1 - mu0                                                # mass-mean direction per layer
+    mid = ((mu1 + mu0) / 2 * theta).sum(-1)
+    feats = {}
+    for s, rs in rows.items():
+        feats[s] = (np.stack([(lm.hidden_of(lm.statement_text(st)) * theta).sum(-1) for st, _ in rs]),
+                    np.array([y for _, y in rs]))
+        print("score", s, len(rs), flush=True)
     table = {}
-    for s, (H, y) in feats.items():
-        sc = (H * theta).sum(-1)                                     # [n, L+1]
+    for s, (sc, y) in feats.items():                                 # sc: [n, L+1] projections
         table[s] = {"auroc": [auroc(sc[:, l], y) if l else 0.5 for l in range(lm.n_layers + 1)],
                     "acc": [float(((sc[:, l] > mid[l]) == y).mean()) for l in range(lm.n_layers + 1)],
                     "sep": [float(sc[y == 1, l].mean() - sc[y == 0, l].mean()) for l in range(lm.n_layers + 1)]}
