@@ -567,3 +567,19 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 - The gold map's P falls from 0.25 to 0.20.
 
 **Check before freezing.** The analysis code was tested on simulated choices.
+
+### D36 amendment 2 — direction 1 crashed on a token-cap judge call; lost calls bounded, cap tightened
+
+**Date:** 2026-11-04 04:07 MST.
+
+**What happened.**
+- In step 3 (the paraphrase 2×2), one Haiku judge call hit max_tokens: 4,000 tokens, with the arm-G default thinking. It was not a refusal.
+- The runner treated it as a crash. Calls completed after the last cache save (at 1,600 calls) were lost, along with the token-cap call itself.
+- The last save was at 04:05:14 and the crash at 04:05:30. At the run's measured rate, that is about 30–50 calls of about $0.003, so **at most $0.20**.
+- Recorded spend is $2.558, so true spend is at most about $2.76.
+
+**Changes.**
+- **The cap** is now $3 minus that $0.20 bound, enforced as $2.80 of *recorded* spend. The truncation order is unchanged: the rest of step 3, then Sonnet's recognition check.
+- **A token-cap judge call** is recorded as no rating and dropped from its cell. This follows the project's existing rule for token-cap answers (stage 1).
+- **The lost calls are re-issued** with identical parameters, because they have no record. One of them is the token-cap call: it was not refused, and its identity was not recorded.
+- **The shared runner** (`experiments/gm_common.py`) now saves its cache every 50 calls and on any error, and stops cleanly. This applies to the remaining overnight runs.

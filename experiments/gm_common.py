@@ -45,7 +45,7 @@ class Caller:
     def __init__(self, cache_path, cap_usd, label):
         self.path, self.cap, self.label = cache_path, cap_usd, label
         self.cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
-        self.lock, self.stop, self.refusal = threading.Lock(), threading.Event(), {}
+        self.lock, self.stop, self.refusal, self.errors = threading.Lock(), threading.Event(), {}, []
 
     def spent(self) -> float:
         return sum(v["cost"] for v in self.cache.values())
@@ -65,9 +65,13 @@ class Caller:
                 self.refusal.setdefault("e", (key, e))
                 self.stop.set()
                 return
+            except Exception as e:      # any other failure stops the run; the cache is still saved (D36 amendment 2)
+                self.errors.append((key, repr(e)))
+                self.stop.set()
+                return
             with self.lock:
                 self.cache[key] = res
-                if len(self.cache) % 200 == 0:
+                if len(self.cache) % 50 == 0:
                     self.path.write_text(json.dumps(self.cache))
                     print(f"{self.label}: {len(self.cache)} done, ${self.spent():.3f}", flush=True)
 
@@ -81,6 +85,8 @@ class Caller:
                 f"Request ID: `{e.request_id}`\n\nExact stop details:\n\n```\n{e.stop_details}\n```\n\n"
                 "Nothing was reworded or retried.\n")
             sys.exit(f"STOPPED on a refusal: {e}")
+        if self.errors:
+            sys.exit(f"{self.label}: stopped on an error: {self.errors[0]}")
         if self.stop.is_set():
             sys.exit(f"{self.label}: budget cap ${self.cap} reached; stopped")
 

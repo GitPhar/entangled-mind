@@ -20,7 +20,8 @@ CACHE = config.RESULTS / "gm1-calls.json"
 OUT_JSON, OUT_MD = config.RESULTS / "gm1-self-knowledge.json", config.RESULTS / "gm1-self-knowledge.md"
 H, S = "claude-haiku-5-5", "claude-sonnet-5-5"
 JUDGES = {"H": H, "S": S}
-CAP, SEED_SUB, SEED_REC, SEED_BOOT, SEED_RBOOT = 3.0, 1001, 1002, 1001, 1003
+# D36 amendment 2: the recorded-spend cap is $3 minus an upper bound of $0.20 on calls lost uncached in the crash
+CAP, SEED_SUB, SEED_REC, SEED_BOOT, SEED_RBOOT = 2.80, 1001, 1002, 1001, 1003
 MATCHED = """Here is a yes/no question and an answer another assistant gave to it.
 
 Question: {question}
@@ -67,6 +68,9 @@ def judge_call(judge, prompt, schema, field):
     # identical settings to llm.self_confidence: no thinking parameter (model default), max_tokens 4000
     resp = llm.client().messages.create(model=JUDGES[judge], max_tokens=4000, messages=[{"role": "user", "content": prompt}],
                                         output_config={"format": {"type": "json_schema", "schema": schema}})
+    if resp.stop_reason == "max_tokens":     # D36 amendment 2: recorded as no rating, as with earlier token-cap answers
+        return {field: None, "error": "max_tokens", "cost": llm._usage(resp).cost,
+                "request_id": getattr(resp, "_request_id", None)}
     llm._check_stop(resp, f"gm1 judge {judge}")
     text = next(b.text for b in resp.content if b.type == "text")
     return {field: int(min(100, max(0, json.loads(text)[field]))), "cost": llm._usage(resp).cost,
@@ -149,14 +153,15 @@ def analyse() -> None:
     authors, ids, sub, rec = load()
     cache = json.loads(CACHE.read_text())
     dis = [i for i in ids if authors["H"][i]["correct"] != authors["S"][i]["correct"]]
-    orig = {(j, a): {i: cache[f"orig|{j}|{a}|{i}"]["confidence"] for i in ids if f"orig|{j}|{a}|{i}" in cache}
+    ok_ = lambda k: k in cache and cache[k].get("confidence", cache[k].get("likelihood")) is not None
+    orig = {(j, a): {i: cache[f"orig|{j}|{a}|{i}"]["confidence"] for i in ids if ok_(f"orig|{j}|{a}|{i}")}
             for j in "HS" for a in "HS"}
     g_h = json.loads((config.RESULTS / "arm-g-confidence.json").read_text())
     g_s = json.loads((config.RESULTS / "sonnet-arm-g-confidence.json").read_text())
     you = dict(orig)
     you[("H", "H")] = {i: g_h[i]["confidence"] for i in ids}
     you[("S", "S")] = {i: g_s[i]["confidence"] for i in ids}
-    para = {(j, a): {i: cache[f"pjud|{j}|{a}|{i}"]["confidence"] for i in sub if f"pjud|{j}|{a}|{i}" in cache}
+    para = {(j, a): {i: cache[f"pjud|{j}|{a}|{i}"]["confidence"] for i in sub if ok_(f"pjud|{j}|{a}|{i}")}
             for j in "HS" for a in "HS"}
     para_drop = {a: [i for i in sub if f"para|{a}|{i}" in cache and final(cache[f"para|{a}|{i}"]["text"])
                      != final(authors[a][i]["deliberation_record"]["visible_answer"])] for a in "HS"}
@@ -181,8 +186,8 @@ def analyse() -> None:
     recog = {}
     for v in ("orig", "para"):
         for j in "HS":
-            own = [cache[k]["likelihood"] for i in rec for k in [f"recog|{v}|{j}|{j}|{i}"] if k in cache]
-            oth = [cache[k]["likelihood"] for i in rec for a in "HS" if a != j for k in [f"recog|{v}|{j}|{a}|{i}"] if k in cache]
+            own = [cache[k]["likelihood"] for i in rec for k in [f"recog|{v}|{j}|{j}|{i}"] if ok_(k)]
+            oth = [cache[k]["likelihood"] for i in rec for a in "HS" if a != j for k in [f"recog|{v}|{j}|{a}|{i}"] if ok_(k)]
             if own and oth:
                 bs = [auroc(rng.choice(own, len(own)), rng.choice(oth, len(oth))) for _ in range(2000)]
                 recog[f"{v}|{j}"] = [auroc(own, oth), *map(float, np.percentile(bs, [2.5, 97.5])), float(np.mean(own)), float(np.mean(oth)), len(own), len(oth)]
