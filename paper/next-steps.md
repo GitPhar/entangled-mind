@@ -1,6 +1,6 @@
 # Next steps after version two
 
-Written 2026-11-04. It reflects `main` at 92048fb. Numbers are copied from `results/`. Anything not yet in `results/` is marked [PENDING].
+Written 2026-11-03. It reflects `main` at 92048fb. Numbers are copied from `results/`. Anything not yet in `results/` is marked [PENDING].
 
 ## 1. Where the project stands
 

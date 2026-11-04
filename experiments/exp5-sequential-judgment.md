@@ -1,6 +1,6 @@
 # Experiment 5: sequential, context-dependent judgment (pre-registration draft)
 
-Written 2026-11-04, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: FROZEN 2026-11-03 20:15 MST, in its own commit, before any experiment-5 call (Sean's go-ahead; budget cap $4).** Nothing in it had been piloted at freezing. It is the second of the two remaining pre-registered tests. The first is experiment 4 run 2, the graded QQ/R2 test on the 7 fallacy items (D17), which is designed but not yet run. Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
+Written 2026-11-03, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: FROZEN 2026-11-03 20:15 MST, in its own commit, before any experiment-5 call (Sean's go-ahead; budget cap $4).** Nothing in it had been piloted at freezing. It is the second of the two remaining pre-registered tests. The first is experiment 4 run 2, the graded QQ/R2 test on the 7 fallacy items (D17), which is designed but not yet run. Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
 
 ## 1. Why this experiment
 

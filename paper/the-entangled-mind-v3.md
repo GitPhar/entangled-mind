@@ -2,14 +2,14 @@
 
 **Sean Pharris**
 Independent Researcher, Colorado Springs, Colorado
-Version 3, November 4, 2026 (version 2: November 3, 2026; version 1: October 25, 2026)
+Version 3, November 3, 2026 (version 2: November 3, 2026; version 1: October 25, 2026). Dates and times are local, America/Denver (MST, UTC−7).
 
 **Author note.** Sean Pharris is an independent researcher with a background in psychology and philosophy and professional experience in prompt engineering and AI pipeline development.
 
 **Versions.**
 - Version 1 was a pre-registration-style proposal.
 - Version 2 reported the first experiments.
-- This version reports everything on the project's `main` branch as of the night of November 3–4, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which completed the hard pool and then stopped on a second refusal.
+- This version reports everything on the project's `main` branch as of the evening of November 3, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which completed the hard pool and then stopped on a second refusal.
 - It ends with the two sequential experiments: experiment 4 run 3 (a pre-registration draft, not run) and experiment 5 (frozen; pilot gates passed; full run collecting).
 
 **Number conventions.**
@@ -375,7 +375,7 @@ From `results/witness-run-1.md` and `results/ibm-calibration.md`. Job `dbl6e1d8m
 - The `h221` pair's reduced state is pure, so that test is effectively a two-qubit entangling test.
 - The `h088` and `h268` pairs are mixed, so they are entangled with the rest of their belief states.
 
-**Calibration at each job's execution start.** The calibration snapshot is from 2026-11-03 15:31 MST; both jobs ran at 23:06 UTC.
+**Calibration at each job's execution start.** The calibration snapshot is from 2026-11-03 15:31 MST; both jobs ran at 16:06 MST.
 
 | job | qubits used | T₁ median [range] µs | T₂ median [range] µs | readout error median | √X error median | CZ error median [range] |
 |---|---|---|---|---|---|---|

@@ -219,7 +219,7 @@ The overstated sentences were corrected in `experiments/items-borrowed.json` (ru
 
 ## D14 — Pre-registered additions: hedge baseline H and version 2.1 "honest hedge" encoding
 
-**Date:** 2026-11-04 00:45 UTC, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
+**Date:** 2026-11-03 17:45 MST, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
 
 These were added at Sean's request, prompted by the exploratory window vignette W4 (`paper/window-vignettes.md`), which notes that the encoding forces hedging claims into a yes or no camp. Full definitions are in `experiments/preregistration-v2.md`, Addendum B.
 
@@ -235,7 +235,7 @@ Because W4 was an exploratory observation on run-2 data, v2.1 is a hypothesis su
 
 ## D15 — Correction: the phase solver's frame drifts off the yes/no axis (encoding bug, documented and characterised)
 
-**Date:** 2026-11-04. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
+**Date:** 2026-11-03. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
 
 **Finding.** Two causes were possible: (a) a display convention error in `export_window.py`, or (b) the encoding itself. It is **not (a)**: the exported encode-stage Bloch azimuth equals the solver's φ exactly, claim for claim. It **is (b)**, in a more specific form than a free rotation.
 
@@ -412,3 +412,24 @@ Arm G is marked **not scored**, because it needs Sonnet calls and the replicatio
 
 - **Addendum D** (`experiments/preregistration-v2.md`): A2(κ=0) frozen, and F2+ (F2 plus A2's per-claim tilted-readout marginal, 10 parameters against A2's 9) fitted on the v2 train split. Each is scored once on Haiku's locked test set and on Sonnet's 298 hard-pool records, with the decision rule fixed in advance.
 - **Arm G on Sonnet** (Sean's instruction): one self-confidence call per hard-pool item to `claude-sonnet-5-5`. This is the base model, not the extractor, and it sees only its own visible answer. The budget is $2, enforced in code. Any refusal stops the run and records the request ID, with nothing retried.
+
+## D29 — Dates use local America/Denver time throughout
+
+**Date:** 2026-11-03, at Sean's instruction.
+
+Some documents carried 2026-11-04 for work done on the evening of 2026-11-03 Denver time: the UTC date, or a wrong date. Git's local timestamps (MST, UTC−7) are the reference. From now on, every date in the repository is local.
+
+**Corrected:**
+- D14 and D15 above;
+- the writing dates of Addenda B and C in `experiments/preregistration-v2.md`;
+- the writing date of `experiments/exp5-sequential-judgment.md`.
+
+The two pre-registration files are frozen. **Only the expression of the date changed; no instant and no word of the design.** For example, "2026-11-04 00:45 UTC" became "2026-11-03 17:45 MST", which is the same moment. The exp5 text's "Written 2026-11-04" was simply wrong: it was written at 19:19 MST on 2026-11-03 (`2dc435b`).
+
+Also corrected:
+- `experiments/exp4-run-3.md`, `paper/next-steps.md`, `paper/the-entangled-mind-v3.md` and `paper/references.bib` (a comment);
+- the hand-written Reading section of `results/stage1-run-1.md`.
+
+**Not changed:**
+- machine-written UTC fields in `results/` (the IBM usage ledger, the job-status log, the calibration tables) and in archived JSON, which their writers produce and `experiments/reproduce.py` checks byte for byte. Switching those writers to local time is a code change, logged separately if made;
+- commit messages, which cannot be edited. One says "2026-11-04" (`34f5de4`).
