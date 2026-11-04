@@ -395,3 +395,5 @@ The record is in `results/refusal-sonnet-replication-2.md`. Both refusals came o
 6. **BA5's parameter boxes**, which the text does not give: ω_supp, ω_con ∈ [0, 2] and ρ ∈ [0, 1]. C₀ is A5⁰'s prepared P(yes), before any evolution step. The "side" of a claim is the sign of its lean, compared with the model's original answer.
 7. **The ablation, A5 with κ = 0,** is refitted with κ pinned at 0, under the same rule and budget (seed 505). The plain-solver sensitivity run, A5plain, is also refitted (seed 506).
 8. **Rows with a schema failure.** A conversation containing one is excluded whole, and the count is reported.
+
+**D26 addendum (before any full-run result):** in §7.5's verdict, "a signature contradicted" covers two cases: the QQ signature contradicted (mean-q CI excluding 0 on the large-OE pairs), **or** Kvam's commitment outcome (Δ_K CI entirely above 0, the opposite sign to the quantum prediction). The rest of the verdict table is applied as written.
