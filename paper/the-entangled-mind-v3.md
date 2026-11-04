@@ -10,7 +10,7 @@ Version 3, November 3, 2026 (version 2: November 3, 2026; version 1: October 25,
 - Version 1 was a pre-registration-style proposal.
 - Version 2 reported the first experiments.
 - This version reports everything on the project's `main` branch as of the evening of November 3, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which completed the hard pool and then stopped on a second refusal.
-- It ends with the two sequential experiments: experiment 4 run 3 (a pre-registration draft, not run) and experiment 5 (frozen; pilot gates passed; full run collecting).
+- It reports experiment 5, the pre-registered test of sequential, context-dependent judgment, and ends with the one experiment still to run: experiment 4 run 3 (a pre-registration draft).
 
 **Number conventions.**
 - **Results** are quoted verbatim from the files in `results/` of the project repository (https://github.com/GitPhar/entangled-mind).
@@ -48,23 +48,26 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
     - Setting A2's couplings to exactly 0 changes nothing: −0.006 [−0.029, +0.013].
     - A classical twin given A2's per-claim tilted readout (F2+) matches A2: 0.90, and +0.004 [−0.032, +0.042].
   - **Sonnet's own stated confidence scores 0.91 [0.86, 0.95]**, level with A2. Self-report again matches the best structural model.
-  - **The same holds for Haiku's earlier held-out edges** (Addendum E). The frozen F2+ matches A2 and A2.1 there. Every positive quantum-vs-classical difference in the project is matched by a classical model with the same per-claim readout.
+  - **The same holds for Haiku's earlier held-out edges** (Addendum E). The frozen F2+ matches A2 and A2.1 there. Every positive quantum-vs-classical difference in error prediction is matched by a classical model with the same per-claim readout.
 
 **Hardware: positive, and narrow.**
 - On IBM's `ibm_fez`, a pre-registered witness certified that the encoded belief states are physically entangled: 3 of 3 items, negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
 - Calibration logged at job time shows median CZ error of about 2 × 10⁻³ and median T₁ of 134–146 µs.
 - The device washed the states out more than its noise model predicts.
 
-**Sequential judgment: open.** The evidence for quantum cognition is about one judgment changing the next.
+**Sequential judgment: real order effects, no quantum signature.** The evidence for quantum cognition is about one judgment changing the next.
 - **Yes/no answers.** The model is near-deterministic: in experiment 3 it gave the same answer in all 5 runs on 85% of items, so order effects were undetectable.
 - **Graded ratings.**
   - Experiment 4 found single conjunction fallacies (7 of 16 items) and no double fallacies.
   - Order effects of about +0.10 satisfied the Yearsley–Trueblood bound R2 on 3 of 3 scored items.
   - The pre-registered estimator meant to separate a quantum account from anchoring on the first answer turned out to be close to circular, so the mechanism is undetermined.
+- **Experiment 5** (pre-registered, 12,600 conversations, $1.93). On 40 hard-pool questions the model rated chains of its own competing claims, in many orders.
+  - The order effects are large: 60 of 80 claim–question pairs show one above 0.10.
+  - **The verdict is a tie.** A dynamic quantum belief state built from the encoder and a matched classical updater do not differ in predicting held-out ratings.
+  - Neither parameter-free quantum signature appeared: the QQ equality was close but not certified, and a mid-chain choice left later confidence unchanged.
+  - Where the quantum state predicted better (on 8 held-out items), a dephased version, which is a classical Markov chain, did equally well.
 
-**What remains.** Two sequential experiments. Experiment 5 is frozen, has passed its pilot gates and is collecting data; experiment 4 run 3 is a draft:
-- a run that moves the first rating independently of the item;
-- a test of sequential, context-dependent judgment with parameter-free quantum signatures (the QQ equality, and interference of a choice on later confidence).
+**What remains.** One experiment, drafted and not run: experiment 4 run 3, which moves the first rating independently of the item to separate anchoring from content-driven updating.
 
 **Keywords:** quantum cognition, entanglement, language models, error prediction, order effects, pre-registration, classical twin, entanglement witness
 
@@ -85,7 +88,7 @@ This version reports a clean negative result on the question the project was bui
 
 The search did not stop at the first failure. It went from fixed to learned encodings, then to an "honest hedge" encoding, then to a second base model. That replication collected the hard pool and then stopped on a second refusal. The frozen v2 models were later scored on its hard-pool records offline, without self-report (Section 5.11).
 
-**The open question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our sequential experiments so far were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. The last section describes the two pre-registered experiments that test the sequential question properly.
+**The sequential question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our first sequential experiments were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. Experiment 5 then tested sequential judgment with graded ratings. The order effects were real and large, and a matched classical model accounted for them as well as the quantum one.
 
 ---
 
@@ -226,6 +229,35 @@ Every arm's flag threshold is the 75th percentile of its own scores on a calibra
 - **Rules:** R1 (a fallacy needs an order effect); R2 (the order effect on the conjunction is at least the fallacy); R3 (no double fallacies).
 - **Reading R2:** meeting R2 is consistent with the quantum model *or* a sequential-update classical model. It rules out only a static classical twin (D11).
 
+### 3.8 Experiment 5: sequential, context-dependent judgment
+
+The design is in `experiments/exp5-sequential-judgment.md`, frozen at D22 before any call. The implementation details (D23–D24) and model details (D26) were fixed before any full-run data were examined.
+
+**Items and chains.**
+- 40 hard-pool questions, each with at least 4 claims that contradict claims leaning the other way.
+- In each chain the model rates 4 of its own competing claims, then the main question, all on 0–100, in 12 chain types:
+  - four Latin-square orders;
+  - each claim omitted in turn;
+  - the main question alone;
+  - the main question first and repeated at the end;
+  - a mid-chain yes/no choice, against a matched one-word filler (the Kvam contrast).
+- 10 conversations per chain, with the scale's anchor direction reversed in half.
+- A separate block asks each of 2 (claim, main) pairs back to back, in both orders, 40 times each (the QQ test).
+
+**Models**, with 5 parameters each:
+- **A5:** the encoder's state (anchored phase solve, honest hedges), evolved one Trotter step before each question and updated by a Lüders POVM on each observed rating.
+- **F5:** its commuting-limit Markov/Bayes twin.
+- **Secondary comparators:**
+  - D5, the dephased quantum model, which is a classical Markov chain;
+  - BA5, a belief-adjustment model of the main ratings;
+  - A5 with κ = 0.
+
+**Primary test.** Held-out one-step-ahead mean squared error on 77 test chains, with the paired difference bootstrapped over items. 8 items are held out entirely.
+
+**Parameter-free checks.**
+- QQ on pairs whose order effect exceeds 0.10.
+- Kvam interference: final folded confidence after a choice against after a filler.
+
 ---
 
 ## 4. Pre-registration and deviations
@@ -257,6 +289,7 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D29** | Every date in the repository uses local America/Denver time. The frozen pre-registrations changed only in how the same instants are written. | Sean's instruction. | None. |
 | **D30** | Addendum E: the frozen F2+ scored once on Haiku's run-2 held-out set. | To test whether Haiku's held-out edges are also readout geometry. | Outcome 1 (Section 5.11). |
 | **D31** | Machine-written timestamps (IBM usage ledger, calibration, job-status log) switched to America/Denver; tables regenerated by their writers. | Sean's time-zone rule. | None; `reproduce.py` still matches byte for byte. |
+| **D32** | Experiment 5's a priori QQ sub-test compared predicted non-commutativity with exact float inequality, so solver round-off ordered the pairs and gave a spurious 28–9. With a 10⁻⁶ tolerance it is 1–2 over 3 items. | Found after results. | The verdict does not use this sub-test and is unchanged. |
 | **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
 
 **On sequencing.** The analysis grew in stages:
@@ -505,6 +538,56 @@ Arm G, Sonnet's own stated confidence, was then scored with 298 Sonnet calls und
 
 **The pre-registered outcome is outcome 1: the held-out edges are also single-claim readout geometry, carried by a classical model.** F2+ matches A2 and A2.1 on this set, and the readout feature alone recovers most of the gap over plain F2.
 
+### 5.12 Experiment 5: sequential, context-dependent judgment
+
+From `results/exp5-run-1.md` (`75744dc`).
+- **The run:** 12,600 conversations including the pilot, $1.93 against the $4 cap, no refusal, and no schema exclusions.
+- **Encoder prediction, fixed before any data:** after the anchored phase solve, only 12 of 160 chain claims are off the yes/no axis (|sin Δφ| > 10⁻⁶, maximum 0.424). So for most claims the quantum model predicts no non-commutation with the main question. The pre-registration (§8.6) expected A5 and F5 to be close.
+
+**Primary: tie.**
+
+| model | test chains (77): MSE, all ratings | MSE, main ratings | held-out items (8): MSE, all ratings |
+|---|---|---|---|
+| A5 quantum belief state | 984.0 | 872.9 | 779.7 |
+| F5 classical twin | 1050.9 | 919.5 | 987.0 |
+| D5 dephased quantum (a classical Markov chain) | 987.8 | 851.5 | 768.4 |
+| BA5 belief adjustment (main ratings only) | — | **827.1** | — |
+| A5 with κ = 0 | 1008.4 | 896.5 | 812.9 |
+| A5⁰ (a priori, unfitted) | 1088.3 | 920.4 | 922.5 |
+| F5⁰ (a priori, unfitted) | 1739.7 | 1706.2 | 1642.6 |
+
+Paired item-bootstrap differences (MSE in rating points²):
+
+| difference | test chains | held-out items |
+|---|---|---|
+| **F5 − A5 (primary)** | **+67.0 [−34.1, +211.5]** | +207.3 [+52.0, +387.5] |
+| D5 − A5 (does coherence matter?) | +3.8 [−21.8, +30.9] | −11.3 [−61.4, +44.9] |
+| (A5, κ = 0) − A5 (does entanglement matter?) | +24.4 [−8.0, +60.5] | +33.2 [−23.6, +103.5] |
+| BA5 − A5, main ratings | −45.8 [−94.1, +14.1] | +5.9 [−75.7, +103.6] |
+
+- **The primary comparison is a tie.** A5 and F5 do not differ on the test chains.
+- **On the 8 held-out items, outside the verdict, A5 beats F5.** But the dephased D5 matches A5 there and on the test chains. D5 has no coherence: it is a classical Markov chain on the same states, with bit-flip dynamics between questions. Removing the couplings also costs nothing significant.
+- **What F5 lacks is dynamics, not quantumness.** It fitted λ = 0, so it has no mixing between questions.
+- **The best predictor of the main ratings on the test chains is the classical belief-adjustment model BA5** (827 against A5's 873).
+
+**Parameter-free check 1, the QQ equality.**
+- **Order effects are large.** 60 of 80 adjacent (claim, main) pairs have an order effect above 0.10 with an interval excluding 0, and the main-rating means span a median of 24.7 points across orders and omissions.
+- **q is close to 0 but not certified.** On those 60 pairs the mean q is +0.005 [−0.058, +0.065], just wider than the pre-registered ±0.05.
+- **The per-pair z values are overdispersed** against N(0, 1) (KS p < 0.001).
+- **So the signature is not present, and not contradicted.**
+- **The encoder's a priori prediction of where order effects appear is not supported:** 1 win against 2 losses over the only 3 items with distinct predictions (p = 0.875, D32).
+
+**Parameter-free check 2, Kvam-style interference.**
+- **A mid-chain choice leaves final confidence where a matched filler leaves it:** Δ_K = +0.29 [−1.12, +1.65] points, with a total-probability residual of +0.58 points.
+- **A5⁰'s predicted sign agrees on 53% of items,** about chance.
+- **So there is no interference, and no commitment effect either.**
+
+**Also reported.**
+- When the main question is asked first and again after the chain, the two ratings agree within 5 points in 84% of conversations.
+- **A measurement artefact:** after recoding, baseline main ratings average 33.8 under one anchor direction ("0 = false") and 71.3 under the other ("0 = true"). The model does not reliably reverse the scale. That adds variance shared by every model, so the comparisons are fair but noisier than necessary.
+
+**Verdict (§7.5): tie.**
+
 ---
 
 ## 6. Discussion
@@ -535,7 +618,7 @@ In every case the learned quantum model has near-zero coupling. Two pre-register
 - **Addendum D:** setting the couplings to 0 changes nothing.
 - **Addenda D and E:** a classical twin with the same per-claim readout, F2+, matches the quantum model on every set where the quantum model had led: Sonnet's hard pool and Haiku's run-2 held-out set.
 
-**Every positive quantum-vs-classical difference in the project is matched by a classical model with the same per-claim readout.** Where self-report was measured, on both base models, it matched the best structural model.
+**Every positive quantum-vs-classical difference in error prediction is matched by a classical model with the same per-claim readout.** The one in sequential judgment is matched too: experiment 5's held-out edge of A5 over F5 is equalled by D5, a dephased classical Markov chain (Section 5.12). Where self-report was measured, on both base models, it matched the best structural model.
 
 ### 6.2 What does predict the model's errors
 
@@ -554,20 +637,25 @@ The relation judge's labels of *which* claims support or contradict which carry 
 
 This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On both models, the model can see them, and says so when asked.
 
-### 6.3 Sequential judgment: what is and is not known
-
-**Two measurement facts.**
-- The model's yes/no answers are near-deterministic at its default temperature, which cannot be changed (D17).
-- Graded ratings move.
+### 6.3 Sequential judgment: real effects, classical account
 
 **What the graded ratings show.**
-- Single but not double conjunction fallacies. That is the pattern the quantum account predicts, and Imannezhad et al. (2026) also find it in GPT-5.
-- Order effects of about +0.10 on the conjunction.
-- R2 holds on the 3 items where it applies.
+- Single but not double conjunction fallacies, the pattern the quantum account predicts, which Imannezhad et al. (2026) also find in GPT-5.
+- Order effects that satisfy R2 in experiment 4.
+- Large order and omission effects in experiment 5, where 60 of 80 claim–question pairs moved by more than 0.10.
 
-**What they cannot yet show.** Whether the order effect comes from a quantum-like non-commuting update, a sequential classical update, or simple anchoring on the first number. Experiment 4 run 2's estimator for that last question was circular (D19).
+The sequential phenomena that quantum cognition was built to explain are present in this model's graded judgments.
 
-**The circularity is deeper than that one estimator.** Take a quantum model with rank-one projectors. Judging X first leaves the state on X, so the conjunction rating is r₁ · |⟨Y|X⟩|². By reciprocity, the constant is the same in both orders. So the order effect is c · (P(X) − P(Y)), exactly the form anchoring predicts. While the first rating is fixed by the item, no analysis of these data can separate the two.
+**None of them needs a quantum account.**
+- **The prediction contest.** In experiment 5, the quantum belief state and its matched classical twin tie.
+- **Coherence.** Where the quantum state predicts better, a dephased classical Markov chain with the same parameters does equally well.
+- **The QQ equality.** It is close to holding but not certified.
+- **Kvam interference.** A mid-chain decision leaves later confidence unchanged, which is what any read-out or Markov model predicts.
+- **Main ratings.** A classical belief-adjustment model predicts them best.
+
+**Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them as well as the quantum ones.
+
+**What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 moves the first rating independently of the item, and is the last pre-registered test.
 
 ### 6.4 The hardware result
 
@@ -581,7 +669,7 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 **Physics.** A real quantum processor held the entangled states of a language model's belief webs, with certified negativity on 3 of 3 items. That is a modest near-term use of hardware: certification, not speed. The device washed states out more than its own noise model and calibration predict. Any claim about "cognitive work" done by entanglement on current hardware should budget for that.
 
-**Psychology.** Our results neither confirm nor refute quantum cognition, which models human aggregates. What we offer is a method: build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. The negative results show that method can return "no". The sequential experiments ahead point it at the effects the field actually rests on.
+**Psychology.** Our results neither confirm nor refute quantum cognition, which models human aggregates. What we offer is a method: build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. The negative results show that method can return "no". Pointed at the effects the field rests on, sequential order and intermediate decisions, it finds the effects present in a language model's graded judgments, and finds a classical account of them as good as the quantum one.
 
 **Philosophy of mind.** A judgment layer built as a certified-entangled whole judged no better than one built as a list. When it was free to choose, it chose to be nearly a list. That does not settle anything about minds. It does show that being an indecomposable whole is not, by itself, an advantage for this kind of judgment.
 
@@ -600,37 +688,29 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
   - The only positive quantum-vs-classical differences are secondary: A2 and A2.1 on Haiku's held-out set, which motivated v2.1, and A2 on Sonnet's hard pool. All are reproduced by a classical twin with the same per-claim readout (Addenda D and E). The F2+ comparisons are additional single scorings of frozen models on sets that had been scored before.
 - **Analysis grew after the primary result.** Every addition was pre-registered before its data, but designed knowing run 2 had failed (Section 4).
 - **Hardware scope.** The witness certified one pair in each of 3 items, and arm B never ran.
-- **Sequential experiments are limited by the measurement.** The yes/no answers saturate, and temperature cannot be raised. Graded ratings vary between repeats by only 0–5 points. One pre-registered estimator was circular (D19).
+- **Sequential experiments are limited by the measurement.**
+  - The yes/no answers saturate, and temperature cannot be raised.
+  - One pre-registered estimator was circular (D19).
+  - In experiment 5 the model did not reliably reverse a reversed rating scale (baseline means 33.8 against 71.3), which adds noise to every model's predictions.
+  - Experiment 5's encoder predicted non-commutation for only 12 of 160 claims, so it tested the quantum model where that model had little to say.
 - **Single author, no independent replication.** The code, data and decisions are public.
 
 ---
 
 ## 9. What comes next
 
-Two sequential experiments remain. Together they cost under $5, with no QPU time.
+One pre-registered test remains. It costs under $2, with no QPU time.
 
 **Experiment 4, run 3: a manipulated first rating** (`experiments/exp4-run-3.md`). A pre-registration draft, not run; it needs Sean's go-ahead and a freezing commit.
 - **Design:** before rating the conjunction, the model is shown a provided first rating for one conjunct, low or high, and accepts or revises it. That moves the first rating independently of the item.
 - **What it separates:**
   - Numeric anchoring predicts a nonzero intercept, pulled toward the fresh conjunction rating. Content-driven updating is multiplicative, with a zero intercept.
-  - Within content-driven updating, rank-one quantum projectors predict equal slopes in both orders, by reciprocity. Classical Bayes predicts a slope ratio of P(Y)/P(X), which is about 0.05–0.08 on these items.
+  - Within content-driven updating, rank-one quantum projectors predict equal slopes in both orders, by reciprocity. Classical Bayes predicts a slope ratio of P(Y)/P(X), about 0.05–0.08 on these items.
 - **Cost:** about $0.35, with a $2 cap.
 
-**Experiment 5: sequential, context-dependent judgment** (`experiments/exp5-sequential-judgment.md`, frozen at D22). Status: [RUNNING].
-- **The pilot passed both gates** (`results/exp5-pilot.md`, $0.21). On G1, the main-rating means span 9.8–73.8 points across chain types on 5 of 5 items. On G2, all 10 QQ pairs have a binarised minority of at least 12%.
-- **The full run's conversations are collected and archived** (`results/exp5-conversations.json`, `f27bd95`), with no refusal. Its models and analysis code were committed before any full-run data were examined (D26). Fitting and the one-time scoring are in progress, and the result is [RUNNING].
-- **One fact fixed by the encoder before any data.** On all 10 pilot QQ pairs the anchored phase solve puts the claim exactly on the yes/no axis (|sin Δφ| = 0.000). So the quantum model predicts almost no non-commutation between a claim and the main question there, and A5 and its classical twin are expected to be close, as §8.6 of the pre-registration anticipated. Any order structure the ratings show (the pilot's spans suggest there is some) must then be carried by the between-question evolution, or it will favour neither model.
-- **Design:**
-  - On 40 hard-pool questions with competing claims, the model rates 4 of its own claims and then the question, all on 0–100.
-  - The chains vary the order, omit claims, ask the question first and repeat it, and insert a yes/no choice against a matched filler.
-- **Models:**
-  - A dynamic quantum belief state built from the existing encoder, with the anchored phase solve and honest hedges.
-  - Its commuting-limit Markov/Bayes twin, with the same 5 parameters.
-- **Verdict:** the quantum model must predict held-out ratings better, **and** a parameter-free signature must appear: the QQ equality where order effects exceed 0.10, or a less extreme final rating after a choice.
-- **Pilot gates** stop the run if the ratings do not move with sequence.
-- **Cost:** about $1.85, with a $4 cap.
+**The reading fixed in advance.** `paper/next-steps.md` fixed the reading of experiment 5's tie before the run: quantum probability adds nothing over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
 
-**What each outcome would mean** is fixed in advance in `paper/next-steps.md`. A null on both static and sequential judgment would be the project's answer for this model, and we would publish it as such.
+With experiment 5's tie, the project's answer for this model is a null on both the static question (error prediction) and the sequential one. That answer is pre-registered throughout, and every positive quantum-vs-classical difference along the way was traced to a classical mechanism.
 
 ---
 
