@@ -16,6 +16,23 @@ Quantum-cognition models describe human judgment with amplitudes, interference a
 - **Self-report does as well.** The base model's own stated confidence predicts its errors as well as anything here, for both Haiku and Sonnet.
 - **Hardware.** The encoded belief states are certified entangled on real hardware (3 of 3 items, 44 QPU s).
 
+## Overnight, 2026-11-04: is there a belief to read?
+
+Eleven pre-registered tests, six from `paper/gold-map.md` and five from `paper/biomimetic-map.md`, each frozen in its own commit before its data were opened or its first call. All used one scale direction, about $4.2 in all, with no refusals. The summary is in [`paper/morning-brief.md`](paper/morning-brief.md).
+
+**The answer is mostly constructed by the asking.**
+- Asking earlier questions is invasive (NSIT, 5 of 6 families).
+- Order effects survive hiding the model's own earlier answers (R = 1.91 [0.92, 4.90]).
+- Six ways of asking the same 160 statements need six separate credences (86% of claims; formats reorder statement pairs 21–35% of the time, against 4–8% noise).
+- The model binds itself to its *own* earlier numbers but not to another person's identical numbers (slope +0.42 against +0.05).
+
+**Self-knowledge is text-reading.** Each model judges its own answers no better than the other model does; the judge × author interaction is −0.055 [−0.103, −0.007].
+
+**What is stable.**
+- Repeat answers within one prompt.
+- A consistent choice of relevant claims to check. Whether it prefers informative or confirmatory checks is undecided.
+- Ratings that commit the conjunction fallacy yet cancel in the Costello–Watts identity (Z = −0.03, flat slope).
+
 ## Hypotheses, and the null result that falsifies each
 
 Full definitions are in [`experiments/preregistration.md`](experiments/preregistration.md).
