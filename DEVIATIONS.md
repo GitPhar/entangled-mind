@@ -196,3 +196,14 @@ The budget is $10, enforced in code. The experiment runs last in the queue.
 **D11 addendum: R2 wording corrected (same day, before any experiment-4 call).** Rule R2 (the order effect is at least the fallacy size) is a consequence of the quantum model, but it is not unique to it. An updating classical model, in which each judgment updates the state before the next, also satisfies R2. Only the *static* classical twin is ruled out.
 
 The overstated sentences were corrected in `experiments/items-borrowed.json` (rule R2 and the pre-registerable test) and in `experiments/exp4-yearsley-trueblood.md`. In experiment 4, meeting R2 is now read as "consistent with quantum or sequential-update classical; rules out the static twin", not as support for the quantum account. The pass rules' thresholds are unchanged.
+
+## D12 — Version two pre-registered (before any fitting)
+
+**Date:** 2026-11-03. The split was locked in `experiments/split-v2.json` (train 629 with 95 wrong, validation 210 with 31 wrong, test 209 with 32 wrong; stratified, seed 2026) and committed before this pre-registration. Both came before any fitting. Choices made here:
+
+1. **Pass criterion.** "Exceeds the classical twin's AUROC by more than the width of both bootstrap 95% intervals" is read as **non-overlapping intervals**: A2's lower 95% bound must be above F2's upper 95% bound. The paired bootstrap difference is reported as well.
+2. **Equal parameter counts.** A2 and F2 each have 8 scored parameters plus a flag threshold. To match that, L uses the 5 features named in the brief plus 3 more relation-web summaries (number of related pairs, mean |lean|, and the share of confidence leaning against the vote), giving 8 weights plus a flag threshold. L's bias term is left out because AUROC does not depend on it.
+3. **Fitting uses exact noiseless statevector scores** (`v2.fast_quantum_probs`, verified equal to the Qiskit circuit at v1 values to 10⁻¹⁶). This makes A2 the strongest version of the quantum model. A noisy-simulator fit at about 1,000 train evaluations was not computationally feasible. The classical twin F2 is also exact.
+4. **Shared fitting rule:** 400 random draws, then hill-climbing of the 10 best with 60 steps each (1,000 train evaluations), with the final candidate selected on validation AUROC. Seeds are A2 101, F2 202, L 303.
+5. **Arm G** (self-reported confidence) needs one Haiku call per locked-test item. It is made at evaluation time and cached in `results/v2-arm-g-confidence.json`. On the run-2 held-out set it reuses the existing arm-G calls.
+6. **Phase solver.** `v2.solve_phases_fast` is a vectorised form of `encoder.solve_phases`, with the same starts and update rule plus early stopping. It agrees within 2×10⁻⁶ rad. v1's solver is unchanged.
