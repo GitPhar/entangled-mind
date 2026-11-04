@@ -132,6 +132,8 @@ def main() -> int:
     for fn, md in (("bm2_analyse", "bm2-sampling-identity.md"), ("bm1_analyse", "bm1-serial-dependence.md")):
         if md in committed:          # biomimetic runs (D43-D44), from their call caches
             step(md, lambda fn=fn: getattr(importlib.import_module("bm_runs"), fn)())
+    if "bm0-source-distance-lag.md" in committed:     # D47, from its call cache
+        step("bm0-source-distance-lag.md", lambda: importlib.import_module("bm0_source_distance_lag").analyse())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]

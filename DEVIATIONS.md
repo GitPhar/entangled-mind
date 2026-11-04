@@ -876,3 +876,11 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - **Also narrowed, for consistency:** the question-alone claim, which holds on Haiku and Sonnet and is not decisive on Opus at 2 conversations per cell.
 - **Where:** a new Section 4.6 with the per-model table; the abstract, contributions, §3.1 settings, the §4.5 heading, §§5.1, 5.3 and 5.4, the limitations and the reproduction list.
 - **Unchanged:** the title, the [R-pending] tags and every Haiku-only number. Test S (own against other) was run on Haiku only, and the paper does not extend it.
+
+## D47a — Source × distance × lag: the cap stopped the lag arm at R = 17
+
+**Date:** 2026-11-04 09:36 MST, after the run.
+- **Where the cap hit.** The $0.50 cap stopped the run at 3,650 of 3,840 conversations, with $0.502 spent as calls already in flight finished.
+- **Why it was short.** The lag arm's conversations (three extra turns) cost about $0.00024 each, against the $0.00015 estimated.
+- **What was cut.** As pre-registered, every distance cell is complete (R = 10). The lag arm was cut to R = 17 of 20, plus 2 conversations at repeat 17.
+- **The analysis** is the frozen one, run with `--analyse` because the runner exits on a cap stop before analysing. Pre-registered reading: **self-consistency**.
