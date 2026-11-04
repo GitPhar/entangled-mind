@@ -78,17 +78,24 @@ def _log(entry: dict) -> None:
     render_usage_md(ledger)
 
 
+def local_time(utc_str: str) -> str:
+    """Ledger times are stored in UTC; documents show America/Denver local time (DEVIATIONS.md, D31)."""
+    from zoneinfo import ZoneInfo
+    t = dt.datetime.strptime(utc_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=dt.timezone.utc)
+    return t.astimezone(ZoneInfo("America/Denver")).strftime("%Y-%m-%d %H:%M:%S")
+
+
 def render_usage_md(ledger: list[dict]) -> None:
     """results/ibm-usage.md from the ledger JSON alone."""
     lines = ["# IBM Quantum usage ledger", "",
              f"Instance `{config.IBM_INSTANCE}` (Open Plan, {config.QPU_MONTHLY_SECONDS} s/month). "
              f"Hard stop for this project: {config.QPU_STOP_SECONDS} s cumulative.", "",
-             "| when (UTC) | purpose | backend | job id | circuits | shots | QPU s (job) | cumulative QPU s | service-reported consumed s (period) |",
+             "| when (MST, America/Denver) | purpose | backend | job id | circuits | shots | QPU s (job) | cumulative QPU s | service-reported consumed s (period) |",
              "|---|---|---|---|---|---|---|---|---|"]
     cum = 0.0
     for e in ledger:
         cum += e["quantum_seconds"]
-        lines.append(f"| {e['when']} | {e['purpose']} | {e['backend']} | `{e['job_id']}` | {e['circuits']} | "
+        lines.append(f"| {local_time(e['when'])} | {e['purpose']} | {e['backend']} | `{e['job_id']}` | {e['circuits']} | "
                      f"{e['shots']} | {e['quantum_seconds']} | {cum:g} | {e['service_after'].get('usage_consumed_seconds')} |")
     USAGE_MD.write_text("\n".join(lines) + "\n")
 

@@ -4,7 +4,7 @@ Calibration data are read from `backend.properties(datetime=...)` at each job's 
 
 ## Stage 1 pipe test: job `dbl423dgg49c73dk0db0`
 
-Job ran at 2026-11-03 23:06 UTC. Calibration snapshot: 2026-11-03 15:31:18-07:00. 9 physical qubits used (9 measured), 8 CZ pairs.
+Job ran at 2026-11-03 16:06 MST. Calibration snapshot: 2026-11-03 15:31:18-07:00. 9 physical qubits used (9 measured), 8 CZ pairs.
 
 | quantity | median | min | max |
 |---|---|---|---|
@@ -30,7 +30,7 @@ Measured qubits:
 
 ## Entanglement witness run 1: job `dbl6e1d8mdtc73d5gesg`
 
-Job ran at 2026-11-03 23:06 UTC. Calibration snapshot: 2026-11-03 15:31:18-07:00. 14 physical qubits used (6 measured), 12 CZ pairs.
+Job ran at 2026-11-03 16:06 MST. Calibration snapshot: 2026-11-03 15:31:18-07:00. 14 physical qubits used (6 measured), 12 CZ pairs.
 
 | quantity | median | min | max |
 |---|---|---|---|

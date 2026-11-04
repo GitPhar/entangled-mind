@@ -433,3 +433,22 @@ Also corrected:
 **Not changed:**
 - machine-written UTC fields in `results/` (the IBM usage ledger, the job-status log, the calibration tables) and in archived JSON, which their writers produce and `experiments/reproduce.py` checks byte for byte. Switching those writers to local time is a code change, logged separately if made;
 - commit messages, which cannot be edited. One says "2026-11-04" (`34f5de4`).
+
+## D30 — Addendum E: the frozen F2+ on Haiku's run-2 held-out set
+
+**Date:** 2026-11-03 21:45 MST. Pre-registered in `experiments/preregistration-v2.md`, Addendum E (`52e80a0`), before the scoring, at Sean's go-ahead.
+
+The frozen F2+ was scored once on the run-2 held-out set (40 wrong, 40 right), with no refitting and no API calls. Its AUROC was 0.80 [0.69, 0.88]:
+- F2+ − A2 = −0.019 [−0.073, +0.029];
+- F2+ − A2.1 = −0.037 [−0.089, +0.012];
+- F2+ − F2 = +0.088 [+0.014, +0.167].
+
+**Outcome 1:** Haiku's held-out edges are also single-claim readout geometry, carried by a classical model. Results are in `results/sonnet-ablation.md` (Addendum E section) and `results/heldout-f2plus.json`.
+
+## D31 — Machine-written timestamps switched to America/Denver
+
+**Date:** 2026-11-03, following Sean's rule (relayed with D29) that every date in the repository uses local America/Denver time.
+- The IBM usage ledger keeps UTC in its JSON, but `results/ibm-usage.md` now shows local time.
+- `results/ibm-calibration.md`'s "Job ran at" line is now MST: Stage 1 ran at 16:06 MST, which is 23:06 UTC.
+- `check_job.py` now writes local time. The existing `results/ibm-job-status-log.md` was converted once, and its instants are unchanged.
+- Both tables were regenerated from their archived JSON by their writers, so `reproduce.py` still matches byte for byte.

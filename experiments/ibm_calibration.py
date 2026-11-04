@@ -12,9 +12,11 @@ import json
 from collections import defaultdict
 
 import numpy as np
+from zoneinfo import ZoneInfo
 
 from entangled_mind import backends, config
 
+DENVER = ZoneInfo("America/Denver")   # D31: documents use local time
 HW = config.ROOT / "window" / "data" / "hardware"
 OUT_MD = config.RESULTS / "ibm-calibration.md"
 OUT_JSON = config.RESULTS / "ibm-calibration.json"
@@ -88,7 +90,7 @@ def write_md(out: dict) -> None:
         when = dt.datetime.fromisoformat(d["job_running"])
         measured = [r for r in qrows if r["measured"]]
         lines += [f"## {label}: job `{jid}`", "",
-                  f"Job ran at {when:%Y-%m-%d %H:%M UTC}. Calibration snapshot: {d['calibration_time']}. "
+                  f"Job ran at {when.astimezone(DENVER):%Y-%m-%d %H:%M} MST. Calibration snapshot: {d['calibration_time']}. "
                   f"{len(qrows)} physical qubits used ({len(measured)} measured), {len(prow)} CZ pairs.", "",
                   "| quantity | median | min | max |", "|---|---|---|---|"]
         for k, s in summary.items():
