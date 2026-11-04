@@ -478,13 +478,27 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 
 ## D34 — Overnight gold-map run, 1 of 6: direction 9 (NSIT on archived experiment 5 data) pre-registered
 
-**Date:** 2026-11-04 03:55 MST, before the analysis. Sean's overnight brief runs six gold-map directions in order, each pre-registered in its own commit before its first call, every new design on one scale direction only, with stop-on-refusal for every call.
+**Date:** 2026-11-04 03:48 MST (the commit time of `7f0dd3e`), before the analysis. Sean's overnight brief runs six gold-map directions in order, each pre-registered in its own commit before its first call, every new design on one scale direction only, with stop-on-refusal for every call.
 - **Direction 9** (`experiments/gm9-nsit.md`) is a $0 analysis of the archived experiment 5 conversations. It uses anchor (a) only, six NSIT families, a within-cell permutation test, and Holm correction.
 - **Results files** for the overnight run open with a hand-written "In plain English" section. `reproduce.py` excludes that section from its comparison, as it already does for "## Reading".
 
 ## D35 — Overnight run, 2 of 6: direction 3's free look (anchor-direction gap against errors) pre-registered
 
-**Date:** 2026-11-04 04:05 MST, before the analysis.
+**Date:** 2026-11-04 03:50 MST (the commit time of `a1bc421`), before the analysis.
 - `experiments/gm3a-anchor-gap.md`: a $0 analysis of the archived experiment-5 B0 conversations.
 - **Primary score:** the per-item |gap| between the two scale directions. **Primary statistic:** its AUROC for the model's hard-pool errors.
 - This is the only overnight analysis that uses both scale directions, because the gap between them is its subject. The directions are compared, never pooled.
+
+## D36 — Overnight run, 3 of 6: direction 1 (self-versus-other confidence) pre-registered
+
+**Date:** 2026-11-04 03:52 MST, before any call. Recorded in `experiments/gm1-self-knowledge.md`.
+
+**Changes from the gold map's sketch,** made before freezing on the literature session's full-text reads:
+- **Primary statistic: the judge × author interaction.** I = self cells − cross cells. It replaces "a positive self advantage on both authors", because judge capability dominates per-author comparisons (Xiao et al. 2509.24988, Table 23). The per-author advantages are still reported.
+- **Matched framing on the originals.** All four cells are run fresh with one "another assistant" prompt, so self and cross cells differ only in authorship. The archived "you gave" self ratings are used for a framing comparison.
+- **The paraphrase arm has its own recognition check.** Panickssery et al. only proposed a paraphrase control and never ran one.
+- **The disagreement subset means the authors' correctness differs** (Ashuach et al.): 26 questions.
+
+**Budget and stops:** , enforced in code. The steps run in a fixed order, so a cap stop truncates the least important step. The run stops on any refusal.
+
+**Timestamps:** D34 and D35 were corrected to their commit times (03:48 and 03:50) per the America/Denver rule. The literature session flagged both.
