@@ -46,6 +46,7 @@ SKIPPED = {
     "refusal-attempt-2.md": "log of a refused call",
     "refusal.md": "log of a refused call",
     "multi-model.md": "hand-written summary of the multi-model replications (DM5)",
+    "probe-dissociation.md": "hand-written write-up (DP1); its numbers are in probe-dissociation.json, which the probe step recomputes",
     "refusal-sonnet-replication.md": "log of a refused call",
 }
 
@@ -64,10 +65,12 @@ def snapshot() -> Path:
 
 
 PLAIN = "\n## In plain English\n"
+EXPLORATORY = "\n# Exploratory re-analysis"
 
 
 def generated_part(text: str) -> str:
     text = text.split(READING, 1)[0]
+    text = text.split(EXPLORATORY, 1)[0]   # hand-written exploratory tail (calibration-under-format.md, DM6a)
     if PLAIN in text:                   # hand-written plain-English section (overnight gold-map runs, D34)
         head, rest = text.split(PLAIN, 1)
         text = head + PLAIN + ("\n## " + rest.split("\n## ", 1)[1] if "\n## " in rest else "")
@@ -140,6 +143,10 @@ def main() -> int:
                     ("mm_gm3b_opus_complete", "mm-gm3b-opus-completion.md")):
         if md in committed:          # multi-model replications (DM1-DM6, D49), from their batch caches
             step(md, lambda mod=mod: importlib.import_module(mod).analyse())
+    if "probe-dissociation.md" in committed:     # DP1: the verdict from the archived probe runs (no model needed)
+        step("probe-dissociation.json", lambda: importlib.import_module("probe_dissociation").cmd_analyse("llama3-8b"))
+    if "mm-gm3b-opus-completion-with-h291.md" in committed:     # D49a sensitivity
+        step("mm-gm3b-opus-completion-with-h291.md", lambda: importlib.import_module("mm_gm3b_opus_complete").analyse_with_h291())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]
