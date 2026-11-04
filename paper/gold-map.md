@@ -365,9 +365,13 @@ Quantum theory says they cannot all hold. A violation does not overturn quantum 
 - With people and with quantum systems, those two causes are confounded. In LLMs they come apart.
 
 **Who has looked, and why it is still open.**
-- **Cognition:** Leggett–Garg proposals in cognition (Atmanspacher & Filk 2010, J. Math. Psychol., doi:10.1016/j.jmp.2009.12.001) and NSIT tests on behaviour (Tressoldi et al. 2015, Front. Psychol. 6:1061) assume an unclonable mind.
+- **Cognition:** Leggett–Garg proposals in cognition assume an unclonable mind. Atmanspacher & Filk (2010, J. Math. Psychol. 54:314, doi:10.1016/j.jmp.2009.12.001) propose a temporal Bell inequality for bistable perception; the paper is paywalled and was read only through the authors' slides.
+- **A correction from the full read:** Tressoldi, Maier, Buechner & Khrennikov (2015, Front. Psychol. 6:1061) is not a valid NSIT test.
+  - It reanalyses "retro-causal" precognition data.
+  - It has no condition without the earlier measurement. The unmeasured probability "was estimated with a mean equal to 0.5 ... assuming a correct randomization".
+  - It is cited in `paper/clonable-minds.md` only as an example of the missing counterfactual.
 - **Physics:** Leggett–Garg on IBM hardware is crowded (Huffman & Mizel 2017; Ku et al. 2020; Santini & Vitale 2022).
-- **LLMs:** the scouts found no paper making the clonability point for LLM judgment.
+- **LLMs:** the full-read pass found no paper making the clonability point for LLM judgment. Kang (2026, arXiv:2607.17219) already edits transcripts, committing each candidate answer to the history in his "forced-branch protocol", but he draws no macrorealism or invasiveness conclusion.
 
 **What today's data say.** Experiment 5's Kvam contrast is an NSIT (total-probability) test. Its residual is +0.58 points, with Δ_K = +0.29 [−1.12, +1.65]. Its omission chains measure invasiveness directly.
 
