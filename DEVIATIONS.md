@@ -696,3 +696,167 @@ Concentration and within-order SD are reported alongside.
 - The lag arm at ±30 only.
 
 **Run order.** The run waits for D45 to finish, so the two API runs do not compete. The analysis was tested on simulated data before freezing.
+
+---
+
+# Multi-model branch (`multi-model`): entries DM1–DM6
+
+Numbered DM so as not to collide with D-entries written on `main` at the same time. Budget set by Sean: **$20** for the three replications and **$3** for the calibration demonstration, allocated here.
+
+## DM1 — Multi-model set-up: settings, batch runner and a cost pilot
+
+**Date:** 2026-11-04 07:45 MST, before any pre-registration on this branch.
+
+**Settings.** The paper's runs disable thinking on Haiku. The other two models do not allow that:
+- `claude-sonnet-5-5` rejects `thinking: disabled`; its thinking-off mode is `thinking: {"type": "between_tools"}`;
+- `claude-opus-5-5` cannot disable thinking at any effort, so it runs at effort `low`, the minimum. Its thinking text is never returned, and no thinking block is ever placed in a later turn.
+
+`config.PRICES` gains Opus 5.5 at $4 / $20 per million tokens.
+
+**Batch runner.** All calls on this branch go through the Message Batches API, at 50% of list price (`experiments/mm_common.py`). The overnight stop rules are kept:
+- a cap per run, checked before each batch is submitted;
+- the run stops at the first refusal, with the batch ID and message ID recorded (batch results carry no HTTP request ID);
+- API errors are resubmitted unchanged, at most twice;
+- max_tokens hits are recorded as no answer.
+
+**Pilot** (`results/mm-pilot-calls.json`, **$0.031**).
+- Contents: 12 synchronous calls (Sonnet and Opus: two six-format prompts and a 3-turn direction-2 conversation each, with a planted and a redacted turn; one Opus base answer and one Opus matched-prompt judge call), plus a 2-request batch.
+- Item: hard-pool question h002, which is not one of the 40 experiment-5 items. It is one of direction 1's 298 questions; the pilot's Opus answer to it is not used.
+- Findings:
+  - the batch API accepts both settings with structured outputs, and returned in about 2 minutes;
+  - per call, Sonnet ≈ $0.0008 and Opus ≈ $0.0016 single-turn, ≈ $0.003 in later multi-turn turns (Opus thinks briefly there even at low effort);
+  - an Opus base answer ≈ $0.011 on an easy question;
+  - edited assistant turns are accepted by both models.
+
+**Allocation of the $20** (caps at the batch rate, enforced in code; unspent cap is not moved between runs):
+
+| run | design | cap |
+|---|---|---|
+| DM2, six formats, Sonnet | 80 claims × 6 × 10 | $2.20 |
+| DM2, six formats, Opus | 80 claims × 6 × 10 | $4.30 |
+| DM3, self-knowledge, Sonnet × Opus | Opus answers 298 questions; 3 new judge cells × 298 | $4.60 |
+| DM4, transcripts, Sonnet | 10 items × 5 chains × 4 conditions × R = 4 | $2.40 |
+| DM4, transcripts, Opus | same | $6.00 |
+| pilot | | $0.03 |
+| **total** | | **$19.53** |
+
+## DM2 — Multi-model replication 1 of 3: six formats on Sonnet and Opus pre-registered
+
+**Date:** 2026-11-04 07:50 MST, before any call for this test. Recorded in `experiments/mm-gm3b-format-invariance.md`.
+
+**Design.** D38's design and analysis, unchanged, on 80 of the 160 claims: the chain claims of experiment-5 candidates 1–10 and 21–30, i.e. 10 items Haiku answered wrongly and 10 it answered rightly.
+
+**Reference.** The Haiku reference on the same 80 claims (from D38's archive) was computed while the code was being tested, before freezing: ΔLL +19.42 [+15.40, +23.21], 86% positive.
+
+**Secondary.** Test F′ (D46) runs on the new calls with its frozen code, which forms 3 item folds at 20 items.
+
+## DM3 — Multi-model replication 2 of 3: self-knowledge with Sonnet × Opus pre-registered
+
+**Date:** 2026-11-04 08:05 MST, before any call for this test. Recorded in `experiments/mm-gm1-self-knowledge.md`.
+
+**Design.** Opus answers direction 1's 298 questions with the base prompt and base settings. Sonnet and Opus then judge each other's answers, and Opus its own, with D36's matched prompt and settings. SS is D36's archived cell.
+
+**Primary.** I = SS + OO − OS − SO, with D36's reading.
+
+**Not run, for budget:** the paraphrase and recognition arms.
+
+**Cap:** $4.60 (batch rate).
+
+## DM4 — Multi-model replication 3 of 3: transcripts on Sonnet and Opus pre-registered
+
+**Date:** 2026-11-04 08:10 MST, before any call for this test. Recorded in `experiments/mm-gm2-self-conditioning.md`.
+
+**Design.** D37's design and analysis, unchanged, at **R = 4**: 800 conversations per model.
+
+**Planted values.** Set by D37's rule from each model's own first-turn ratings (16 per question), fixed after wave 1.
+
+**Running.** Batch waves, one per turn.
+
+**Budget fallback.** Checked after every wave; it drops a repeat index while the projected total exceeds the cap.
+
+**Reference.** The Haiku reference at R = 4 (D37's archive, repeats 0–3) was computed while the code was being tested, before freezing: R = 2.01 [1.04, 4.43].
+
+**Caps:** $2.40 (Sonnet) and $6.00 (Opus).
+
+## DM4a — Opus cost above the pilot estimate: DM2's Opus run budget-stopped; DM4's Opus cap re-set before any DM4 call
+
+**Date:** 2026-11-04 08:20 MST. No DM4 call had been made, and no DM2 answer had been looked at; only per-call costs were read.
+
+**What happened.**
+- DM2's first Opus chunk (1,600 calls) cost **$3.10**, about $0.0019 per call at the batch rate, against the $0.0009 estimate.
+- The costs imply about 120 thinking tokens per call. The pilot's single-turn calls, on an easy claim of h002, had none.
+- The $4.30 cap therefore stopped the run before the second chunk, as pre-registered.
+- **DM2's Opus arm stands at 1,600 of 4,800 calls.** These complete 26 claims (items 1–6 and 2 claims of item 7, all items Haiku answered wrongly), plus 40 calls of a 27th claim. It is reported as budget-stopped, with D38's analysis run on the 26 complete claims and labelled as such. It is not resumed.
+- Sonnet's cost per call is on the estimate ($0.0004).
+
+**Amendment (DM4 only, Opus arm).** At this rate DM4's Opus arm would cost about $9.5 at R = 4. Its $6.00 cap would force the fallback to R = 2. DM1's rule that unspent cap is not moved between runs is therefore replaced, for this arm only:
+- **DM4's Opus arm runs last,** after every other DM run has finished.
+- **Its cap is fixed at its start:** $20 minus all other recorded spend on the branch (pilot, DM2, DM3, DM4 Sonnet), minus $0.10, written to `results/mm-gm2-opus-cap.json` before its first call.
+- The per-wave fallback (R = 4 → 3 → 2) is unchanged.
+
+The rule depends only on costs, and it was set before any DM4 data existed.
+
+## DM6 — Consequence demonstration: calibration (ECE) under two formats and two question orders pre-registered
+
+**Date:** 2026-11-04 08:35 MST, before any call for this test. Recorded in `experiments/cal-format-order.md`.
+
+**Design.**
+- Protocol: Tian et al.'s (2023) Verb. 1S top-1, verbatim (format P), and the same template with a frequency in place of the probability (format F).
+- Models: Haiku and Sonnet, on the 300 hard-pool questions.
+- Conditions:
+  - fresh, single-question calls in two replicates;
+  - ten-question conversations, in forward and reversed order (30 blocks, `random.Random(4041)`).
+- ECE: 10 equal-width bins.
+
+**Primary.** ΔECE between formats and between orders, with paired block-bootstrap CIs (seed 4042). The fresh replicate difference is the noise baseline.
+
+**Budget.** $3, separate from the $20: caps $0.30 (Haiku) and $2.60 (Sonnet), batch rate.
+
+**Testing.** The code was tested on random fake answers before freezing; no call had been made.
+
+## DM2a — DM2's Sonnet arm stopped by the runner's safety factor, not by its cap; resumed in smaller chunks
+
+**Date:** 2026-11-04 08:50 MST. Only costs had been read; no DM2 answer had been looked at.
+
+**What happened.**
+- After 3,200 of 4,800 calls ($1.36), the third 1,600-call chunk was projected at $0.85: the observed $0.000425 per call × 1.25 safety factor. That made $2.21 against the $2.20 cap, so `mm_common` refused to submit it.
+- The expected cost of the chunk is about $0.68, which would end the arm at about $2.04, under its cap.
+
+**Amendment.** The remaining 1,600 Sonnet calls are submitted in chunks of 400, each still checked against the $2.20 cap with the same factor. The cap and every other rule are unchanged. The Opus arm stays stopped (DM4a).
+
+## DM5 — Multi-model replications: what ran and what was found
+
+**Date:** 2026-11-04, after the runs. Summary in `results/multi-model.md`. No call was refused.
+
+**Spend:** $16.28 of the $20. Pilot $0.03; DM2 Sonnet $2.04, Opus $3.10 (budget-stopped); DM3 $4.03; DM4 Sonnet $2.19, Opus $4.89 (DM4a cap $8.51).
+
+**DM4's Opus fallback.** After wave 1, the projection ($8.74 at R = 3) exceeded the cap, so the fallback ran at **R = 2**. Later waves cost less per call than wave 1, so R = 3 would in fact have fitted. The rule makes the drop irreversible, which is why $3.72 is unspent.
+
+**Readings:**
+
+| test | Sonnet | Opus |
+|---|---|---|
+| DM3, self-knowledge (Sonnet × Opus pair) | **no self-advantage**, I = −0.045 [−0.107, +0.017] | (same test) |
+| DM4, transcripts | **question-driven**, R = 2.95 [0.99, 12.55] | **leaning question-driven (not decisive)**, R = 0.93 [0.06, 7.31] at R = 2 |
+| DM2, six formats | **mixed**, +9.22 [−1.29, +16.24], 92% positive; F′ Q 0.69, partial | **mixed** on 26 claims, +0.42 [−1.83, +2.69] |
+
+## DM6a — Calibration demonstration: parse and referent problems found after the run; exploratory re-analysis
+
+**Date:** 2026-11-04, after the pre-registered analysis had been run and read. Spend $2.61 of the $3 (Haiku $0.12, Sonnet $2.49).
+
+**Pre-registered readings** (strict parse rule):
+- **Haiku:** no detectable format dependence; no detectable order dependence.
+- **Sonnet:** calibration depends on format (ΔECE −0.143 [−0.233, −0.066]); no detectable order dependence.
+
+**Problems found.**
+1. About 120 hard-pool questions are phrased "Is this claim true?". "Guess: True/False" answers were unparsed under the frozen yes/no rule.
+2. Long worked answers hit max_tokens 300. Under the frozen rule a hit ends the conversation, so 32 Haiku and 105 Sonnet conversations ended early (23 and 66 of them fresh single calls).
+3. On "Is the answer X?" questions, the models often report the probability that X is correct rather than that their guess is. How often depends on format and context.
+
+As a result, each pre-registered cell rests on 68–199 of 300 questions.
+
+**Exploratory, not pre-registered** (`experiments/cal_format_explore.py`, no new calls):
+- True/False is mapped to yes/no, and every cell is scored under both readings of the number.
+- Sonnet's format effect stays clear under Tian's intended reading (−0.083 [−0.137, −0.032]). It reverses sign under the other reading.
+- Order is null in every version.
+- The pre-registered readings are not changed.
