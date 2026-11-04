@@ -36,6 +36,7 @@ All remaining entries are from 2026-11-03.
 | 20:29 | experiment 5: sequential, context-dependent judgment | draft `2dc435b` (19:19); frozen `2c2ef6c` (20:15, D22); split `2ad710c` (D23); `97dde55` (D24) | pilot, 1,400 conversations, $0.21 (`8881a0a`) | **G1 pass** (5/5 items), **G2 pass** (10/10 pairs) | the ratings move with sequence | full run; models `2251693` and analysis `1155dde` (D26) committed before any full-run result. **Result: not yet in `results/`** |
 | 20:58 | do the frozen v2 models transfer to a second model's errors? (secondary) | v2 parameters frozen in `49dd6f7`; D27 | Sonnet's 298 hard-pool records, scored offline with the API blocked (`b584386`) | A2 0.90, F2 0.82, L 0.73, H 0.66; A2 − F2 = +0.078 [+0.018, +0.137]; G not scored | same direction as Haiku's held-out set; A2's couplings are near zero, so the edge is single-claim geometry and readout, not entanglement | secondary only; the primary v2 result (a tie) stands |
 | 21:30 | what is the Sonnet edge? And does self-report match it? | Addendum D and arm G on Sonnet, `f7afd8a` (21:03, D28) | A2(κ=0) and F2+ on both sets; 298 Sonnet confidence calls, $0.88, no refusal (`db2eb02`) | **outcome 1:** couplings at 0 change nothing (−0.006); F2+ matches A2 (0.90, +0.004); F2+ − F2 = +0.082 covers the whole A2 − F2 gap; **G 0.91 = A2** (+0.008) | the edge is per-claim readout geometry, carried by a classical model; self-report matches the best structural model on both base models | — |
+| 21:50 | are Haiku's held-out edges (v2 +0.108, v2.1 +0.116) also readout geometry? | Addendum E, `52e80a0` (21:49) | frozen F2+ on the run-2 held-out set, no API calls (`a9ab42c`) | **outcome 1:** F2+ 0.80; F2+ − A2 = −0.019, F2+ − A2.1 = −0.037 (both intervals contain 0); F2+ − F2 = +0.088 | the held-out edges are per-claim readout geometry, carried by a classical model | — |
 
 **Redirects in writing.**
 - `851040f` (19:21), `paper/next-steps.md`: the pivot from error prediction to sequential judgment, with each outcome's reading fixed in advance.
@@ -47,9 +48,9 @@ All remaining entries are from 2026-11-03.
 - IBM calibration at job time: in `e2215bb`.
 - `experiments/reproduce.py`, which rebuilds every results table from the archived JSON: `bf28953` (20:11).
 
-**Standing at the end of the record (`db2eb02`, 21:30).**
+**Standing at the end of the record (`a9ab42c`, 21:50).**
 - Error prediction: four pre-registered comparisons find no advantage for the quantum state, and the model's self-report is the best signal where it was measured.
-- Secondary results: the learned quantum model's edges (Haiku's held-out set, Sonnet's hard pool) come with near-zero coupling. The Sonnet edge was tested (Addendum D): it is per-claim readout geometry, and a classical twin reproduces it. Sonnet's self-report (0.91) matches A2.
+- Secondary results: every positive quantum-vs-classical difference (Haiku's held-out set, Sonnet's hard pool) comes with near-zero coupling. A classical twin with the same per-claim readout reproduces it (Addenda D and E). Sonnet's self-report (0.91) matches A2.
 - Hardware: the states are certified entangled.
 - Sequential judgment: graded order effects exist, and their mechanism is undetermined.
 - Still to come: experiment 5's full run (collecting) and experiment 4 run 3 (a draft, not run).

@@ -48,6 +48,7 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
     - Setting A2's couplings to exactly 0 changes nothing: −0.006 [−0.029, +0.013].
     - A classical twin given A2's per-claim tilted readout (F2+) matches A2: 0.90, and +0.004 [−0.032, +0.042].
   - **Sonnet's own stated confidence scores 0.91 [0.86, 0.95]**, level with A2. Self-report again matches the best structural model.
+  - **The same holds for Haiku's earlier held-out edges** (Addendum E). The frozen F2+ matches A2 and A2.1 there. Every positive quantum-vs-classical difference in the project is matched by a classical model with the same per-claim readout.
 
 **Hardware: positive, and narrow.**
 - On IBM's `ibm_fez`, a pre-registered witness certified that the encoded belief states are physically entangled: 3 of 3 items, negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
@@ -489,7 +490,18 @@ Arm G, Sonnet's own stated confidence, was then scored with 298 Sonnet calls und
 - **The pre-registered outcome is outcome 1: the edge is single-claim geometry, and a classical model carries it.** Removing the couplings changes nothing on either set, and F2+ matches A2 on both.
 - **On Sonnet's items, the per-claim readout feature alone (F2+ − F2, +0.082) accounts for the whole A2 − F2 gap (+0.078).** On Haiku's locked test set it adds nothing, and there A2 and F2 already tied.
 - **What the geometry does.** The tilt mixes each claim's uncommitted component (cos θ, large when confidence is low) into its vote. It is a per-claim reweighting by confidence, with no superposition across claims, no interference between them and no entanglement.
-- **Scope.** F2+ was scored on these two sets only. The earlier secondary edges on Haiku's run-2 held-out set (v2 +0.108, v2.1 +0.116) were not re-tested against F2+. They come with the same near-zero couplings, but whether F2+ also closes them has not been measured.
+**The Haiku held-out edges, tested next (Addendum E, pre-registered in `52e80a0` at 21:49 MST, scored in `a9ab42c`).** The frozen F2+, never refitted and with no API calls, was scored once on Haiku's run-2 held-out set (40 wrong, 40 right).
+
+| model or paired difference | AUROC or difference [95% CI] |
+|---|---|
+| F2+ (frozen) | 0.80 [0.69, 0.88] |
+| F2+ − A2 | −0.019 [−0.073, +0.029] |
+| F2+ − A2.1 | −0.037 [−0.089, +0.012] |
+| F2+ − F2 | +0.088 [+0.014, +0.167] |
+| A2 − F2 (the v2 edge, for reference) | +0.108 [+0.012, +0.215] |
+| A2.1 − F2.1 (the v2.1 edge, for reference) | +0.116 [+0.013, +0.225] |
+
+**The pre-registered outcome is outcome 1: the held-out edges are also single-claim readout geometry, carried by a classical model.** F2+ matches A2 and A2.1 on this set, and the readout feature alone recovers most of the gap over plain F2.
 
 ---
 
@@ -513,7 +525,15 @@ The data rule out the easy explanations.
 
 The window shows *where* the fixed encoding loses the signal: at the entangling and coupled-evolution steps. The learned encodings avoid the loss by switching those steps nearly off.
 
-**The only positive differences between quantum and classical models are secondary, and the one that was tested is classical.** A2 and A2.1 beat their twins on Haiku's run-2 held-out set, which motivated v2.1. A2 beat F2 on Sonnet's hard-pool errors (+0.078). In every case the learned quantum model has near-zero coupling. For the Sonnet edge, a pre-registered ablation settled it: the couplings contribute nothing, and a classical twin with the same per-claim readout matches A2. The Haiku held-out edges were not re-tested against that twin. Where self-report was measured, on both base models, it matched A2.
+**The only positive differences between quantum and classical models are secondary, and every one is classical.**
+- A2 and A2.1 beat their twins on Haiku's run-2 held-out set, which motivated v2.1.
+- A2 beat F2 on Sonnet's hard-pool errors (+0.078).
+
+In every case the learned quantum model has near-zero coupling. Two pre-registered tests settled what the edges are:
+- **Addendum D:** setting the couplings to 0 changes nothing.
+- **Addenda D and E:** a classical twin with the same per-claim readout, F2+, matches the quantum model on every set where the quantum model had led: Sonnet's hard pool and Haiku's run-2 held-out set.
+
+**Every positive quantum-vs-classical difference in the project is matched by a classical model with the same per-claim readout.** Where self-report was measured, on both base models, it matched the best structural model.
 
 ### 6.2 What does predict the model's errors
 
@@ -575,7 +595,7 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 - **Error types.** The model's errors are mostly ignorance and multi-step science, not the judgment errors quantum cognition studies.
 - **Moderate test sets.**
   - Run 2's test set has 80 items, and the locked v2 test set 209 items with 32 wrong. Intervals are reported throughout, and many overlap.
-  - The only positive quantum-vs-classical differences are secondary. A2 and A2.1 beat their twins on Haiku's held-out set, which motivated v2.1, and those edges were not re-tested against F2+. A2 beat F2 on Sonnet's hard pool, and that edge is reproduced by a classical twin with the same per-claim readout (Addendum D).
+  - The only positive quantum-vs-classical differences are secondary: A2 and A2.1 on Haiku's held-out set, which motivated v2.1, and A2 on Sonnet's hard pool. All are reproduced by a classical twin with the same per-claim readout (Addenda D and E). The F2+ comparisons are additional single scorings of frozen models on sets that had been scored before.
 - **Analysis grew after the primary result.** Every addition was pre-registered before its data, but designed knowing run 2 had failed (Section 4).
 - **Hardware scope.** The witness certified one pair in each of 3 items, and arm B never ran.
 - **Sequential experiments are limited by the measurement.** The yes/no answers saturate, and temperature cannot be raised. Graded ratings vary between repeats by only 0–5 points. One pre-registered estimator was circular (D19).
