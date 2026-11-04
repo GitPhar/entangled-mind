@@ -1,0 +1,57 @@
+# Audit: gm3a-anchor-gap
+
+**Files audited:** `results/gm3a-anchor-gap.md`, `results/gm3a-anchor-gap.json`, `experiments/gm3a-anchor-gap.md`, `experiments/gm3a_anchor_gap.py`, DEVIATIONS D35, `results/exp5-conversations.json`, `results/pool-run-3.json`, `results/arm-g-confidence.json`, `experiments/split-exp5.json`; citations in README.md, paper/record.md, paper/morning-brief.md, paper/no-credence-to-read.md, paper/the-entangled-mind-v3.md, paper/gold-map.md. Recomputation: `scratchpad/g5/gm3a.py`.
+**Pre-registration:** `a1bc421` (2026-11-04 03:50:31), text in `experiments/gm3a-anchor-gap.md` + DEVIATIONS D35. It is archival, so there are no calls. The result commit is `43592e5` (03:51:18), 47 s later.
+Timing verdict: PROBLEM (weak protection). The pre-registration commit holds only the markdown. `gm3a_anchor_gap.py` was first committed with the results 47 s later. The data had already been opened: exp5 run 1 reported the anchor means (33.8 against 71.3, `results/exp5-run-1.md:167`), and the per-item B0 ratings sit in that archive. Arm-G's error AUROC was also already known on the full pool (0.82–0.83). The frozen text is unchanged since (`git diff a1bc421 HEAD` is empty). The outcome categories, including "no evidence either way", were fixed in advance, and the authors' code applies them correctly.
+
+## Plain-English summary of the audit
+The numbers are right: I recomputed all five AUROCs, the paired difference and the Spearman correlation from the raw conversations, and they match to two decimals. The pre-registered reading, "no evidence either way", is also right. But the plain-English summary and every paper that cites it turn that into "the gap does not predict errors", "carries no error signal", "tells us nothing", and even "weak evidence for a stored credence". With 20 wrong and 20 right items, the AUROC interval runs from 0.28 to 0.66, so a moderate error signal is not ruled out. A further problem: the per-item |gap| is almost entirely a function of whether the model rated the claim low on the normal scale (Spearman −0.82). Items rated below 50 have a mean gap of 51 points, and items rated above 50 have 3. So the "gap" is mostly a proxy for the model's verdict direction, not an independent measure of an unsettled view, and the "reading slip" interpretation is not something this AUROC can establish. The "free look" should be reported as uninformative.
+
+## Claims checked
+| # | claim (quoted or paraphrased, with file:line) | recomputed / evidence | status |
+|---|---|---|---|
+| 1 | \|gap\| AUROC 0.48 [0.28, 0.66] (`results/gm3a-anchor-gap.md:10,20`) | 0.480 [0.288, 0.675] (4,000 stratified resamples, my seed); 20 wrong / 20 right; 5 + 5 B0 conversations per item | holds |
+| 2 | B0-equivalent \|gap\| 0.47 (`:10,22`) | 0.469 [0.268, 0.660] | holds |
+| 3 | stated confidence 0.75 [0.58, 0.89] (`:11,23`) | 0.752 [0.581, 0.890] | holds |
+| 4 | extremity 0.70 (`:12,24`) | 0.699 [0.526, 0.852]. This score is Spearman-correlated with 100 − G at ρ = 0.52, so it is largely the same signal. | holds |
+| 5 | paired difference −0.27 [−0.49, −0.05]; ρ(\|gap\|, G) = −0.16 (p = 0.33) (`:27-28`) | −0.272 [−0.485, −0.055]; ρ = −0.159, p = 0.327 | holds |
+| 6 | mean \|gap\| 33.9 on wrong items, 41.3 on right items (`:26`) | 33.87 / 41.27 | holds |
+| 7 | "They are not. The gap does not predict the model's errors" (`:9`) | The CI admits AUROC up to 0.66. Prereg §4: "No evidence either way", with the CI "about ±0.17, so only a large effect can register". | overclaim |
+| 8 | "Whatever makes the model unsure of its answer, the 37-point gap is not tracking it. This is weak evidence for a stored credence: the distortion does not carry information about the model's uncertainty." (`:14`) | A null from a wide CI cannot show "does not carry information". Calling a null "evidence for a stored credence" turns no evidence into support. | overclaim |
+| 9 | "looks like a reading slip in the reversed scale, not a sign of items where the model has no settled view" (`:14`; record:49; gold-map:209) | \|gap\| is Spearman −0.82 with the anchor-(a) B0 mean (p = 6e-11). On the 29 items rated < 50 the mean \|gap\| is 50.7; on the 11 items rated ≥ 50 it is 2.9. The gap is an asymmetric scale failure tied to the verdict direction. That is consistent with a slip, but the AUROC does not test slip against missing credence. | overclaim (minor) |
+| 10 | "no evidence either way" (`:75`; record:49; morning-brief:174) | matches the pre-registered rule | holds |
+
+## Holes found
+1. **A null was turned into a negative finding, and then into support for a hypothesis.** The pre-registration fixed three readings and chose "no evidence either way", correctly. The results file's plain English then says "They are not. The gap does not predict the model's errors" and "This is weak evidence for a stored credence". Downstream, `paper/record.md:81` says "the scale gap carries no error signal", `paper/the-entangled-mind-v3.md:80` "The scale gap is not an error signal", `paper/morning-brief.md:39-40` "just a slip … tells us nothing", and `paper/no-credence-to-read.md:277` "It does not". The interval [0.28, 0.66] includes an AUROC of 0.66, roughly the extremity score's 0.70.
+2. **The score is confounded with the verdict direction.** Recoding should make anchors (a) and (b) agree. They disagree almost only when the model's anchor-(a) rating is low (mean \|gap\| 50.7 when it is below 50, against 2.9 when it is 50 or above, n = 29 / 11; ρ = −0.82). So \|gap\| mostly encodes "the model rated this claim false on the normal scale" plus how badly the reversed scale failed there. It is not a clean per-item "unsettledness" index, and its AUROC against errors tests little about the construction-against-storage question.
+3. **The pre-registration protected little.** The code was committed with the result 47 s after the markdown. The anchor means and per-item ratings were already in hand from exp5 run 1. The README's "each frozen in its own commit before its data were opened" (`README.md:21`) is false for this test; that sentence is listed for replacement in `audits/gm9-nsit.md`.
+4. **Power.** With 20 against 20, only AUROC ≥ about 0.67 could have registered. The pre-registration says so, and `paper/the-entangled-mind-v3.md:658` repeats it. The plain-English summary and the briefs drop it.
+
+## Overclaims to cut (exact sentences)
+- `results/gm3a-anchor-gap.md:9` — "**What we found.** They are not. The gap does not predict the model's errors:" — CI [0.28, 0.66]; the pre-registered reading is "no evidence either way". — Replace with: "**What we found.** No evidence either way. The gap shows no detectable relation to the model's errors, but 40 items can only detect a large one:"
+- `results/gm3a-anchor-gap.md:14` — "Whatever makes the model unsure of its answer, the 37-point gap is not tracking it." — a null from a wide CI. — Replace with: "We could not detect the 37-point gap tracking whatever makes the model unsure of its answer."
+- `results/gm3a-anchor-gap.md:14` — "This is weak evidence for a stored credence: the distortion does not carry information about the model's uncertainty." — no evidence is not weak evidence for the alternative, and "does not carry information" is not shown. — Cut.
+- `paper/the-entangled-mind-v3.md:80` — "- **The scale gap is not an error signal.** The 37-point scale-direction gap does not mark the model's errors (AUROC 0.48)." — Replace with: "- **The scale gap shows no detectable error signal.** The 37-point scale-direction gap scores AUROC 0.48 [0.28, 0.66] for the model's errors: no evidence either way on 40 items."
+- `paper/the-entangled-mind-v3.md:656` — "- **The gap does not predict errors.** The per-item gap between the "0 = false" and "0 = true" baseline ratings scores AUROC **0.48 [0.28, 0.66]** for the model's hard-pool errors, and 0.47 on the larger set of identical first turns." — Replace with: "- **No evidence that the gap predicts errors.** The per-item gap between the "0 = false" and "0 = true" baseline ratings scores AUROC **0.48 [0.28, 0.66]** for the model's hard-pool errors, and 0.47 on the larger set of identical first turns."
+- `paper/record.md:81` — "  - the scale gap carries no error signal (direction 3's free look)." — Replace with: "  - no evidence either way on whether the scale gap carries an error signal (direction 3's free look; AUROC 0.48 [0.28, 0.66])."
+- `paper/record.md:49` — "the gap looks like a reading slip in the reversed scale, not a missing credence" — the AUROC does not test slip against missing credence, and the gap is ρ = −0.82 with the rating itself. — Replace with: "uninformative at n = 40; the gap is concentrated on items rated low on the normal scale, consistent with (not evidence for) a reading slip".
+- `paper/morning-brief.md:39` — "2. **The scale-flip slip is just a slip (direction 3's free look, $0).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall." — Replace with: "2. **The scale-flip gap: no evidence either way (direction 3's free look, $0).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall."
+- `paper/morning-brief.md:40` — "   - Which items it misread tells us nothing about which ones it gets wrong: AUROC 0.48, chance. Its stated confidence on the same items predicts errors at 0.75." — Replace with: "   - Which items it misread shows no detectable relation to which ones it gets wrong: AUROC 0.48 [0.28, 0.66], so only a large relation is ruled out. Its stated confidence on the same items predicts errors at 0.75."
+- `paper/no-credence-to-read.md:277` — "It does not: AUROC 0.48 [0.28, 0.66], against 0.75 for the model's stated confidence on the same 40 items." — Replace with: "No evidence either way: AUROC 0.48 [0.28, 0.66], against 0.75 for the model's stated confidence on the same 40 items."
+- `paper/no-credence-to-read.md:277` — "A distortion of the credence that carries no error signal is what a reading slip would produce." — no error signal is not shown. — Replace with: "A reading slip would predict no error signal, but 40 items cannot show its absence."
+- `paper/gold-map.md:209` — "The 37-point gap does not track the model's errors: AUROC 0.48 [0.28, 0.66], against 0.75 for its stated confidence." — Replace with: "No evidence that the 37-point gap tracks the model's errors: AUROC 0.48 [0.28, 0.66], against 0.75 for its stated confidence."
+- `paper/gold-map.md:209` — "That points to a reading slip, not a missing credence." — Cut.
+- `paper/gold-map.md:435` — "the anchor gap does not predict errors, AUROC 0.48" — Replace with: "no evidence that the anchor gap predicts errors, AUROC 0.48 [0.28, 0.66]".
+
+## Does the verdict stand?
+Pre-registered reading: "no evidence either way". **STANDS.** I recomputed the AUROC and its CI from the raw B0 conversations and the archived correctness labels, and the CI straddles 0.5. What does not stand is the wording built on it. "Does not predict", "no error signal", "just a slip" and "weak evidence for a stored credence" all outrun a 40-item null. The score itself is largely a proxy for the model's verdict direction.
+
+## Confidence
+High. Every reported statistic recomputes independently, and the confound analysis uses the archived per-item means. Whether the analysis was run before the pre-registration commit cannot be determined (archival, 47 s gap).
+
+## Tally
+claims_checked: 10
+claims_failed: 3
+overclaim_sentences: 14
+verdict: STANDS
+confidence: high
