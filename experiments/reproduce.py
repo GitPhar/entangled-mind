@@ -39,9 +39,9 @@ from entangled_mind import backends, config, llm  # noqa: E402
 
 READING = "\n## Reading"
 SKIPPED = {
-    "pool-run-4.md": "Sonnet replication run in progress",
-    "pool-run-6.md": "Sonnet replication run in progress",
-    "sonnet-replication.md": "Sonnet replication in progress",
+    "pool-run-6.md": "Sonnet training-pool run halted on a refusal (D25); no table written",
+    "sonnet-ablation.md": "assembled by two writers (Addenda D and E) with a hand-written Reading between them",
+    "refusal-sonnet-replication-2.md": "log of a refused call",
     "ibm-job-status-log.md": "log of status checks, not a table",
     "refusal-attempt-2.md": "log of a refused call",
     "refusal.md": "log of a refused call",
@@ -85,10 +85,10 @@ def main() -> int:
 
     def pools():
         rp = importlib.import_module("run_pool")
-        for run in (1, 2, 3, 5):
+        for run in (1, 2, 3, 4, 5):
             rp.main(run)
         rp.write_usage()
-    step("pool runs 1-3, 5 and api-usage.md", pools)
+    step("pool runs 1-5 and api-usage.md", pools)
     step("ibm-usage.md", lambda: backends.render_usage_md(load("ibm-usage.json")))
     step("stage1-run-1.md", lambda: importlib.import_module("stage1_pipe").write_md(load("stage1-run-1.json")))
 
@@ -105,6 +105,14 @@ def main() -> int:
     step("exp3-run-1.md", lambda: importlib.import_module("exp3_run").main())
     step("exp4-run-1.md", lambda: importlib.import_module("exp4_run").main())
     step("exp4-run-2.md", lambda: importlib.import_module("exp4_graded").main())
+
+    step("exp5-pilot.md", lambda: importlib.import_module("exp5_run").cmd_pilot())
+    step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
+
+    def sonnet():
+        sys.argv = ["sonnet_replication.py", "--offline"]
+        importlib.import_module("sonnet_replication").offline()
+    step("sonnet-replication.md", sonnet)
 
     def v2():
         vf = importlib.import_module("v2_fit")
