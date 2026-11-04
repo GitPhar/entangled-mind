@@ -850,7 +850,7 @@ The rule depends only on costs, and it was set before any DM4 data existed.
 
 **Problems found.**
 1. About 120 hard-pool questions are phrased "Is this claim true?". "Guess: True/False" answers were unparsed under the frozen yes/no rule.
-2. Long worked answers hit max_tokens 300. Under the frozen rule a hit ends the conversation, so 32 Haiku and 105 Sonnet conversations ended early, about half of them fresh single calls.
+2. Long worked answers hit max_tokens 300. Under the frozen rule a hit ends the conversation, so 32 Haiku and 105 Sonnet conversations ended early (23 and 66 of them fresh single calls).
 3. On "Is the answer X?" questions, the models often report the probability that X is correct rather than that their guess is. How often depends on format and context.
 
 As a result, each pre-registered cell rests on 68–199 of 300 questions.
