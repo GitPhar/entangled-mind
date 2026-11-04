@@ -8,7 +8,7 @@
 
 Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. This project asks whether the same idea is useful as an architecture around a language model. For each yes/no question, a language model answers and briefly explains the considerations for and against. Those claims are extracted, and every pair is judged to support, contradict, or be unrelated to the other. The resulting web becomes one entangled quantum state: one qubit per claim, with confidence setting the amplitude and a solved phase setting the stance. RZZ gates link related claims, and a short Ising-style evolution runs before measurement in a "yes"-oriented basis. The readout gives a judgment, a confidence, and a conflict flag for shots that split between strongly opposed configurations. The pre-registered test is whether that flag picks out the model's wrong answers better than three controls: the same circuit with no entanglement, the same circuit with a shuffled relation web, and plain classical contradiction-counting. The last is the control that matters most.
 
-**Status:** Stage 2 runs 1–2 complete on the noisy simulator. **The primary hypothesis H2 failed:** the entangled readout flags the model's wrong answers worse than the non-quantum and unentangled controls. No hardware arm has run (the simulator gate was not met); the Stage 1 hardware job returned real counts after 2 h 50 min in the queue (2 QPU s).
+**Status:** Stage 2 (runs 1, 2 and 2b), version two (v2 and v2.1) and experiments 3–4 are complete. **Every pre-registered quantum-advantage test has failed or tied:** the entangled readout flags errors worse than its controls (H2 fails), and the learned quantum encodings tie their classical twins. The base model's own stated confidence predicts its errors as well as anything here. On real hardware the encoded belief states are **certified entangled** (3 of 3 items, 44 QPU s). Next: a graded experiment 4, a Sonnet replication, and experiment 5 (sequential judgment).
 
 ## Hypotheses, and the null result that falsifies each
 
@@ -72,6 +72,73 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 - Arm B (the 20-circuit hardware arm) was not submitted, because the simulator gate (A beating every control) was not met in either run.
 - **QPU seconds used so far: 46** (Stage 1: 2 s; witness: 44 s) of the 600 s monthly allowance (ledger: [`results/ibm-usage.md`](results/ibm-usage.md)).
 
+### Since run 2
+
+**Run 2b: seven arms, with intervals** ([`results/stage2-run-2b.md`](results/stage2-run-2b.md)). This adds arms F and G and a 200-shuffle null for arm D, all pre-registered in Addendum A.
+- **G, the base model's own self-reported confidence, reaches AUROC 0.82** [0.71, 0.90]. That beats every arm built from the deliberation structure.
+- The real relation web (arm A, 0.55) scores **below 99% of 200 random webs** with the same strengths (null mean 0.62).
+- Arm F, the exact classical Ising twin, is degenerate as pre-registered: every conflict score is 0, so its AUROC is 0.50. This is reported as is, not redefined.
+- The split analysis ([`results/stage2-run-2-split.md`](results/stage2-run-2-split.md)) shows the same pattern within SimpleQA, within science, and within items with 3 or more contradictions.
+
+**Version two: learned encodings** ([`results/v2-run-1.md`](results/v2-run-1.md), [`results/v2.1-run-1.md`](results/v2.1-run-1.md)). Each model has 9–10 parameters. All were fitted on a 629-item train split and selected on validation, and the locked 209-item test set was scored once.
+
+| model (locked test: 32 wrong, 177 right) | AUROC [95% CI] |
+|---|---|
+| A2, learned quantum encoding | 0.83 [0.75, 0.90] |
+| F2, learned classical twin | 0.84 [0.78, 0.89] |
+| A2.1, honest-hedge quantum (noiseless / noisy `ibm_fez` simulator) | 0.84 [0.75, 0.90] / 0.84 [0.75, 0.90] |
+| F2.1, honest-hedge classical twin | 0.82 [0.76, 0.88] |
+| L, relation-web features | 0.79 [0.70, 0.86] |
+| G, self-reported confidence (no fitting) | 0.83 [0.78, 0.89] |
+| H, hedge count (no fitting) | 0.67 [0.57, 0.76] |
+
+- **The learned quantum encoding ties its classical twin, in both v2 and v2.1. Both pre-registered pass criteria are not met.**
+- A2's learned entangling couplings fitted **near zero** (0.12 and 0.21, against 1 in v1). Candidates with couplings anywhere from 0.06 to 1.5 scored the same on train, so the fit found that the quantum part adds nothing on this task.
+- The honest-hedge uncertainty term fitted to weight 0 in both families.
+- On the run-2 held-out set the quantum family beat its twin (A2.1 0.84 vs F2.1 0.72). That is a secondary comparison, mostly on SimpleQA, and it comes from the learned readout geometry, not entanglement. G scores the same 0.82 there.
+
+**Experiment 3: order effects** ([`results/exp3-run-1.md`](results/exp3-run-1.md)). The result is inconclusive.
+- The base model showed **no detectable order effects**. Only 27 of 218 item-pairs differ at all between orders (permutation p = 0.24), and on its own it gives the same answer in all 5 runs for 85% of items.
+- The point estimate favours the classical twin (ρ = +0.08) over the quantum prediction (ρ = −0.03).
+
+**Experiment 4: quantitative Yearsley & Trueblood** ([`results/exp4-run-1.md`](results/exp4-run-1.md)). The pre-registered test is untestable.
+- Graded ratings show conjunction fallacies on 7 of 16 items, and no double fallacies.
+- The binary QQ phase saturated completely: "Is it true that <Y>?" was answered "no" every time.
+- A graded run 2 is pre-registered (D17).
+
+## Related work
+
+**Quantum cognition.** Quantum probability as a model of human judgment builds on the following:
+- Aerts's work on quantum structure in concept combination (D. Aerts, "Quantum structure in cognition," *Journal of Mathematical Psychology* 53, 2009).
+- The program set out by J. R. Busemeyer and P. D. Bruza in *Quantum Models of Cognition and Decision* (Cambridge University Press, 2012).
+- E. M. Pothos and J. R. Busemeyer's review, "Can quantum probability provide a new direction for cognitive modeling?" (*Behavioral and Brain Sciences* 36, 2013).
+
+Question-order effects are central to this project's experiment 3. The quantum account of them, and its parameter-free QQ-equality prediction, comes from:
+- Z. Wang and J. R. Busemeyer, "A quantum question order model supported by empirical tests of an a priori and precise prediction" (*Topics in Cognitive Science* 5, 2013)
+- Z. Wang, T. Solloway, R. M. Shiffrin and J. R. Busemeyer, "Context effects produced by question orders reveal quantum nature of human judgments" (*PNAS* 111, 2014)
+
+The conjunction items in the question pool follow Tversky and Kahneman's "Linda" problem (*Psychological Review* 90, 1983).
+
+**Quantum-like structure in language models.** Several recent studies put language models through the same tests:
+- **Aerts and colleagues**, "Identifying Quantum Structure in AI Language: Evidence for Evolutionary Convergence of Human and Artificial Cognition" ([arXiv:2511.21731](https://arxiv.org/abs/2511.21731), 2025; also *Entropy* 28(6):622). They ran human concept-combination tests on ChatGPT and Gemini and found responses that violate the CHSH form of Bell's inequality. They also report Bose–Einstein-type statistics in the words the models produce, and read both as quantum structure emerging in conceptual-linguistic domains.
+- **Beuria (2026)**, as summarised by Springer Nature (we could access only the summary). Six open-weight models systematically violated classical probability identities, but no single framework accounted for the departures, and question-order data alone did not select a quantum account.
+- **P. Kang**, "Auditing Question-Order Effects in Large Language Models with the QQ Equality: Mechanism Characterization and a Saturation Caveat" ([arXiv:2607.17219](https://arxiv.org/abs/2607.17219), 2026). The paper shows that classical mechanisms, including simple repetition, can satisfy the QQ equality exactly. It pairs QQ with a Contextuality-by-Default bound, and in a one-model pilot it finds outputs too near-deterministic to certify any item as contextual. That caveat applies directly to experiment 3 here.
+- **P. Wolf, T. Kleine Buening, A. Krause and C. Mendler-Dünner.** They show that LLMs systematically violate the law of total probability: prior-weighted conditional answers do not recompose into the model's marginal answer. Secondary sources differ on the paper's title, and we have not tied it to a quantum account; it is a test of classical coherence.
+
+**What those works test, and what this project adds.** Those studies treat a language model as a *subject*. They give it human-style probes (Bell/CHSH tests, conjunction and order questions, total-probability decompositions) and ask whether its *answers* break classical probability. This project instead treats quantum structure as an *architecture* around the model, and tests whether it is useful. It adds four things:
+1. **States built from the model's own deliberation.** Each belief state is built from the claims in the model's explanation of a specific answer, with confidences, leans and a judged relation web. It is not a generic probe.
+2. **A practical target with strong classical controls.** The target is predicting the model's own errors. The controls include an exact classical Ising twin of the same graph (arm F), plain contradiction-counting (arm E) and the model's self-reported confidence (arm G). They are fixed before results exist, so a quantum encoding cannot win against a strawman.
+3. **Hardware certification.** An entanglement witness on real IBM hardware shows that the encoded belief states are physically entangled, not just entangled on paper.
+4. **The window.** This is the project's per-item visual display (`window/`). Each of the model's claims is a point whose brightness is its amplitude and whose hue is its phase, with relation edges between them. A timeline steps through encode, entangle, evolve and collapse, beside the as-run `ibm_fez` circuit. Quantum-cognition models are fitted to aggregate answer frequencies, and the LLM studies observe only answers. Here the state behind each judgment is constructed, simulable exactly at 5–16 qubits, recorded and inspectable item by item.
+
+So far the answer is negative.
+- The entangled readout predicted errors worse than its classical controls.
+- Learned quantum encodings tied their classical twins.
+- The model's own stated confidence was as good as anything built from its deliberation.
+- The base model showed no detectable order effects in yes/no form.
+
+That is consistent with the order-effect and probability-identity literature not yet selecting a quantum account for LLMs. The full literature notes, with what each study tested, on whom, and what we borrow, are in [`paper/related-work.md`](paper/related-work.md).
+
 ## What the hardware does and does not show
 
 - **No speedup.** Every belief state here has 5–16 qubits, so it is exactly classically simulable. A laptop computes the same state exactly (arm A0) or under a device noise model (arm A). Running on a quantum processor provides **no computational advantage** at this size.
@@ -94,6 +161,16 @@ The full record, with dates and reasons, is in [`DEVIATIONS.md`](DEVIATIONS.md).
    - 60 author-written true or fabricated claims
 
    Every item records its source and license. Haiku got 44 wrong, which gives Stage 2 run 2 a 40-wrong / 40-right test set.
+5. **D7–D18, later additions.** All were pre-registered or logged before the data they affect.
+   - Arms F and G, bootstrap intervals, and the 200-shuffle null (D7).
+   - Witness readout calibration pinned to the measured qubits (D8).
+   - The v2 training pool and its one supplement (D9).
+   - A QPU-seconds parsing bug, fixed (D10).
+   - Experiment 4, with R2 reworded: it rules out only the *static* classical twin (D11).
+   - The v2 pre-registration (D12) and experiment 3's implementation choices (D13).
+   - The hedge baseline and v2.1 (D14), and v2.1's noisy evaluation (D16).
+   - A frame correction (D15): the phase solver's camps drift off the yes/no axis on about 20% of items because the lean anchors are weak. Stronger anchors fix the geometry but leave error detection unchanged.
+   - Experiment 4 run 2 in graded form (D17), and the Sonnet replication set-up (D18).
 
 ## How to run
 
