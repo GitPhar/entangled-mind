@@ -1,0 +1,44 @@
+{
+ "probe_vs_last_claim_lean": [
+  0.1351362930570006,
+  [
+   -0.23049787820791093,
+   0.46161401251263845
+  ]
+ ],
+ "probe_vs_last_claim_rating": [
+  -0.164061098244295,
+  [
+   -0.55917252409379,
+   0.34267345432420615
+  ]
+ ],
+ "probe_vs_rating_all10": [
+  0.061475133531438145,
+  [
+   -0.22498329794848887,
+   0.3469385621589541
+  ]
+ ],
+ "rating_vs_last_claim_lean": [
+  0.540849722593154,
+  [
+   0.37115624940284253,
+   0.7439441130536754
+  ]
+ ],
+ "probe_units": {
+  "heldout_true_minus_false_sep": {
+   "counterfact_true_false": 1.6790666580200195,
+   "companies_true_false": 3.2557663917541504,
+   "common_claim_true_false": 1.4147396087646484
+  },
+  "D_P_over_sep": 0.11831475167240299,
+  "order_sd_gate_over_sep": 0.06002118518353534,
+  "within_cell_sd_gate_over_sep": 0.010925557759311748
+ },
+ "B0_auroc_vs_gold": {
+  "probe": 0.875,
+  "rating": 0.875
+ }
+}

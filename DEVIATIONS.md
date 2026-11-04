@@ -954,3 +954,39 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - The Haiku and Sonnet numbers.
 - The self-knowledge and own-record findings, which hold on all three models.
 - The title.
+
+---
+
+# Probes branch (`probes`): entry DP1
+
+## DP1 — Gold map direction 5 (belief versus readout) pre-registered: local open-weight model, truth probe, chain order
+
+*Numbering.* This entry was written as **D48** on branch `probes` (commits `9ef909d`, `8685008`), at the same time as main's D48, which narrowed the No Credence paper. It was renumbered **DP1** at the merge into `main`, after the DM precedent. References to "D48" in `experiments/probe-dissociation.md`, `experiments/probe_dissociation*.py`, `experiments/local_lm.py`, `results/probe-dissociation.md` and the two probes commit messages mean this entry. Those frozen files were left unedited.
+
+**Date:** 2026-11-04, before any call on the study items. Recorded in `experiments/probe-dissociation.md`. Cost $0 API: Llama-3-8B-Instruct (Qwen2.5-7B-Instruct as the fallback), 4-bit, run locally through MLX.
+
+**Design.**
+- **Step 1, the gate:** experiment 5 run 2's ten items, chains O1–O4 and B0, R = 10, one scale direction. The gate needs at least 3 items with a span of 5 points or more and an order permutation p < 0.05.
+- **Step 2:** mass-mean truth probes trained on Marks & Tegmark's curated datasets. The layer is chosen on companies and counterfact.
+- **Step 3:** at the M point of each chain, the probe is read on the yes-answer as a declarative statement (a cache-trimmed side branch), then the verbal rating is taken. A told-yes/told-no positive control sets each measure's range.
+
+**Primary:** Q, the share of the noise-corrected verbal order effect that the probe also shows, in told-range units. It is read with the probe's order permutation test, against the frozen rule (§5).
+
+**Changes from the gold map's sketch.**
+- One scale direction (run 2's lesson).
+- The positive control and Q were added, so that a flat probe cannot pass by being blind.
+- No QQ block: the test needs only the chain orders.
+
+**Check before freezing.** The analysis was run on simulated stable, moving and noisy-probe worlds, and returned DISSOCIATION, BELIEF MOVES and UNDECIDED respectively.
+
+**Implementation notes after freezing (no design change).**
+- **Memory limits.** The gate run slowed about 7× under system memory pressure (swap nearly full). MLX's freed-buffer cache was capped at 256 MB, and the model's memory is now wired with `mx.set_wired_limit`, as `mlx_lm.generate` does. The run was stopped and resumed twice. Conversations are keyed and seeded per (model, item, cell, repeat), and only completed repeats are saved, so resuming regenerates the same conversations.
+- **Probe training memory.** Training now runs in two passes, class sums first and then projections, rather than holding every activation in memory. The statements sampled, the directions and the scores are the same.
+
+**Result (DP1).** Llama-3-8B passed the gate at exactly 3 of 10 items (h190, h101 and h191), so Qwen was not run. The probe is layer 13, with selection AUROC 0.90 and report-set AUROC 0.88. All four validity checks pass.
+- **Q = 3.72 [1.43, 7.03], r = +0.31 [−0.49, +0.99], p_P = 0.0001.**
+- **Frozen verdict: PROBE MOVES, BUT NOT WITH THE RATING.**
+- **Sensitivity:** layer 11 alone reads BELIEF MOVES (r = +0.60).
+- **Exploratory:** the rating follows the last sub-claim's lean (r = +0.54); the probe does not (+0.14).
+
+Details in `results/probe-dissociation.md`.
