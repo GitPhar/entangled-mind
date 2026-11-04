@@ -4,7 +4,7 @@ A visual display of one belief state at a time. Each of the model's claims sits 
 
 Under the ring, a **circuit strip** shows the item's circuit for `ibm_fez` in the Qiskit dark style: one row per physical qubit, RZ, √X and X boxes, CZ as two dots joined by a bar, and measurements at the end. The overview shows the whole circuit, and hovering it moves a zoom lens. A playhead follows the scrubber: gates of the current stage are bright, earlier ones dimmed and later ones faint. Hovering a CZ outlines its two claims on the ring and says whether it is an interaction or a routing SWAP.
 
-- **As run on ibm_fez** (badge, green): items that ran on hardware, namely the Stage 1 pipe test (`q01-s1`, pool run 1's extraction of q01, N = 0) and the three witness items (`h221`, `h088`, `h268`, XX setting). The gates are the exact ISA circuits from IBM's job records, with their physical layout, as exported by the main session (`experiments/export_hardware_circuits.py` on `main`) into `window/data/hardware/<job_id>-<index>.json`. They have no stage markers, so stages are inferred from which claim pair each CZ block serves. The CZ counts equal the archived ones (Stage 1: 117 CZ, depth 208; witness: 137, 162, 230). The **IBM's own drawing** toggle shows `window/hardware/<job_id>-<index>.svg` once that file is in the folder; the main session writes it.
+- **As run on ibm_fez** (badge, green): items that ran on hardware, namely the Stage 1 pipe test (`q01-s1`, pool run 1's extraction of q01, N = 0) and the three witness items (`h221`, `h088`, `h268`, XX setting). The gates are the exact ISA circuits from IBM's job records, with their physical layout, as exported by the main session (`experiments/export_hardware_circuits.py` on `main`) into `window/data/hardware/<job_id>-<index>.json`. They have no stage markers, so stages are inferred from which claim pair each CZ block serves. The CZ counts equal the archived ones (Stage 1: 117 CZ, depth 208; witness: 137, 162, 230). The **IBM's own drawing** toggle shows IBM's drawing of that circuit, `window/hardware/<job_id>-<index>.svg`.
 - **Recompiled** (badge, amber, "N CZ here vs M as archived"): every other item. The arm-A circuit is transpiled here against the FakeFez snapshot with the project's settings (optimisation level 3, seed 1), with a barrier at the end of each stage so every gate's stage is exact. Without the barriers the recompile matches the archived CZ count on all 422 items. With them, the drawn circuit drifts by 12.5 CZ on average, and the badge shows the drift. Physical qubit numbers here are the snapshot's layout.
 - **Claim tracking:** each two-qubit block is classified by its Weyl coordinates (b ≈ π/4 means it contains a SWAP), and claims are moved when a SWAP block closes. The export stops unless every measured qubit ends up holding the claim its classical bit names, and unless no interaction block acts on an unrelated pair. Both checks pass on all 426 circuits.
 
@@ -12,8 +12,8 @@ For hardware items the vote panel puts hardware counts beside the simulators': t
 
 ```bash
 .venv/bin/python experiments/export_window.py   # regenerate window/data/ (about 3.5 minutes; simulation only, no API keys)
-# the as-run hardware circuits live on main; until main is merged here, point the export at the main checkout:
-.venv/bin/python experiments/export_window.py --hardware-dir ../entangled-mind/window/data/hardware
+# as-run hardware circuits are read from window/data/hardware/ (written by experiments/export_hardware_circuits.py);
+# --hardware-dir points the export at another copy
 python3 -m http.server -d window 8000           # then open http://localhost:8000/
 ```
 
