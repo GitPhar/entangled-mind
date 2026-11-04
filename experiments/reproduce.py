@@ -122,7 +122,8 @@ def main() -> int:
         step("gm3c-heldout-format.md", lambda: importlib.import_module("gm3c_heldout_format").main())
     step("gm3a-anchor-gap.md", lambda: importlib.import_module("gm3a_anchor_gap").main())
     for mod, md in (("gm1_self_knowledge", "gm1-self-knowledge.md"), ("gm2_self_conditioning", "gm2-self-conditioning.md"),
-                    ("gm3b_format_invariance", "gm3b-format-invariance.md"), ("gm4_evidence_seeking", "gm4-evidence-seeking.md")):
+                    ("gm3b_format_invariance", "gm3b-format-invariance.md"), ("gm4_evidence_seeking", "gm4-evidence-seeking.md"),
+                    ("gm2b_self_conditioning_40", "gm2b-self-conditioning-40.md")):
         if md in committed:          # overnight runs: analysis recomputed from the call caches
             step(md, lambda mod=mod: importlib.import_module(mod).analyse())
     for fn, md in (("bm3", "bm3-confirmation.md"), ("bm7", "bm7-serial-position.md"), ("bm9", "bm9-contrast.md")):
