@@ -1,6 +1,6 @@
 # Pool run 2: base `claude-haiku-5-5` (effort default, adaptive thinking)
 
-125 questions processed; 0 hit the 16,000-token cap and are excluded; base model wrong on **4** of 125 answered. API cost $1.0334. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
+125 questions processed; 0 hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; base model wrong on **4** of 125 answered. API cost $1.0334. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
 
 Test set rule: fallback (D5): all 4 wrong items + the 10 correct items whose extracted claims give the model's answer the least net support. Test set: 4 wrong + 10 right. Calibration pool: 111 items.
 
@@ -131,6 +131,9 @@ Test set rule: fallback (D5): all 4 wrong items + the 10 correct items whose ext
 | x73 | computation | no | no | yes | calib | 9 | 24 | 7 |
 | x74 | computation | yes | yes | yes | calib | 8 | 22 | 1 |
 | x75 | computation | yes | no | **no** | test | 9 | 15 | 0 |
+
+Wrong by category: calendar 0/16, computation 3/35, fact 0/13, linda 0/5, logic 0/4, math 0/14, probability 0/8, puzzle 0/13, words 1/17
+
 
 Wrong items:
 

@@ -33,13 +33,21 @@ def main() -> None:
         "ibm_usage": usage,
     }
     (config.RESULTS / "stage1-run-1.json").write_text(json.dumps(out, indent=1))
+    write_md(out)
+
+
+def write_md(out: dict) -> None:
+    """Stage 1 markdown, from the archived JSON alone."""
+    usage, item = out["ibm_usage"], out["item"]
+    hw = out["arms"]["hardware"]["counts"]
+    qsec = float((usage.get("job_metrics_usage") or {}).get("qpu_charge_time_seconds", usage["quantum_seconds"]))
     top = sorted(hw.items(), key=lambda kv: -kv[1])[:8]
     lines = ["# Stage 1, run 1: the pipe", "",
-             f"Item `{rec['id']}`: {rec['question']}", "",
-             f"Encoded as {web.n} qubits with {len(web.edges)} entangling RZZ gates and N=0 evolution. "
-             f"Transpiled for `{usage['backend']}`: depth {isa.depth()}, {ops.get('cz', 0)} CZ gates.", "",
+             f"Item `{item['id']}`: {item['question']}", "",
+             f"Encoded as {out['n_qubits']} qubits with {out['n_edges']} entangling RZZ gates and N=0 evolution. "
+             f"Transpiled for `{usage['backend']}`: depth {out['depth']}, {out['transpiled_ops'].get('cz', 0)} CZ gates.", "",
              f"**Hardware job `{usage['job_id']}` on `{usage['backend']}` returned {sum(hw.values())} shots "
-             f"across {len(hw)} distinct bitstrings. QPU time: {usage['quantum_seconds']} s.**", "",
+             f"across {len(hw)} distinct bitstrings. QPU time: {qsec:g} s (IBM `qpu_charge_time_seconds`).**", "",
              "| run | P(yes) | judgment | conflict score | distinct bitstrings |", "|---|---|---|---|---|"]
     for name, a in out["arms"].items():
         r = a["readout"]

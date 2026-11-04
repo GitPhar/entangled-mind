@@ -75,6 +75,11 @@ def service_usage() -> dict:
 def _log(entry: dict) -> None:
     ledger = _ledger() + [entry]
     USAGE_JSON.write_text(json.dumps(ledger, indent=2))
+    render_usage_md(ledger)
+
+
+def render_usage_md(ledger: list[dict]) -> None:
+    """results/ibm-usage.md from the ledger JSON alone."""
     lines = ["# IBM Quantum usage ledger", "",
              f"Instance `{config.IBM_INSTANCE}` (Open Plan, {config.QPU_MONTHLY_SECONDS} s/month). "
              f"Hard stop for this project: {config.QPU_STOP_SECONDS} s cumulative.", "",

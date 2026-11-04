@@ -1,6 +1,6 @@
 # Entanglement witness, run 1 (real hardware)
 
-Design: `experiments/witness.md`. Job `dbl6e1d8mdtc73d5gesg` on `ibm_fez` (Batch `c7a152dc-d677-42ae-90a8-fef9ad5e3a28`), 39 circuits × 4000 shots. **QPU time: 44 s** (IBM `qpu_charge_time_seconds`; first logged as 0.0 by the D10 parsing bug, repaired). Service-reported consumption after the job: 2 s of 600 s.
+Design: `experiments/witness.md`. Job `dbl6e1d8mdtc73d5gesg` on `ibm_fez` (Batch `c7a152dc-d677-42ae-90a8-fef9ad5e3a28`), 39 circuits × 4000 shots. **QPU time: 44 s** (IBM `qpu_charge_time_seconds`). Service-reported consumption after the job: 2 s of 600 s.
 
 Witness: negativity N of the two-qubit reduced state of the most-entangled related pair (N > 0 ⇔ entangled; separable states give 0; a Bell pair gives 0.5). Readout-error mitigated; 95% intervals from 500 parametric bootstrap resamples. Certified if the lower bound > 0.
 
@@ -14,6 +14,7 @@ Witness: negativity N of the two-qubit reduced state of the most-entangled relat
 
 ## Reading
 
+- The QPU time was first logged as 0.0 s by the D10 parsing bug, since repaired.
 - **Certified.** Real `ibm_fez` hardware held entangled states of the encoded contention pairs, with negativity well clear of zero for all three items. The result holds without readout-error mitigation too (unmitigated N = 0.140, 0.052, 0.058), so it is not an artefact of the mitigation step.
 - **Hardware is noisier than the noise model.** For two items the hardware negativity is about half the noisy-simulator prediction (0.063 vs 0.149, and 0.067 vs 0.118). This matches Stage 1, where hardware washed the readout out much more than `AerSimulator.from_backend` predicts.
 - **What it certifies.** It certifies that the encoding's entanglement is physically present in a few belief states. It says nothing about whether that entanglement helps judgment, and Stage 2 shows it does not.

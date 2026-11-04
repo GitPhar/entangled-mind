@@ -83,9 +83,16 @@ def main() -> None:
     n_cert = sum(x["hardware"]["certified"] for x in items)
     OUT_JSON.write_text(json.dumps({"usage": usage, "items": items, "n_certified": n_cert,
                                     "success": n_cert >= 2}, indent=1))
+    write_md(json.loads(OUT_JSON.read_text()))
+
+
+def write_md(d: dict) -> None:
+    """Witness markdown, from the archived JSON alone."""
+    usage, items, n_cert = d["usage"], d["items"], d["n_certified"]
+    qsec = float((usage.get("job_metrics_usage") or {}).get("qpu_charge_time_seconds", usage["quantum_seconds"]))
     lines = ["# Entanglement witness, run 1 (real hardware)", "",
              f"Design: `experiments/witness.md`. Job `{usage['job_id']}` on `{usage['backend']}` (Batch `{usage['batch_id']}`), "
-             f"39 circuits × {wd.SHOTS} shots. **QPU time: {usage['quantum_seconds']} s.** "
+             f"39 circuits × {wd.SHOTS} shots. **QPU time: {qsec:g} s** (IBM `qpu_charge_time_seconds`). "
              f"Service-reported consumption after the job: {usage['service_after']['usage_consumed_seconds']} s "
              f"of {usage['service_after']['usage_limit_seconds']} s.", "",
              "Witness: negativity N of the two-qubit reduced state of the most-entangled related pair "
@@ -94,9 +101,9 @@ def main() -> None:
              "| item | pair (physical qubits) | N ideal | N noisy sim [95% CI] | **N hardware [95% CI]** | hardware, unmitigated | certified |",
              "|---|---|---|---|---|---|---|"]
     for x in items:
-        s, h = x["noisy_sim"], x["hardware"]
+        s_, h = x["noisy_sim"], x["hardware"]
         lines.append(f"| `{x['id']}` | ({x['pair'][0]}, {x['pair'][1]}) on {x['physical_qubits'][0]}, {x['physical_qubits'][1]} | "
-                     f"{x['negativity_ideal']:.3f} | {s['negativity']:.3f} [{s['ci95'][0]:.3f}, {s['ci95'][1]:.3f}] | "
+                     f"{x['negativity_ideal']:.3f} | {s_['negativity']:.3f} [{s_['ci95'][0]:.3f}, {s_['ci95'][1]:.3f}] | "
                      f"**{h['negativity']:.3f} [{h['ci95'][0]:.3f}, {h['ci95'][1]:.3f}]** | {h['negativity_unmitigated']:.3f} | "
                      f"{'yes' if h['certified'] else 'no'} |")
     lines += ["", f"**{n_cert} of 3 items certified; pre-registered success rule (≥ 2 of 3): "

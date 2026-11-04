@@ -307,10 +307,16 @@ def evaluate21() -> None:
         results[name] = res
     a, f = results["locked test"]["models"]["A21"], results["locked test"]["models"]["F21"]
     passed = a["ci95"][0] > f["ci95"][1]
+    OUT21_JSON.write_text(json.dumps({"fit": fit21d, "results": results, "primary_pass": passed}, indent=1))
+    write21_md(fit21d, results, passed)
+
+
+def write21_md(fit21d, results, passed) -> None:
+    """v2.1 markdown, from the archived JSON alone."""
+    a, f = results["locked test"]["models"]["A21"], results["locked test"]["models"]["F21"]
     an = results["locked test"]["models"]["A21-noisy"]
     noisy_line = (f"Secondary (Addendum C): noisy-simulator A2.1 lower bound {an['ci95'][0]:.2f} vs F2.1 upper bound "
                   f"{f['ci95'][1]:.2f}: {'above' if an['ci95'][0] > f['ci95'][1] else 'not above'}.")
-    OUT21_JSON.write_text(json.dumps({"fit": fit21d, "results": results, "primary_pass": passed}, indent=1))
     names = {"A21": "A2.1 honest-hedge quantum (noiseless)", "F21": "F2.1 honest-hedge classical twin (exact; no circuit)",
              "A21-noisy": "A2.1 on the noisy ibm_fez simulator (1,000 shots)"}
     lines = ["# Version 2.1, run 1: honest-hedge encoding", "",

@@ -13,16 +13,6 @@ Pre-registration: `experiments/exp3-order-effects.md`. Base model `claude-haiku-
 - Do order effects exist at all? Mean observed |P(yes | i first) − P(yes | j first)| = 0.036; order-label permutation test p = 0.243.
 - Do the two largest-Δᴼ pairs show larger observed effects than the two smallest? Mean within-item difference -0.005 over 40 items; sign-flip permutation p = 0.679.
 
-## Reading
-
-- **Inconclusive, and the reason is upstream of either model.** The base model shows almost no order effects to predict.
-  - Only 27 of 218 item-pairs show any difference between orders at all.
-  - The order-label permutation test cannot distinguish the observed effects from run-to-run variability (p = 0.24).
-  - On its own, the model gives the same answer in all 5 baseline runs for 85% of the items.
-- **This is the saturation caveat of Kang (2026)** (arXiv:2607.17219): near-deterministic answers leave no dispersion for an order effect to show up in.
-- **The point estimate leans against the quantum account.** The classical twin's predictions correlate slightly better (ρ = +0.08) than the quantum ones (ρ = −0.03).
-- **No discrimination between the two models is possible here.** Under the pre-registration's own rule, that is what gets reported.
-
 ## Item-pairs
 
 | item | wrong? | pair | tags | Δᴼ | Δᶠ | P(yes) i first | P(yes) j first | observed |
@@ -245,3 +235,13 @@ Pre-registration: `experiments/exp3-order-effects.md`. Base model `claude-haiku-
 | h300 |  | 0–2 | Q-low | 0.0000 | 0.0000 | 1.00 | 1.00 | 0.00 |
 | h300 |  | 0–8 | Q-low | 0.0002 | 0.0000 | 1.00 | 1.00 | 0.00 |
 | h300 |  | 0–4 | F-high | 0.0026 | 0.0000 | 1.00 | 1.00 | 0.00 |
+
+## Reading
+
+- **Inconclusive, and the reason is upstream of either model.** The base model shows almost no order effects to predict.
+  - Only 27 of 218 item-pairs show any difference between orders at all.
+  - The order-label permutation test cannot distinguish the observed effects from run-to-run variability (p = 0.24).
+  - On its own, the model gives the same answer in all 5 baseline runs for 85% of the items.
+- **This is the saturation caveat of Kang (2026)** (arXiv:2607.17219): near-deterministic answers leave no dispersion for an order effect to show up in.
+- **The point estimate leans against the quantum account.** The classical twin's predictions correlate slightly better (ρ = +0.08) than the quantum ones (ρ = −0.03).
+- **No discrimination between the two models is possible here.** Under the pre-registration's own rule, that is what gets reported.
