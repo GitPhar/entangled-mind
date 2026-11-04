@@ -583,3 +583,29 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 - **A token-cap judge call** is recorded as no rating and dropped from its cell. This follows the project's existing rule for token-cap answers (stage 1).
 - **The lost calls are re-issued** with identical parameters, because they have no record. One of them is the token-cap call: it was not refused, and its identity was not recorded.
 - **The shared runner** (`experiments/gm_common.py`) now saves its cache every 50 calls and on any error, and stops cleanly. This applies to the remaining overnight runs.
+
+## D40 — Biomimetic run, 1 of 5: confidence-gated confirmation on the archived run-3 calls pre-registered; revision-2 criteria adopted for all five
+
+**Date:** 2026-11-04 05:08 MST, before `results/exp4-run-3-calls.json` was opened for this analysis.
+
+**Sean's instruction.** After direction 4, merge the biomimetics branch, then run five tests in this order:
+1. the three $0 analyses (confirmation on the run-3 calls, serial-position weights, contrast sign on the single-scale QQ data);
+2. the sampling identity ($0.05);
+3. serial dependence with run 3's anchors as the model's own answer ($0.23).
+
+Each is pre-registered before its archive is opened or its first call, on one scale direction throughout.
+
+**Revision 2 of the map.** Sean's list follows revision 1 of `paper/biomimetic-map.md`. The branch as merged carries revision 2 (`f824e14`, 04:27), in which full reads corrected these tests. The five tests are run as Sean listed them, at his budgets, with revision 2's corrected criteria wherever it corrects them:
+- **Confirmation:** consistency is coded by sign relative to 50, as primary. It is read as a low-power test that does not single out confirmation.
+- **Serial position:** the U-shape exclusion is the LCA's falsification test.
+- **Contrast sign:** run as a descriptive assimilation/contrast check. It is not a normalization test, because sequential normalization is untested in the source paper.
+- **Sampling:** the item-level Z slope is primary, and Z ≈ 0 is secondary.
+- **Serial dependence:** own > other is the source test, and the "sign flip by source" prediction is withdrawn.
+
+Revision 2's other recommendations are not run, because Sean did not list them:
+- K1/K0 sensitivity;
+- the variance shape as a separate $0 analysis (it is reported inside the sampling run);
+- the distance and lag cells;
+- the prime × confidence test.
+
+**Recorded in:** `experiments/bm3-confirmation.md`.
