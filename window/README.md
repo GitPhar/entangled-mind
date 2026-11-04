@@ -1,6 +1,6 @@
 # The window
 
-A visual display of one belief state at a time: the model's claims as a point cloud, brightness = amplitude, hue = phase (cyan yes, orange no), dashed links = entanglement with opacity = negativity, and a scrubber from encode through each evolution step to collapse and readout. The side panel compares every arm's archived conflict score against its own threshold.
+A visual display of one belief state at a time. Each of the model's claims sits on a ring at its qubit's equatorial Bloch vector: angle = phase (right yes, left no), distance from centre = amplitude, repeated by hue and brightness. Relation edges are green (supports) and red (contradicts), with a toggle; dashed links are entanglement, opacity = negativity; a dotted gold ring marks hedges (claims with no lean), kept at every stage. A scrubber runs from encode through each evolution step to collapse (points drop onto the yes/no axis at 2 P(yes) - 1) and readout, and points tween between stages so claims visibly rotate. The side panel compares every arm's archived conflict score against its own threshold.
 
 ```bash
 .venv/bin/python experiments/export_window.py   # regenerate window/data/ (about 3 minutes; simulation only, no API keys)

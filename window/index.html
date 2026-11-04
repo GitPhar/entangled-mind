@@ -78,7 +78,7 @@
 <body>
 <header>
   <h1>The Window <span>The Entangled Mind · one belief state, from encoding to collapse</span></h1>
-  <p class="intro"><b>What you are looking at.</b> Each glowing point is one claim from the language model's own short explanation of its answer to the question shown. Its <b>brightness</b> is the claim's amplitude, how strongly it is held in the quantum state. Its <b>hue</b> is its phase: <span class="yes">cyan points toward yes</span>, <span class="no">orange toward no</span>, and grey points toward neither. Faint solid lines are the relation web the model's claims were judged to form (green supports, red contradicts). <b>Dashed lines</b> appear once the claims are entangled, and their opacity is the measured entanglement (negativity) of that pair. Drag the scrubber from <i>encode</i> through each <i>evolve</i> step to <i>collapse</i>, where the state is measured in the yes/no basis, and on to <i>readout</i>, where the archived runs of every arm are compared. The panel on the right shows the truth, the model's answer, and each arm's conflict score against its own pre-registered threshold. Compare the entangled arm <b>A</b> with the classical contradiction count <b>E</b> to see items where the entangling step loses a signal that plain counting keeps. Every stage here is an exact, noiseless state computed from the archived claims. The arm scores are the archived results, as run.</p>
+  <p class="intro"><b>What you are looking at.</b> Each glowing point is one claim from the language model's own short explanation of its answer to the question shown, placed on a ring. Its <b>angle around the ring</b> is its phase (<span class="yes">right is yes</span>, <span class="no">left is no</span>, top and bottom are neither), and its <b>distance from the centre</b> is its amplitude, how strongly it is held in the quantum state. Hue and brightness repeat the same two quantities. Solid lines are the relation web the claims were judged to form: <span style="color:#3ddc84">green supports</span>, <span style="color:#ff5a5a">red contradicts</span>. <b>Dashed lines</b> appear once claims are entangled, with opacity equal to that pair's entanglement (negativity). A <span style="color:#f5c84c">dotted gold ring</span> marks a hedge, a claim the model stated with no lean. Watch where the state moves hedges. Drag the scrubber from <i>encode</i> through each <i>evolve</i> step to <i>collapse</i>, where the state is measured in the yes/no basis, and on to <i>readout</i>, where the archived runs of every arm are compared. The panel on the right shows the truth, the model's answer, and each arm's conflict score against its own pre-registered threshold. Compare the entangled arm <b>A</b> with the classical contradiction count <b>E</b> to see items where the entangling step loses a signal that plain counting keeps. Every stage here is an exact, noiseless state computed from the archived claims. The arm scores are the archived results, as run.</p>
 </header>
 <div id="err"></div>
 <main>
@@ -108,7 +108,8 @@
       <span><span class="sw" style="background:linear-gradient(90deg,hsl(16 90% 58%),hsl(16 8% 50%),hsl(190 8% 50%),hsl(190 90% 58%))"></span>phase: no → neither → yes</span>
       <span><span class="sw" style="background:linear-gradient(90deg,#1a1f2c,#e8f6ff)"></span>brightness = amplitude</span>
       <span><svg width="30" height="10"><line x1="0" y1="5" x2="30" y2="5" stroke="#cfd8ff" stroke-width="2" stroke-dasharray="5 4"/></svg> entanglement (opacity = negativity, full at 0.20)</span>
-      <span><label><input type="checkbox" id="show-web" checked> relation web</label></span>
+      <span><label><input type="checkbox" id="show-web" checked> relation edges: <span style="color:#3ddc84">━ supports</span> <span style="color:#ff5a5a">━ contradicts</span></label></span>
+      <span><svg width="18" height="18" style="vertical-align:-4px"><circle cx="9" cy="9" r="6.5" fill="none" stroke="#f5c84c" stroke-width="1.8" stroke-dasharray="2.5 2.5"/></svg> hedge: a claim with no lean in the explanation</span>
     </div>
     <div class="panels">
       <div class="card"><h3>Vote distribution if measured now</h3><svg id="hist" viewBox="0 0 420 178"></svg>
@@ -140,10 +141,10 @@
 const STAGES = ["encode", "entangle", "evolve 1", "evolve 2", "collapse", "readout"];
 const DESC = {
   "encode": "Each claim is a separate qubit: tilted toward the equator by its confidence and turned toward yes or no by its solved phase. Nothing is entangled yet, so the state is just the list of claims.",
-  "entangle": "An RZZ gate links every related pair, with strength set by the relation. Dashed links show the pairs that are now entangled. Each claim's own amplitude dims, because part of what it means now lives in the whole state.",
+  "entangle": "An RZZ gate links every related pair, with strength set by the relation. Dashed links show the pairs that are now entangled. Points move toward the centre: each claim's own amplitude shrinks, because part of what it means now lives in the whole state.",
   "evolve 1": "Trotter step 1: a short evolution under the relation web's Ising energy (supporting claims pulled to agree, contradicting ones to disagree) plus a mixer that pulls toward uncommitted.",
   "evolve 2": "Trotter step 2, with more weight on the relation web and less on the mixer. This is the state that gets measured.",
-  "collapse": "Measured in the yes/no basis. Each node now shows the probability its claim comes out yes-aligned. The histogram is the weighted vote: mass in both outer bands (|vote| ≥ 1/3) means two strongly opposed camps, and that mass is the conflict score.",
+  "collapse": "Measured in the yes/no basis. Each point drops onto the yes/no axis at 2·P(yes) − 1, where P(yes) is the probability its claim comes out yes-aligned. The histogram is the weighted vote: mass in both outer bands (|vote| ≥ 1/3) means two strongly opposed camps, and that mass is the conflict score.",
   "readout": "The archived runs. The histogram shows arm A as run, with 1,000 shots on the noisy simulator, over the exact distribution. The side panel compares every arm against its own threshold.",
 };
 const HUE_YES = 190, HUE_NO = 16;
@@ -224,93 +225,159 @@ function renderList() {
 }
 
 // ----------------------------------------------------------------- cloud
-function layout(item) {
-  const n = item.claims.length, idx = [...Array(n).keys()];
-  const yes = idx.filter(k => item.claims[k].lean > 0).sort((a, b) => item.claims[b].confidence - item.claims[a].confidence);
-  const no = idx.filter(k => item.claims[k].lean < 0).sort((a, b) => item.claims[b].confidence - item.claims[a].confidence);
-  const zero = idx.filter(k => item.claims[k].lean === 0);
-  const pos = new Array(n), cx = 500, cy = 300, R = 205;
-  const arc = (ks, a0, a1) => ks.forEach((k, t) => {
-    const a = ks.length === 1 ? (a0 + a1) / 2 : a0 + (a1 - a0) * t / (ks.length - 1);
-    pos[k] = [cx + R * Math.cos(a * Math.PI / 180), cy + R * 1.0 * Math.sin(a * Math.PI / 180), a];
-  });
-  arc(yes, -46, 46); arc(no, 226, 134);
-  const top = zero.filter((_, t) => t % 2 === 0), bot = zero.filter((_, t) => t % 2 === 1);
-  const span = c => Math.min(44, 22 * (c - 1));
-  arc(top, -90 - span(top.length), -90 + span(top.length));
-  arc(bot, 90 - span(bot.length), 90 + span(bot.length));
-  return pos;
-}
-function nodeState(item, s) {
+// Geometry: each claim sits at its qubit's equatorial Bloch vector, so the angle around the ring is its
+// phase (right = yes, left = no, top and bottom = neither) and its distance from the centre is its amplitude.
+// At collapse each point drops onto the yes/no axis at x = 2 P(yes) - 1. Between stages points tween in
+// polar coordinates, so a claim visibly rotates when the state moves it.
+const CX = 500, CY = 300, RING = 220, COL_L = 214, COL_R = 786;
+let LABELS = null, lastPts = null, animId = null;
+
+function isHedge(c) { return !c.lean; }
+
+function stagePoints(item, s) {
   const name = STAGES[s];
+  let pts;
   if (name === "collapse" || name === "readout") {
-    const st = item.stages[item.stages.length - 2];      // final evolved state's per-qubit X-basis marginals
-    return st.qubits.map(q => {
-      const p = q.p_yes;
-      return { amp: Math.abs(2 * p - 1), phase: Math.acos(Math.max(-1, Math.min(1, 2 * p - 1))), p_yes: p, purity: q.purity };
+    const qs = item.stages[item.stages.length - 2].qubits;
+    pts = qs.map((q, k) => {
+      const xb = 2 * q.p_yes - 1;
+      return { k, amp: Math.abs(xb), phase: xb >= 0 ? 0 : Math.PI, p_yes: q.p_yes, purity: q.purity, x: CX + RING * xb, y: CY };
     });
+    const lanes = [];                                  // stack points that land on top of each other
+    for (const p of [...pts].sort((a, b) => a.x - b.x)) {
+      let lane = 0;
+      while (lanes[lane] !== undefined && p.x - lanes[lane] < 24) lane++;
+      lanes[lane] = p.x;
+      p.y = CY + (lane % 2 ? 1 : -1) * Math.ceil(lane / 2) * 24;
+    }
+    return pts;
   }
-  return item.stages[s].qubits;
+  pts = item.stages[s].qubits.map((q, k) => ({ k, amp: q.amp, phase: q.phase, p_yes: q.p_yes, purity: q.purity,
+    x: CX + RING * q.amp * Math.cos(q.phase), y: CY - RING * q.amp * Math.sin(q.phase) }));
+  pts.forEach((p, i) => {                              // nudge exact duplicates apart so both stay visible
+    for (let j = 0; j < i; j++) if (Math.hypot(p.x - pts[j].x, p.y - pts[j].y) < 12) { p.x += 9; p.y += 9; }
+  });
+  return pts;
 }
+
+function computeLabels(item) {
+  // Fixed label slots for the whole item, chosen from the encode stage: left column for claims that start on
+  // the no side, right column for the yes side, ordered top to bottom by their starting height.
+  const enc = stagePoints(item, 0), left = [], right = [];
+  enc.forEach(p => (p.x < CX - 1 || (Math.abs(p.x - CX) <= 1 && item.claims[p.k].lean < 0) ? left : right).push(p));
+  const place = (ps, side) => {
+    ps.sort((a, b) => a.y - b.y);
+    const top = 68, bottom = 580, gap = Math.min(66, (bottom - top) / Math.max(1, ps.length));
+    const y0 = top + Math.max(0, ((bottom - top) - gap * ps.length) / 2);
+    return ps.map((p, i) => ({ k: p.k, side, y: y0 + gap * i, gap }));
+  };
+  const out = [];
+  for (const l of [...place(left, "L"), ...place(right, "R")]) out[l.k] = l;
+  return out;
+}
+
+function lerpAngle(a, b, t) { let d = b - a; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; return a + d * t; }
+
+function tweenPts(from, to, t) {
+  const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;   // ease in-out
+  return to.map((p, i) => {
+    const f = from[i];
+    const r0 = Math.hypot(f.x - CX, f.y - CY), r1 = Math.hypot(p.x - CX, p.y - CY);
+    const a0 = Math.atan2(CY - f.y, f.x - CX), a1 = Math.atan2(CY - p.y, p.x - CX);
+    const r = r0 + (r1 - r0) * e, a = (r0 < 1 ? a1 : r1 < 1 ? a0 : lerpAngle(a0, a1, e));
+    return { ...p, x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), amp: f.amp + (p.amp - f.amp) * e, phase: lerpAngle(f.phase, p.phase, e) };
+  });
+}
+
 function renderCloud() {
+  const target = stagePoints(ITEM, stage);
+  if (animId) cancelAnimationFrame(animId);
+  if (!lastPts || lastPts.length !== target.length) { lastPts = target; drawCloud(target); return; }
+  const from = lastPts, t0 = performance.now(), dur = 700;
+  const frame = now => {
+    const t = Math.min(1, (now - t0) / dur);
+    const pts = tweenPts(from, target, t);
+    lastPts = pts; drawCloud(pts);
+    if (t < 1) animId = requestAnimationFrame(frame); else { animId = null; lastPts = target; }
+  };
+  animId = requestAnimationFrame(frame);
+}
+
+function drawCloud(pts) {
   const item = ITEM, svg = $("#cloud"), name = STAGES[stage];
   svg.innerHTML = "";
   const defs = el("defs", {}, svg);
   const f = el("filter", { id: "glow", x: "-100%", y: "-100%", width: "300%", height: "300%" }, defs);
-  el("feGaussianBlur", { stdDeviation: "7", result: "b" }, f);
+  el("feGaussianBlur", { stdDeviation: "6", result: "b" }, f);
   const mg = el("feMerge", {}, f); el("feMergeNode", { in: "b" }, mg); el("feMergeNode", { in: "SourceGraphic" }, mg);
-  const pos = layout(item), ns = nodeState(item, stage);
-  // axis hint
-  el("text", { x: 980, y: 585, "text-anchor": "end", "font-size": 12.5, fill: "hsl(190 60% 55%)", opacity: .7 }, svg).textContent = "claims written as leaning yes →";
-  el("text", { x: 20, y: 585, "text-anchor": "start", "font-size": 12.5, fill: "hsl(16 70% 60%)", opacity: .7 }, svg).textContent = "← claims written as leaning no";
-  // relation web underlay
+  const collapsed = name === "collapse" || name === "readout";
+  // the ring: amplitude 1 and 0.5, the yes/no axis, and the neither axis
+  el("circle", { cx: CX, cy: CY, r: RING, fill: "none", stroke: "#2b3245", "stroke-width": 1.2 }, svg);
+  el("circle", { cx: CX, cy: CY, r: RING / 2, fill: "none", stroke: "#20263a", "stroke-dasharray": "3 5" }, svg);
+  el("line", { x1: CX - RING - 6, x2: CX + RING + 6, y1: CY, y2: CY, stroke: collapsed ? "#4a5470" : "#252c3e", "stroke-width": collapsed ? 1.6 : 1 }, svg);
+  el("line", { x1: CX, x2: CX, y1: CY - RING - 6, y2: CY + RING + 6, stroke: "#1d2333" }, svg);
+  el("text", { x: CX + RING + 10, y: CY + 4, "font-size": 13, "font-weight": 650, fill: "hsl(190 75% 60%)" }, svg).textContent = "yes";
+  el("text", { x: CX - RING - 10, y: CY + 4, "text-anchor": "end", "font-size": 13, "font-weight": 650, fill: "hsl(16 85% 62%)" }, svg).textContent = "no";
+  el("text", { x: CX, y: CY - RING - 10, "text-anchor": "middle", "font-size": 11, fill: "#6b7388" }, svg).textContent = "neither (phase +90°)";
+  el("text", { x: CX, y: CY + RING + 20, "text-anchor": "middle", "font-size": 11, fill: "#6b7388" }, svg).textContent = "neither (phase −90°)";
+  el("text", { x: CX + RING * .71 + 4, y: CY - RING * .71 - 4, "font-size": 10.5, fill: "#5d6476" }, svg).textContent = "amplitude 1";
+  el("text", { x: CX + RING * .36 + 4, y: CY - RING * .36 - 4, "font-size": 10.5, fill: "#4c5366" }, svg).textContent = "0.5";
+  el("text", { x: CX + 4, y: CY - 6, "font-size": 10.5, fill: "#4c5366" }, svg).textContent = "uncommitted";
+  // leader lines from fixed labels to their moving points
+  item.claims.forEach((c, k) => {
+    const L = LABELS[k], p = pts[k], lx = L.side === "L" ? COL_L + 6 : COL_R - 6;
+    el("line", { x1: lx, y1: L.y + 4, x2: p.x, y2: p.y, stroke: "#3a4256", "stroke-width": 0.8, opacity: .55 }, svg);
+  });
+  // relation edges: green supports, red contradicts
   if ($("#show-web").checked) for (const r of item.relations) {
-    const a = pos[r.i], b = pos[r.j];
-    el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: r.J > 0 ? "#3fae7a" : "#d0544e",
-      "stroke-width": 0.6 + 2.2 * Math.abs(r.J), opacity: 0.16 }, svg);
+    const a = pts[r.i], b = pts[r.j], con = r.J < 0;
+    el("line", { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: con ? "#ff5a5a" : "#3ddc84",
+      "stroke-width": (1.1 + 2.6 * Math.abs(r.J)).toFixed(2), opacity: con ? 0.85 : 0.5, "stroke-linecap": "round" }, svg);
   }
-  // entanglement links
-  const negSrc = (name === "collapse" || name === "readout") ? item.stages[item.stages.length - 2] : item.stages[stage];
+  // entanglement: dashed, opacity = negativity of that pair at this stage
+  const negSrc = collapsed ? item.stages[item.stages.length - 2] : item.stages[stage];
   item.relations.forEach((r, e) => {
     const N = negSrc.negativity ? negSrc.negativity[e] : 0;
     if (N < 0.002) return;
-    const a = pos[r.i], b = pos[r.j];
-    const op = Math.min(1, N / 0.20) * ((name === "collapse" || name === "readout") ? 0.35 : 1);
-    const ln = el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: "#cfd8ff", "stroke-width": 1.6,
-      "stroke-dasharray": "6 5", opacity: op.toFixed(3) }, svg);
+    const a = pts[r.i], b = pts[r.j];
+    const ln = el("line", { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: "#eef2ff", "stroke-width": 1.5,
+      "stroke-dasharray": "5 5", opacity: (Math.min(1, N / 0.20) * (collapsed ? 0.4 : 0.95)).toFixed(3) }, svg);
     ln.addEventListener("mousemove", ev => tip(ev, `<b>${r.i} ↔ ${r.j}</b> ${r.relation} (J = ${r.J})<br>negativity ${N.toFixed(3)}`));
     ln.addEventListener("mouseleave", untip);
   });
   // nodes
-  item.claims.forEach((c, k) => {
-    const [x, y, ang] = pos[k], q = ns[k];
-    const amp = Math.max(0, Math.min(1, q.amp));
-    const g = el("g", { transform: `translate(${x},${y})`, style: "cursor:default" }, svg);
-    el("circle", { r: 9 + 15 * amp, fill: colourOf(q.phase, 1, 60, 0), opacity: (0.10 + 0.55 * amp).toFixed(3), filter: "url(#glow)" }, g);
-    el("circle", { r: 7 + 7 * amp, fill: colourOf(q.phase, amp, 16, 52), stroke: colourOf(q.phase, 1, 75, 0),
-      "stroke-opacity": (0.25 + 0.6 * amp).toFixed(3), "stroke-width": 1.2 }, g);
+  pts.forEach((q, k) => {
+    const c = item.claims[k], amp = Math.max(0, Math.min(1, q.amp));
+    const g = el("g", { transform: `translate(${q.x.toFixed(2)},${q.y.toFixed(2)})`, style: "cursor:default" }, svg);
+    el("circle", { r: 8 + 12 * amp, fill: colourOf(q.phase, 1, 60, 0), opacity: (0.10 + 0.5 * amp).toFixed(3), filter: "url(#glow)" }, g);
+    el("circle", { r: 8 + 5 * amp, fill: colourOf(q.phase, amp, 16, 52), stroke: colourOf(q.phase, 1, 75, 0),
+      "stroke-opacity": (0.3 + 0.6 * amp).toFixed(3), "stroke-width": 1.2 }, g);
+    if (isHedge(c)) el("circle", { r: 8 + 5 * amp + 5, fill: "none", stroke: "#f5c84c", "stroke-width": 1.8, "stroke-dasharray": "2.5 2.5" }, g);
     el("text", { y: 4, "text-anchor": "middle", "font-size": 10.5, "font-weight": 700, fill: amp > .55 ? "#0b0d12" : "#e6e8ee" }, g).textContent = k;
-    // label
-    const right = Math.cos(ang * Math.PI / 180) > 0.5, left = Math.cos(ang * Math.PI / 180) < -0.5;
-    const lx = right ? 30 : left ? -30 : 0, anchor = right ? "start" : left ? "end" : "middle";
-    const mid = !right && !left, lines = mid ? wrap(c.text, 21, 2) : wrap(c.text, 34, 2), top = Math.sin(ang * Math.PI / 180) < -0.6 && mid;
-    const ly0 = top ? -30 - 15 * lines.length : (mid ? 34 : -8);
-    const t = el("text", { x: lx, y: ly0, "text-anchor": anchor, "font-size": 12.5, fill: "#d9deea" }, g);
-    lines.forEach((ln, i) => { const ts = el("tspan", { x: lx, dy: i ? 15 : 0 }, t); ts.textContent = ln; });
-    const extra = (name === "collapse" || name === "readout") ? `P(yes) ${q.p_yes.toFixed(2)}` : `amp ${amp.toFixed(2)}`;
-    const ts = el("tspan", { x: lx, dy: 15, "font-size": 11.5, fill: "#8d95a8" }, t);
-    ts.textContent = mid ? `conf ${c.confidence.toFixed(2)} · ${extra}`
-                         : `conf ${c.confidence.toFixed(2)} · ${c.lean > 0 ? "leans yes" : c.lean < 0 ? "leans no" : "neutral"} · ${extra}`;
-    g.addEventListener("mousemove", ev => tip(ev, `<b>Claim ${k}</b> ${esc(c.text)}<br><span style="color:#9aa1b2">confidence ${c.confidence} · lean ${c.lean} · amplitude ${amp.toFixed(3)} · phase ${(q.phase * 180 / Math.PI).toFixed(0)}° · purity ${q.purity !== undefined ? q.purity.toFixed(3) : "–"}</span>`));
-    g.addEventListener("mouseleave", untip);
+    const hover = ev => tip(ev, `<b>Claim ${k}</b>${isHedge(c) ? ' <span style="color:#f5c84c">hedge: no lean in the explanation</span>' : ""}<br>${esc(c.text)}<br><span style="color:#9aa1b2">confidence ${c.confidence} · lean ${c.lean} · amplitude ${amp.toFixed(3)} · phase ${(q.phase * 180 / Math.PI).toFixed(0)}° · P(yes) ${q.p_yes.toFixed(2)}</span>`);
+    g.addEventListener("mousemove", hover); g.addEventListener("mouseleave", untip);
+  });
+  // labels in fixed columns: number, two lines of claim text, confidence and current P(yes); full text on hover
+  item.claims.forEach((c, k) => {
+    const L = LABELS[k], left = L.side === "L", x = left ? COL_L : COL_R, q = pts[k];
+    const g = el("g", { style: "cursor:default" }, svg);
+    const lines = wrap(c.text, 27, L.gap < 46 ? 1 : 2);
+    const t = el("text", { x, y: L.y, "text-anchor": left ? "end" : "start", "font-size": 12, fill: "#d9deea" }, g);
+    lines.forEach((ln, i) => { const ts = el("tspan", { x, dy: i ? 14 : 0 }, t); ts.textContent = (i ? "" : `${k} · `) + ln; });
+    const m = el("tspan", { x, dy: 14, "font-size": 11, fill: "#8d95a8" }, t);
+    m.textContent = `conf ${c.confidence.toFixed(2)} · ${c.lean > 0 ? "leans yes" : c.lean < 0 ? "leans no" : "hedge"} · P(yes) ${q.p_yes.toFixed(2)}`;
+    if (isHedge(c)) {
+      const cx = left ? COL_L + 10 : COL_R - 10;
+      el("circle", { cx, cy: L.y - 4, r: 4, fill: "none", stroke: "#f5c84c", "stroke-width": 1.5, "stroke-dasharray": "2 2" }, g);
+    }
+    const hover = ev => tip(ev, `<b>Claim ${k}</b>${isHedge(c) ? ' <span style="color:#f5c84c">hedge</span>' : ""}<br>${esc(c.text)}<br><span style="color:#9aa1b2">confidence ${c.confidence} · lean ${c.lean}</span>`);
+    g.addEventListener("mousemove", hover); g.addEventListener("mouseleave", untip);
   });
   // stage stamp
-  el("text", { x: 20, y: 30, "font-size": 15, "font-weight": 650, fill: "#e6e8ee" }, svg).textContent = name;
-  const st = item.stages[Math.min(stage, item.stages.length - 1)];
-  const negs = (negSrc.negativity || []);
-  const mx = negs.length ? Math.max(...negs) : 0;
-  el("text", { x: 20, y: 50, "font-size": 12, fill: "#9aa1b2" }, svg).textContent =
-    `${item.claims.length} qubits · ${item.relations.length} related pairs · max pair negativity ${mx.toFixed(3)}`;
+  const negs = negSrc.negativity || [], mx = negs.length ? Math.max(...negs) : 0;
+  el("text", { x: 16, y: 22, "font-size": 14, "font-weight": 650, fill: "#e6e8ee" }, svg).textContent = name;
+  el("text", { x: 16, y: 38, "font-size": 11, fill: "#9aa1b2" }, svg).textContent =
+    `${item.claims.length} qubits · ${item.relations.length} related pairs · ${item.relations.filter(r => r.J < 0).length} contradictions · max negativity ${mx.toFixed(3)}`;
 }
 
 // ------------------------------------------------------------- histogram
@@ -443,6 +510,7 @@ function renderStage() {
 
 async function select(id) {
   ITEM = await loadItem(id);
+  LABELS = computeLabels(ITEM); lastPts = null;
   $("#qtext").textContent = ITEM.question;
   $("#qmeta").innerHTML = `${esc(ITEM.id)} · truth <b class="${ITEM.truth}">${ITEM.truth}</b> · model <b class="${ITEM.model_answer}">${ITEM.model_answer}</b>${ITEM.correct === false ? ' <span style="color:var(--bad)">(wrong)</span>' : ' <span style="color:var(--ok)">(right)</span>'} · ${esc(ITEM.source || "")}`;
   renderSide(); renderClaims(); renderStage(); renderList();
@@ -474,7 +542,7 @@ async function init() {
   $("#f-q").addEventListener("input", renderList);
   $("#stage").addEventListener("input", e => { stage = +e.target.value; renderStage(); });
   $("#play").addEventListener("click", play);
-  $("#show-web").addEventListener("change", renderCloud);
+  $("#show-web").addEventListener("change", () => drawCloud(lastPts || stagePoints(ITEM, stage)));
   document.addEventListener("keydown", e => {
     if (e.target.tagName === "INPUT" && e.target.type === "search") return;
     if (e.key === "ArrowRight") { stage = Math.min(STAGES.length - 1, stage + 1); renderStage(); }
