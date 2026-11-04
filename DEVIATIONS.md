@@ -267,3 +267,14 @@ Details are in `results/frame-fix-check.md`. The frame bug is real, but it does 
 - v1, v2 and every archived result keep the as-run solver, as pre-registered.
 - Following Sean's rule ("if the fix matters, it goes into v2.1"), the correction is **not** added to v2.1, because it does not change the AUROCs. v2.1 stays a single change, the honest hedge. The v2.1 fit had not started when this was decided, so the correction could still be folded in, as a correctness fix, by a pre-registered amendment before `fit21`.
 - `export_window.py` needs no fix.
+
+## D16 — v2.1 amendment: fit noiseless, evaluate noiseless and on the noisy simulator
+
+**Date:** 2026-11-03 18:36 MST, before any v2.1 fit or any test-set evaluation.
+
+At Sean's instruction (`experiments/preregistration-v2.md`, Addendum C):
+- A2.1 and F2.1 are fitted on exact noiseless statevectors and selected on validation.
+- The selected models are evaluated once on the locked test set, noiseless, and A2.1 is also evaluated once on the noisy `ibm_fez` simulator (1,000 shots per item).
+- F2.1 has no circuit, so it has only the noiseless evaluation.
+- The pass criterion is applied to the noiseless comparison, with the noisy result reported alongside.
+- Everything else in Addendum B is unchanged.

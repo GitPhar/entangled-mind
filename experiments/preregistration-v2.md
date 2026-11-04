@@ -116,3 +116,19 @@ Both have 10 parameters, so they are matched to each other.
 **Pass criterion (stated as for v2).** On the locked test set, A2.1 passes if its AUROC exceeds F2.1's by more than the width of both bootstrap 95% intervals, read as non-overlapping intervals: A2.1's lower 95% bound > F2.1's upper 95% bound. Otherwise the honest-hedge quantum encoding ties or loses to its classical twin, and the README says so plainly.
 
 **Reported, not a pass criterion:** A2.1 against A2 and F2.1 against F2 (does the honest hedge help each family?), and A2.1 and F2.1 against H, L and G.
+
+## Addendum C — v2.1 evaluated noiseless and on the noisy simulator
+
+**Written 2026-11-03 18:36 MST (2026-11-04 01:36 UTC).** No v2.1 fit had started (`results/v2.1-fit.json` did not exist), and no v2 or v2.1 model had been scored on any test set.
+
+1. **Fitting is on exact noiseless statevectors** for A2.1 and F2.1. What is learned is the mapping from claims to state, and noise adds nothing to it. Selection is on validation, exactly as in Addendum B. The fitting code already worked this way; this addendum makes it explicit.
+2. **Two evaluations, once each, on the locked v2 test set:**
+   - **(i) noiseless:** exact statevector probabilities for A2.1, and the exact classical distribution for F2.1;
+   - **(ii) noisy simulator:** the selected A2.1 built as a Qiskit circuit, transpiled for `ibm_fez`, and run on `AerSimulator.from_backend(ibm_fez)` with 1,000 shots per item (seeded per item). The conflict score is computed from those counts, as in Stage 2.
+
+   **F2.1 is a classical distribution with no circuit,** so "noisy simulator" is not defined for it. Its noiseless score is its only score.
+3. **Reported for both evaluations:** AUROC with 95% bootstrap intervals, flag rates at the train threshold, and A2.1 (noisy) − A2.1 (noiseless) as a paired bootstrap difference.
+4. **Pass criterion unchanged.** It is applied to the **noiseless** evaluation, A2.1 against F2.1, because that is the like-for-like comparison. The noisy-simulator result is reported against the same F2.1 interval as a secondary line.
+5. **The run-2 held-out set** is scored once, noiseless only, as in Addendum B.
+
+Everything else in Addendum B is unchanged.
