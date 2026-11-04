@@ -502,3 +502,20 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 **Budget and stops:** , enforced in code. The steps run in a fixed order, so a cap stop truncates the least important step. The run stops on any refusal.
 
 **Timestamps:** D34 and D35 were corrected to their commit times (03:48 and 03:50) per the America/Denver rule. The literature session flagged both.
+
+### D36 amendment — direction 1's run order, made while step 1 was running and before steps 3 and 4 ran
+
+**Date:** 2026-11-04 03:58 MST.
+
+**The problem.**
+- The matched-framing Sonnet calls cost about $0.0037 each, against the $0.003 assumed from D28. The judge writes more about another assistant's answer.
+- At that rate, steps 1–4 would total about $3.30, over the $3 cap.
+
+**The change.**
+- The run was stopped after step 2 completed. Both steps are cached, and no call was lost.
+- It restarts in a new order:
+  1. Haiku's recognition calls (120 calls, about $0.02);
+  2. step 3, the paraphrase 2×2;
+  3. Sonnet's recognition calls, for as long as the cap allows.
+- The cap stays at $3. Nothing else in the design or the analysis changes.
+- If Sonnet's recognition check is truncated, the results report how many of its calls ran.
