@@ -438,7 +438,7 @@ Each first test below was pre-registered on `main` before its data (D34–D39) a
 | 3, six formats | 0.25 | no single credence: 86% of claims, ΔLL +19.4 (`results/gm3b-format-invariance.md`) | yes, by a held-out-repeats criterion stricter than Smolin & Wilder's |
 | 4, evidence seeking | 0.20 | mixed: beats chance for EIG and confirmatory alike (`results/gm4-evidence-seeking.md`) | no |
 
-Two of the four API tests came out in the overturning direction, against probabilities of 0.25 each. The expected number was about 0.8. Both results are on 10 and 160 items from one model, and each names its own follow-up.
+Two of the four API tests came out in the overturning direction, against probabilities of 0.25 each. The expected number, from the four probabilities (0.15 + 0.25 + 0.25 + 0.20), was 0.85. Both results are on 10 and 160 items from one model, and each names its own follow-up.
 
 ## Recommended order
 
