@@ -507,3 +507,26 @@ The estimate uses the per-token prices assumed in experiment 3's estimate ($0.10
 - **A transcript-edited condition**, where the model's rating is removed from context before the next turn. It would separate the effect of the question from the effect of the model's own answer (Echterhoff et al. 2024), but it changes the presentation mode.
 - **Binary yes/no versions of the sub-questions.** They saturated in experiment 4.
 - **QPU runs.** No hardware time is requested unless the verdict is "quantum supported". In that case a follow-up would put the selected A5's states for the QQ items on `ibm_fez` as a separate, separately pre-registered step.
+
+
+## Addendum — run 2: B0 and the QQ block re-run with one scale direction (pre-registered 2026-11-03 22:59 MST, D33)
+
+**Why.** Run 1 counterbalanced the scale anchors. The model did not reliably reverse the flipped scale: recoded B0 means were 33.8 under (a) and 71.3 under (b). Do the order effects and the near-zero q survive without that confound?
+
+**Design.** There is no refitting, and no model is involved. This is a descriptive re-measurement.
+- **Items:** the first 10 candidates in §9's order: h190, h101, h112, h191, h261, h058, h221, h279, h127 and h238.
+- **Cells:**
+  - B0, the main question only, R = 10.
+  - The QQ block: the same 2 pairs per item as in `experiments/split-exp5.json`, both orders, R = 40.
+- **Every conversation uses anchor (a)**, "0 = certainly false, 100 = certainly true". Settings are otherwise identical to run 1. The cap is $1, and any refusal stops the run.
+
+**Reported.**
+- Per pair, as in §7.3: OE [95% CI], OE_S, OE_M, OSS, q and z.
+- The number of pairs with OE > 0.10 and a CI excluding 0.
+- Mean q with an item-bootstrap 95% CI, and KS of z.
+- B0's mean and between-repeat SD.
+- Each beside run 1's numbers for the same 10 items, computed two ways: all anchors pooled, and anchor (a) only.
+
+**Reading, fixed now.**
+- **The order effects "survive"** if at least half of the pairs that had a large OE in run 1 also have one in the re-run.
+- **The near-zero q "survives"** if the re-run's mean-q CI contains 0. If the CI also lies within ±0.05, run 1's QQ near-miss is resolved in the equality's favour.

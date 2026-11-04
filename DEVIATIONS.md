@@ -462,3 +462,16 @@ The a priori sub-test compares order effects on each item's two QQ pairs, ordere
 Treating differences of 10⁻⁶ or less as ties, the tolerance already used for the encode-stage non-commutativity count, leaves 3 items with genuinely distinct predictions: 1 win, 2 losses, p = 0.875. The markdown was regenerated from the archived JSON, and nothing was refitted.
 
 The pre-registered design is unchanged, and so is the verdict, which does not use this sub-test. The selection of QQ pairs for the many items whose claims all sit at |sin Δφ| = 0 was made by `qq_pairs` before any data. It is therefore effectively arbitrary on those items, which is consistent with §8.6's expectation that most claims commute.
+
+## D33 — Experiment 4 run 3 frozen with a one-scale amendment; experiment 5 single-scale re-run pre-registered
+
+**Date:** 2026-11-03 22:59 MST, before any call in either run.
+- **Experiment 4 run 3** (`experiments/exp4-run-3.md`): frozen with an amendment.
+  - Every rating prompt states one scale direction, "0 = certainly false, 100 = certainly true", per experiment 5's anchor finding.
+  - The provided values A are fixed from archived means (`experiments/exp4-run-3-anchors.json`).
+  - If r₁ is collinear with A, the fit falls back to two parameters (β₂ unidentified).
+  - The point values used in the rules are fixed.
+  - Budget $2, enforced in code.
+- **Experiment 5 run 2** (Addendum in `experiments/exp5-sequential-judgment.md`): B0 and the QQ block re-run on the first 10 candidates, anchor (a) only.
+  - It is descriptive, with no refitting, and the reading is fixed in advance.
+  - Budget $1, enforced in code.

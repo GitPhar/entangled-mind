@@ -1,6 +1,6 @@
 # Experiment 4, run 3: a manipulated first rating (pre-registration draft)
 
-Written 2026-11-03, after run 2 (`results/exp4-run-2.md`, DEVIATIONS D19) and before any run-3 call. **Status: draft, not run.** Running it needs Sean's go-ahead. The design is frozen in a commit before the first call.
+Written 2026-11-03, after run 2 (`results/exp4-run-2.md`, DEVIATIONS D19) and before any run-3 call. **Status: FROZEN 2026-11-03 22:59 MST with the amendment below, before any run-3 call (Sean's go-ahead; $2 cap).**
 
 ## 1. Why run 3
 
@@ -109,3 +109,31 @@ There is no QPU time, and wall-clock time is under 30 minutes at 8 workers.
 - It tests the mechanism behind the order effect: numeric anchoring against content-driven updating, and within the latter, rank-one quantum against Bayes.
 - It does not test R2 again, which run 2 already met on 3 of 3 items.
 - It does not decide between degenerate quantum models and classical Bayes when the slope ratio is far from 1. Experiment 5 (`experiments/exp5-sequential-judgment.md`) is the broader test of sequential judgment.
+
+
+## Amendment at freezing (2026-11-03 22:59 MST, DEVIATIONS.md D33)
+
+1. **One scale direction.** Tonight's experiment-5 finding was that the model does not reliably reverse a flipped scale: recoded baseline means were 33.8 vs 71.3. So every rating prompt in run 3 states one direction explicitly, ", where 0 = certainly false and 100 = certainly true". It is added to the turn-1 anchored prompt, to the free first rating and to the conjunction rating. There is no counterbalanced reversal.
+2. **Provided values A,** computed from archived means as §2 specifies and fixed here (also in `experiments/exp4-run-3-anchors.json`):
+
+| item | source of m | m(X) | A_lo / A_hi for X | m(Y) | A_lo / A_hi for Y |
+|---|---|---|---|---|---|
+| co01 | run 2 first-turn means | 85.0 | 55 / 98 | 5.1 | 2 / 35 |
+| co02 | run 1 phase-1 means | 97.0 | 67 / 98 | 8.2 | 2 / 38 |
+| co03 | run 1 phase-1 means | 85.0 | 55 / 98 | 50.0 | 20 / 80 |
+| co04 | run 1 phase-1 means | 78.0 | 48 / 98 | 27.0 | 2 / 57 |
+| co-lin06 | run 2 first-turn means | 84.6 | 55 / 98 | 6.6 | 2 / 37 |
+| co-lin08 | run 2 first-turn means | 56.4 | 26 / 86 | 4.2 | 2 / 34 |
+| co-lin09 | run 2 first-turn means | 70.4 | 40 / 98 | 44.0 | 14 / 74 |
+| co-lin10 | run 2 first-turn means | 85.0 | 55 / 98 | 4.3 | 2 / 34 |
+| co05 | run 2 first-turn means | 47.9 | 18 / 78 | 4.1 | 2 / 34 |
+| co06 | run 2 first-turn means | 47.0 | 17 / 77 | 10.0 | 2 / 40 |
+| co07 | run 1 phase-1 means | 65.0 | 35 / 95 | 38.5 | 8 / 68 |
+| co08 | run 1 phase-1 means | 80.0 | 50 / 98 | 15.0 | 2 / 45 |
+| co09 | run 1 phase-1 means | 82.0 | 52 / 98 | 5.0 | 2 / 35 |
+| co10 | run 1 phase-1 means | 78.2 | 48 / 98 | 4.2 | 2 / 34 |
+| co11 | run 1 phase-1 means | 79.5 | 49 / 98 | 3.0 | 2 / 33 |
+| co12 | run 1 phase-1 means | 54.8 | 25 / 85 | 48.8 | 19 / 79 |
+
+3. **Collinearity.** If, within an order, r₁ equals A in every conversation (the model accepts every provided value), then r₁ and A are collinear and β₂ is not identified. That item-order is then fitted as r₂ = β₀ + β₁·r₁, and β₂ is reported as unidentified. More generally, the fit falls back to this two-parameter form whenever the design matrix's condition number exceeds 10⁶. The classification rules use β₀ and β₁ only, so they are unaffected.
+4. **Point values in the rules.** In the anchoring and content tests, (1 − β₁)·fresh is evaluated at the point estimates. In the reciprocity test, P(Y)/P(X) is evaluated at the free-cell means. The bootstrap supplies the β₀ and slope-ratio intervals.
