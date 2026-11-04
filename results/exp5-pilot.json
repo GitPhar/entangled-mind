@@ -1,0 +1,149 @@
+{
+ "gates": {
+  "items": {
+   "h018": {
+    "M_mean_by_chain": {
+     "O1": 37.5,
+     "O2": 41.0,
+     "O3": 34.5,
+     "O4": 47.0,
+     "X1": 36.5,
+     "X2": 36.5,
+     "X3": 34.5,
+     "X4": 44.5,
+     "B0": 23.4
+    },
+    "M_span": 23.6,
+    "S_cells": 80,
+    "S_share_sd_ge_2": 0.8875,
+    "G1_item": true
+   },
+   "h088": {
+    "M_mean_by_chain": {
+     "O1": 3.2,
+     "O2": 3.4,
+     "O3": 3.0,
+     "O4": 2.6,
+     "X1": 3.0,
+     "X2": 2.3,
+     "X3": 2.5,
+     "X4": 2.8,
+     "B0": 12.1
+    },
+    "M_span": 9.8,
+    "S_cells": 80,
+    "S_share_sd_ge_2": 0.4125,
+    "G1_item": true
+   },
+   "h039": {
+    "M_mean_by_chain": {
+     "O1": 37.0,
+     "O2": 31.2,
+     "O3": 37.0,
+     "O4": 15.6,
+     "X1": 22.0,
+     "X2": 23.3,
+     "X3": 35.8,
+     "X4": 55.1,
+     "B0": 89.4
+    },
+    "M_span": 73.80000000000001,
+    "S_cells": 80,
+    "S_share_sd_ge_2": 0.5,
+    "G1_item": true
+   },
+   "h001": {
+    "M_mean_by_chain": {
+     "O1": 48.0,
+     "O2": 51.0,
+     "O3": 47.5,
+     "O4": 53.5,
+     "X1": 39.5,
+     "X2": 51.0,
+     "X3": 51.5,
+     "X4": 49.5,
+     "B0": 42.0
+    },
+    "M_span": 14.0,
+    "S_cells": 80,
+    "S_share_sd_ge_2": 0.775,
+    "G1_item": true
+   },
+   "h170": {
+    "M_mean_by_chain": {
+     "O1": 82.0,
+     "O2": 43.5,
+     "O3": 56.5,
+     "O4": 77.1,
+     "X1": 29.2,
+     "X2": 82.5,
+     "X3": 84.2,
+     "X4": 85.7,
+     "B0": 61.2
+    },
+    "M_span": 56.5,
+    "S_cells": 80,
+    "S_share_sd_ge_2": 0.9375,
+    "G1_item": true
+   }
+  },
+  "pairs": {
+   "h018:S6": {
+    "max_minority_share": 0.4,
+    "noncommutativity": 2.4492935982947064e-16,
+    "G2_pair": true
+   },
+   "h018:S1": {
+    "max_minority_share": 0.5,
+    "noncommutativity": 0.0,
+    "G2_pair": true
+   },
+   "h088:S3": {
+    "max_minority_share": 0.15,
+    "noncommutativity": 2.4492935982947064e-16,
+    "G2_pair": true
+   },
+   "h088:S7": {
+    "max_minority_share": 0.125,
+    "noncommutativity": 0.0,
+    "G2_pair": true
+   },
+   "h039:S3": {
+    "max_minority_share": 0.35,
+    "noncommutativity": 2.4492935982947064e-16,
+    "G2_pair": true
+   },
+   "h039:S2": {
+    "max_minority_share": 0.3,
+    "noncommutativity": 0.0,
+    "G2_pair": true
+   },
+   "h001:S3": {
+    "max_minority_share": 0.475,
+    "noncommutativity": 2.4492935982947064e-16,
+    "G2_pair": true
+   },
+   "h001:S1": {
+    "max_minority_share": 0.475,
+    "noncommutativity": 0.0,
+    "G2_pair": true
+   },
+   "h170:S4": {
+    "max_minority_share": 0.4,
+    "noncommutativity": 2.4492935982947064e-16,
+    "G2_pair": true
+   },
+   "h170:S2": {
+    "max_minority_share": 0.5,
+    "noncommutativity": 0.0,
+    "G2_pair": true
+   }
+  },
+  "G1": true,
+  "G1_items_passing": 5,
+  "G2": true,
+  "G2_pairs_passing": 10
+ },
+ "n_conversations": 1400,
+ "cost_usd": 0.20956660000000002
+}
