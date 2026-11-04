@@ -346,3 +346,19 @@ If a second refusal occurs, the run stops again and is reported. The support tic
 - Re-running §3's selection rule from `results/pool-run-3.json` reproduces §9's 40 ids exactly and in order.
 
 Nothing else in the design was changed.
+
+## D23 — Experiment 5 implementation choices (fixed before any experiment-5 call)
+
+**Date:** 2026-11-03, after the freeze (D22) and before the pilot. These are details the frozen text leaves open:
+
+1. **Sub-question order.** S₁…S₄ are the four chain claims in claim-index order. O1–O4 follow the cyclic Latin square 1234, 2341, 3412, 4123. X_k omits S_k from O1.
+2. **Turn structure.**
+   - The first user turn is the opening context followed by the first question.
+   - Each answer is structured output: {"rating": int} for ratings, {"answer": "yes"|"no"} for K1's choice, and {"reply": "continue"} for K0's filler.
+   - A schema failure is recorded, and its row is dropped in analysis.
+3. **Split arithmetic.** 384 chains at 60/20/20 is 230.4/76.8/76.8. Stratified by chain type (32 chains each), every type gets 19/6/6. The 12 leftovers are assigned by largest remainder, 2 to train, 5 to validation and 5 to test, at random with seed 2027. That gives exactly 230/77/77.
+4. **G1's SD criterion** is computed over cells (chain type, rating position, anchor direction), with the SD taken across repeats within one anchor direction. This stops scale reversal from inflating dispersion.
+5. **G2.** A pair passes if, in at least one order, the binarised minority share of either of its two questions (S_k or M) is at least 10%.
+6. **Phase solver check (§5.1)**, run before freezing the split, with a maximum difference of exactly 0 in both cases:
+   - the composed solver against `solve_phases_anchored`, on the 116 items with no hedges;
+   - the composed solver against `v2.hedge_phases`, using a plain solve, on all 300 items.
