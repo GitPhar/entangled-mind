@@ -39,7 +39,8 @@
   #stage-wrap { display: flex; flex-direction: column; gap: 10px; }
   #qtext { font-size: 15px; color: var(--text); margin: 0; }
   #qmeta { font-size: 12.5px; color: var(--muted); }
-  svg text { fill: var(--text); }
+  svg text:not([fill]) { fill: var(--text); }
+  .card h3 code { text-transform: none; letter-spacing: 0; }
   #cloud { width: 100%; height: auto; background: radial-gradient(ellipse at center, #121725 0%, #0b0d12 70%); border-radius: 10px; border: 1px solid var(--line); }
   .scrub { display: flex; align-items: center; gap: 10px; }
   .scrub button { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; cursor: pointer; font: inherit; }
@@ -72,6 +73,21 @@
   .sw { display: inline-block; width: 26px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
   #err { display: none; margin: 24px; padding: 16px; border: 1px solid #5a2a2a; background: #1e1214; border-radius: 10px; }
   code { background: #1c2130; padding: 1px 5px; border-radius: 4px; }
+  #circ-card { padding-bottom: 8px; }
+  .circ-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .circ-head h3 { margin: 0; }
+  .badge { font-size: 11.5px; padding: 1px 8px; border-radius: 10px; font-weight: 600; letter-spacing: .2px; }
+  .badge.asrun { background: #123726; color: #6fe3a5; border: 1px solid #1f6b45; }
+  .badge.recomp { background: #3a2f10; color: #f5c84c; border: 1px solid #6d5717; }
+  .circ-tools { margin-left: auto; font-size: 12px; color: var(--muted); }
+  #circ-sub { margin: 4px 0 6px; }
+  #circ-over { width: 100%; display: block; cursor: zoom-in; border-radius: 6px; background: #0e1118; }
+  #circ-zoom { width: 100%; display: block; margin-top: 6px; background: #262626; border-radius: 6px; }
+  #circ-ibm { margin-top: 6px; overflow: auto; max-height: 420px; background: #fff; border-radius: 6px; }
+  #circ-ibm img { height: 400px; max-width: none; display: block; }
+  #circ-ibm .miss { background: var(--panel2); color: var(--muted); padding: 14px; font-size: 12.5px; }
+  #hw-panel table { margin-top: 6px; }
+  #hw-panel td.n, #hw-panel th.n { text-align: right; }
   .tip { position: fixed; pointer-events: none; background: #1b2030; border: 1px solid #333b50; padding: 8px 10px; border-radius: 8px; font-size: 12.5px; max-width: 360px; display: none; z-index: 5; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
 </style>
 </head>
@@ -84,7 +100,7 @@
 <main>
   <section id="picker">
     <label class="small">Run
-      <select id="f-run"><option value="2">Run 2: hard pool (40 wrong + 40 right test items)</option><option value="1">Run 1: standard pool (4 wrong + 10 hard-right)</option></select></label>
+      <select id="f-run"><option value="2">Run 2: hard pool (40 wrong + 40 right test items)</option><option value="1">Run 1: standard pool (4 wrong + 10 hard-right)</option><option value="hw">Run on IBM hardware (Stage 1, witness)</option></select></label>
     <label class="small">Items
       <select id="f-role"><option value="test">Test set</option><option value="test_wrong">Test, model wrong</option><option value="test_right">Test, model right</option><option value="calibration">Calibration pool</option><option value="all">All</option></select></label>
     <label class="small">Flag pattern
@@ -104,6 +120,15 @@
     </div>
     <div class="ticks" id="ticks"></div>
     <div id="stage-desc"></div>
+    <div class="card" id="circ-card">
+      <div class="circ-head"><h3>Circuit on ibm_fez</h3><span id="circ-badge" class="badge"></span>
+        <span class="circ-tools" id="ibm-tool" hidden><label><input type="checkbox" id="show-ibm"> IBM's own drawing</label></span></div>
+      <div class="small" id="circ-sub"></div>
+      <canvas id="circ-over" aria-label="Whole circuit; hover to zoom"></canvas>
+      <svg id="circ-zoom" aria-label="Zoomed circuit"></svg>
+      <div id="circ-ibm" hidden></div>
+      <div class="note" id="circ-note"></div>
+    </div>
     <div class="legend">
       <span><span class="sw" style="background:linear-gradient(90deg,hsl(16 90% 58%),hsl(16 8% 50%),hsl(190 8% 50%),hsl(190 90% 58%))"></span>phase: no → neither → yes</span>
       <span><span class="sw" style="background:linear-gradient(90deg,#1a1f2c,#e8f6ff)"></span>brightness = amplitude</span>
@@ -113,9 +138,9 @@
     </div>
     <div class="panels">
       <div class="card"><h3>Vote distribution if measured now</h3><svg id="hist" viewBox="0 0 420 178"></svg>
-        <div class="note" id="hist-note"></div></div>
+        <div class="note" id="hist-note"></div><div id="hw-panel"></div></div>
       <div class="card"><h3>Conflict score through the run</h3><svg id="traj" viewBox="0 0 420 172"></svg>
-        <div class="note">Noiseless conflict score at each stage, for the entangled circuit (A) and the same circuit with no entangling gates (C). The dashed line is the noiseless arm A0's flag threshold. The dot at the end is arm A as run, on the noisy simulator, against its own threshold.</div>
+        <div class="note" id="traj-note">Noiseless conflict score at each stage, for the entangled circuit (A) and the same circuit with no entangling gates (C). The dashed line is the noiseless arm A0's flag threshold. The dot at the end is arm A as run, on the noisy simulator, against its own threshold.</div>
         <div class="note" id="stage-auroc"></div></div>
     </div>
     <div class="card"><h3>Claims</h3><ul id="claims"></ul></div>
@@ -126,19 +151,19 @@
     <div class="facts" id="facts"></div>
     <h2>Arms at readout</h2>
     <table id="arms"><thead><tr><th></th><th>arm</th><th>score</th><th>thr</th><th>score ÷ threshold</th><th></th></tr></thead><tbody></tbody></table>
-    <p class="note">Each arm flags an item when its score is above that arm's own threshold, which is set so that it flags the top quarter of the calibration pool. The bar's white mark is the threshold, and a gold bar means flagged. E's score is total contradiction strength in the relation web, so its units differ from the others.</p>
+    <p class="note" id="arms-note">Each arm flags an item when its score is above that arm's own threshold, which is set so that it flags the top quarter of the calibration pool. The bar's white mark is the threshold, and a gold bar means flagged. E's score is total contradiction strength in the relation web, so its units differ from the others.</p>
     <h2>What to look for</h2>
     <p class="note" id="reading"></p>
-    <h2>Run summary</h2>
+    <h2 id="runsum-h">Run summary</h2>
     <table id="runsum"><thead><tr><th>arm</th><th>wrong flagged</th><th>right flagged</th><th>AUROC</th></tr></thead><tbody></tbody></table>
-    <p class="note">From <code>results/stage2-run-N.json</code>. AUROC 0.5 means chance. Exact noiseless stages come from <code>experiments/export_window.py</code>.</p>
+    <p class="note" id="runsum-note">From <code>results/stage2-run-N.json</code>. AUROC 0.5 means chance. Exact noiseless stages come from <code>experiments/export_window.py</code>.</p>
   </section>
 </main>
 <div class="tip" id="tip"></div>
 
 <script>
 "use strict";
-const STAGES = ["encode", "entangle", "evolve 1", "evolve 2", "collapse", "readout"];
+let STAGES = ["encode", "entangle", "evolve 1", "evolve 2", "collapse", "readout"];   // per item: its stages + readout
 const DESC = {
   "encode": "Each claim is a separate qubit: tilted toward the equator by its confidence and turned toward yes or no by its solved phase. Nothing is entangled yet, so the state is just the list of claims.",
   "entangle": "An RZZ gate links every related pair, with strength set by the relation. Dashed links show the pairs that are now entangled. Points move toward the centre: each claim's own amplitude shrinks, because part of what it means now lives in the whole state.",
@@ -150,7 +175,7 @@ const DESC = {
 const HUE_YES = 190, HUE_NO = 16;
 const $ = s => document.querySelector(s);
 const SVGNS = "http://www.w3.org/2000/svg";
-let INDEX = null, ITEM = null, stage = 0, timer = null;
+let INDEX = null, ITEM = null, stage = 0, timer = null, HILITE = null;
 const cache = new Map();
 
 function el(tag, attrs = {}, parent) {
@@ -191,8 +216,9 @@ async function loadItem(id) {
 
 // ---------------------------------------------------------------- picker
 function filtered() {
-  const run = +$("#f-run").value, role = $("#f-role").value, pat = $("#f-pat").value, q = $("#f-q").value.trim().toLowerCase();
+  const runv = $("#f-run").value, run = +runv, role = $("#f-role").value, pat = $("#f-pat").value, q = $("#f-q").value.trim().toLowerCase();
   return INDEX.items.filter(it => {
+    if (runv === "hw") return !!it.hardware && (!q || it.id.toLowerCase().includes(q) || it.question.toLowerCase().includes(q));
     if (it.run !== run) return false;
     if (role === "test" && !it.role.startsWith("test")) return false;
     if (!["test", "all"].includes(role) && it.role !== role) return false;
@@ -217,7 +243,8 @@ function renderList() {
     const mark = it.correct === false ? '<span class="mark" style="color:var(--bad)" title="model wrong">✗</span>'
                                       : '<span class="mark" style="color:var(--ok)" title="model right">✓</span>';
     const chips = ["A", "C", "D", "E", "A0"].map(a => `<span class="chip ${it.flags[a] ? "on" : ""}">${a}</span>`).join("");
-    row.innerHTML = `${mark}<span class="id">${esc(it.id)}</span><span class="chips">${chips}</span>`;
+    const hwc = it.hardware ? `<span class="chip on" title="ran on ibm_fez">${it.hardware === "stage1" ? "Stage 1" : "witness"}</span>` : "";
+    row.innerHTML = `${mark}<span class="id">${esc(it.id)}</span><span class="chips">${it.hardware === "stage1" ? "" : chips}${hwc}</span>`;
     row.title = it.question;
     row.onclick = () => select(it.id);
     list.appendChild(row);
@@ -295,7 +322,7 @@ function renderCloud() {
   if (!lastPts || lastPts.length !== target.length) { lastPts = target; drawCloud(target); return; }
   const from = lastPts, t0 = performance.now(), dur = 700;
   const frame = now => {
-    const t = Math.min(1, (now - t0) / dur);
+    const t = Math.max(0, Math.min(1, (now - t0) / dur));
     const pts = tweenPts(from, target, t);
     lastPts = pts; drawCloud(pts);
     if (t < 1) animId = requestAnimationFrame(frame); else { animId = null; lastPts = target; }
@@ -357,12 +384,19 @@ function drawCloud(pts) {
     const hover = ev => tip(ev, `<b>Claim ${k}</b>${isHedge(c) ? ' <span style="color:#f5c84c">hedge: no lean in the explanation</span>' : ""}<br>${esc(c.text)}<br><span style="color:#9aa1b2">confidence ${c.confidence} · lean ${c.lean} · amplitude ${amp.toFixed(3)} · phase ${(q.phase * 180 / Math.PI).toFixed(0)}° · P(yes) ${q.p_yes.toFixed(2)}</span>`);
     g.addEventListener("mousemove", hover); g.addEventListener("mouseleave", untip);
   });
+  // claims picked out by hovering a CZ in the circuit strip
+  if (HILITE) {
+    const [a, b] = HILITE.map(k => pts[k]);
+    if (a && b) el("line", { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: "#ffffff", "stroke-width": 2.4, opacity: .9 }, svg);
+    HILITE.forEach(k => { const p = pts[k]; if (p) el("circle", { cx: p.x, cy: p.y, r: 24, fill: "none", stroke: "#ffffff", "stroke-width": 2.5 }, svg); });
+  }
   // labels in fixed columns: number, two lines of claim text, confidence and current P(yes); full text on hover
   item.claims.forEach((c, k) => {
     const L = LABELS[k], left = L.side === "L", x = left ? COL_L : COL_R, q = pts[k];
     const g = el("g", { style: "cursor:default" }, svg);
     const lines = wrap(c.text, 27, L.gap < 46 ? 1 : 2);
-    const t = el("text", { x, y: L.y, "text-anchor": left ? "end" : "start", "font-size": 12, fill: "#d9deea" }, g);
+    const hl = HILITE && HILITE.includes(k);
+    const t = el("text", { x, y: L.y, "text-anchor": left ? "end" : "start", "font-size": 12, fill: hl ? "#ffffff" : "#d9deea", "font-weight": hl ? 700 : 400 }, g);
     lines.forEach((ln, i) => { const ts = el("tspan", { x, dy: i ? 14 : 0 }, t); ts.textContent = (i ? "" : `${k} · `) + ln; });
     const m = el("tspan", { x, dy: 14, "font-size": 11, fill: "#8d95a8" }, t);
     m.textContent = `conf ${c.confidence.toFixed(2)} · ${c.lean > 0 ? "leans yes" : c.lean < 0 ? "leans no" : "hedge"} · P(yes) ${q.p_yes.toFixed(2)}`;
@@ -386,8 +420,11 @@ function renderHist() {
   svg.innerHTML = "";
   const W = 420, H = 170, L = 30, B = 140, T = 12, n = 21, bw = (W - L - 10) / n;
   const exact = (name === "readout" ? item.stages[item.stages.length - 1] : item.stages[Math.min(stage, item.stages.length - 1)]).vote_hist;
+  const hwr = item.hardware && item.hardware.kind === "stage1" ? item.hardware.runs : null;
   const ran = name === "readout" && item.arms.A ? item.arms.A.counts_summary.vote_hist : null;
-  const vmax = Math.max(0.05, ...exact, ...(ran || []));
+  const series = name === "readout" && hwr ? [[hwr.noisy_sim.counts_summary.vote_hist, "#f2f4f8"], [hwr.hardware.counts_summary.vote_hist, "#f5c84c"]]
+               : ran ? [[ran, "#f2f4f8"]] : [];
+  const vmax = Math.max(0.05, ...exact, ...series.flatMap(x => x[0]));
   // strong bands
   const xOf = m => L + (m + 1) / 2 * (W - L - 10);
   el("rect", { x: L, y: T, width: xOf(-1 / 3) - L, height: B - T, fill: "hsl(16 80% 50%)", opacity: .07 }, svg);
@@ -395,12 +432,12 @@ function renderHist() {
   exact.forEach((v, b) => {
     const m = -1 + (b + .5) * 2 / n, h = (B - T) * v / vmax;
     el("rect", { x: L + b * bw + 1, y: B - h, width: bw - 2, height: h, rx: 2,
-      fill: m > 0.02 ? "hsl(190 70% 55%)" : m < -0.02 ? "hsl(16 80% 58%)" : "#8a90a0", opacity: ran ? .35 : .9 }, svg);
+      fill: m > 0.02 ? "hsl(190 70% 55%)" : m < -0.02 ? "hsl(16 80% 58%)" : "#8a90a0", opacity: series.length ? .35 : .9 }, svg);
   });
-  if (ran) ran.forEach((v, b) => {
-    const h = (B - T) * v / vmax;
-    el("rect", { x: L + b * bw + bw * .3, y: B - h, width: bw * .4, height: h, fill: "#f2f4f8", opacity: .85 }, svg);
-  });
+  series.forEach(([vals, col], k) => vals.forEach((v, b) => {
+    const h = (B - T) * v / vmax, wdt = series.length === 1 ? .4 : .3, off = series.length === 1 ? .3 : .2 + .3 * k;
+    el("rect", { x: L + b * bw + bw * off, y: B - h, width: bw * wdt, height: h, fill: col, opacity: .9 }, svg);
+  }));
   el("line", { x1: L, y1: B, x2: W - 10, y2: B, stroke: "#3a4256" }, svg);
   [[-1, "−1 all no"], [-1 / 3, "−⅓"], [0, "0"], [1 / 3, "+⅓"], [1, "+1 all yes"]].forEach(([m, s]) => {
     el("text", { x: xOf(m), y: B + 16, "text-anchor": m === -1 ? "start" : m === 1 ? "end" : "middle", "font-size": 11, fill: "#9aa1b2" }, svg).textContent = s;
@@ -409,18 +446,41 @@ function renderHist() {
   const st = name === "readout" ? item.stages[item.stages.length - 1] : item.stages[Math.min(stage, item.stages.length - 1)];
   let note = `P(strong yes) ${st.p_strong_yes.toFixed(3)} · P(strong no) ${st.p_strong_no.toFixed(3)} → conflict score <b>${st.conflict_score.toFixed(3)}</b> (exact, noiseless) · P(yes) ${st.p_yes.toFixed(3)}`;
   if (ran) note += `<br>White bars: arm A as run (noisy simulator, ${item.arms.A.counts_summary.shots} shots), conflict score ${item.arms.A.conflict_score.toFixed(3)}.`;
+  if (hwr && name === "readout") note += `<br>White bars: noisy simulator (${hwr.noisy_sim.counts_summary.shots} shots), conflict ${hwr.noisy_sim.conflict_score.toFixed(3)}. <b style="color:#f5c84c">Gold bars: ibm_fez hardware</b> (job <code>${esc(item.hardware.job_id)}</code>, ${hwr.hardware.counts_summary.shots} shots), conflict ${hwr.hardware.conflict_score.toFixed(3)}.`;
+  else if (item.hardware && item.hardware.kind === "stage1" && name !== "readout") note += `<br><span style="color:#f5c84c">This item ran on ibm_fez.</span> Scrub to <i>readout</i> to see the hardware vote beside the simulators'; the table below has the numbers.`;
+  else if (item.hardware && item.hardware.kind === "witness") note += `<br><span style="color:#f5c84c">This item's belief state ran on ibm_fez</span> as an entanglement witness on one pair; the table below sets the hardware counts beside the simulator's.`;
   $("#hist-note").innerHTML = note;
+}
+
+function renderHwPanel() {
+  const h = ITEM.hardware, box = $("#hw-panel");
+  if (!h) { box.innerHTML = ""; return; }
+  if (h.kind === "stage1") {
+    const rows = ["ideal_sim", "noisy_sim", "hardware"].map(k => { const r = h.runs[k];
+      return `<tr${k === "hardware" ? ' style="color:#f5c84c"' : ""}><td>${esc(r.label)}</td><td class="n">${r.p_yes.toFixed(3)}</td><td class="n">${r.conflict_score.toFixed(3)}</td><td class="n">${r.counts_summary.distinct}</td><td class="n">${r.counts_summary.shots}</td></tr>`; }).join("");
+    box.innerHTML = `<h3 style="margin-top:10px">Hardware vs simulators · job <code>${esc(h.job_id)}</code></h3>
+      <table><thead><tr><th>run</th><th class="n">P(yes)</th><th class="n">conflict</th><th class="n">distinct</th><th class="n">shots</th></tr></thead><tbody>${rows}</tbody></table>
+      <p class="note">${esc(h.note)} QPU time ${h.qpu_seconds} s.</p>`;
+    return;
+  }
+  const j = h.joint, [a, b] = h.pair, pc = v => (100 * v).toFixed(1) + "%";
+  const rows = j.outcomes.map((o, k) => `<tr><td>claim ${a} ${o.split(",")[0]}, claim ${b} ${o.split(",")[1]}</td><td class="n">${pc(j.exact[k])}</td><td class="n">${pc(j.noisy_sim_arm_A[k])}</td><td class="n" style="color:#f5c84c">${pc(j.hardware[k])}</td></tr>`).join("");
+  const ng = h.negativity, ci = x => `${x.negativity.toFixed(3)} [${x.ci95[0].toFixed(3)}, ${x.ci95[1].toFixed(3)}]${x.certified ? " ✓" : ""}`;
+  box.innerHTML = `<h3 style="margin-top:10px">Entanglement witness on ibm_fez · job <code>${esc(h.job_id)}</code></h3>
+    <table><thead><tr><th>pair ${a}–${b}, yes/no basis (XX)</th><th class="n">exact</th><th class="n">noisy sim A (${j.shots.noisy_sim_arm_A})</th><th class="n" style="color:#f5c84c">hardware (${j.shots.hardware})</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="note">Negativity of claims ${a} and ${b}: exact ${ng.ideal.toFixed(3)} · noisy simulator ${ci(ng.noisy_sim)} · <b style="color:#f5c84c">hardware ${ci(ng.hardware)}</b> (95% bootstrap interval; ✓ = certified, lower bound above 0). Measured on physical qubits Q${h.physical_qubits_as_run.join(", Q")} as run. ${esc(h.note)}</p>`;
 }
 
 // ------------------------------------------------------------ trajectory
 function renderTraj() {
   const svg = $("#traj"), item = ITEM;
   svg.innerHTML = "";
-  const W = 420, H = 170, L = 36, R = 16, T = 12, B = 132;
+  const W = 420, H = 170, L = 36, R = 16, T = 12, B = 132, CI = STAGES.indexOf("collapse");
+  const hwr = item.hardware && item.hardware.kind === "stage1" ? item.hardware.runs : null;
   const a = item.stages.slice(0, -1).map(s => s.conflict_score);
   const c = item.stages_unentangled.map(s => s.conflict_score);
   const thrA0 = item.arms.A0 ? item.arms.A0.threshold : null, ranA = item.arms.A ? item.arms.A.conflict_score : null, thrA = item.arms.A ? item.arms.A.threshold : null;
-  const ymax = Math.max(0.3, ...a, ...c, thrA0 || 0, ranA || 0, thrA || 0) * 1.1;
+  const ymax = Math.max(0.3, ...a, ...c, thrA0 || 0, ranA || 0, thrA || 0, ...(hwr ? [hwr.hardware.conflict_score, hwr.noisy_sim.conflict_score] : [])) * 1.1;
   const nx = a.length + 1, xOf = i => L + i * (W - L - R) / (nx - 1), yOf = v => B - (B - T) * v / ymax;
   for (let g = 0; g <= 4; g++) {
     const v = ymax * g / 4;
@@ -433,22 +493,260 @@ function renderTraj() {
   }
   const path = (vals, col, w) => {
     el("polyline", { points: vals.map((v, i) => `${xOf(i)},${yOf(v)}`).join(" "), fill: "none", stroke: col, "stroke-width": w }, svg);
-    vals.forEach((v, i) => el("circle", { cx: xOf(i), cy: yOf(v), r: i === Math.min(stage, vals.length - 1) && stage < 4 ? 5 : 3, fill: col }, svg));
+    vals.forEach((v, i) => el("circle", { cx: xOf(i), cy: yOf(v), r: i === Math.min(stage, vals.length - 1) && stage < CI ? 5 : 3, fill: col }, svg));
   };
   path(c, "#7f8aa6", 1.6); path(a, "#cfd8ff", 2.4);
   if (ranA !== null) {
-    el("circle", { cx: xOf(nx - 1), cy: yOf(ranA), r: 6, fill: item.arms.A.flagged ? "#f5c84c" : "#6b7da8", stroke: "#e6e8ee", "stroke-width": stage >= 4 ? 2 : 0 }, svg);
+    el("circle", { cx: xOf(nx - 1), cy: yOf(ranA), r: 6, fill: item.arms.A.flagged ? "#f5c84c" : "#6b7da8", stroke: "#e6e8ee", "stroke-width": stage >= CI ? 2 : 0 }, svg);
     el("line", { x1: xOf(nx - 1) - 12, x2: xOf(nx - 1) + 12, y1: yOf(thrA), y2: yOf(thrA), stroke: "#f5c84c", "stroke-width": 2 }, svg);
   }
-  const labels = ["encode", "entangle", "evolve 1", "evolve 2", "A as run"];
+  if (hwr) {
+    el("circle", { cx: xOf(nx - 1) - 9, cy: yOf(hwr.noisy_sim.conflict_score), r: 5, fill: "#f2f4f8" }, svg);
+    el("circle", { cx: xOf(nx - 1), cy: yOf(hwr.hardware.conflict_score), r: 6, fill: "#f5c84c", stroke: "#e6e8ee", "stroke-width": stage >= CI ? 2 : 0 }, svg);
+  }
+  const labels = [...item.stages.slice(0, -1).map(s => s.stage), item.arms.A ? "A as run" : hwr ? "noisy · hardware" : ""];
   labels.forEach((s, i) => el("text", { x: xOf(i), y: B + 16, "text-anchor": i === labels.length - 1 ? "end" : "middle", "font-size": 10.5, fill: "#9aa1b2" }, svg).textContent = s);
   el("text", { x: L, y: B + 33, "font-size": 11, fill: "#cfd8ff" }, svg).textContent = "━ A entangled";
   el("text", { x: L + 110, y: B + 33, "font-size": 11, fill: "#7f8aa6" }, svg).textContent = "━ C no entangling gates";
-  const sa = INDEX.runs[String(item.run)].stage_auroc_exploratory;
+  const sa = (INDEX.runs[String(item.run)] || {}).stage_auroc_exploratory;
+  $("#stage-auroc").innerHTML = "";
   if (sa) {
     const fmt = arm => Object.entries(sa[arm]).map(([k, v]) => `${k} ${v === null ? "–" : v.toFixed(2)}`).join(" · ");
     $("#stage-auroc").innerHTML = `<b style="color:#c4c9d6">Across this run's test set</b> (exploratory, not pre-registered), the AUROC if the state were read out at each stage is:<br>A: ${fmt("A")}<br>C: ${fmt("C")}`;
   }
+}
+
+// --------------------------------------------------------- circuit strip
+// One row per physical qubit of ibm_fez, gates in the Qiskit dark style (RZ and sqrt(X) boxes, CZ as two dots
+// joined by a bar, measurements at the end). The overview shows the whole circuit; hovering it moves a zoom
+// lens. Gates of the current stage are bright, earlier ones dimmed, later ones faint, and the playhead sits at
+// the end of the current stage. Hovering a CZ in the zoom picks out the two claims it couples on the ring.
+const GCOL = { rz: "#BAE6FF", sx: "#FF7EB6", x: "#4589FF", cz: "#BAE6FF", measure: "#8D8D8D" };
+const CZ_KIND = ["an interaction between related claims", "a routing SWAP, which moves claims between qubits", "a routing SWAP merged with an interaction"];
+const CIRC = { lay: null, play: 0, lens: 0, anim: null, snap: null };
+
+function circStage(name) {
+  const c = ITEM.circuit;
+  if (name === "collapse" || name === "readout") return c.stages.length - 1;
+  return Math.max(0, c.stages.indexOf(name));
+}
+function layoutCircuit(c) {
+  const nW = c.wires.length, free = new Array(nW).fill(0), col = new Array(c.gates.length);
+  const order = c.gates.map((g, i) => i).sort((a, b) => c.gates[a][1] - c.gates[b][1] || a - b);
+  const start = [], end = [];
+  let cur = -1;
+  for (const i of order) {
+    const g = c.gates[i];
+    while (cur < g[1]) { const m = Math.max(...free); if (cur >= 0) end[cur] = m; cur++; start[cur] = m; free.fill(m); }
+    const lo = g[0] === 3 ? Math.min(g[2], g[3]) : g[2], hi = g[0] === 3 ? Math.max(g[2], g[3]) : g[2];
+    let x = 0; for (let w = lo; w <= hi; w++) x = Math.max(x, free[w]);
+    col[i] = x; for (let w = lo; w <= hi; w++) free[w] = x + 1;
+  }
+  const ncol = Math.max(...free); end[cur] = ncol;
+  for (let s = cur + 1; s < c.stages.length; s++) { start[s] = ncol; end[s] = ncol; }
+  for (let s = 0; s <= cur; s++) if (start[s] === undefined) { start[s] = s ? end[s - 1] : 0; end[s] = start[s]; }
+  const swaps = c.swaps.map(([gi, a, b]) => [col[gi], a, b]).sort((p, q) => p[0] - q[0]);
+  const byCol = c.gates.map((g, i) => i).sort((a, b) => col[a] - col[b]);
+  return { col, ncol, start, end, swaps, byCol };
+}
+function occupantsAt(column) {
+  const c = ITEM.circuit, occ = [...c.start];
+  for (const [x, a, b] of CIRC.lay.swaps) { if (x >= column) break; [occ[a], occ[b]] = [occ[b], occ[a]]; }
+  return occ;
+}
+function fmtAngle(t) {
+  const r = t / Math.PI;
+  for (const d of [1, 2, 3, 4, 6, 8]) { const n = Math.round(r * d); if (n !== 0 && Math.abs(r * d - n) < 1e-3) {
+    const sgn = n < 0 ? "−" : "", a = Math.abs(n); return `${sgn}${a === 1 ? "" : a}π${d === 1 ? "" : "/" + d}`; } }
+  return Math.abs(t) < 5e-5 ? "0" : t.toFixed(2).replace("-", "−");
+}
+const relOf = s => { const cur = circStage(STAGES[stage]); return s < cur ? "past" : s === cur ? "now" : "future"; };
+const ALPHA = { past: 0.38, now: 1, future: 0.13 };
+
+function renderCircuitHead() {
+  const c = ITEM.circuit, card = $("#circ-card");
+  if (!c) { card.hidden = true; return; }
+  card.hidden = false;
+  CIRC.lay = layoutCircuit(c);
+  const asrun = c.source === "as_run", cz = c.counts.cz || 0;
+  const badge = $("#circ-badge");
+  badge.className = "badge " + (asrun ? "asrun" : "recomp");
+  badge.textContent = asrun ? "as run on ibm_fez"
+    : (c.archived && c.archived.cz != null ? `recompiled; ${cz} CZ here vs ${c.archived.cz} as archived` : `recompiled; ${cz} CZ here`);
+  const b = c.blocks;
+  $("#circ-sub").innerHTML = (asrun
+    ? `Job <code>${esc(c.job_id)}</code>, circuit ${c.circuit_index}${c.setting ? ` (setting ${esc(c.setting)})` : ""} · ${c.wires.length} physical qubits · ${cz} CZ · depth ${c.depth}${c.archived && c.archived.cz != null ? ` · archived ${c.archived.cz} CZ` : ""} · layout from IBM's job record${c.final_layout_matches ? ", claims tracked to the job's final layout ✓" : ""}`
+    : `${c.wires.length} physical qubits · ${cz} CZ · depth ${c.depth} (gates only) · without stage barriers the recompile gives ${c.recompiled_without_barriers.cz} CZ` +
+      (c.archived && c.archived.depth ? `; archived ${c.archived.cz} CZ, depth ${c.archived.depth}` : ""))
+    + ` · ${b.interaction} interaction blocks, ${b.swap + b.swap_and_interaction} routing SWAPs`;
+  $("#circ-note").innerHTML = (asrun
+    ? `The gates are exactly those IBM ran. The compiled circuit has no stage markers, so stage colouring is inferred: each related pair interacts once per stage, so the k-th block on a pair belongs to stage k, and routing and single-qubit gates follow the blocks on their qubit${c.merged_pairs ? `. On ${c.merged_pairs} pair${c.merged_pairs > 1 ? "s" : ""} the compiler merged two stages' interactions into one block, so their boundary is approximate` : ""}.`
+    : `Recompiled here for ibm_fez (FakeFez snapshot, optimisation level 3, seed 1), with a barrier at the end of each stage so every gate's stage is exact. The barriers stop the optimiser merging gates across stages, so the count drifts from the circuit as archived. Physical qubit numbers are the snapshot's layout, which may differ from the run's.`)
+    + ` Hover the overview to zoom; hover a CZ to pick out its two claims on the ring.`;
+  $("#ibm-tool").hidden = !asrun;
+  if (!asrun) $("#show-ibm").checked = false;
+  showIbm();
+  CIRC.play = CIRC.lay.end[circStage(STAGES[stage])];
+  CIRC.lens = CIRC.lay.start[circStage(STAGES[stage])];
+}
+
+function renderCircuit(animate) {
+  const c = ITEM.circuit; if (!c) return;
+  const target = CIRC.lay.end[circStage(STAGES[stage])];
+  CIRC.lens = CIRC.lay.start[circStage(STAGES[stage])];
+  if (CIRC.anim) cancelAnimationFrame(CIRC.anim);
+  const from = CIRC.play, t0 = performance.now();
+  const frame = now => {
+    const t = animate ? Math.max(0, Math.min(1, (now - t0) / 700)) : 1, e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    CIRC.play = from + (target - from) * e;
+    drawOverview(); movePlayhead();
+    if (t < 1) CIRC.anim = requestAnimationFrame(frame); else CIRC.anim = null;
+  };
+  drawZoom();
+  frame(performance.now());
+  clearTimeout(CIRC.snap);                      // if animation frames are throttled, land on the target anyway
+  CIRC.snap = setTimeout(() => { if (CIRC.play !== target) { if (CIRC.anim) cancelAnimationFrame(CIRC.anim); CIRC.anim = null; CIRC.play = target; drawOverview(); movePlayhead(); } }, 760);
+  syncIbm();
+}
+
+function overviewGeom() {
+  const cv = $("#circ-over"), W = cv.clientWidth || 800, nW = ITEM.circuit.wires.length;
+  const rowH = nW > 12 ? 10 : 13, top = 18, gut = 74;
+  return { cv, W, rowH, top, gut, H: top + rowH * nW + 6, sx: (W - gut - 10) / Math.max(1, CIRC.lay.ncol) };
+}
+function drawOverview() {
+  const c = ITEM.circuit, Lc = CIRC.lay, G = overviewGeom(), { cv, W, H, rowH, top, gut, sx } = G;
+  const dpr = window.devicePixelRatio || 1;
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.height = H + "px"; }
+  const ctx = cv.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  const X = col => gut + col * sx, Y = w => top + rowH * (w + .5), cur = circStage(STAGES[stage]);
+  c.stages.forEach((nm, s) => {
+    const x0 = X(Lc.start[s]), x1 = X(Lc.end[s]);
+    ctx.fillStyle = s === cur ? "rgba(143,180,255,0.10)" : s % 2 ? "rgba(255,255,255,0.025)" : "rgba(0,0,0,0)";
+    ctx.fillRect(x0, top - 2, x1 - x0, H - top);
+    ctx.fillStyle = s === cur ? "#e6e8ee" : "#7d8496"; ctx.font = `${s === cur ? 600 : 400} 10.5px -apple-system, sans-serif`;
+    const label = nm.replace("evolve ", "evolve-"), tw = ctx.measureText(label).width;
+    if (x1 - x0 > tw + 4) ctx.fillText(label, x0 + 3, 12);
+    if (s) { ctx.strokeStyle = "#3a4256"; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(x0, top - 2); ctx.lineTo(x0, H); ctx.stroke(); ctx.setLineDash([]); }
+  });
+  const occ0 = c.start;
+  ctx.font = "10.5px -apple-system, sans-serif";
+  c.wires.forEach((p, w) => {
+    ctx.strokeStyle = "#2a3040"; ctx.beginPath(); ctx.moveTo(gut, Y(w)); ctx.lineTo(W - 8, Y(w)); ctx.stroke();
+    ctx.fillStyle = "#c4c9d6"; ctx.fillText(`Q${p}`, 4, Y(w) + 3.5);
+    ctx.fillStyle = "#7d8496"; ctx.fillText(occ0[w] >= 0 ? `c${occ0[w]}` : "anc", 42, Y(w) + 3.5);
+  });
+  const bw = Math.max(1, sx * .8), bh = Math.min(7, rowH - 4);
+  c.gates.forEach((g, i) => {
+    const x = X(Lc.col[i]), name = c.gate_names[g[0]];
+    ctx.globalAlpha = ALPHA[relOf(g[1])];
+    if (name === "cz") {
+      ctx.strokeStyle = GCOL.cz; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x + bw / 2, Y(g[2])); ctx.lineTo(x + bw / 2, Y(g[3])); ctx.stroke();
+      ctx.fillStyle = GCOL.cz; for (const w of [g[2], g[3]]) { ctx.beginPath(); ctx.arc(x + bw / 2, Y(w), 1.6, 0, 7); ctx.fill(); }
+    } else { ctx.fillStyle = GCOL[name] || "#ccc"; ctx.fillRect(x, Y(g[2]) - bh / 2, name === "measure" ? Math.max(3, bw) : bw, bh); }
+  });
+  ctx.globalAlpha = 1;
+  // lens and playhead
+  const K = zoomCols(), lx = X(CIRC.lens), lw = Math.min(K, Lc.ncol) * sx;
+  ctx.strokeStyle = "rgba(230,232,238,0.55)"; ctx.lineWidth = 1; ctx.strokeRect(lx + .5, top - 3.5, lw, H - top + 1);
+  const px = X(CIRC.play);
+  ctx.strokeStyle = "#8fb4ff"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(px, 2); ctx.lineTo(px, H); ctx.stroke();
+  ctx.fillStyle = "#8fb4ff"; ctx.beginPath(); ctx.moveTo(px - 5, 0); ctx.lineTo(px + 5, 0); ctx.lineTo(px, 6); ctx.fill();
+}
+
+const ZC = { colW: 32, rowH: 30, gut: 92, top: 22 };
+function zoomCols() { const W = $("#circ-zoom").clientWidth || 800; return Math.max(8, Math.floor((W - ZC.gut - 8) / ZC.colW)); }
+function drawZoom() {
+  const c = ITEM.circuit, Lc = CIRC.lay, svg = $("#circ-zoom");
+  const W = svg.clientWidth || 800, K = zoomCols(), nW = c.wires.length, H = ZC.top + ZC.rowH * nW + 8;
+  const c0 = Math.max(0, Math.min(Math.round(CIRC.lens), Math.max(0, Lc.ncol - K)));
+  CIRC.lens = c0;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.style.height = H + "px"; svg.innerHTML = "";
+  const X = col => ZC.gut + (col - c0) * ZC.colW + ZC.colW / 2, Y = w => ZC.top + ZC.rowH * (w + .5);
+  const occ = occupantsAt(c0);
+  c.wires.forEach((p, w) => {
+    el("line", { x1: ZC.gut - 6, x2: W - 6, y1: Y(w), y2: Y(w), stroke: "#ffffff", "stroke-width": 1, opacity: .55 }, svg);
+    el("text", { x: 8, y: Y(w) + 4, "font-size": 12.5, "font-weight": 600, fill: "#ffffff" }, svg).textContent = `Q${p}`;
+    const k = occ[w], cl = k >= 0 ? ITEM.claims[k] : null;
+    el("text", { x: 50, y: Y(w) + 4, "font-size": 11, fill: cl ? (cl.lean > 0 ? "hsl(190 75% 62%)" : cl.lean < 0 ? "hsl(16 85% 64%)" : "#f5c84c") : "#7d8496" }, svg).textContent = cl ? `c${k}` : "anc";
+  });
+  // stage boundaries in range, as Qiskit-style barriers with labels
+  c.stages.forEach((nm, s) => {
+    const x = ZC.gut + (Lc.start[s] - c0) * ZC.colW;
+    if (Lc.start[s] >= c0 && Lc.start[s] <= c0 + K) {
+      if (s) el("rect", { x: x - 3, y: ZC.top - 4, width: 6, height: H - ZC.top, fill: "#8D8D8D", opacity: .22 }, svg);
+      if (s) el("line", { x1: x, x2: x, y1: ZC.top - 4, y2: H - 4, stroke: "#8D8D8D", "stroke-dasharray": "3 3" }, svg);
+      el("text", { x: x + 4, y: 14, "font-size": 11, "font-weight": 600, fill: relOf(s) === "now" ? "#ffffff" : "#9aa1b2" }, svg).textContent = nm.replace("evolve ", "evolve-");
+    }
+  });
+  const inRange = Lc.byCol.filter(i => Lc.col[i] >= c0 && Lc.col[i] < c0 + K);
+  for (const i of inRange) {
+    const g = c.gates[i], name = c.gate_names[g[0]], x = X(Lc.col[i]), op = ALPHA[relOf(g[1])];
+    const grp = el("g", { opacity: op }, svg);
+    if (name === "cz") {
+      const ya = Y(g[2]), yb = Y(g[3]);
+      el("line", { x1: x, x2: x, y1: ya, y2: yb, stroke: GCOL.cz, "stroke-width": 2 }, grp);
+      el("circle", { cx: x, cy: ya, r: 5, fill: GCOL.cz }, grp); el("circle", { cx: x, cy: yb, r: 5, fill: GCOL.cz }, grp);
+      el("rect", { x: x - 8, y: Math.min(ya, yb) - 8, width: 16, height: Math.abs(yb - ya) + 16, fill: "transparent", style: "cursor:pointer" }, grp);
+      const [ca, cb, kind] = [g[4], g[5], g[6]];
+      const rel = ITEM.relations.find(r => (r.i === ca && r.j === cb) || (r.i === cb && r.j === ca));
+      grp.addEventListener("mouseenter", () => { HILITE = [ca, cb].filter(k => k >= 0); grp.setAttribute("opacity", 1); drawCloud(lastPts || stagePoints(ITEM, stage)); });
+      grp.addEventListener("mousemove", ev => tip(ev, `<b>CZ Q${c.wires[g[2]]} – Q${c.wires[g[3]]}</b> · ${esc(c.stages[g[1]])}<br>` +
+        `claims ${ca >= 0 ? ca : "ancilla"} and ${cb >= 0 ? cb : "ancilla"}${rel ? ` · ${rel.relation} (J = ${rel.J})` : " · not related"}<br><span style="color:#9aa1b2">part of ${CZ_KIND[kind]}</span>` +
+        (ca >= 0 ? `<br><span style="color:#9aa1b2">${ca}: ${esc(ITEM.claims[ca].text.slice(0, 90))}</span>` : "") +
+        (cb >= 0 ? `<br><span style="color:#9aa1b2">${cb}: ${esc(ITEM.claims[cb].text.slice(0, 90))}</span>` : "")));
+      grp.addEventListener("mouseleave", () => { HILITE = null; grp.setAttribute("opacity", op); untip(); drawCloud(lastPts || stagePoints(ITEM, stage)); });
+    } else if (name === "measure") {
+      const y = Y(g[2]);
+      el("rect", { x: x - 12, y: y - 11, width: 24, height: 22, fill: GCOL.measure, rx: 1 }, grp);
+      el("path", { d: `M ${x - 8} ${y + 5} A 8 8 0 0 1 ${x + 8} ${y + 5}`, fill: "none", stroke: "#000", "stroke-width": 1.3 }, grp);
+      el("line", { x1: x, y1: y + 5, x2: x + 6, y2: y - 6, stroke: "#000", "stroke-width": 1.3 }, grp);
+      el("text", { x: x + 13, y: y + 13, "font-size": 8.5, fill: "#c4c9d6" }, grp).textContent = g[3];
+    } else {
+      const y = Y(g[2]), lbl = name === "rz" ? "RZ" : name === "sx" ? "√X" : name.toUpperCase();
+      el("rect", { x: x - 13, y: y - 11, width: 26, height: 22, fill: GCOL[name] || "#ccc", rx: 1 }, grp);
+      el("text", { x, y: name === "rz" ? y - 1 : y + 4, "text-anchor": "middle", "font-size": name === "rz" ? 9.5 : 11.5, "font-weight": 600, fill: "#000000" }, grp).textContent = lbl;
+      if (name === "rz") el("text", { x, y: y + 8.5, "text-anchor": "middle", "font-size": 7.5, fill: "#000000" }, grp).textContent = fmtAngle(g[3]);
+      grp.addEventListener("mousemove", ev => tip(ev, `<b>${name === "sx" ? "√X" : name.toUpperCase()}${name === "rz" ? `(${fmtAngle(g[3])})` : ""}</b> on Q${c.wires[g[2]]} · ${esc(c.stages[g[1]])}`));
+      grp.addEventListener("mouseleave", untip);
+    }
+  }
+  el("line", { id: "zoom-play", x1: 0, x2: 0, y1: 2, y2: H, stroke: "#8fb4ff", "stroke-width": 2.5, opacity: 0 }, svg);
+  movePlayhead();
+}
+function movePlayhead() {
+  const ln = document.getElementById("zoom-play"); if (!ln) return;
+  const K = zoomCols(), x = ZC.gut + (CIRC.play - CIRC.lens) * ZC.colW;
+  const vis = CIRC.play >= CIRC.lens && CIRC.play <= CIRC.lens + K;
+  ln.setAttribute("x1", x); ln.setAttribute("x2", x); ln.setAttribute("opacity", vis ? .95 : 0);
+}
+function showIbm() {
+  const box = $("#circ-ibm"), c = ITEM.circuit, on = $("#show-ibm").checked && c && c.source === "as_run";
+  box.hidden = !on; $("#circ-zoom").style.display = on ? "none" : "block";
+  if (!on) { box.innerHTML = ""; return; }
+  const src = c.svg, want = src.split("/").pop();
+  box.innerHTML = "";
+  const img = new Image(); img.alt = `IBM job ${c.job_id}, circuit ${c.circuit_index}`;
+  img.onload = () => { box.appendChild(img); syncIbm(); };
+  img.onerror = () => { box.innerHTML = `<div class="miss">IBM's drawing of job <code>${esc(c.job_id)}</code>, circuit ${c.circuit_index} is not here yet. Drop <code>${esc(want)}</code> into <code>window/hardware/</code> and tick this box again. The main session's <code>experiments/export_hardware_circuits.py</code> writes it.</div>`; };
+  img.src = src;
+}
+function syncIbm() {
+  // IBM's drawing lays gates out differently, so its scroll position follows the playhead only proportionally.
+  const box = $("#circ-ibm"); if (box.hidden || !box.firstChild || box.firstChild.tagName !== "IMG") return;
+  const f = CIRC.lay.start[circStage(STAGES[stage])] / Math.max(1, CIRC.lay.ncol);
+  box.scrollLeft = Math.max(0, f * box.scrollWidth - 40);
+}
+function bindCircuit() {
+  const cv = $("#circ-over");
+  cv.addEventListener("mousemove", ev => {
+    if (!ITEM || !ITEM.circuit) return;
+    const G = overviewGeom(), r = cv.getBoundingClientRect(), col = (ev.clientX - r.left - G.gut) / G.sx;
+    CIRC.lens = Math.max(0, col - zoomCols() / 2);
+    drawZoom(); drawOverview();
+  });
+  $("#show-ibm").addEventListener("change", () => { showIbm(); if (!$("#show-ibm").checked) drawZoom(); });
+  addEventListener("resize", () => { if (ITEM && ITEM.circuit) { drawZoom(); drawOverview(); } });
 }
 
 // ------------------------------------------------------------ side panel
@@ -463,6 +761,19 @@ function renderSide() {
     ["claims", `${it.claims.length} · ${it.relations.length} related pairs · ${it.relations.filter(r => r.J < 0).length} contradictions`],
   ].map(([k, v]) => `<div>${k}</div><div>${v}</div>`).join("");
   const tb = $("#arms tbody"); tb.innerHTML = "";
+  const s1 = !!(it.hardware && it.hardware.kind === "stage1");
+  $("#arms-note").hidden = s1; $("#runsum").hidden = s1; $("#runsum-h").hidden = s1; $("#runsum-note").hidden = s1;
+  $("#traj-note").textContent = s1
+    ? "Noiseless conflict score at each stage of the circuit that ran (entangling gates, no evolution steps), with and without entangling gates. The dots at the end are the noisy simulator (white) and ibm_fez hardware (gold), 1,000 shots each."
+    : "Noiseless conflict score at each stage, for the entangled circuit (A) and the same circuit with no entangling gates (C). The dashed line is the noiseless arm A0's flag threshold. The dot at the end is arm A as run, on the noisy simulator, against its own threshold.";
+  if (s1) {
+    for (const [k, r] of Object.entries(it.hardware.runs))
+      tb.insertAdjacentHTML("beforeend", `<tr><td class="arm">${k === "hardware" ? "HW" : k === "noisy_sim" ? "sim" : "ideal"}</td><td class="small">${esc(r.label)}</td><td>${r.conflict_score.toFixed(3)}</td><td class="small">–</td><td class="small" colspan="2">P(yes) ${r.p_yes.toFixed(3)} · ${r.judgment}</td></tr>`);
+    tb.insertAdjacentHTML("beforeend", `<tr><td></td><td colspan="5" class="small">Stage 1 was a pipe test with no calibration pool, so no arm thresholds apply.</td></tr>`);
+    $("#reading").textContent = `This is the one arm-A circuit that ran on real hardware as a whole: the Stage 1 pipe test, with entangling gates and no evolution steps, so what was measured is the state at the entangle stage. The hardware vote is much flatter than the simulators': P(yes) ${it.hardware.runs.hardware.p_yes.toFixed(2)} against ${it.hardware.runs.noisy_sim.p_yes.toFixed(2)} on the noisy simulator, with ${it.hardware.runs.hardware.counts_summary.distinct} distinct bitstrings in ${it.hardware.runs.hardware.counts_summary.shots} shots. The circuit strip shows the exact gates IBM ran.`;
+    $("#runsum tbody").innerHTML = "";
+    return;
+  }
   for (const a of ["A", "B", "C", "D", "E", "A0"]) {
     const x = it.arms[a];
     if (!x) { if (a === "B") tb.insertAdjacentHTML("beforeend", `<tr><td class="arm">B</td><td class="small">real hardware</td><td colspan="4" class="small">not run: simulator gate not met</td></tr>`); continue; }
@@ -486,7 +797,7 @@ function renderSide() {
   $("#reading").textContent = r;
   const rs = $("#runsum tbody"); rs.innerHTML = "";
   for (const a of ["A", "C", "D", "E", "A0"]) {
-    const s = run.summary[a]; if (!s) continue;
+    const s = run && run.summary && run.summary[a]; if (!s) continue;
     const nw = run.summary[a].test_wrong_flagged, nr = run.summary[a].test_right_flagged;
     rs.insertAdjacentHTML("beforeend", `<tr><td class="arm">${a}</td><td>${nw}</td><td>${nr}</td><td>${s.auroc_test === null ? "–" : s.auroc_test.toFixed(2)}</td></tr>`);
   }
@@ -503,17 +814,24 @@ function renderClaims() {
 function renderStage() {
   $("#stage").value = stage;
   $("#ticks").innerHTML = STAGES.map((s, i) => `<span class="${i === stage ? "cur" : ""}">${s}</span>`).join("");
-  $("#stage-desc").textContent = DESC[STAGES[stage]];
-  renderCloud(); renderHist(); renderTraj();
+  $("#stage-desc").textContent = STAGES[stage] === "readout" && ITEM.hardware && ITEM.hardware.kind === "stage1"
+    ? "The archived runs of this circuit: 1,000 shots each on the noiseless simulator, the noisy simulator and ibm_fez itself. The histogram shows the noisy simulator (white) and the hardware (gold) over the exact distribution."
+    : DESC[STAGES[stage]];
+  renderCloud(); renderHist(); renderTraj(); renderCircuit(true);
   const u = new URL(location); u.searchParams.set("item", ITEM.id); u.searchParams.set("stage", stage); history.replaceState(null, "", u);
 }
 
 async function select(id) {
   ITEM = await loadItem(id);
-  LABELS = computeLabels(ITEM); lastPts = null;
+  STAGES = [...ITEM.stages.map(s => s.stage), "readout"];
+  $("#stage").max = STAGES.length - 1;
+  stage = Math.min(stage, STAGES.length - 1);
+  LABELS = computeLabels(ITEM); lastPts = null; HILITE = null;
   $("#qtext").textContent = ITEM.question;
   $("#qmeta").innerHTML = `${esc(ITEM.id)} · truth <b class="${ITEM.truth}">${ITEM.truth}</b> · model <b class="${ITEM.model_answer}">${ITEM.model_answer}</b>${ITEM.correct === false ? ' <span style="color:var(--bad)">(wrong)</span>' : ' <span style="color:var(--ok)">(right)</span>'} · ${esc(ITEM.source || "")}`;
-  renderSide(); renderClaims(); renderStage(); renderList();
+  if (ITEM.see_also) $("#qmeta").insertAdjacentHTML("beforeend", ` · <a href="#" id="see-also" style="color:#8fb4ff">${esc(ITEM.see_also.note)}</a>`);
+  const sa = $("#see-also"); if (sa) sa.onclick = e => { e.preventDefault(); $("#f-run").value = "hw"; select(ITEM.see_also.id); };
+  renderSide(); renderClaims(); renderHwPanel(); renderCircuitHead(); renderStage(); renderList();
 }
 
 function tip(ev, html) { const t = $("#tip"); t.innerHTML = html; t.style.display = "block"; t.style.left = Math.min(ev.clientX + 14, innerWidth - 380) + "px"; t.style.top = (ev.clientY + 14) + "px"; }
@@ -536,8 +854,9 @@ async function init() {
   }
   const p = new URLSearchParams(location.search);
   const want = p.get("item"), meta = want && INDEX.items.find(i => i.id === want);
-  if (meta) { $("#f-run").value = String(meta.run); $("#f-role").value = meta.role.startsWith("test") ? "test" : "all"; }
+  if (meta) { $("#f-run").value = meta.hardware ? "hw" : String(meta.run); $("#f-role").value = meta.role.startsWith("test") ? "test" : "all"; }
   stage = Math.max(0, Math.min(STAGES.length - 1, +(p.get("stage") || 0)));
+  bindCircuit();
   ["#f-run", "#f-role", "#f-pat"].forEach(s => $(s).addEventListener("change", renderList));
   $("#f-q").addEventListener("input", renderList);
   $("#stage").addEventListener("input", e => { stage = +e.target.value; renderStage(); });
