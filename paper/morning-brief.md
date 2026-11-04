@@ -150,6 +150,8 @@ Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, 
 
 **Done since:** the held-out-format test below ran as D46 (result 13). It reads *little format-free belief* on Haiku, *partial* on Sonnet (Q = 0.69), and was not computed on Opus.
 
+**Done since (D49, `a8be4b5`):** Opus's arm was completed to 68 of 80 claims. A single belief predicts each left-out format at 94% of its ceiling (Q = 0.94 [0.90, 0.97], *a usable single belief*). Kendall's W on those same claims is 0.56, 0.76 and 0.87 for Haiku, Sonnet and Opus. The paper now says the format claim is contradicted on Opus (D50). The recommendation that led to it:
+
 **Recommended now: finish Opus's six-format arm.** Run the remaining 54 of its 80 claims, about $6.40 at batch rates, under the frozen DM2 analysis, and compute test F′ (held-out-format prediction) on all 80.
 - It is the one cell that decides whether "the stronger the model, the more one belief" is a trend or an artefact.
 - Opus's current 26 claims all come from items Haiku answered wrongly, and its W is not item-matched with the other two models.
