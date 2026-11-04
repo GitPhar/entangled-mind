@@ -1,0 +1,362 @@
+[
+ {
+  "file": "dbl423dgg49c73dk0db0-0.json",
+  "job_id": "dbl423dgg49c73dk0db0",
+  "circuit_index": 0,
+  "item": "q01",
+  "role": "arm-A circuit",
+  "setting": null,
+  "cz": 117
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-0.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 0,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "XX",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-1.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 1,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "XY",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-2.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 2,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "XZ",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-3.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 3,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "YX",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-4.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 4,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "YY",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-5.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 5,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "YZ",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-6.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 6,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "ZX",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-7.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 7,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "ZY",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-8.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 8,
+  "item": "h221",
+  "role": "tomography setting",
+  "setting": "ZZ",
+  "cz": 137
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-9.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 9,
+  "item": "h221",
+  "role": "readout calibration",
+  "setting": "00",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-10.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 10,
+  "item": "h221",
+  "role": "readout calibration",
+  "setting": "01",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-11.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 11,
+  "item": "h221",
+  "role": "readout calibration",
+  "setting": "10",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-12.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 12,
+  "item": "h221",
+  "role": "readout calibration",
+  "setting": "11",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-13.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 13,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "XX",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-14.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 14,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "XY",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-15.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 15,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "XZ",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-16.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 16,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "YX",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-17.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 17,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "YY",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-18.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 18,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "YZ",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-19.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 19,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "ZX",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-20.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 20,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "ZY",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-21.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 21,
+  "item": "h088",
+  "role": "tomography setting",
+  "setting": "ZZ",
+  "cz": 162
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-22.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 22,
+  "item": "h088",
+  "role": "readout calibration",
+  "setting": "00",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-23.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 23,
+  "item": "h088",
+  "role": "readout calibration",
+  "setting": "01",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-24.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 24,
+  "item": "h088",
+  "role": "readout calibration",
+  "setting": "10",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-25.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 25,
+  "item": "h088",
+  "role": "readout calibration",
+  "setting": "11",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-26.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 26,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "XX",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-27.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 27,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "XY",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-28.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 28,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "XZ",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-29.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 29,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "YX",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-30.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 30,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "YY",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-31.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 31,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "YZ",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-32.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 32,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "ZX",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-33.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 33,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "ZY",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-34.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 34,
+  "item": "h268",
+  "role": "tomography setting",
+  "setting": "ZZ",
+  "cz": 230
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-35.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 35,
+  "item": "h268",
+  "role": "readout calibration",
+  "setting": "00",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-36.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 36,
+  "item": "h268",
+  "role": "readout calibration",
+  "setting": "01",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-37.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 37,
+  "item": "h268",
+  "role": "readout calibration",
+  "setting": "10",
+  "cz": 0
+ },
+ {
+  "file": "dbl6e1d8mdtc73d5gesg-38.json",
+  "job_id": "dbl6e1d8mdtc73d5gesg",
+  "circuit_index": 38,
+  "item": "h268",
+  "role": "readout calibration",
+  "setting": "11",
+  "cz": 0
+ }
+]
