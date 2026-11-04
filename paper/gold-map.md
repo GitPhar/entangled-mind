@@ -19,14 +19,22 @@ Written 2026-11-03 (America/Denver), after experiment 5's tie (`75744dc`) and th
 
 **Citations.** Literature marked [abs] was read in abstract only by the scouts. Everything else was read in full or in part. All ids were fetched. Treat [abs] numbers as provisional until the papers are read.
 
+**Full-read pass (2026-11-04, overnight).** Every paper that directions 1–4 marked [abs] has now been read in full, and the entries were corrected where the full text changed a number, a claim or a probability. Direction 9 had no [abs] citations; its sources were read in full for `paper/clonable-minds.md`. The changes:
+- **Direction 1:** P 0.30 → 0.15. Xiao et al.'s grid shows capability beating authorship, so the statistic is changed to a judge × author interaction. Panickssery et al. never tested paraphrasing.
+- **Direction 2:** P kept at 0.25. Kumaran et al.'s planted and other-LLM conditions add a design note: plants must be the model's own and plausible.
+- **Direction 3:** P 0.45 → 0.25. Smolin & Wilder (2026) fit one latent across 16 framings. Herrmann & Levinstein's standards and Kumaran et al.'s "cached" confidence were described wrongly in the draft.
+- **Direction 4:** P 0.25 → 0.20. Unscaffolded models fall short of EIG, and LLMs prefer confirming tests (Jhaveri et al. 2026). Dutta et al.'s oracle was misdescribed.
+
+[abs] marks remain only in directions 5–11 and on papers newly cited in the pass and not read in full.
+
 ## Ranking
 
 | rank | direction | assumption at stake | first test | cost | P(real, overturning result) |
 |---|---|---|---|---|---|
-| 1 | Privileged self-knowledge: does a model know its own errors better than another model reading the same answer? | Verbal confidence is just text-reading | 2×2 cross-rating on archived answers | ≈ $2 | 0.30 |
+| 1 | Privileged self-knowledge: does a model know its own errors better than another model reading the same answer? | Verbal confidence is just text-reading | 2×2 cross-rating on archived answers, scored by the judge × author interaction | ≈ $2 | 0.15 (was 0.30) |
 | 2 | Measurement as self-conditioning: is the order effect the question, or the model seeing its own answer? | Asking changes the judge's state, as in quantum cognition | Replay: shown / redacted / planted answers | ≈ $0.50 | 0.25 (P ≈ 0.7 of a decisive result either way) |
-| 3 | Is there a credence at all? Format invariance | LLMs hold credences that elicitation reads out | 6 elicitation formats × the same 160 claims | ≈ $0.40 (plus a free first look at existing data) | 0.45 |
-| 4 | Active inference: does the model seek the evidence that would settle its own conflict? | LLMs are passive predictors with no epistemic drive toward their own uncertainty | EIG-scored question menus built from its own claim webs | ≈ $0.10 | 0.25 |
+| 3 | Is there a credence at all? Format invariance | LLMs hold credences that elicitation reads out | 6 elicitation formats × the same 160 claims | ≈ $0.40 (plus a free first look at existing data) | 0.25 (was 0.45) |
+| 4 | Active inference: does the model seek the evidence that would settle its own conflict? | LLMs are passive predictors with no epistemic drive toward their own uncertainty | EIG-scored question menus built from its own claim webs | ≈ $0.10 | 0.20 (was 0.25) |
 | 5 | Belief versus readout: does the internal truth probe move with question order? | Order effects live in the belief | Probes on an open-weight model, both orders | $0 API; CPU hours | 0.30 |
 | 6 | Does representation geometry predict order-effect size? | The quantum geometry of judgment is a metaphor | Overlap of truth directions against measured order effects | $0 API; CPU hours | 0.12 |
 | 7 | Two-friend, genuine local friendliness with external settings on `ibm_fez` | Observer-independent facts | 3×3 settings, friend register 1 → 8 qubits | ≈ 220 QPU s | 0.20 (novel form; a confirmation of quantum theory, not an overturn) |
@@ -34,6 +42,8 @@ Written 2026-11-03 (America/Denver), after experiment 5's tie (`75744dc`) and th
 | 9 | Clonable minds: macrorealism is guaranteed for an LLM, so every "quantum-like" effect is invasiveness | Quantum-cognition tests on LLMs measure the same thing as on humans | A theory note plus an NSIT analysis of existing data | ≈ $0 | 0.20 (as a conceptual result) |
 | 10 | Post-quantum belief geometry on natural text, or CbD contextuality at scale | Model belief states are classical probability simplices | SAE or probe geometry on an open model; CbD on our ratings | $0 API | 0.08 |
 | 11 | Hardware as an oracle for sampling the model cannot compute | Quantum resources could help a classical judge | (see entry) | — | 0.02 |
+
+**The ranks were kept after the full-read pass.** The ranking weighed decisiveness and cost as well as P, and the overnight run on `main` follows it. On P alone, directions 2 and 3 now lead the API tests.
 
 Two rules are fixed in advance across all directions:
 - each first test is pre-registered before its first call, as before;
@@ -46,14 +56,19 @@ Two rules are fixed in advance across all directions:
 **Assumption it would overturn.** A language model's stated confidence is a reading of its own visible text. Any capable reader of the same answer could produce it, so "introspection" is confabulation.
 
 **Who has looked, and why it is still open.**
-- **No self-advantage in three studies:**
-  - Song, Hu & Mahowald (arXiv:2503.07513, COLM 2025) [abs] found no self-access advantage for linguistic knowledge.
-  - Singh, Linzen & Ravfogel (arXiv:2605.26242, COLM 2026) [abs] found that input-only classifiers match "introspective" predictions.
-  - Xiao et al. (arXiv:2509.24988) [abs] found self-prediction of correctness no better than an unrelated LLM.
+- **No self-advantage in three studies** (all read in full, 2026-11-04):
+  - **Song, Hu & Mahowald** (arXiv:2503.07513, COLM 2025) found no self-access advantage for *linguistic* knowledge. The models were 21 open models from 1.5B to 405B, the tasks grammaticality and word prediction, and the readout logits. Within-model correlations between the metalinguistic and direct measures "never exceed .25", and self pairs get no boost over other pairs (Fig. 3a). The study used no verbal confidence and no correctness prediction.
+  - **Singh, Linzen & Ravfogel** (arXiv:2605.26242, COLM 2026): "classifiers that can only access the input match the models' in-context predictions". The labels predicted are derived from the models' own hidden states (Ji-An et al. 2025; Belief Dominance), not correctness: on Belief Dominance, in-context accuracy is 0.42–0.54 against 0.48–0.57 for input-only probes (Table 1). They also set the criterion our test must meet: "the report must depend on internal states beyond what the input alone provides".
+  - **Xiao, Patil, Lee, Stengel-Eskin & Bansal** (arXiv:2509.24988, ICML 2026). This is the closest to our condition, and it cuts against our pass rule. In a training-free 5×5 grid of self- against cross-prediction AUROC for correctness (Table 23, 4–8B open models), the strongest model, Qwen3-8B, is the best judge of *every* author's answers. For example, it scores .844 on Mistral-7B's answers against Mistral's own .633. The caption reports "no consistent advantage for self-prediction", and the text adds that "the strongest correctness predictors tend to be stronger models overall." With LoRA-trained predictors on MMLU (Fig. 2), Llama3-70B predicting its own correctness reaches 77.6% against 78.2% for Qwen2.5-72B predicting Llama's.
 - **With a chain of thought, a reader matches the model.** Podolak & Verma (UncertaiNLP 2025, doi:10.18653/v1/2025.uncertainlp-main.21) had GPT-4o-mini read DeepSeek-R1's chain of thought. Its AUROC was 0.841 against the model's own 0.851.
 - **Self-advantage after fine-tuning.** Binder et al. (arXiv:2410.13787, ICLR 2025) found self-prediction beats cross-prediction (48.5% against 31.8% for Llama-70B).
-- **Where a self-advantage hides.** Ashuach et al. (arXiv:2604.12373) [abs] found it only on the subset where models disagree.
-- **What is still open:** frontier models giving prompted verbal confidence on answer-only text, with no chain of thought, analysed on the disagreement subset. Nobody has run that condition, which is ours.
+- **Where a self-advantage hides: small, factual, and in the hidden states.** Ashuach, Gretz, Katz, Belinkov & Ein-Dor (arXiv:2604.12373, ACL 2026) trained linear probes on the hidden states over the question alone. These are not verbal reports.
+  - The self-probe beats the best other model's probe only on the subset where the models' *own answers differ in correctness* (about 20% of items), by +0.015 to +0.034 AUC (layer-averaged, Table 1a).
+  - It does so only on factual QA. On math there is no advantage, and on GSM1K the difference is negative (to −0.17).
+  - On the full set, "no model exhibits a reliable premium gap."
+  - Their models are of similar size (7B–32B).
+- **Self-recognition.** Panickssery, Bowman & Feng (arXiv:2404.13076) show GPT-4 recognises its own summaries 73.5% of the time against two other LLMs and humans, and favours them. **They did not test paraphrasing.** They propose it only as future work ("perturb or paraphrase LLM-generated text to inhibit self-recognition"), so a paraphrase control has no validation behind it.
+- **What is still open:** frontier models giving prompted verbal confidence on answer-only text, with no chain of thought, analysed on a disagreement subset. No study read here runs that condition. Xiao et al.'s Table 23 is the nearest, with small open models and no subset analysis, and it points toward capability, not authorship.
 
 **What today's data say.**
 - Stated confidence G beats every structural reading of the same answer, on both models: 0.82 (Haiku, run 2), 0.83 (Haiku, locked test), 0.91 (Sonnet).
@@ -65,14 +80,20 @@ Two rules are fixed in advance across all directions:
 - **The new calls:**
   - Haiku rates Sonnet's answers (298 calls);
   - Sonnet rates Haiku's answers (300 calls);
-  - the same again on light paraphrases of each answer, to control for self-recognition (Panickssery et al., arXiv:2404.13076 [abs]).
-- **Statistic.** The self advantage = AUROC(self) − AUROC(other) on each author's answers, on all items and on the subset where the two judges disagree.
-- **Pass:** a positive self advantage on both authors, with the item-bootstrap CI excluding 0 on the disagreement subset.
-- **Fail:** the other model matches or beats self. In that case the 0.82–0.91 is text-reading, and the paper says so.
+  - optionally, the same again on light paraphrases of each answer, to control for self-recognition. Panickssery et al. (arXiv:2404.13076) only propose this control, so the arm needs its own check: a judge asked "did you write this?" should no longer pick out its own paraphrased answers.
+- **The capability confound (corrected after reading Xiao et al. in full).** The draft statistic, AUROC(self) − AUROC(other) on each author's answers with a pass "on both authors", asks Haiku to out-judge Sonnet on Haiku's own answers. Xiao et al.'s Table 23 predicts that the stronger judge wins whoever wrote the answer. So the per-author test mostly measures capability.
+- **Statistic, corrected.** Use the judge × author interaction: SA = [AUROC(H on H) − AUROC(S on H)] + [AUROC(S on S) − AUROC(H on S)]. The judge's general skill enters both brackets with opposite signs and cancels. Report it on all items, on the subset where the two judges disagree, and on Ashuach et al.'s subset (items where the two authors' correctness differs), restricted to the factual (SimpleQA-type) items.
+- **Pass:** SA > 0 with the item-bootstrap CI excluding 0 on the disagreement subset.
+- **Fail:** SA ≤ 0. In that case the 0.82–0.91 is text-reading plus capability, and the paper says so.
 
 **Cost.** About $2: roughly 600 Sonnet calls at the D28 rate of about $0.003 each, and Haiku's calls at well under $0.01.
 
-**P(real self-advantage) = 0.30.** Most of the literature finds none. But no study has used this exact condition, and our self AUROCs are unusually high. Either outcome cleanly settles what the project's best signal is.
+**P(real self-advantage) = 0.15** (lowered from 0.30 after the full reads).
+- Every study read in full finds no verbal or behavioural self-advantage.
+- The one positive result (Ashuach et al.) is a few hundredths of AUC, in hidden states, on about a fifth of factual items.
+- Xiao et al. show capability dominating authorship in exactly the grid we would build.
+
+The test is still worth running: either outcome settles what the project's best signal is, and with the interaction statistic a null is clean.
 
 ---
 
@@ -81,8 +102,13 @@ Two rules are fixed in advance across all directions:
 **Assumption it would overturn.** In quantum cognition, measuring changes the judge's state, and asking *is* the disturbance. An LLM is the first judging system whose state can be copied and edited, which no-cloning forbids for quantum systems and memory forbids for people. So we can ask what fraction of "measurement disturbance" is simply the model conditioning on the record of its own answer.
 
 **Who has looked, and why it is still open.**
-- **Kumaran et al. 2025** (arXiv:2507.03120, Google DeepMind) is the only replay precedent. In binary choice with advice, hiding the model's first answer raised change of mind under opposing advice from 39.2% to 85.0% for Gemma 3 12B.
-- **Thought Anchors** (arXiv:2506.19143) [abs] resamples chain-of-thought sentences.
+- **Kumaran et al. 2025** (arXiv:2507.03120; Google DeepMind and UCL) is the only multi-turn design precedent (read in full, 2026-11-04). Its task is a binary choice followed by advice.
+  - **Hiding the model's own answer.** Under opposing advice, change of mind rose from 39.2% with the first answer shown to 85.0% with it hidden, for Gemma 3 12B. Collapsed over advice types it was 13.1% against 32.5%.
+  - **A planted wrong answer.** The first answer was replaced by a visibly wrong one ("Answer Wrong"). The model then changed it 74.5% of the time, against 8.8% for its own: it does not simply copy what is in its turn.
+  - **The same answer attributed to another LLM.** There was no shown/hidden difference (33.2% against 31.3%, n.s.): "no choice-supportive bias was observed". The bias needs self-attribution.
+- **Method precedents, within a single chain of thought.** These are not multi-turn designs:
+  - Thought Anchors (Bogdan, Macar, Nanda & Conmy, arXiv:2506.19143) resamples each chain-of-thought sentence 100 times, and on open weights suppresses attention to it. "Mostly equivalent to omitting a sentence."
+  - Lanham et al. (arXiv:2307.13702) [abs] insert mistakes into chains of thought, and Thought Branches (Macar et al., arXiv:2510.27484) [abs] find hand edits give "small and unstable effects" compared with resampling.
 - **Nobody has done this** for graded multi-question chains, for question-order effects, or framed it as measurement disturbance or response replicability.
 - **The replicability line has never been tested on LLMs.** That is Khrennikov et al. 2014 and Ozawa & Khrennikov 2020/2021.
 
@@ -108,21 +134,55 @@ Two rules are fixed in advance across all directions:
 
 **Design note from experiment 5 run 2.** Use one scale direction. The baseline between-repeat SD is 7.1 points on one scale against 20.6 pooled.
 
-**P(the overturning direction) = 0.25. P(a decisive result either way) ≈ 0.7.** Kumaran's data suggest self-anchoring is strong, so the expected outcome is the classical one.
+**Design note from the full read of Kumaran et al.** A planted value must sit in the model's *own* assistant turn, and it must be plausible. Two results show what happens otherwise:
+- Kumaran et al.'s visibly wrong plant was overturned 74.5% of the time.
+- Experiment 4 run 3's estimates attributed to another person were refused.
+
+So a ±30-point plant risks being treated as foreign. A smaller offset (for example ±15 points) keeps the manipulation inside what the model will own, and a manipulation check is still needed. The planted turns should also be checked against the model's own output format, so that they cannot be told apart from it.
+
+**P(the overturning direction) = 0.25. P(a decisive result either way) ≈ 0.7.** Kept after the full reads, with two pulls in opposite directions:
+- Kumaran's 85.0% against 39.2% says self-anchoring on a recorded answer is strong, which is the classical outcome.
+- Direction 9's NSIT result (`results/gm9-nsit.md`) finds that a midway yes/no choice on the main question, answer and all, moves the final rating no more than a filler (family N4, p = 0.16). A recorded answer does not always anchor.
 
 ---
 
 ## 3. Is there a credence at all? Format invariance
 
-**Assumption it would overturn.** An LLM holds a credence in a proposition that different elicitations read out with distortion. This is implicit in calibration work, and in Kumaran et al.'s cached confidence (arXiv:2603.17839) [abs]. The alternative is that the judgment is constructed by the act of elicitation, with no stored state behind it: belief as measurement outcome.
+**Assumption it would overturn.** An LLM holds a credence in a proposition that different elicitations read out with distortion. This is implicit in calibration work. The alternative is that the judgment is constructed by the act of elicitation, with no stored state behind it: belief as measurement outcome.
+
+Kumaran et al.'s "cached" confidence (Kumaran, Conmy, Barbero, Osindero, Patraucean & Veličković, arXiv:2603.17839; read in full 2026-11-04) is **not** evidence for a stored per-proposition credence, as the draft implied.
+- **What is cached.** In Gemma 3 27B, confidence in the model's *own just-generated answer* "is gathered from answer tokens, cached at the first post-answer position, then retrieved for output". It is a mechanism within one forward pass, computed while answering. It is not a credence stored before the question.
+- **Formats.** The same pathway appears in categorical, 0–100 and 0–9 formats. The paper does not test whether the formats agree in value, and it "did not test sensitivity to small paraphrases".
+- **Logprobs.** They explain only 10.0% of verbal-confidence variance, against 38.0% for activations at the cached position.
+
+If anything, this sides with construction at answer time.
 
 **Who has looked, and why it is still open.**
-- **The standard exists but has no black-box test.** Herrmann & Levinstein (arXiv:2405.21030, Minds and Machines 2025) [abs] propose *uniformity* across contexts as a standard for belief.
-- **Constructed judgment, from the confidence and preference side:**
-  - Zhu & Griffiths (arXiv:2401.16646) [abs] model LLM probability judgments as samples constructed at query time.
-  - Pal et al. (arXiv:2511.13240) [abs] find an action–belief gap between stated confidence and bets.
+- **The standards exist, and their authors reject behavioural tests.** Herrmann & Levinstein ("Standards for Belief Representations in LLMs", Minds and Machines 35:5, 2025; read in full) propose four standards: accuracy, coherence, uniformity and use. The draft's description of them was wrong:
+  - **Uniformity** is consistency of an *internal* truth representation across subject-matter domains: "the same decoding schema". It is not consistency across contexts or formats.
+  - **Format and phrasing invariance** falls under **coherence**: "rephrasing a sentence in a way that preserves its meaning should not change the belief we extract."
+  - **They give no black-box test, deliberately.** "Standard methods of eliciting beliefs using betting or scoring rules are ineffective" for LLMs (§4). And "the ultimate output is a function not only of its beliefs but of other things too" (§5.4).
+  - So on their view, format-dependent *outputs* would not by themselves refute belief. Our test is a behavioural coherence test, and a pass for "no single credence" is a claim about what the outputs are a function of, not a refutation of their standards.
+- **Incoherent judgments, one latent behind them** (read in full 2026-11-04):
+  - **Zhu & Griffiths** ("Incoherent Probability Judgments in Large Language Models", arXiv:2401.16646, CogSci 2024).
+    - *Finding.* GPT-4, GPT-3.5 and LLaMA-2 break probability identities in human-like ways. No model is perfectly coherent, and the larger models deviate less. Over repeats, variance follows an inverted U in the mean.
+    - *Mechanism.* They read autoregression as implicit Bayesian inference over a latent event probability θ and link the result to the Bayesian Sampler. The draft's "samples constructed at query time" was wrong.
+    - *Prediction.* The Sampler shrinks each judgment toward the prior, more for complex queries. That is a monotone distortion of *one* θ per event, which a per-format link absorbs. **The model predicts that a single latent fits.**
+  - **Pal, Kitanovski, Liang, Potti & Goldblum** (arXiv:2511.13240, v3 title "Knowing What You Know Is Not Enough: Large Language Model Confidences Don't Align With Their Actions").
+    - *Setup.* Bets on 366 post-cutoff Metaculus questions, made *against a supplied market price*.
+    - *Finding.* Bets match stated confidence in at most 79% of cases, for any model.
+    - *Caveat.* The supplied price may anchor the bet. That is not the same as a bet at stated odds.
   - Dominguez-Olmedo et al. (NeurIPS 2024) find survey answers near uniform once order is randomised.
-- **Elicitation artefacts are treated as nuisance bias.** The LLM-as-judge literature averages them away (e.g. arXiv:2506.22316 [abs]). Nobody has measured the *same* propositions across ratings in both scale directions, yes/no, bets, pairwise comparisons and frequency formats, and asked whether one latent credence fits.
+- **The nearest precedent, found in the full-read pass: Smolin & Wilder, "Beliefs and Behavior in Language Models" (arXiv:2609.07943, 7 Sep 2026).** It runs most of the proposed test.
+  - *Design.* One latent per case, with a monotone link per output. Each case gets 16 outputs: a numeric probability, a quintile choice, a Likert item, a binary decision, and threshold, bet and cost framings with matched payoffs. There are 500 cases in each of 3 domains, and 9 open and GPT models (no Claude).
+  - *Finding.* Capable models are "usefully described as holding beliefs". Concordance is 0.8–0.95 and R² is 60–90% on held-out outputs, and a two-dimensional latent does not help. Weaker models show framing effects.
+- **What is still open.** Four parts of our design remain untested by anyone:
+  - a *reversed* scale direction;
+  - pairwise comparison against a reference proposition;
+  - a frequency format;
+  - bare propositions rather than evidence-rich cases, on a Claude model.
+
+  The LLM-as-judge literature treats elicitation artefacts as bias to mitigate, not as evidence about what is measured. Li et al. (arXiv:2506.22316, DASFAA 2026) find 24–46% score flips when a rubric is listed in descending order. They suggest averaging only as untested future work; the draft wrongly said they average artefacts away.
 
 **What today's data say.**
 - **Anchor direction.** Experiment 5's baseline main ratings average 33.8 under "0 = false" and 71.3 under "0 = true". That is a 37-point uniformity failure under a mere relabelling of the scale.
@@ -143,7 +203,11 @@ Two rules are fixed in advance across all directions:
 
 **Cost.** About 9,600 short Haiku calls, about $0.40.
 
-**P(no single latent credence) = 0.45.** The 37-point anchor gap is large, but a scale-misreading link could absorb much of it. The format design is what separates misreading from construction.
+**P(no single latent credence) = 0.25** (lowered from 0.45 after the full reads).
+- **Smolin & Wilder.** Their single-latent model fits capable models across 16 framings.
+- **Zhu & Griffiths.** The Sampler predicts distortions that per-format links absorb.
+- **Direction 3's free look** (`results/gm3a-anchor-gap.md`). The 37-point gap does not track the model's errors: AUROC 0.48 [0.28, 0.66], against 0.75 for its stated confidence. That points to a reading slip, not a missing credence.
+- **What would count as a pass.** Per-format monotone links absorb the gap, so a pass now needs the *rank order* of propositions to disagree across formats. The reversed-scale, pairwise and frequency formats are where that could still happen.
 
 ---
 
@@ -151,12 +215,22 @@ Two rules are fixed in advance across all directions:
 
 **Assumption it would overturn.** Generative models are passive. They have no drive to act in order to reduce their own uncertainty (Pezzulo, Parr, Cisek, Clark & Friston 2024, *Trends Cogn. Sci.* 28:97, doi:10.1016/j.tics.2023.10.002).
 
-**Who has looked, and why it is still open.** LLM question-asking has been scored against expected information gain (EIG), but only for **external** hidden targets:
-- Battleship: Grand et al., arXiv:2510.20886 [abs];
-- 20 Questions: BED-LLM, arXiv:2508.21184 [abs];
-- clarification: Dutta et al., arXiv:2608.19202 [abs], with an exact EIG oracle.
+**Who has looked, and why it is still open.** LLM question-asking has been scored against expected information gain (EIG), but only for **external** hidden targets. All three papers below were read in full on 2026-11-04.
+- **Battleship and Guess Who?** Grand, Pepe, Andreas & Tenenbaum, arXiv:2510.20886, ICLR 2026.
+  - Unscaffolded models ask questions with mean EIG 0.242 bits (Llama-4-Scout), 0.296 (GPT-4o) and 0.470 (GPT-5), against 0.351 for humans and a ceiling of about 0.531 (Table 4).
+  - With an EIG-selection scaffold over model-proposed questions, the models reach 0.469–0.499.
+  - Without the scaffold, 15–19% of the weaker models' questions carry zero information.
+- **20 Questions and preference elicitation.** BED-LLM, Choudhury et al., arXiv:2508.21184, ICLR 2026. Explicit Bayesian experimental design raises success over direct prompting by 37.4 points on average. For example, GPT-4o on Animals goes from 45% to 93% (Table 1).
+- **Attribute-table questioning, framed as active inference.** Dutta, Ramachandran & Sra, arXiv:2608.19202. This is the closest precedent in framing, and it includes Claude Haiku 4.5. The draft's description was wrong in two places:
+  - The exact oracle is a dynamic-programming optimal-questioning planner on 25–300-candidate tables, not a clarification task.
+  - In the clarification study, an external policy chooses the questions.
 
-The knowledge-conflict literature studies how models resolve conflicts that are *handed* to them (arXiv:2601.03746 [abs]), not whether they *seek* resolution of conflict inside their own deliberation.
+  Frontier models "reduce uncertainty each turn but still ask more questions than the oracle". The results are in figures only.
+- **Confirmation bias, the comparator in our pass rule.** Jhaveri, GX-Chen, Sucholutsky & Choi, "Failing to Falsify", arXiv:2604.02485. In the 2-4-6 rule-discovery task across eleven models, LLMs "often propose triples to confirm their hypothesis rather than trying to falsify it". Prompting for counterexamples raises discovery from 42% to 56%. (Abstract checked; the per-model ratios were read from a garbled table and are not quoted here.)
+
+**Knowledge conflicts.** The knowledge-conflict literature studies how models resolve conflicts that are *handed* to them, not whether they *seek* resolution of conflict inside their own deliberation.
+- Schuster, Gautam & Markert (arXiv:2601.03746) supply conflicting sources in the prompt and measure which source wins, as forced-choice QA.
+- The survey by Xu et al. (arXiv:2403.08319) [abs] names "intra-memory conflict", a model's inconsistent parametric knowledge, which is the nearest category to ours. It is studied as something to resolve or calibrate, not as something the model gathers evidence to settle.
 
 **What today's data say.** Our pipeline already gives, for every item:
 - the model's own competing claims and relation web;
@@ -174,7 +248,11 @@ So the EIG of each possible check about *its own* main answer is computable. Tha
 
 **Cost.** About 1,200 Haiku calls, about $0.10.
 
-**P(EIG-tracking) = 0.25.**
+**Design risks, from the full reads.**
+- The chooser never sees the fitted model that defines EIG. And EIG may coincide with "the claim that sounds least certain". A hedge-word or stated-confidence baseline should therefore be scored alongside EIG and the confirmatory rule.
+- Unscaffolded models fall well short of EIG even on external targets, and they prefer confirming tests. So a confirmatory result is the likelier outcome, and it is reportable in its own right.
+
+**P(EIG-tracking above chance and above the confirmatory rule) = 0.20** (lowered from 0.25).
 
 ---
 
