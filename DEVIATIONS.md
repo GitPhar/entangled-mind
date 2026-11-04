@@ -405,3 +405,10 @@ The record is in `results/refusal-sonnet-replication-2.md`. Both refusals came o
 L, H, A2 and F2 were scored on Sonnet's 298 archived hard-pool records (pool run 4, `h101` excluded), using the frozen v2 parameters. The run used `sonnet_replication.py --offline`, in which every API client is blocked in code, and no call was made.
 
 Arm G is marked **not scored**, because it needs Sonnet calls and the replication is halted. The 82 training-pool records of pool run 6 were not scored either, because Sean's instruction covered the hard pool.
+
+## D28 — Addendum D (coupling ablation, F2+) and arm G on Sonnet's hard pool
+
+**Date:** 2026-11-03 21:03 MST, before any ablation score or any Sonnet arm-G call.
+
+- **Addendum D** (`experiments/preregistration-v2.md`): A2(κ=0) frozen, and F2+ (F2 plus A2's per-claim tilted-readout marginal, 10 parameters against A2's 9) fitted on the v2 train split. Each is scored once on Haiku's locked test set and on Sonnet's 298 hard-pool records, with the decision rule fixed in advance.
+- **Arm G on Sonnet** (Sean's instruction): one self-confidence call per hard-pool item to `claude-sonnet-5-5`. This is the base model, not the extractor, and it sees only its own visible answer. The budget is $2, enforced in code. Any refusal stops the run and records the request ID, with nothing retried.
