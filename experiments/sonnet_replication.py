@@ -1,6 +1,7 @@
 """Second base model: does the error-prediction pattern replicate on claude-sonnet-5-5?
 
-    python experiments/sonnet_replication.py
+    python experiments/sonnet_replication.py             # full (makes arm-G calls to Sonnet)
+    python experiments/sonnet_replication.py --offline   # L, H, A2, F2 only on the archived hard pool; no API calls
 
 Scores G (Sonnet's self-reported confidence; one call per item), L, H, and the already-fitted
 A2 and F2 (frozen v2 parameters from results/v2-fit.json; nothing is refitted) on Sonnet's
@@ -72,6 +73,60 @@ def main() -> None:
     write_md(results, haiku, spent)
 
 
+def offline() -> None:
+    """D27: L, H, A2 and F2 on Sonnet's archived hard-pool records, frozen v2 parameters, no API calls."""
+    from entangled_mind import llm
+
+    def blocked(*_, **__):
+        raise RuntimeError("offline scoring: API calls are blocked")
+    llm.client = blocked
+    fitd = json.loads(vf.FIT.read_text())
+    haiku = json.loads(vf.OUT_JSON.read_text())["results"]
+    recs = [r for r in json.loads(POOL4.read_text())["records"] if r["correct"] is not None]
+    items = vf.load_items([r["id"] for r in recs], {r["id"]: r for r in recs})
+    y = np.array([i.wrong for i in items])
+    scores = {}
+    with Pool(min(8, os.cpu_count()), initializer=vf._init, initargs=(items,)) as pool:
+        for model in ("A2", "F2", "L"):
+            mm = fitd["models"][model]
+            kw = {"feat_mu": np.array(mm["feature_mu"]), "feat_sd": np.array(mm["feature_sd"])} if model == "L" else {}
+            scores[model] = vf.ParallelScorer(model, items, pool, **kw).scores(np.array(mm["final"]["params"]))
+    scores["H"] = np.array([v2.hedge_scores(i)[0] for i in items])
+    res = {"n": len(items), "n_wrong": int(y.sum()), "models": {}}
+    for mname, sc in scores.items():
+        p_, lo, hi = vf.boot(list(sc[y]), list(sc[~y]))
+        res["models"][mname] = {"auroc": p_, "ci95": [lo, hi]}
+    res["A2_minus_F2"] = vf.paired_diff(scores["A2"], scores["F2"], y)
+    res["L_minus_H"] = vf.paired_diff(scores["L"], scores["H"], y)
+    cats = {}
+    for i, r in zip(items, recs):
+        cats.setdefault("science" if r["category"].startswith("science") else r["category"], []).append(i.wrong)
+    OUT_JSON.write_text(json.dumps({"mode": "offline", "hard_pool": res, "arm_G": "not scored (would need Sonnet calls; "
+                                    "replication halted, DEVIATIONS.md D25)"}, indent=1))
+    f = lambda r: f"{r['auroc']:.2f} [{r['ci95'][0]:.2f}, {r['ci95'][1]:.2f}]"
+    d = lambda x: f"{x[0]:+.3f} [{x[1]:+.3f}, {x[2]:+.3f}]"
+    m_ = res["models"]
+    hk = haiku["run-2 held-out"]["models"]
+    lines = ["# Second base model: claude-sonnet-5-5 (offline scoring of the hard pool)", "",
+             "Sonnet's own answers to the hard pool (pool run 4, `h101` excluded after a refusal, DEVIATIONS.md D21) were "
+             "scored offline. Each item's archived claims and relation table go through the **already-fitted** v2 models, with "
+             "frozen parameters from `results/v2-fit.json`. Nothing is refitted, and **no API call was made** (the client is "
+             "blocked in code). The training-pool run stopped on a second refusal (D25), so only the hard pool is scored here.", "",
+             f"Sonnet answered {res['n']} items and got **{res['n_wrong']} wrong** "
+             f"({', '.join(f'{k} {sum(v)}/{len(v)}' for k, v in sorted(cats.items()))}).", "",
+             "| model | Sonnet, hard pool (all 298) | Haiku, run-2 held-out (80), for reference |", "|---|---|---|",
+             f"| A2 learned quantum encoding | {f(m_['A2'])} | {f(hk['A2'])} |",
+             f"| F2 learned classical twin | {f(m_['F2'])} | {f(hk['F2'])} |",
+             f"| L relation-web features | {f(m_['L'])} | {f(hk['L'])} |",
+             f"| H hedge baseline | {f(m_['H'])} | {f(hk['H'])} |",
+             f"| G self-reported confidence | **not scored** (needs Sonnet calls; halted, D25) | {f(hk['G'])} |", "",
+             f"Paired bootstrap on Sonnet's items: A2 − F2 = {d(res['A2_minus_F2'])}; L − H = {d(res['L_minus_H'])}.", "",
+             "The two sets differ in composition: Sonnet's set is the whole hard pool, with 30 wrong of 298, while Haiku's held-out "
+             "set is 40 wrong and 40 right. AUROC does not depend on that balance, but the intervals do."]
+    OUT_MD.write_text("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
 def write_md(results, haiku, g_cost) -> None:
     pool_cost = sum(r["cost_usd"] for f in (POOL4, POOL6) if f.exists() for r in json.loads(f.read_text())["records"])
     lines = ["# Second base model: claude-sonnet-5-5", "",
@@ -100,4 +155,5 @@ def write_md(results, haiku, g_cost) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    offline() if "--offline" in sys.argv else main()

@@ -397,3 +397,11 @@ The record is in `results/refusal-sonnet-replication-2.md`. Both refusals came o
 8. **Rows with a schema failure.** A conversation containing one is excluded whole, and the count is reported.
 
 **D26 addendum (before any full-run result):** in §7.5's verdict, "a signature contradicted" covers two cases: the QQ signature contradicted (mean-q CI excluding 0 on the large-OE pairs), **or** Kvam's commitment outcome (Δ_K CI entirely above 0, the opposite sign to the quantum prediction). The rest of the verdict table is applied as written.
+
+## D27 — Sonnet hard pool scored offline, arm G not scored
+
+**Date:** 2026-11-03, at Sean's request, after D25.
+
+L, H, A2 and F2 were scored on Sonnet's 298 archived hard-pool records (pool run 4, `h101` excluded), using the frozen v2 parameters. The run used `sonnet_replication.py --offline`, in which every API client is blocked in code, and no call was made.
+
+Arm G is marked **not scored**, because it needs Sonnet calls and the replication is halted. The 82 training-pool records of pool run 6 were not scored either, because Sean's instruction covered the hard pool.
