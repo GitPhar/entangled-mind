@@ -444,8 +444,8 @@ Every table in this paper can be rebuilt from archived data.
   - `gm3c_heldout_format.py` (test F′)
   - `bm_runs.py` (test S's calls) and `bm0_source_distance_lag.py` (D47)
   - `bm_offline.py` (test A and the other archived-data biomimetic analyses)
-- **The replications (Section 4.6):** `experiments/mm_gm1.py`, `mm_gm2.py` and `mm_gm3b.py`, each with an `analyse` mode that rebuilds its table from `results/mm-*.json` with no API call. The summary is `results/multi-model.md`.
-- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D48 (with D47a) and DM1–DM6. A chronological record is in `paper/record.md`.
+- **The replications (Section 4.6):** `experiments/mm_gm1.py`, `mm_gm2.py` and `mm_gm3b.py`, each with an `analyse` mode that rebuilds its table from `results/mm-*.json` with no API call, and `mm_gm3b_opus_complete.py` for Opus's completed arm and its test F′ (`results/mm-gm3b-opus-completion.md`). The summary is `results/multi-model.md`.
+- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D50 (with D47a and D49a) and DM1–DM6. A chronological record is in `paper/record.md`.
 - **Costs.** The new tests reported here used $6.20 of recorded API spend: P $2.82, T $2.23 ($0.55 for the first 10 items, $1.68 for the other 30), F $0.41, S $0.74 ($0.24 for bm1, $0.50 for D47), and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates, and the Opus six-format completion (D49) $6.04 more. No QPU time was used.
 
 ---
