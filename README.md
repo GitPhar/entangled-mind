@@ -181,6 +181,7 @@ cp .env.example .env        # then fill in ANTHROPIC_API_KEY and IBM_QUANTUM_TOK
 .venv/bin/python experiments/stage1_pipe.py     # one circuit on the simulators and on real hardware
 .venv/bin/python experiments/stage2_run.py      # all five arms; the hardware arm runs only if the gate opens
 .venv/bin/python -m pytest -q                   # fast unit tests
+.venv/bin/python experiments/reproduce.py       # rebuild every results table from archived JSON (no keys needed) and verify
 ```
 
 IBM hardware is the scarce resource. The Open Plan gives 10 QPU minutes a month, and this project stops at 7. Every design decision is made on the simulator. Every hardware job is logged with its QPU seconds in [`results/ibm-usage.md`](results/ibm-usage.md), and Anthropic API spend per question is in [`results/api-usage.md`](results/api-usage.md).
