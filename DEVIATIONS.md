@@ -696,3 +696,21 @@ Concentration and within-order SD are reported alongside.
 - The lag arm at ±30 only.
 
 **Run order.** The run waits for D45 to finish, so the two API runs do not compete. The analysis was tested on simulated data before freezing.
+
+## D48 — Gold map direction 5 (belief versus readout) pre-registered: local open-weight model, truth probe, chain order
+
+**Date:** 2026-11-04, before any call on the study items. Recorded in `experiments/probe-dissociation.md`. Cost $0 API: Llama-3-8B-Instruct (Qwen2.5-7B-Instruct as the fallback), 4-bit, run locally through MLX.
+
+**Design.**
+- **Step 1, the gate:** experiment 5 run 2's ten items, chains O1–O4 and B0, R = 10, one scale direction. The gate needs at least 3 items with a span of 5 points or more and an order permutation p < 0.05.
+- **Step 2:** mass-mean truth probes trained on Marks & Tegmark's curated datasets. The layer is chosen on companies and counterfact.
+- **Step 3:** at the M point of each chain, the probe is read on the yes-answer as a declarative statement (a cache-trimmed side branch), then the verbal rating is taken. A told-yes/told-no positive control sets each measure's range.
+
+**Primary:** Q, the share of the noise-corrected verbal order effect that the probe also shows, in told-range units. It is read with the probe's order permutation test, against the frozen rule (§5).
+
+**Changes from the gold map's sketch.**
+- One scale direction (run 2's lesson).
+- The positive control and Q were added, so that a flat probe cannot pass by being blind.
+- No QQ block: the test needs only the chain orders.
+
+**Check before freezing.** The analysis was run on simulated stable, moving and noisy-probe worlds, and returned DISSOCIATION, BELIEF MOVES and UNDECIDED respectively.
