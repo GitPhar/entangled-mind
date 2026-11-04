@@ -1,0 +1,616 @@
+{
+ "items": {
+  "co01": {
+   "fresh": 0.10200000000000001,
+   "P_X": 0.85,
+   "P_Y": 0.05500000000000001,
+   "o_free": 0.029000000000000005,
+   "orders": {
+    "X": {
+     "manipulation": -0.20750000000000002,
+     "b0": 0.02530271787767705,
+     "b0_ci95": [
+      0.003733106449105566,
+      0.04615078930724566
+     ],
+     "b1": 0.021208926374978034,
+     "b2": 0.008490354006530098,
+     "anchoring_target": 0.09983668950975225,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 1.798076923076923,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": -0.1065,
+     "b0": 0.0419902413323101,
+     "b0_ci95": [
+      0.03426297878075851,
+      0.04882656076635602
+     ],
+     "b1": 0.03855360967620014,
+     "b2": -0.051194062331771796,
+     "anchoring_target": 0.09806753181302759,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 2.458474576271187,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co02": {
+   "fresh": 0.07050000000000002,
+   "P_X": 0.9574999999999998,
+   "P_Y": 0.04800000000000001,
+   "o_free": 0.0585,
+   "orders": {
+    "X": {
+     "manipulation": 0.08225000000000016,
+     "b0": 0.10510078367049411,
+     "b0_ci95": [
+      0.01918547842196674,
+      0.42354545840408137
+     ],
+     "b1": -0.09281678773204223,
+     "b2": 0.014142518680517621,
+     "anchoring_target": 0.077043583535109,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 1.0,
+     "mean_revision_toward_own": 0.3960869565217394,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.046750000000000014,
+     "b0": 0.003939972918387946,
+     "b0_ci95": [
+      0.0023431690509504183,
+      0.005468792577303586
+     ],
+     "b1": 0.2511704764527679,
+     "b2": 0.03613272284953638,
+     "anchoring_target": 0.052792481410079875,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.4922009466437177,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co03": {
+   "fresh": 0.45000000000000007,
+   "P_X": 0.8575000000000002,
+   "P_Y": 0.5,
+   "o_free": 0.019499999999999962,
+   "orders": {
+    "X": {
+     "manipulation": -0.025250000000000106,
+     "b0": 2.173076508257499,
+     "b0_ci95": [
+      2.1495699171657474,
+      2.200401339737108
+     ],
+     "b1": -1.7149758454106283,
+     "b2": -0.5024491630153913,
+     "anchoring_target": 1.221739130434783,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.1625,
+     "mean_revision_toward_own": 1.1214783474365364,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.0,
+     "b0": 0.20749999999999985,
+     "b0_ci95": [
+      0.19849999999999984,
+      0.21699999999999994
+     ],
+     "b1": 0.10374999999999981,
+     "b2": null,
+     "anchoring_target": 0.40331250000000013,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 1.0,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co04": {
+   "fresh": 0.29399999999999993,
+   "P_X": 0.746,
+   "P_Y": 0.29999999999999993,
+   "o_free": 0.03149999999999997,
+   "orders": {
+    "X": {
+     "manipulation": 0.031750000000000056,
+     "b0": -0.6683403325095412,
+     "b0_ci95": [
+      -1.9629483685500373,
+      0.33699547917196343
+     ],
+     "b1": 1.4697820714446104,
+     "b2": 0.08266883846326561,
+     "anchoring_target": -0.13811592900471542,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9402552856500226,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": -0.0042500000000000315,
+     "b0": -0.08731396403965694,
+     "b0_ci95": [
+      -0.21594705931782604,
+      0.013079710917834872
+     ],
+     "b1": 1.0299922485242388,
+     "b2": 0.04704994010223244,
+     "anchoring_target": -0.008817721066126194,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 1.010350529100529,
+     "ceiling_violations": 0.025
+    }
+   }
+  },
+  "co-lin06": {
+   "fresh": 0.10850000000000001,
+   "P_X": 0.8999999999999998,
+   "P_Y": 0.1395,
+   "o_free": 0.09799999999999998,
+   "orders": {
+    "X": {
+     "manipulation": -0.2112500000000001,
+     "b0": 0.01985514162256643,
+     "b0_ci95": [
+      0.006711794917513553,
+      0.03322873914723545
+     ],
+     "b1": 0.04917912317327771,
+     "b2": 0.027649045977569512,
+     "anchoring_target": 0.10316406513569938,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 4.092187499999991,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.05574999999999998,
+     "b0": 0.009001128897299489,
+     "b0_ci95": [
+      0.0041193498256822236,
+      0.013695127046509195
+     ],
+     "b1": 0.39277858784568626,
+     "b2": 0.014578839221722806,
+     "anchoring_target": 0.06588352321874305,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.175,
+     "mean_revision_toward_own": 0.7773146425362365,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co-lin08": {
+   "fresh": 0.16499999999999998,
+   "P_X": 0.5500000000000002,
+   "P_Y": 0.044500000000000005,
+   "o_free": 0.0020000000000000018,
+   "orders": {
+    "X": {
+     "manipulation": 0.05599999999999994,
+     "b0": 0.03741916045575229,
+     "b0_ci95": [
+      0.015027878842741767,
+      0.060185335924719974
+     ],
+     "b1": -0.00958622462091954,
+     "b2": -0.000355285702047518,
+     "anchoring_target": 0.1665817270624517,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9132091212458289,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.0615,
+     "b0": -0.008686681937172827,
+     "b0_ci95": [
+      -0.016610516826922914,
+      -0.0029979166666666357
+     ],
+     "b1": 1.0183246073298435,
+     "b2": -0.05899051047120423,
+     "anchoring_target": -0.0030235602094241826,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.43739424703891705,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co-lin09": {
+   "fresh": 0.5934999999999999,
+   "P_X": 0.7134999999999999,
+   "P_Y": 0.5725,
+   "o_free": -0.012500000000000067,
+   "orders": {
+    "X": {
+     "manipulation": 0.013249999999999984,
+     "b0": 0.08276397348270784,
+     "b0_ci95": [
+      -0.20841737587094325,
+      0.33679123027852126
+     ],
+     "b1": 0.433204172876303,
+     "b2": -0.031879233259674275,
+     "anchoring_target": 0.3363933233979141,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9857588923699321,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.09025,
+     "b0": -0.005785458063841541,
+     "b0_ci95": [
+      -0.030664022150933737,
+      0.047995302122758036
+     ],
+     "b1": 0.878672173303201,
+     "b2": -0.029666939401030875,
+     "anchoring_target": 0.07200806514455019,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0125,
+     "mean_revision_toward_own": 1.1700155292899665,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co-lin10": {
+   "fresh": 0.046000000000000006,
+   "P_X": 0.85,
+   "P_Y": 0.03700000000000001,
+   "o_free": 0.024500000000000004,
+   "orders": {
+    "X": {
+     "manipulation": -0.5,
+     "b0": 0.041949999999999994,
+     "b0_ci95": [
+      0.035824375000000006,
+      0.048400625
+     ],
+     "b1": -0.022,
+     "b2": null,
+     "anchoring_target": 0.047012000000000005,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 2.9230769230769234,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": -0.033,
+     "b0": 0.023207035175879385,
+     "b0_ci95": [
+      0.006808549632471172,
+      0.028480897056176808
+     ],
+     "b1": 0.14296482412060305,
+     "b2": -0.0001005025125627435,
+     "anchoring_target": 0.039423618090452264,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 2.414773830324208,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co05": {
+   "fresh": 0.29,
+   "P_X": 0.37,
+   "P_Y": 0.06350000000000001,
+   "o_free": 0.036000000000000025,
+   "orders": {
+    "X": {
+     "manipulation": 0.22875,
+     "b0": -0.15767499999999834,
+     "b0_ci95": [
+      -0.2172244485294122,
+      0.009693478260869602
+     ],
+     "b1": 0.4307692307692272,
+     "b2": -0.1154807692307677,
+     "anchoring_target": 0.1650769230769241,
+     "class": "content",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.9769736842105263,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.09300000000000001,
+     "b0": 0.007899553571428573,
+     "b0_ci95": [
+      0.006176918122759872,
+      0.009435449668778831
+     ],
+     "b1": 0.035714285714285816,
+     "b2": 0.08180803571428567,
+     "anchoring_target": 0.2796428571428571,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.4104882459312839,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co06": {
+   "fresh": 0.2485,
+   "P_X": 0.45249999999999996,
+   "P_Y": 0.08600000000000001,
+   "o_free": 0.0355,
+   "orders": {
+    "X": {
+     "manipulation": 0.2602499999999999,
+     "b0": 0.059956053109364874,
+     "b0_ci95": [
+      0.035801189140233315,
+      0.09184586437799004
+     ],
+     "b1": 0.040672829496579084,
+     "b2": 0.03735816020585882,
+     "anchoring_target": 0.2383928018701001,
+     "class": "undetermined",
+     "accept_rate": 0.1875,
+     "mean_revision_toward_own": 0.5723538429377742,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.12750000000000003,
+     "b0": 0.008246582365003294,
+     "b0_ci95": [
+      -0.0007892666655709215,
+      0.020612661765045014
+     ],
+     "b1": 0.7290436835891367,
+     "b2": -0.0564554464674076,
+     "anchoring_target": 0.06733264462809951,
+     "class": "content",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.42301196680177566,
+     "ceiling_violations": 0.1
+    }
+   }
+  },
+  "co07": {
+   "fresh": 0.285,
+   "P_X": 0.565,
+   "P_Y": 0.3524999999999999,
+   "o_free": 0.036500000000000005,
+   "orders": {
+    "X": {
+     "manipulation": 0.1582500000000001,
+     "b0": -0.015519594892114867,
+     "b0_ci95": [
+      -1.5415336603933547,
+      0.7493705778687291
+     ],
+     "b1": 0.23196829590488177,
+     "b2": 0.17798502862175392,
+     "anchoring_target": 0.21888903566710868,
+     "class": "undetermined",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.8350422832980973,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.046750000000000014,
+     "b0": -0.10491363036933933,
+     "b0_ci95": [
+      -0.12215400718948709,
+      -0.09131734429825168
+     ],
+     "b1": 0.6458486807999776,
+     "b2": 0.0042609569543349225,
+     "anchoring_target": 0.10093312597200638,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9213075145318299,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co08": {
+   "fresh": 0.12000000000000002,
+   "P_X": 0.8000000000000002,
+   "P_Y": 0.14999999999999997,
+   "o_free": 0.0,
+   "orders": {
+    "X": {
+     "manipulation": 0.0,
+     "b0": 0.07317073170731715,
+     "b0_ci95": [
+      0.07317073170731715,
+      0.07317073170731715
+     ],
+     "b1": 0.05853658536585366,
+     "b2": null,
+     "anchoring_target": 0.11297560975609758,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 1.0,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.0,
+     "b0": 0.11735941320293407,
+     "b0_ci95": [
+      0.11735941320293407,
+      0.11735941320293407
+     ],
+     "b1": 0.01760391198044012,
+     "b2": null,
+     "anchoring_target": 0.11788753056234721,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 1.0,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co09": {
+   "fresh": 0.0,
+   "P_X": 0.7950000000000002,
+   "P_Y": 0.10600000000000002,
+   "o_free": -0.004,
+   "orders": {
+    "X": {
+     "manipulation": 0.07174999999999987,
+     "b0": 3.2445500117850123,
+     "b0_ci95": [
+      1.573112029861311,
+      4.93798354284771
+     ],
+     "b1": -3.563532989554364,
+     "b2": -0.23710110434665502,
+     "anchoring_target": 0.0,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.8339434889434891,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.15075,
+     "b0": 0.004601034687248303,
+     "b0_ci95": [
+      -0.001599306759411533,
+      0.011463456181931408
+     ],
+     "b1": 0.11362087430629939,
+     "b2": -0.03372226303537766,
+     "anchoring_target": 0.0,
+     "class": "undetermined",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.4021397255051468,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co10": {
+   "fresh": 0.030000000000000006,
+   "P_X": 0.8524999999999998,
+   "P_Y": 0.030000000000000006,
+   "o_free": -0.000499999999999997,
+   "orders": {
+    "X": {
+     "manipulation": 0.12400000000000011,
+     "b0": 0.036007392222920195,
+     "b0_ci95": [
+      0.024792179787126986,
+      0.04198218876427915
+     ],
+     "b1": -0.012790498486838393,
+     "b2": -0.004827956375264095,
+     "anchoring_target": 0.030383714954605155,
+     "class": "anchoring",
+     "accept_rate": 0.0625,
+     "mean_revision_toward_own": 0.8593499144624286,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.03225,
+     "b0": 0.009996246246246253,
+     "b0_ci95": [
+      1.8619006149354548e-17,
+      0.012653508771929809
+     ],
+     "b1": -0.05105105105105107,
+     "b2": 0.051238738738738736,
+     "anchoring_target": 0.03153153153153154,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.46411290322580656,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co11": {
+   "fresh": 0.030500000000000006,
+   "P_X": 0.7950000000000002,
+   "P_Y": 0.030000000000000006,
+   "o_free": 0.115,
+   "orders": {
+    "X": {
+     "manipulation": 0.05525000000000002,
+     "b0": 0.03930560772739475,
+     "b0_ci95": [
+      -0.0014092464223486247,
+      0.0829106804996954
+     ],
+     "b1": -0.027850818352562447,
+     "b2": 0.015895423906079762,
+     "anchoring_target": 0.03134944995975316,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0375,
+     "mean_revision_toward_own": 0.9288325210456361,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.02925,
+     "b0": 0.0028655913978494537,
+     "b0_ci95": [
+      -0.009209677419354807,
+      0.008967741935483864
+     ],
+     "b1": 0.3333333333333341,
+     "b2": 0.023387096774193435,
+     "anchoring_target": 0.020333333333333314,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.5,
+     "mean_revision_toward_own": 0.5041666666666667,
+     "ceiling_violations": 0.0
+    }
+   }
+  },
+  "co12": {
+   "fresh": 0.2605,
+   "P_X": 0.514,
+   "P_Y": 0.4534999999999999,
+   "o_free": 0.021500000000000047,
+   "orders": {
+    "X": {
+     "manipulation": 0.030000000000000027,
+     "b0": -0.24591666666666478,
+     "b0_ci95": [
+      -0.2729166666666647,
+      -0.21532083333333113
+     ],
+     "b1": 0.9916666666666634,
+     "b2": null,
+     "anchoring_target": 0.002170833333334193,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9577922077922075,
+     "ceiling_violations": 0.0
+    },
+    "Y": {
+     "manipulation": 0.05625000000000008,
+     "b0": 1.1691095933828077,
+     "b0_ci95": [
+      0.4780681199300567,
+      1.9487935210183045
+     ],
+     "b1": -2.053803339517625,
+     "b2": 0.20837739641311104,
+     "anchoring_target": 0.7955157699443414,
+     "class": "not scored (manipulation check failed)",
+     "accept_rate": 0.0,
+     "mean_revision_toward_own": 0.9206384226508509,
+     "ceiling_violations": 0.0
+    }
+   }
+  }
+ },
+ "verdict_all": "untestable (fewer than 3 items pass the manipulation check in both orders: 1)",
+ "verdict_fallacy_items": "untestable (fewer than 3 items pass the manipulation check in both orders: 1)",
+ "n_calls": 6720,
+ "cost_usd": 0.3046477
+}
