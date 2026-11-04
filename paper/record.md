@@ -38,6 +38,8 @@ All remaining entries are from 2026-11-03.
 | 21:30 | what is the Sonnet edge? And does self-report match it? | Addendum D and arm G on Sonnet, `f7afd8a` (21:03, D28) | A2(κ=0) and F2+ on both sets; 298 Sonnet confidence calls, $0.88, no refusal (`db2eb02`) | **outcome 1:** couplings at 0 change nothing (−0.006); F2+ matches A2 (0.90, +0.004); F2+ − F2 = +0.082 covers the whole A2 − F2 gap; **G 0.91 = A2** (+0.008) | the edge is per-claim readout geometry, carried by a classical model; self-report matches the best structural model on both base models | — |
 | 21:50 | are Haiku's held-out edges (v2 +0.108, v2.1 +0.116) also readout geometry? | Addendum E, `52e80a0` (21:49, D30) | frozen F2+ on the run-2 held-out set, no API calls (`a9ab42c`) | **outcome 1:** F2+ 0.80; F2+ − A2 = −0.019, F2+ − A2.1 = −0.037 (both intervals contain 0); F2+ − F2 = +0.088 | the held-out edges are per-claim readout geometry, carried by a classical model | — |
 | 22:24 | experiment 5 result: does a quantum belief state predict sequential ratings better than a matched classical updater, with a parameter-free signature? | `2c2ef6c` (D22), details D23–D26 | 12,600 conversations including the pilot, $1.93, no refusal (`75744dc`) | **tie:** F5 − A5 = +67.0 [−34.1, +211.5] on test chains; order effects in 60 of 80 pairs; QQ mean q +0.005 [−0.058, +0.065], not certified; Kvam Δ_K = +0.29 [−1.12, +1.65], no interference; dephased Markov D5 = A5; belief adjustment best on main ratings | real sequential effects, classical account; only 12 of 160 claims had predicted non-commutation (§8.6); anchor-direction artefact (33.8 vs 71.3); sub-test tolerance fix (D32) | experiment 4 run 3 (draft) is the last test |
+| 23:14 | experiment 5 run 2: do the order effects and the near-zero q survive one scale direction? | D33, `fbc2fbf` (23:00) | B0 and the QQ block on 10 items, one scale, 1,700 conversations, $0.14 (`bffc4ab`) | order effects survive (12 of 16 large pairs); **q = −0.146 [−0.439, +0.137]** on one scale against +0.031 pooled; KS p = 0.008 | run 1's near-zero q was an anchor-pooling artefact; QQ not supported | — |
+| 23:17 | experiment 4 run 3: anchoring or content-driven updating, with a provided first rating? | frozen with one scale, D33, `fbc2fbf` | 16 items, 6,720 calls, $0.30 (`de38306`) | **untestable:** manipulation check passed in both orders on 1 item (3 needed); accept rate 0% in 15 of 32 item-orders; a higher anchor gave a lower rating in 6 | the model resists provided first ratings (reactance or contrast) | planted own answers (`paper/gold-map.md`, direction 2) |
 
 **Redirects in writing.**
 - `851040f` (19:21), `paper/next-steps.md`: the pivot from error prediction to sequential judgment, with each outcome's reading fixed in advance.
@@ -49,9 +51,9 @@ All remaining entries are from 2026-11-03.
 - IBM calibration at job time: in `e2215bb`.
 - `experiments/reproduce.py`, which rebuilds every results table from the archived JSON: `bf28953` (20:11).
 
-**Standing at the end of the record (`75744dc`, 22:24).**
+**Standing at the end of the record (`de38306`, 23:17).**
 - Error prediction: four pre-registered comparisons find no advantage for the quantum state, and the model's self-report is the best signal where it was measured.
 - Secondary results: every positive quantum-vs-classical difference (Haiku's held-out set, Sonnet's hard pool) comes with near-zero coupling. A classical twin with the same per-claim readout reproduces it (Addenda D and E). Sonnet's self-report (0.91) matches A2. Experiment 5's held-out edge of A5 over F5 is matched by a dephased classical Markov chain (D5).
 - Hardware: the states are certified entangled.
-- Sequential judgment: graded order effects are real and large. Experiment 5 is a tie, with no QQ or Kvam signature, and a classical Markov chain matches the quantum state.
-- Still to come: experiment 4 run 3 (a draft, not run), the test of anchoring against content-driven updating.
+- Sequential judgment: graded order effects are real, large and survive one scale direction. Experiment 5 is a tie, with no QQ or Kvam signature: the near-zero q came from pooling scale directions. A classical Markov chain matches the quantum state.
+- No pre-registered test remains. Experiment 4 run 3 was untestable, because the model resists provided first ratings. Next directions are in `paper/gold-map.md`.
