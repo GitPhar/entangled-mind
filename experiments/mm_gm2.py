@@ -20,6 +20,18 @@ from entangled_mind import config
 
 R = 4
 CAPS = {"sonnet": 2.4, "opus": 6.0}
+TOTAL_BUDGET, RESERVE = 20.0, 0.10      # DM4a: Opus's cap = $20 - all other recorded spend on the branch - $0.10, fixed at its start
+
+
+def branch_spend_excluding_gm2_opus():
+    tot = 0.0
+    for f in [p for p in config.RESULTS.glob("mm-*-calls.json") if p.name != "mm-pilot-calls.json"]:
+        tot += sum(v.get("cost", 0) for v in json.loads(f.read_text()).values())
+    tot += sum(c["cost"] for c in json.loads(paths("sonnet")[0].read_text()).values()) if paths("sonnet")[0].exists() else 0
+    pilot = json.loads((config.RESULTS / "mm-pilot-calls.json").read_text())
+    tot += sum(x.get("cost", 0) + x.get("opus_base_cost", 0) for x in pilot)
+    tot += 0.000737                       # the 2-request batch pilot (DM1), at the batch rate
+    return tot
 EST0 = {"sonnet": 0.0004, "opus": 0.0009}
 GROWTH = 1.12                     # per-turn growth in cost used for the projection after wave 1
 MODELS = {"sonnet": mc.S, "opus": mc.O}
@@ -63,6 +75,13 @@ def hist(cond, q, turn, planted):
 
 def run(m):
     model = MODELS[m]
+    if m == "opus":
+        cap_file = config.RESULTS / "mm-gm2-opus-cap.json"
+        if not cap_file.exists():
+            other = branch_spend_excluding_gm2_opus()
+            cap_file.write_text(json.dumps({"other_recorded_spend": other, "cap": round(TOTAL_BUDGET - other - RESERVE, 4)}, indent=1))
+        CAPS["opus"] = json.loads(cap_file.read_text())["cap"]
+        print(f"opus: DM4a cap ${CAPS['opus']:.2f}", flush=True)
     cpath, ppath = paths(m)
     claims = design()
     recs = {r["id"]: r for r in json.loads(er.POOL.read_text())["records"]}

@@ -777,3 +777,21 @@ Numbered DM so as not to collide with D-entries written on `main` at the same ti
 **Reference.** The Haiku reference at R = 4 (D37's archive, repeats 0–3) was computed while the code was being tested, before freezing: R = 2.01 [1.04, 4.43].
 
 **Caps:** $2.40 (Sonnet) and $6.00 (Opus).
+
+## DM4a — Opus cost above the pilot estimate: DM2's Opus run budget-stopped; DM4's Opus cap re-set before any DM4 call
+
+**Date:** 2026-11-04 08:20 MST. No DM4 call had been made, and no DM2 answer had been looked at; only per-call costs were read.
+
+**What happened.**
+- DM2's first Opus chunk (1,600 calls) cost **$3.10**, about $0.0019 per call at the batch rate, against the $0.0009 estimate.
+- The costs imply about 120 thinking tokens per call. The pilot's single-turn calls, on an easy claim of h002, had none.
+- The $4.30 cap therefore stopped the run before the second chunk, as pre-registered.
+- **DM2's Opus arm stands at 1,600 of 4,800 calls.** These complete 26 claims (items 1–6 and 2 claims of item 7, all items Haiku answered wrongly), plus 40 calls of a 27th claim. It is reported as budget-stopped, with D38's analysis run on the 26 complete claims and labelled as such. It is not resumed.
+- Sonnet's cost per call is on the estimate ($0.0004).
+
+**Amendment (DM4 only, Opus arm).** At this rate DM4's Opus arm would cost about $9.5 at R = 4. Its $6.00 cap would force the fallback to R = 2. DM1's rule that unspent cap is not moved between runs is therefore replaced, for this arm only:
+- **DM4's Opus arm runs last,** after every other DM run has finished.
+- **Its cap is fixed at its start:** $20 minus all other recorded spend on the branch (pilot, DM2, DM3, DM4 Sonnet), minus $0.10, written to `results/mm-gm2-opus-cap.json` before its first call.
+- The per-wave fallback (R = 4 → 3 → 2) is unchanged.
+
+The rule depends only on costs, and it was set before any DM4 data existed.
