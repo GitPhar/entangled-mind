@@ -86,5 +86,49 @@
         "end_time": "2026-11-03T23:07:41.498Z"
       }
     }
+  },
+  {
+    "when": "2026-11-04 22:52:52",
+    "purpose": "Program 3 wave 1: P3-2 twirl/DD + P3-3 layouts (200 circuits)",
+    "backend": "ibm_fez",
+    "job_id": "dblrect8ft8s738tl2v0",
+    "batch_id": "902aedb8-187b-4471-8a1c-9e40dff7c643",
+    "circuits": 200,
+    "shots": 100,
+    "quantum_seconds": 8.0,
+    "job_metrics_usage": {
+      "qpu_charge_time_seconds": 8,
+      "value": 0.123255,
+      "unit": "resource_units",
+      "status": "pending",
+      "details": [
+        {
+          "value": 0.123255,
+          "unit": "resource_units",
+          "metric": {
+            "id": "caffe3ca-729c-5750-8777-df63bbf8bfd9",
+            "value": 8
+          }
+        }
+      ]
+    },
+    "service_before": {
+      "usage_consumed_seconds": 46,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 554,
+      "usage_period": {
+        "start_time": "2026-10-07T22:52:32.384Z",
+        "end_time": "2026-11-04T22:52:32.384Z"
+      }
+    },
+    "service_after": {
+      "usage_consumed_seconds": 46,
+      "usage_limit_seconds": 600,
+      "usage_remaining_seconds": 554,
+      "usage_period": {
+        "start_time": "2026-10-07T22:52:52.808Z",
+        "end_time": "2026-11-04T22:52:52.808Z"
+      }
+    }
   }
 ]
