@@ -909,3 +909,29 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 **Not yet fixed in `reproduce.py`** (found in this session's run, to be fixed after the Opus run):
 - `api-usage.md` differs by its price line, now that the multi-model merge added Opus's prices to `config.PRICES`;
 - the five multi-model results files have no regeneration step.
+
+## D49a — Opus completion: the runner's projection ran two batches past the frozen stopping rule; primary analysis on the 17 items the rule allows
+
+**Date:** 2026-11-04 10:30 MST, after the run.
+
+**What happened.**
+- **The rule and the code disagreed.** The pre-registration (§3) projects each batch at 1.25 × batch size × *mean cost so far*. The code passed each batch the *previous batch's* mean cost.
+- **Two batches went past the stop.** h048 was cheap (/bin/zsh.0012 per call), so the projection for h291 was $0.35, and h291 was submitted. Under the rule as written, the projection was 240 × $0.00233 × 1.25 = $0.70. With $5.78 already spent that comes to $6.48, over the cap, so the run should have stopped there. h291 then cost $0.26, and h093 was submitted on h291's low rate.
+- **What I did.** I stopped the runner and cancelled h093. All 240 of its requests were cancelled with none billed (`msgbatch_01Th769st8Nr64NZWN3oqKLB`). h291 had already completed and been stored.
+
+**Spend.**
+- $6.04 of new spend: $5.78 within the rule, plus $0.26 for h291. Under the $6.40 cap.
+- The whole Opus arm cost $9.14.
+- No refusals, and no max_tokens stops.
+
+**Analysis.**
+- **Primary:** the frozen rule's run, 17 items (68 claims). h291 was moved out of the analysis cache into `results/mm-gm3b-opus-h291-beyond-stop.json`.
+- **Sensitivity:** with h291, 18 items (72 claims), in `results/mm-gm3b-opus-completion-with-h291.md`. Every reading is identical.
+- **Not run:** h093 and h183. The arm is 17 of 20 items.
+
+**Exploratory, not pre-registered.** Kendall's W for all three models on Opus's 68 claims, using gm3b's formula (`experiments/mm_gm3b_w68_explore.py`): 0.56, 0.76 and 0.87.
+
+**Results.**
+- F′ Q = 0.94 [0.90, 0.97], *a usable single belief*.
+- DM2 primary ΔLL +1.90 [−0.82, +4.65], *mixed*.
+- Paper rule: **"does not hold on Opus"**.

@@ -21,7 +21,8 @@ from entangled_mind import config
 
 CAP, EST = 6.40, 0.00194              # EST: Opus's observed batch cost per call on its first 1,600 calls (DM2)
 OUT_JSON, OUT_MD = config.RESULTS / "mm-gm3b-opus-completion.json", config.RESULTS / "mm-gm3b-opus-completion.md"
-FIRST26 = config.RESULTS / "mm-gm3b-opus-first26.json"   # the 26 claims complete before this run, frozen at pre-registration
+FIRST26 = config.RESULTS / "mm-gm3b-opus-first26.json"
+BEYOND = config.RESULTS / "mm-gm3b-opus-h291-beyond-stop.json"   # D49a: ran past the frozen stopping rule; sensitivity only   # the 26 claims complete before this run, frozen at pre-registration
 
 
 def item_order():
@@ -163,8 +164,27 @@ def write_md(r, o):
     print("\n".join(L))
 
 
+def analyse_with_h291():
+    """D49a sensitivity: h291 ran past the frozen stopping rule (results/mm-gm3b-opus-h291-beyond-stop.json); same analysis with it added."""
+    global OUT_JSON, OUT_MD
+    merged = {**json.loads(mm.cache_path("opus").read_text()), **json.loads(BEYOND.read_text())}
+    tmp = config.RESULTS / ".mm-gm3b-opus-with-h291-calls.json"
+    tmp.write_text(json.dumps(merged))
+    orig = mm.cache_path
+    mm.cache_path = lambda m: tmp if m == "opus" else orig(m)
+    mm.OUT_JSON, mm.OUT_MD = config.RESULTS / ".mm-gm3b-with-h291.json", config.RESULTS / ".mm-gm3b-with-h291.md"
+    OUT_JSON, OUT_MD = config.RESULTS / "mm-gm3b-opus-completion-with-h291.json", config.RESULTS / "mm-gm3b-opus-completion-with-h291.md"
+    try:
+        analyse()
+    finally:
+        for p in (tmp, mm.OUT_JSON, mm.OUT_MD):
+            p.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
-    if "--dry" in sys.argv:
+    if "--with-h291" in sys.argv:
+        analyse_with_h291()
+    elif "--dry" in sys.argv:
         run(dry=True)
     elif sys.argv[1] == "run":
         mc.main_guard(run)

@@ -12,7 +12,7 @@ Pre-registered in `experiments/mm-gm3b-format-invariance.md` (DM2), committed be
 |---|---|---|---|---|---|---|
 | haiku | 80 (20) | 4800 / 4800 | $0.20 | +19.42 [+15.40, +23.21] | 86% | **no single credence: formats disagree beyond monotone links** |
 | sonnet | 80 (20) | 4800 / 4800 | $2.04 | +9.22 [-1.29, +16.24] | 92% | **mixed** |
-| opus | 26 (7) | 1560 / 4800 | $3.10 | +0.42 [-1.83, +2.69] | 58% | **mixed** |
+| opus | 68 (17) | 4080 / 4800 | $8.88 | +1.90 [-0.82, +4.65] | 74% | **mixed** |
 
 ## Agreement between formats
 
@@ -20,18 +20,18 @@ Pre-registered in `experiments/mm-gm3b-format-invariance.md` (DM2), committed be
 |---|---|---|---|
 | haiku | 0.54 | +0.29 to +0.63 | 25% to 35% |
 | sonnet | 0.71 | +0.63 to +0.84 | 14% to 20% |
-| opus | 0.86 | +0.86 to +0.99 | 3% to 14% |
+| opus | 0.87 | +0.83 to +0.98 | 6% to 14% |
 
 ## ΔLL by format (mean per claim)
 
 | format | haiku | sonnet | opus |
 |---|---|---|---|
-| rating 0-100 | +6.210 | +0.248 | -0.336 |
-| yes/no | +2.510 | +1.537 | +0.361 |
-| bet | +2.388 | +1.713 | +0.747 |
-| pairwise vs coin | +1.428 | +0.482 | -0.627 |
-| frequency /100 | +6.831 | +0.535 | +1.710 |
-| verbal 7-point | +0.054 | +4.709 | -1.435 |
+| rating 0-100 | +6.210 | +0.248 | +0.151 |
+| yes/no | +2.510 | +1.537 | +0.263 |
+| bet | +2.388 | +1.713 | +1.181 |
+| pairwise vs coin | +1.428 | +0.482 | -0.293 |
+| frequency /100 | +6.831 | +0.535 | +0.164 |
+| verbal 7-point | +0.054 | +4.709 | +0.430 |
 
 ## Secondary: held-out-format prediction (test F′'s frozen analysis, D46)
 
@@ -39,4 +39,4 @@ Pre-registered in `experiments/mm-gm3b-format-invariance.md` (DM2), committed be
 |---|---|---|---|
 | haiku | 0.29 [0.19, 0.43] | 0.27 | little format-free belief (most of each format's reproducible answer is not recoverable from the others) |
 | sonnet | 0.69 [0.53, 0.82] | 0.65 | partial |
-| opus | not computed: arm incomplete (26 of 80 claims) | | |
+| opus | not computed: arm incomplete (68 of 80 claims) | | |
