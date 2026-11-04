@@ -73,7 +73,7 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
 **After the programme: six gold-map tests on November 4,** each pre-registered before its data (Section 5.13).
 - **Asking is invasive.** Earlier questions change later ratings in 5 of 6 comparisons on the archived experiment 5 data. A midway yes/no choice is the exception.
   - The model's state is its copyable conversation, so it has a definite state at every turn. The effects therefore measure how asking disturbs it, not an absence of definite judgments (`paper/clonable-minds.md`).
-- **Question and record both act.** The order effect survives hiding the model's earlier answers (ratio 1.91 [0.92, 4.90] against a bar of 0.5). Planted own answers pull later ratings. The model's consistency on a repeated question is memory of its answer (81% agreement shown, 23% hidden).
+- **Question and record both act.** The order effect survives hiding the model's earlier answers: on all 40 items the ratio is 1.23 [0.75, 2.02] against a bar of 0.5, so the question carries roughly all of the order effect. Planted own answers pull later ratings. The model's consistency on a repeated question is memory of its answer (86% agreement shown, 36% hidden).
 - **No privileged self-knowledge.** Authorship does not help a model judge its own errors: judge × author interaction −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does.
 - **No single credence.** Across six question formats, format-specific credences predict held-out answers better for 86% of claims. The formats rank the claims differently, four to six times beyond repeat noise.
 - **Evidence seeking is mixed.** The model's choice of which claim to check beats chance for informative and confirming checks alike, and prefers neither when they differ.
@@ -701,6 +701,12 @@ Paired item-bootstrap differences (MSE in rating points²):
   - There are only 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).
   - "[rating recorded]" is itself an unusual turn. The redacted order effect is *larger* than the shown one, and the planted conditions, which keep a number in place, show smaller order effects than either. So the redaction placeholder may add variance of its own. The verdict that asking alone produces an order effect stands by the rule. The excess over the shown condition should not be read as the question's effect.
 - **Reading.** Both parts of the measurement change the model's judgment: the questions put to it, and its own recorded answers, which it treats as evidence. In the terms of `paper/clonable-minds.md`, both the question channel and the record channel are invasive.
+- **On all 40 items** (`results/gm2b-self-conditioning-40.md`, `758609a`; pre-registered at `4894bfc`, D45; 6,000 new conversations, $1.68, no refusal). The same design, with the other 30 experiment-5 items added.
+  - **Still question-driven:** R = **1.23 [0.75, 2.02]**. Order effect 9.8 [5.8, 13.5] shown against 12.0 [7.3, 15.9] redacted.
+  - **Not two items.** The 30 new items alone give 0.99 [0.51, 1.61]; all 40 without h191 and h261 give 0.99 [0.62, 1.49]. On 82% of 39 items the redacted order effect is at least half the shown one.
+  - **Not the placeholder.** The spread within one order is the same shown and redacted (SD 5.1 against 5.4).
+  - **The record still steers,** less than on the first 10: b_MF 0.85 [0.65, 1.13]; next-rating pull 5.2 [3.7, 6.5]; final-rating shift 9.0 [5.4, 12.6]. MF repeat agreement is 86% shown against 36% redacted (planted high 38%, low 45%).
+  - **What changes.** Both caveats above are resolved. The redacted effect is no longer larger than the shown one: the first 10 items' R of 1.91 came mostly from h191 (0.4 points shown, 38 redacted). On these items the question carries roughly all of the order effect, and the record adds little to it.
 
 
 **Direction 3, six formats: does the model hold one credence per statement?** (`results/gm3b-format-invariance.md`, `1fd521d`; pre-registered in `experiments/gm3b-format-invariance.md`, `34eb191`, D38; 9,600 calls, $0.41)

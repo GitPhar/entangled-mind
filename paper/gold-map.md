@@ -434,7 +434,7 @@ Each first test below was pre-registered on `main` before its data (D34–D39) a
 | 9, NSIT on archived data | 0.20 (conceptual) | invasive in 5 of 6 families; the midway choice is not (`results/gm9-nsit.md`) | the conceptual result is written up in `paper/clonable-minds.md` |
 | 3, free look | — | the anchor gap does not predict errors, AUROC 0.48 (`results/gm3a-anchor-gap.md`) | no evidence either way |
 | 1, self-knowledge | 0.15 | no self-advantage; interaction −0.055 [−0.103, −0.007] (`results/gm1-self-knowledge.md`) | no: self-report is text-reading |
-| 2, self-conditioning | 0.25 | question-driven, R = 1.91 [0.92, 4.90]; the planted record also pulls (`results/gm2-self-conditioning.md`) | yes, by the rule, with caveats (two items; the placeholder turn) |
+| 2, self-conditioning | 0.25 | question-driven, R = 1.91 [0.92, 4.90]; the planted record also pulls (`results/gm2-self-conditioning.md`). On all 40 items (D45): R = 1.23 [0.75, 2.02], 0.99 without the two items, placeholder adds no spread (`results/gm2b-self-conditioning-40.md`) | yes, by the rule; the caveats are resolved at 40 items |
 | 3, six formats | 0.25 | no single credence: 86% of claims, ΔLL +19.4 (`results/gm3b-format-invariance.md`) | yes, by a held-out-repeats criterion stricter than Smolin & Wilder's |
 | 4, evidence seeking | 0.20 | mixed: beats chance for EIG and confirmatory alike (`results/gm4-evidence-seeking.md`) | no |
 
