@@ -118,6 +118,8 @@ def main() -> int:
     step("exp4-run-3.md", lambda: importlib.import_module("exp4_run3").main())          # all calls cached: no API use
     step("exp5-run-2.md", lambda: importlib.import_module("exp5_rerun").main())          # all calls cached: no API use
     step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
+    if "gm3c-heldout-format.md" in committed:
+        step("gm3c-heldout-format.md", lambda: importlib.import_module("gm3c_heldout_format").main())
     step("gm3a-anchor-gap.md", lambda: importlib.import_module("gm3a_anchor_gap").main())
     for mod, md in (("gm1_self_knowledge", "gm1-self-knowledge.md"), ("gm2_self_conditioning", "gm2-self-conditioning.md"),
                     ("gm3b_format_invariance", "gm3b-format-invariance.md"), ("gm4_evidence_seeking", "gm4-evidence-seeking.md")):
