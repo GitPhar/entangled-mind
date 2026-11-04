@@ -278,3 +278,12 @@ At Sean's instruction (`experiments/preregistration-v2.md`, Addendum C):
 - F2.1 has no circuit, so it has only the noiseless evaluation.
 - The pass criterion is applied to the noiseless comparison, with the noisy result reported alongside.
 - Everything else in Addendum B is unchanged.
+
+## D17 — Experiment 4 run 2 (graded form) pre-registered
+
+**Date:** 2026-11-03 19:06 MST, before any run-2 call. Full design: `experiments/exp4-yearsley-trueblood.md`, "Addendum — run 2".
+
+At Sean's request, the order test is re-run on run 1's 7 fallacy items with graded 0–100 ratings in both orders, 20 repeats per cell. Choices made here:
+- Temperature is the model default (1.0); no explicit parameter is sent, because the API rejects one for this model.
+- The graded analogue of "beyond repetition" is anchoring of the second rating on the first, fitted by regression.
+- q_QQ and Γ are dropped, because they are defined only for binary answers. The marginal shifts OE_X, OE_Y and OSS are kept.

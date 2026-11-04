@@ -73,3 +73,31 @@ With thinking disabled, each call is about 200 input and about 10 output tokens,
 - Phase 1: 16 items × 80 calls = 1,280 calls.
 - Phase 2: at most 16 items × (200 first-position + 400 second-position) = 9,600 calls.
 - **Total ≈ $0.35**, against the $10 cap. That is about 11,000 calls, roughly 30–45 minutes at 8 parallel workers.
+
+## Addendum — run 2, graded form (pre-registered before run 2)
+
+**Written 2026-11-03 19:06 MST, before any run-2 call.** Run 1's binary QQ phase was fully saturated (`results/exp4-run-1.md`): the model answered "Is it true that <Y>?" with "no" every time. Run 2 measures the same order test with graded ratings instead.
+
+- **Items:** the 7 items with a reliable rating fallacy in run 1: co01, co-lin06, co-lin08, co-lin09, co-lin10, co05 and co06.
+- **Calls:**
+  - Base model `claude-haiku-5-5`, thinking disabled.
+  - **Default sampling temperature, which is 1.0.** The current API rejects an explicit temperature parameter for this model, so none is sent.
+  - Each answer is an integer from 0 to 100, as structured output, with the same rating wording as run 1's phase 1.
+- **Cells:** each cell is a two-turn conversation. The first rating is committed, the second is asked in the same conversation, and each cell gets R = 20 repeats:
+  1. **X → XY:** rate P(X), then P(X and Y).
+  2. **Y → XY:** rate P(Y), then P(X and Y).
+  3. **X → Y:** rate P(X), then P(Y), for the marginal-shift check.
+  4. **Y → X:** rate P(Y), then P(X).
+
+  That is 7 × 4 × 20 conversations, 1,120 calls.
+- **Statistics, all on the 0–1 scale, each with a 95% bootstrap interval over repeats (1,000 resamples):**
+  - Graded order effect: o = mean P(X and Y | X first) − mean P(X and Y | Y first).
+  - Graded fallacy: f = mean P(X and Y | X first) − mean P(Y | Y rated first). The first-turn ratings of cells 2 and 4 are pooled for P(Y).
+  - Anchoring on the first answer, the graded analogue of repetition. Fit second = r · first + (1 − r) · fresh by regressing the second rating on the first within cells 1–2, with fresh taken from the first-turn means. Then o_rep = r · (P(X) − P(Y)), and **o − o_rep** is the order effect beyond anchoring.
+  - **Marginal-shift check, reported beside every number:** OE_X = mean P(X | rated second) − mean P(X | rated first), OE_Y defined the same way, and OSS = |OE_X| + |OE_Y|. (q_QQ and Γ are defined only for binary answers.)
+- **Rules, unchanged from the pre-registration and the D11 addendum:**
+  - Scored items are those with f's 95% lower bound above 0.
+  - **R2 is met** (consistent with quantum or sequential-update classical; rules out the static twin) if at least half the scored items have o ≥ f − 0.05 **and** at least half have o − o_rep reliably > 0.
+  - **The static twin is supported** if at least half have an o − o_rep interval that contains 0.
+  - **Untestable** if fewer than 3 items are scored.
+- **Budget:** $10, enforced in code. The estimate is about $0.05.
