@@ -10,7 +10,9 @@ Quantum-cognition models describe human judgment with amplitudes, interference a
 
 **Status:** every planned experiment has run.
 - **No quantum advantage.** Every pre-registered test of a quantum advantage failed or tied: the entangled readout, the learned v2 and v2.1 encodings, sequential judgment (experiment 5), and the order-effect tests (experiments 3 and 4).
-- **Every positive quantum-vs-classical difference is classical.** Each one, on held-out data and on a second base model, is matched by a classical model given the same per-claim readout.
+- **Every positive quantum-vs-classical difference has a classical account.**
+  - The error-prediction edges, on held-out data and on a second base model, are matched by a classical model given the same per-claim readout (F2+).
+  - Experiment 5's held-out edge for the quantum belief state is matched by a dephased, classical Markov chain (D5).
 - **Self-report does as well.** The base model's own stated confidence predicts its errors as well as anything here, for both Haiku and Sonnet.
 - **Hardware.** The encoded belief states are certified entangled on real hardware (3 of 3 items, 44 QPU s).
 
