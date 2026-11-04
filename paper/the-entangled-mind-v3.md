@@ -671,6 +671,28 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **Reading.** The 0.82–0.91 self-report signal of Sections 5.3–5.11 is a good reading of the answer text, not privileged self-knowledge. A stronger reader of the same text does better.
 
 
+**Direction 2: is the order effect the question, or the model seeing its own answers?** (`results/gm2-self-conditioning.md`, `4c5c34f`; pre-registered in `experiments/gm2-self-conditioning.md`, `9e23b6f`, D37; 2,000 conversations, $0.55)
+- **Design.** 10 experiment-5 items, chains O1–O4 and MF, on one scale direction. The model's earlier ratings were edited before each later turn:
+  - **shown:** left as given;
+  - **redacted:** replaced by "[rating recorded]";
+  - **planted:** replaced by its usual rating ±15 points, placed in the model's own turn.
+
+| condition | order effect across O1–O4 (points) | MF repeat agreement (within 5 points) |
+|---|---|---|
+| shown | 8.7 [4.1, 12.7] | 81% |
+| redacted | 16.7 [8.0, 24.1] | 23% |
+| planted high | 6.2 [3.6, 8.3] | 30% |
+| planted low | 3.2 [2.2, 4.0] | 40% |
+
+- **Pre-registered verdict: question-driven.** R = OE_redacted / OE_shown = **1.91 [0.92, 4.90]**, wholly above the 0.5 bar. With no record of its answers, the order of the questions still changes the final rating. In the gold map's terms this is the overturning direction, which it had put at P = 0.25.
+- **The record also steers.** The final main rating follows a planted first main rating at 1.27 [0.70, 2.14] points per point. Planting higher earlier ratings raises the next ratings by 5.6 [3.4, 7.6] points and the final rating by 10.4 [4.2, 16.8].
+- **The consistency is memory.** The main question repeated after the chain agrees with the first answer 81% of the time when that answer is visible, and 23% when it is hidden. Experiment 5's 84% replicability was the model reading its own earlier answer, not a stable judgment reached again.
+- **Caveats, stated in the results file.**
+  - There are only 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).
+  - "[rating recorded]" is itself an unusual turn. The redacted order effect is *larger* than the shown one, and the planted conditions, which keep a number in place, show smaller order effects than either. So the redaction placeholder may add variance of its own. The verdict that asking alone produces an order effect stands by the rule. The excess over the shown condition should not be read as the question's effect.
+- **Reading.** Both parts of the measurement change the model's judgment: the questions put to it, and its own recorded answers, which it treats as evidence. In the terms of `paper/clonable-minds.md`, both the question channel and the record channel are invasive.
+
+
 ---
 
 ## 6. Discussion
@@ -740,7 +762,7 @@ The sequential phenomena that quantum cognition was built to explain are present
 
 **Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them as well as the quantum ones.
 
-**What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remains is to set the first rating as the model's *own* earlier answer in the transcript (`paper/gold-map.md`, direction 2).
+**What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remained was to set the first rating as the model's *own* earlier answer in the transcript. Gold-map direction 2 did that for experiment 5's chains (Section 5.13). Planted own answers do move later ratings, about 1.3 points per point. Hiding the answers does not remove the order effect. So in those chains, the question and the record both act. That run did not use experiment 4's conjunction items, so for conjunctions the mechanism remains open.
 
 ### 6.4 The hardware result
 

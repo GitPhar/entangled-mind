@@ -124,6 +124,11 @@ The project has two sets of data that already bear on this, both from experiment
 
 **Two related measurements.**
 - **Replicability.** Asked the main question first and again after the four claims (chain MF), the model lands within 5 points of its first answer 84% of the time. The record of its first answer is in the context. Whether the agreement comes from that record (R) or from a stable judgment is exactly what the redacted condition would settle (Khrennikov et al.'s response-replicability problem, §7).
+- **The first transcript-editing measurement** (gold-map direction 2, pre-registered before any call: `experiments/gm2-self-conditioning.md`, D37; `results/gm2-self-conditioning.md`; added 2026-11-04 after this note was first committed). Experiment 5's chains O1–O4 and MF were re-run on 10 items with the model's earlier ratings shown, redacted or planted ±15 points in its own turn.
+  - **Channel Q is invasive.** With every earlier answer redacted, the order of the questions still changes the final rating. The ratio of redacted to shown order effect is 1.91 [0.92, 4.90], above the pre-registered 0.5.
+  - **Channel R is invasive.** The final main rating follows a planted first main rating at 1.27 [0.70, 2.14] points per point.
+  - **Replicability is memory.** MF agreement within 5 points is 81% shown and 23% redacted. Khrennikov et al.'s response-replicability effect, in this model, is the R channel.
+  - **Caveats.** The redaction placeholder is an unusual turn that may itself add variance (the redacted order effect is larger than the shown one), and two items drive much of it.
 - **A record the model did not make.** In experiment 4 run 3 (`results/exp4-run-3.md`), a first rating presented as *another person's* estimate was accepted in 0% of conversations in 15 of 32 item-orders, and sometimes pushed the rating the other way. An external record is not treated like the model's own. The planted condition in §4, which puts a value in the model's own turn, is the untested case.
 
 ## 6. What this implies for quantum-cognition tests on language models
@@ -171,7 +176,7 @@ The project has two sets of data that already bear on this, both from experiment
 ## 8. Tests that follow
 
 1. **The NSIT analysis of the archived experiment 5 data ($0): done** (D34, `results/gm9-nsit.md`). Asking is invasive in 5 of 6 families; the midway choice is not. Section 5 reports the numbers.
-2. **The replay design (gold-map direction 2).** It was pre-registered overnight (`experiments/gm2-self-conditioning.md`, D37) with four of §4's rows: shown, redacted, planted-high and planted-low (±15 points, in the model's own turn), on 10 experiment-5 items and one scale direction. Redacted against shown isolates R; planted against shown tests whether the record's *value* steers the later rating. The clone-read and filler rows are already covered by the "not asked" arms of direction 9 and by K₀.
+2. **The replay design (gold-map direction 2): done** (`results/gm2-self-conditioning.md`; §5). Both Q and R are invasive. It was pre-registered overnight (`experiments/gm2-self-conditioning.md`, D37) with four of §4's rows: shown, redacted, planted-high and planted-low (±15 points, in the model's own turn), on 10 experiment-5 items and one scale direction. Redacted against shown isolates R; planted against shown tests whether the record's *value* steers the later rating. The clone-read and filler rows are already covered by the "not asked" arms of direction 9 and by K₀.
 3. **A clone-read control for any LLM order-effect claim.** It costs one extra call per question and gives the undisturbed marginals that every inequality in §3.1 compares against.
 
 ## 9. What would make this note wrong
