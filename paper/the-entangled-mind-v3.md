@@ -693,6 +693,28 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **Reading.** Both parts of the measurement change the model's judgment: the questions put to it, and its own recorded answers, which it treats as evidence. In the terms of `paper/clonable-minds.md`, both the question channel and the record channel are invasive.
 
 
+**Direction 3, six formats: does the model hold one credence per statement?** (`results/gm3b-format-invariance.md`, `1fd521d`; pre-registered in `experiments/gm3b-format-invariance.md`, `34eb191`, D38; 9,600 calls, $0.41)
+- **Design.** The 160 experiment-5 chain claims, each asked 10 times in six single-turn formats on one scale direction:
+  - a 0–100 rating;
+  - yes/no;
+  - a bet at a stated price;
+  - "likelier than a fair coin landing heads?";
+  - "how many of 100 such statements would be true";
+  - a 7-point verbal scale. This replaced the gold map's reversed scale, under the one-direction rule.
+- **The two models.** L1 has one latent credence per claim, read through a monotone link per format. L6 has a separate credence per claim and format. Both are scored on held-out repeats (2-fold, even against odd).
+- **Pre-registered verdict: no single credence.** L6 beats L1 on held-out repeats for **86%** of claims. The mean ΔLL is **+19.4 [+16.5, +22.1]** per claim.
+- **The formats rank the claims differently, which no monotone link can absorb:**
+  - pairwise Spearman correlations between formats are 0.37–0.74, and Kendall's W across all six is 0.56;
+  - 20–34% of claim pairs are ordered differently from the 0–100 rating;
+  - the coin comparison is the most out of line, choosing the statement 79% of the time where the mean rating is 55.
+- **Against the precedent.** Smolin & Wilder (2026) found one latent belief describes capable models well (concordance 0.8–0.95, held-out R² 60–90%). The gold map had lowered P from 0.45 to 0.25 for that reason. Their test and ours differ in three ways:
+  - **The criterion.** They asked whether one latent *predicts* new framings usefully. Ours asks whether format-specific credences predict held-out *repeats* better. A latent can be useful by their criterion and still lose by ours whenever format deviations are reproducible, which is likely for a model whose repeats barely vary.
+  - **The material.** Our statements are the model's own contested claims about hard questions.
+  - **The model.** Claude was not in their set.
+  So the two results need not conflict. Ours says this model's credences are not format-invariant on contested claims; it does not say a single latent is useless.
+- **Not done here.** The ranking disagreements are not compared against a noise baseline in the results file, and no held-out-*format* test was run.
+
+
 ---
 
 ## 6. Discussion
