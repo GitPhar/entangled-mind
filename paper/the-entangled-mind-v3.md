@@ -723,7 +723,11 @@ Paired item-bootstrap differences (MSE in rating points²):
   - **The model.** Claude was not in their set.
   So the two results need not conflict. Ours says this model's credences are not format-invariant on contested claims; it does not say a single latent is useless.
 - **Noise baseline** (exploratory: computed after the run, not pre-registered). Two halves of the *same* format's repeats order claim pairs differently only 4–8% of the time. The 0–100 rating's even repeats against another format's odd repeats, the same amount of data, disagree 21–35% of the time. So the cross-format reordering is four to six times the noise.
-- **Not done here.** No held-out-*format* test was run. That would be the like-for-like comparison with Smolin & Wilder, and it would need its own pre-registration.
+- **The held-out-format follow-up** (`results/gm3c-heldout-format.md`, `52aedb6`; pre-registered at `1f2a837`, D46; $0) is the like-for-like comparison with Smolin & Wilder. One credence fitted on five formats predicts the sixth with mean R² 0.37 [0.28, 0.47], against split-half ceilings of 0.88–0.97.
+  - It recovers **Q = 0.39 [0.30, 0.50]** of each format's reproducible answer, ranging from 0.17 for the coin comparison to 0.53 for the 0–100 rating.
+  - The pre-registered reading is *little format-free belief*. The interval's upper end, 0.499, sits just under the 0.5 line.
+  - Smolin & Wilder's 0.60–0.90 on other models is above every format here.
+  - So the difference from their result is not only the criterion. On this model and these statements, the format-free part of the answer is the smaller part.
 
 
 **Direction 4: does the model seek the evidence that would settle its own conflict?** (`results/gm4-evidence-seeking.md`, `bc9e70d`; pre-registered in `experiments/gm4-evidence-seeking.md`, `e913227`, D39; 1,200 calls, $0.11)

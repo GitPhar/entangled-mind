@@ -20,7 +20,7 @@ On `claude-haiku-5-5`, in pre-registered tests, the answer is the second.
 - **The record also acts, but only when it is the model's own.**
   - Planting the model's own earlier answer pulls its re-rating 0.42 of the way toward the planted value. The same number attributed to another person pulls it 0.05 [R-pending: source × distance × lag].
   - The model's agreement with itself on a repeated question falls from 81% to 23% when its first answer is hidden [R-pending: direction 2, 40 items].
-- **Formats disagree.** Across six elicitation formats, a separate credence per format predicts held-out answers better than one credence per statement for 86% of 160 statements. The formats rank the statements differently four to six times more often than repeat noise does [R-pending: held-out-format fit].
+- **Formats disagree.** Across six elicitation formats, a separate credence per format predicts held-out answers better than one credence per statement for 86% of 160 statements. The formats rank the statements differently four to six times more often than repeat noise does. Predicting each format from the other five recovers only 0.39 [0.30, 0.50] of what is reproducible in that format.
 - **Self-report is not privileged.** The model's confidence predicts its errors well (AUROC 0.85), but a stronger model reading the same answers predicts them better (0.93). The judge × author interaction is −0.055 [−0.103, −0.007].
 
 There is a stable process that turns a prompt and a transcript into a number. There is no format-free credence behind it for that process to report. We discuss what this means for confidence elicitation, calibration measurement and introspection evaluations.
@@ -141,6 +141,7 @@ Each test was pre-registered in its own commit before any call or analysis. The 
 | **S** (bm1) | does the source of a number matter? | experiment 4's 16 items, values 30 points below and above the model's mean, planted as its own earlier answer, then a re-rating; 40 per cell; 2,560 conversations, $0.24; compared with the archived condition in which the same values were "another person's estimate" | slope s of the re-rating on the shown value, own against other | `bm1-serial-dependence.md`, D44 |
 | **A** (bm9) | does the next rating move toward the last number? | archived single-scale (S_k, M) conversations, $0 | β in d_M = α + β·L + γ·C, where L is the S rating's level relative to the unprompted M and C is the claim's content push | `bm9-contrast.md`, D42 |
 | **P** (direction 1) | does authorship help judge errors? | both models rate confidence in both models' answers on 298 questions, with one matched prompt ("an answer another assistant gave"); 1,710 calls, $2.82 recorded | the judge × author interaction I = HH + SS − SH − HS (judge first, then author), which cancels each judge's skill | `gm1-self-knowledge.md`, D36 |
+| **F′** (robustness) | is one credence at least useful? | test F's calls, $0 | Q = R² of each format predicted from the other five / that format's split-half R² | `gm3c-heldout-format.md`, D46 |
 | **F** (direction 3) | is there one credence per statement? | the 160 experiment-5 claims × 6 formats × 10 repeats; 9,600 calls, $0.41 | held-out log-likelihood (even against odd repeats) of one latent credence per claim with a monotone link per format (L1) against one credence per claim and format (L6) | `gm3b-format-invariance.md`, D38 |
 
 The six formats in F are:
@@ -235,7 +236,7 @@ In the archived condition, 7 item-orders moved *away* from another person's high
 
 ### 4.5 There is no format-free credence
 
-**Test F** [R-pending: held-out-format fit]
+**Test F**
 
 **The primary test.** The format-specific model L6 beats the single-credence model L1 on held-out repeats for **86% of 160 claims**. The mean ΔLL is **+19.4 [+16.5, +22.1]** per claim.
 
@@ -247,6 +248,23 @@ In the archived condition, 7 item-orders moved *away* from another person's high
 **Noise baseline** (*exploratory*, computed after the run). Two halves of the same format's repeats disagree on the order of 4–8% of claim pairs. The 0–100 rating's even repeats against another format's odd repeats disagree on 21–35%. Cross-format reordering is therefore four to six times repeat noise, and no monotone link can absorb a reordering.
 
 **An earlier, smaller check.** The free look of test F (`gm3a-anchor-gap.md`, D35) asked whether experiment 5's 37-point gap between the two scale directions marks the model's errors. It does not: AUROC 0.48 [0.28, 0.66], against 0.75 for the model's stated confidence on the same 40 items. A distortion of the credence that carries no error signal is what a reading slip would produce. So this check does not, on its own, support construction.
+
+**Test F′: is one credence at least useful?** This is the like-for-like comparison with Smolin and Wilder (2026), pre-registered after test F (`gm3c-heldout-format.md`, D46, $0, test F's archived calls).
+- **Method.** The single-credence model L1 is fitted on five formats and predicts the sixth, for each format in turn, with items held out in five folds. Each prediction is compared with the held-out format's own split-half ceiling (its even repeats predicting its odd ones).
+- **The statistic** is Q = R²(cross) / R²(ceiling). Simulated checks before freezing gave Q = 1.06 in a one-belief world and 0.21 in a format-specific one.
+
+| held-out format | R² from the other five | R² ceiling | Q |
+|---|---|---|---|
+| rating 0–100 | 0.51 | 0.96 | 0.53 |
+| yes/no | 0.36 | 0.89 | 0.41 |
+| bet | 0.43 | 0.92 | 0.47 |
+| pairwise vs coin | 0.15 | 0.88 | 0.17 |
+| frequency /100 | 0.30 | 0.94 | 0.32 |
+| verbal 7-point | 0.46 | 0.97 | 0.47 |
+
+- **Mean Q = 0.39 [0.30, 0.50]**, so the pre-registered reading is *little format-free belief*. The interval's upper end, 0.499, sits just under the 0.5 line, so a "partial" reading is excluded only narrowly.
+- **Mean R² from the other five formats is 0.37 [0.28, 0.47].** Smolin and Wilder report held-out R² of 0.60–0.90 on other capable models. Haiku, on its own contested claims, is below that whole range.
+- **Reading.** Each format's answers are highly reproducible (ceilings 0.88–0.97). Only a third to a half of that reproducible answer is shared with the other formats. There is a common component, but it is the smaller part.
 
 ---
 
@@ -270,7 +288,7 @@ What looks like a stable belief within a conversation is, to a large degree, con
 
 By the argument of Section 2, none of this shows that the model "has no definite state". Its state is perfectly definite. What it lacks is a format-free, transcript-free quantity for elicitation to read.
 
-The finding sits alongside Smolin and Wilder (2026), who fit one latent belief across 16 framings of other capable models. Their criterion is usefulness: does one latent predict new framings? Ours is whether format-specific credences predict held-out repeats better. A latent can be useful by the first criterion and still lose by the second. The held-out-format fit (Section 8) compares the two directly.
+The finding sits alongside Smolin and Wilder (2026), who fit one latent belief across 16 framings of other capable models. Their criterion is usefulness: does one latent predict new framings? Test F's criterion was stricter, but test F′ applies theirs directly. On it, one latent predicts a left-out format with R² 0.37, against their 0.60–0.90 for other models. It recovers 39% of what the format reproducibly says. So the difference from their result is not only the criterion. On this model and these statements, a format-free belief exists only as the smaller part of each answer.
 
 ### 5.2 Confidence elicitation
 
@@ -287,7 +305,7 @@ Practical consequences:
 
 Calibration is usually measured in one format, for example verbal 0–100 or a probability token.
 
-**Calibration need not transfer across formats.** The six formats order the same statements differently on 21–35% of pairs (exploratory baseline) [R-pending: held-out-format fit]. A model that is well calibrated in one format can therefore rank propositions differently in another. Calibration claims should name the format, and where possible be checked in more than one.
+**Calibration need not transfer across formats.** The six formats order the same statements differently on 21–35% of pairs (exploratory baseline). Predicting one format from the other five recovers only 39% of its reproducible answer (test F′). A model that is well calibrated in one format can therefore rank propositions differently in another. Calibration claims should name the format, and where possible be checked in more than one.
 
 **Within-conversation consistency is not evidence of a stable credence.** A model that keeps giving the same number in one conversation may be reading its own earlier answer:
 - it stays consistent with itself far more than with an external estimate (s_own +0.42, s_other +0.05) [R-pending: source × distance × lag];
@@ -321,7 +339,7 @@ None of these can show that a model's judgments lack definite values. A quantum-
 
 - **Two items carry much of direction 2's redacted effect** (h191, h261), and there are 10 items in all. The 40-item run (Section 8) is the test of whether the question-driven reading survives. Until it lands, every direction 2 number in this paper is provisional.
 - **The redaction placeholder** "[rating recorded]" is an unusual turn. It may add variance of its own: the redacted order effect is larger than the shown one.
-- **The format result uses a stricter criterion than the precedent.** Format-specific credences win on held-out *repeats*. Smolin and Wilder (2026) asked whether one latent usefully predicts held-out *framings*. Because Haiku's repeats vary little, any reproducible format-by-claim deviation favours the format-specific model. "No single credence" holds by the pre-registered rule. That one latent is useless has not been shown, and the two results need not conflict.
+- **Two criteria for the format result.** Test F's criterion (held-out *repeats*) is stricter than Smolin and Wilder's. Because Haiku's repeats vary little, any reproducible format-by-claim deviation favours the format-specific model. Test F′ applies their usefulness criterion (held-out *formats*) and also finds little format-free belief. Its interval's upper end, 0.499, lies just under the pre-registered 0.5 line, so the margin over a "partial" reading is thin.
 - **One base model for most tests.** Every test except direction 1 uses `claude-haiku-5-5` alone. Direction 1 uses Haiku and `claude-sonnet-5-5`. Nothing here establishes the results for other models.
 - **Thinking was disabled, and the temperature is the default 1.0,** since the API rejects another. With extended thinking, the thinking text becomes part of the context, so the argument of Section 2 still applies, but the measurements may differ.
 - **The source comparison (test S) differs in wording as well as source.** It uses "Please give your rating again" against the archived "accept or revise". The planted values were ±30 points from the model's mean, which is large enough to read as implausible.
@@ -349,6 +367,7 @@ Every table in this paper can be rebuilt from archived data.
   - `gm1_self_knowledge.py`
   - `gm3b_format_invariance.py`
   - `gm3a_anchor_gap.py`
+  - `gm3c_heldout_format.py` (test F′)
   - `bm_runs.py` (test S's calls)
   - `bm_offline.py` (test A and the other archived-data biomimetic analyses)
 - **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D44. A chronological record is in `paper/record.md`.
@@ -358,12 +377,12 @@ Every table in this paper can be rebuilt from archived data.
 
 ## 8. Pending robustness runs
 
-Three robustness runs are planned, each to be pre-registered in its own commit before its data. No other robustness run is planned, so every number without a tag is final as pre-registered.
+Three robustness runs were planned, each to be pre-registered in its own commit before its data. One has landed. No other robustness run is planned, so every number without a tag is final as pre-registered.
 
 | tag | run | what it tests | affects |
 |---|---|---|---|
 | [R-pending: direction 2, 40 items] | D45, $2.50 cap | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | Section 4.2 and the abstract: R, b_MF, the next-rating pull, MF agreement 81% against 23% |
-| [R-pending: held-out-format fit] | D46, $0, archived data | one credence fitted on five formats predicts the sixth, compared with that format's split-half ceiling. This is the like-for-like comparison with Smolin & Wilder | Section 4.5's reading and Section 5.1's comparison. The pre-registered ΔLL (+19.4) and the 86% are final |
+| landed | D46 (`52aedb6`, pre-registered at `1f2a837`), $0 | the held-out-format prediction | reported in Section 4.5 as test F′: Q = 0.39 [0.30, 0.50], "little format-free belief" |
 | [R-pending: source × distance × lag] | D47, $0.50 cap | own against other source, at distances ±10, ±30 and ±60 points and lags of 0 or 3 filler turns (the lag arm at ±30 only) | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
 
 ---
