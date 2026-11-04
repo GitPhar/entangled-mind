@@ -117,6 +117,10 @@ def main() -> int:
     step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
     step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
     step("gm3a-anchor-gap.md", lambda: importlib.import_module("gm3a_anchor_gap").main())
+    for mod, md in (("gm1_self_knowledge", "gm1-self-knowledge.md"), ("gm2_self_conditioning", "gm2-self-conditioning.md"),
+                    ("gm3b_format_invariance", "gm3b-format-invariance.md"), ("gm4_evidence_seeking", "gm4-evidence-seeking.md")):
+        if (config.RESULTS / md).exists():          # overnight runs: analysis recomputed from the call caches
+            step(md, lambda mod=mod: importlib.import_module(mod).analyse())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]
