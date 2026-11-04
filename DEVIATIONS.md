@@ -368,3 +368,17 @@ Nothing else in the design was changed.
 **Date:** 2026-11-03, before any experiment-5 call. The run raised an error while building the job list, so no API call had been made.
 
 §3 states that all 40 candidates have at least 4 competing claims, and they do. The pilot item `h001`, chosen under the D22 clarification, has only 3. For any item with fewer than 4, the 4th chain slot is filled with the leaning, non-competing claim with the highest confidence × |lean|. This affects `h001` only. The 40 candidates' chain claims are unchanged, which was checked against `split-exp5.json`. Pilot data are never used in any test.
+
+## D25 — Sonnet replication stopped on a second reasoning_extraction refusal
+
+**Date:** 2026-11-03
+
+- **Pool run 4** (hard pool, `h101` excluded) completed: 299 items processed, 1 hit the token cap, and **30 were wrong**. Cost $4.07.
+- **Pool run 6** (training pool, locked-test questions first) then stopped on question `t368` (a SimpleQA item). The **extractor** call was refused with category `reasoning_extraction`, request ID `req_011CghAdzJQ9nFBMocCLUMhf`. 82 items had completed, 7 of them wrong, for $1.10.
+
+Per Sean's rule ("if a second refusal occurs, stop again and report"):
+- Nothing was reworded or retried.
+- The replication is halted.
+- The scorer (`sonnet_replication.py`) was **not** run, because its arm-G step would make further Sonnet calls.
+
+The record is in `results/refusal-sonnet-replication-2.md`. Both refusals came on SimpleQA items with Sonnet as the base model, after 1,473 Haiku-based and 381 Sonnet-based items had gone through the same extractor prompt without one.
