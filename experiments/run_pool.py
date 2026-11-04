@@ -44,6 +44,8 @@ RUNS = {
     5: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": ("questions-train.json",)},
     6: {"base_model": "claude-sonnet-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": ("questions-train.json",)},
 }
+# Items dropped after an API refusal (never reworded or retried); see DEVIATIONS.md.
+REFUSAL_EXCLUDED = {4: {"h101": "req_011Cgh7v49vVQNR6AgY3EDui"}}   # D21
 BUDGET_GROUP = {1: "standard", 2: "standard", 3: "hard", 4: "sonnet", 5: "train", 6: "sonnet"}
 
 
@@ -175,6 +177,8 @@ def main(run: int) -> None:
     config.BASE_MODEL, config.BASE_EFFORT = spec["base_model"], spec["base_effort"]
     out, md = paths(run)
     questions = [q for f in spec["pool"] for q in json.loads((config.EXPERIMENTS / f).read_text())]   # D4, D6
+    if run in REFUSAL_EXCLUDED:   # D21: dropped on a refusal, not retried
+        questions = [q for q in questions if q["id"] not in REFUSAL_EXCLUDED[run]]
     if run == 6:   # D18: locked v2 test items first, so a budget stop still covers them
         test = set(json.loads((config.EXPERIMENTS / "split-v2.json").read_text())["test"])
         questions = sorted(questions, key=lambda q: (q["id"] not in test, q["id"]))

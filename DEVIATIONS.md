@@ -327,3 +327,11 @@ This is the first refusal since the D3 redesign. The same extractor prompt had r
 - The next step is a support ticket with the request ID, which Sean will file.
 - The Sonnet replication (D18) is halted at 102 of 300 hard-pool questions (12 wrong, $1.39), and pool run 6 was not started.
 - No further Anthropic calls will be made until Sean decides how to proceed.
+
+## D21 — Sonnet replication resumed with h101 excluded
+
+**Date:** 2026-11-03, at Sean's decision, after D20.
+
+Question `h101`, whose extractor call was refused (`reasoning_extraction`, request ID `req_011Cgh7v49vVQNR6AgY3EDui`), is **dropped** from pool run 4. It is recorded in `run_pool.REFUSAL_EXCLUDED`, and nothing was reworded or retried. The remaining hard-pool items and pool run 6 (the training pool) continue with the extractor unchanged.
+
+If a second refusal occurs, the run stops again and is reported. The support ticket is filed separately, from `results/refusal-sonnet-replication.md`.
