@@ -1043,6 +1043,28 @@ Where several audits targeted one sentence, their replacements were composed in 
 
 **Unchanged.** No quantum advantage and no quantum signature in either reading. The label moves from "could not tell apart" to "classical", because the parameter-free quantum signature is contradicted.
 
+## D53 — The probe-dissociation result (DP1) marked unverified; a fresh step 3 on new seeds queued for the probes worktree
+
+**Date:** 2026-11-04 13:19 MST, after the audit (`audits/probe-dissociation.md`, hole 1).
+
+**Why.** DP1's pre-registration says selection (the gate) and test (step 3) use different conversations. But both steps seed each conversation from the same key, `seed_for(f"{lm.name}|{qid}|{cell}|{rep}")`. The audit found step 3's O1–O4 and B0 verbal ratings identical to the gate's in 500 of 500 conversations.
+- So validity check V4 tested nothing.
+- Step 3's verbal order effects on the gate items are the selection data, with its winner's curse.
+- The frozen label, PROBE MOVES, BUT NOT WITH THE RATING, therefore rests on a test that was not independent of selection.
+
+**What changed.**
+- `results/probe-dissociation.md` (a banner under the title), README, the morning brief (a new direction-5 section) and `paper/gold-map.md` §5 (which said "Nothing yet") mark the DP1 result **unverified**.
+- The figure title (`probe_dissociation_figure.py`, `paper/figures/fig3-probe-dissociation.*`) no longer says the probe moves "more than the rating does, and not in step with it"; it says "unverified, D53".
+- Its numbers and label are kept, as recorded.
+
+**Queued.** On branch `probes`, commit `ad1667d`, `experiments/QUEUED-probe-step3-fresh-seeds.md` sets out a fresh step 3:
+- the same model, gate items, probe and layer, cells, R and analysis;
+- sampler seeds from a new namespace (`step3-fresh`);
+- a pre-run check that the fresh ratings do not replay the gate's;
+- the audit's alternative Q scalings, the Holm-corrected gate and r without h191, as secondaries.
+
+It is to be frozen as DP2 in its own commit before any run. Nothing has been run.
+
 ---
 
 # Probes branch (`probes`): entry DP1

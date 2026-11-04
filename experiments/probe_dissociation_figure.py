@@ -46,7 +46,7 @@ for ax, (title, q) in zip(axes, panels):
 axes[0].set_ylabel("shift from the item's mean\n(1 = the told-yes vs told-no shift)")
 axes[0].legend(frameon=False, loc="upper left", fontsize=9)
 s, c = res["stats"], res["ci"]
-fig.suptitle("The truth probe moves with chain order more than the rating does, and not in step with it\n"
+fig.suptitle("The truth probe moves with chain order (in told-range units; unverified, D53)\n"
              f"Llama-3-8B, layer {L}, the 3 gate items, mean \u00b1 SE of 10 repeats; Q = {s['Q']:.2f} "
              f"[{c['Q'][0]:.2f}, {c['Q'][1]:.2f}]", x=0.01, ha="left", fontsize=10.5, color=INK)
 fig.tight_layout()

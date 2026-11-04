@@ -267,7 +267,7 @@ So the EIG of each possible check about *its own* main answer is computable. Tha
 - **Knowing more than they say.** Models can encode the right answer while generating a wrong one (Orgad et al., arXiv:2410.02707).
 - **The gap:** nobody has varied *question order* while reading probes.
 
-**What today's data say.** Nothing yet: Claude's internals are not available. The behavioural side, large graded order effects, is established in experiment 5.
+**What today's data say.** Claude's internals are not available. The behavioural side, graded order effects, is established in experiment 5. Since written: run on Llama-3-8B (DP1, `results/probe-dissociation.md`), with the frozen label PROBE MOVES, BUT NOT WITH THE RATING. That result is **unverified** (D53): its test step replayed the gate's conversations, and a fresh step 3 on new seeds is queued.
 
 **Cheapest falsifiable first test.**
 - **Model:** an open-weight model run locally. Good candidates are Llama-3-8B (4-bit) or Mistral-7B, where truth probes are established. Qwen2.5-1.5B is reported to have a truth axis (arXiv:2607.16741, search snippet only), but must be checked first.

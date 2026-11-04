@@ -117,6 +117,10 @@ Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, 
 - **On Sonnet the order effect survives hiding the record** (R = 2.95 [0.99, 12.55]; 2 items carry most of it). On Opus the test is not decisive.
 - **The paper.** `paper/no-credence-to-read.md` was narrowed to these limits (D48, new Section 4.6).
 
+### Gold-map direction 5: a truth probe on a local model (branch `probes`, merged; DP1, $0)
+
+- **Unverified (D53).** On Llama-3-8B the frozen label was PROBE MOVES, BUT NOT WITH THE RATING (Q = 3.72 [1.43, 7.03] in told-range units; r = +0.31 [−0.49, +0.99] over three gate items). But its test step replayed the gate's conversations exactly (500 of 500), so it was not independent of selection. A fresh step 3 on new seeds is queued on the `probes` branch. Details: `results/probe-dissociation.md`.
+
 ## What it means: a belief to read, or an answer built by the asking?
 
 **What points to construction.**

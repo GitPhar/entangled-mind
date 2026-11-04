@@ -28,6 +28,8 @@ Eleven pre-registered tests, six from `paper/gold-map.md` and five from `paper/b
 
 **No self-advantage in judging errors (Haiku and Sonnet).** With each judge's overall skill cancelled, authorship gives no advantage: the judge × author interaction is −0.055 [−0.103, −0.007], and Sonnet judges Haiku's errors better than Haiku does (0.93 against 0.85).
 
+**Gold-map direction 5, run later on a local model: unverified.** A truth probe in Llama-3-8B moves with chain order, and whether it moves in step with the rating is undetermined (DP1, [`results/probe-dissociation.md`](results/probe-dissociation.md)). The result is marked **unverified** (D53): its test step replayed the gate's conversations exactly, and a fresh run on new seeds is queued.
+
 **What is stable.**
 - Repeat answers within one prompt.
 - A consistent choice of relevant claims to check. Whether it prefers informative or confirmatory checks is undecided.

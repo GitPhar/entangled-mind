@@ -1,5 +1,7 @@
 # Belief versus readout: does a truth probe move with question order? (gold map direction 5)
 
+> **UNVERIFIED (D53).** Step 3 was meant to test on conversations different from the gate's, but both steps seed each conversation from the same key, so step 3's O1–O4 and B0 verbal ratings replay the gate's exactly (500 of 500 identical; `audits/probe-dissociation.md`, hole 1). Validity check V4 therefore tested nothing, and the gate items' verbal order effects are the selection data. The label and numbers below are kept as recorded but are not verified. A fresh step 3 on new seeds is queued on branch `probes` (`experiments/QUEUED-probe-step3-fresh-seeds.md`), to be frozen as DP2 before it runs.
+
 Pre-registered in `experiments/probe-dissociation.md` (DP1, numbered D48 on the `probes` branch; frozen in `9ef909d` before any call on the study items). Llama-3-8B-Instruct, 4-bit, run locally through MLX on an M2 Pro. 1,200 conversations, **$0 API**.
 
 ## In plain English
