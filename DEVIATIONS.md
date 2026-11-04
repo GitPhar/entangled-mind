@@ -192,3 +192,7 @@ Pre-registered in `experiments/exp4-yearsley-trueblood.md`, with items in `exper
 4. **Thinking disabled for the base calls,** following the borrowed protocol's "thinking off". The base model is `claude-haiku-5-5`.
 
 The budget is $10, enforced in code. The experiment runs last in the queue.
+
+**D11 addendum: R2 wording corrected (same day, before any experiment-4 call).** Rule R2 (the order effect is at least the fallacy size) is a consequence of the quantum model, but it is not unique to it. An updating classical model, in which each judgment updates the state before the next, also satisfies R2. Only the *static* classical twin is ruled out.
+
+The overstated sentences were corrected in `experiments/items-borrowed.json` (rule R2 and the pre-registerable test) and in `experiments/exp4-yearsley-trueblood.md`. In experiment 4, meeting R2 is now read as "consistent with quantum or sequential-update classical; rules out the static twin", not as support for the quantum account. The pass rules' thresholds are unchanged.

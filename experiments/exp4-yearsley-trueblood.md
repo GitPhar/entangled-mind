@@ -10,7 +10,7 @@ A quantitative version follows from the Lüders rule (`items-borrowed.json → c
 
 **o = P(X then Y) − P(Y then X) ≥ f = P(X then Y) − P(Y).**
 
-The order effect must be at least as large as the fallacy. Classical probability, including the classical twin, gives P(X then Y) = P(Y then X), so o = 0 apart from what simple repetition of the first answer produces.
+The order effect must be at least as large as the fallacy. This is a consequence of the quantum model, but an updating classical model, in which each judgment updates the state before the next, satisfies it too. Only the **static** classical twin is ruled out: with no updating between judgments it gives P(X then Y) = P(Y then X), so o = 0 apart from what simple repetition of the first answer produces.
 
 ## Items (fixed)
 
@@ -61,9 +61,9 @@ This follows Kang (2026)'s committed multi-turn, forced-branch protocol, adapted
 
 The scored items are the fallacy items that pass the saturation gate and the letter-copying check, and have f with a 95% lower bound above 0.
 
-- **Quantum (R2) is supported** if at least half of the scored items have o ≥ f − 0.05 (the borrowed 5-point tolerance), **and** at least half have o − o_rep with a 95% lower bound above 0.
-- **Classical twin (with repetition) is supported** if at least half of the scored items have an interval for o − o_rep that contains 0.
-- **Neither is supported** if neither rule is met. **Untestable** if there are fewer than 3 scored items, in which case everything is reported descriptively.
+- **R2 is met (consistent with the quantum model or a sequential-update classical model; rules out the static twin)** if at least half of the scored items have o ≥ f − 0.05 (the borrowed 5-point tolerance), **and** at least half have o − o_rep with a 95% lower bound above 0.
+- **The static classical twin (with repetition) is supported** if at least half of the scored items have an interval for o − o_rep that contains 0.
+- **Neither is supported** if neither rule is met. A pass on R2 does not by itself select the quantum account over a sequential-update classical one. **Untestable** if there are fewer than 3 scored items, in which case everything is reported descriptively.
 - **R1 is reported:** the share of fallacy items whose o is reliably different from 0.
 - **R3 is reported:** the double-fallacy count. Any reliable double fallacy counts against the quantum account.
 
