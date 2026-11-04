@@ -669,3 +669,13 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 Concentration and within-order SD are reported alongside.
 
 **Code.** `gm2_self_conditioning.analyse` was split into `compute()` plus the writer. The output is unchanged, and `reproduce.py` still matches.
+
+## D46 — Robustness wave, 2 of 3: held-out-format prediction pre-registered
+
+**Date:** 2026-11-04 06:33 MST, before the fit. Recorded in `experiments/gm3c-heldout-format.md`. Cost $0: last night's six-format data.
+
+**Design.** Each format is predicted from the other five by the one-credence model L1, with 5 item folds and even/odd repeats, and compared with the format's own split-half ceiling.
+
+**Primary:** mean Q = R²_cross / R²_ceiling, read against 0.75 and 0.5.
+
+**Check before freezing.** The code was tested on simulated data. A one-belief world gave Q = 1.06 [1.04, 1.09]; a format-specific world gave 0.21 [0.14, 0.29].
