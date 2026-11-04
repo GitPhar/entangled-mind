@@ -267,14 +267,29 @@ def evaluate21() -> None:
         with Pool(min(8, os.cpu_count()), initializer=_init, initargs=(items,)) as pool:
             for model in ("A21", "F21"):
                 scores[model] = ParallelScorer(model, items, pool).scores(np.array(fit21d["models"][model]["final"]["params"]))
+        if name == "locked test":   # Addendum C: the selected A2.1 also on the noisy ibm_fez simulator, once
+            from entangled_mind import backends
+            va = np.array(fit21d["models"]["A21"]["final"]["params"])
+            va = v2.clamp("A21", va)
+
+            def noisy_one(k):
+                qc, h, u = v2.build_a21_circuit(items[k], va)
+                counts = backends.run_noisy(backends.transpile(qc), seed=k + 1)
+                return v2.conflict21_from_counts(counts, h, u, va)
+
+            backends.noisy_simulator()
+            with ThreadPoolExecutor(max_workers=4) as ex:
+                scores["A21-noisy"] = np.array(list(ex.map(noisy_one, range(len(items)))))
         prev = {m: np.array([v2res[name]["scores"][m][q] for q in ids]) for m in ("A2", "F2", "L", "G", "H")}
         res = {"n_wrong": int(y.sum()), "n_right": int((~y).sum()), "models": {}}
         for model, sc in scores.items():
             p, lo, hi = boot(list(sc[y]), list(sc[~y]))
-            thr = fit21d["models"][model]["flag_threshold"]
+            thr = fit21d["models"][model.replace("-noisy", "")]["flag_threshold"]
             res["models"][model] = {"auroc": p, "ci95": [lo, hi], "wrong_flagged": int(np.sum(sc[y] > thr)),
                                     "right_flagged": int(np.sum(sc[~y] > thr))}
         res["A21_minus_F21"] = paired_diff(scores["A21"], scores["F21"], y)
+        if "A21-noisy" in scores:
+            res["A21noisy_minus_A21"] = paired_diff(scores["A21-noisy"], scores["A21"], y)
         res["A21_minus_A2"] = paired_diff(scores["A21"], prev["A2"], y)
         res["F21_minus_F2"] = paired_diff(scores["F21"], prev["F2"], y)
         res["reference_v2"] = {m: v2res[name]["models"][m] for m in ("A2", "F2", "L", "G", "H")}
@@ -292,11 +307,17 @@ def evaluate21() -> None:
         results[name] = res
     a, f = results["locked test"]["models"]["A21"], results["locked test"]["models"]["F21"]
     passed = a["ci95"][0] > f["ci95"][1]
+    an = results["locked test"]["models"]["A21-noisy"]
+    noisy_line = (f"Secondary (Addendum C): noisy-simulator A2.1 lower bound {an['ci95'][0]:.2f} vs F2.1 upper bound "
+                  f"{f['ci95'][1]:.2f}: {'above' if an['ci95'][0] > f['ci95'][1] else 'not above'}.")
     OUT21_JSON.write_text(json.dumps({"fit": fit21d, "results": results, "primary_pass": passed}, indent=1))
-    names = {"A21": "A2.1 honest-hedge quantum", "F21": "F2.1 honest-hedge classical twin"}
+    names = {"A21": "A2.1 honest-hedge quantum (noiseless)", "F21": "F2.1 honest-hedge classical twin (exact; no circuit)",
+             "A21-noisy": "A2.1 on the noisy ibm_fez simulator (1,000 shots)"}
     lines = ["# Version 2.1, run 1: honest-hedge encoding", "",
-             "Pre-registration: `experiments/preregistration-v2.md`, Addendum B (written before any v2 test evaluation). "
-             "Fitted on train, selected on validation, scored once on each set after the v2 arms.", "",
+             "Pre-registration: `experiments/preregistration-v2.md`, Addenda B and C (written before any v2 or v2.1 test evaluation). "
+             "Fitted on exact noiseless statevectors on train, selected on validation, scored once on each set after the v2 arms. "
+             "On the locked test set the selected A2.1 is scored noiseless and on the noisy `ibm_fez` simulator; the pass "
+             "criterion uses the noiseless comparison.", "",
              "| model | train AUROC | validation AUROC | parameters |", "|---|---|---|---|"]
     for m in ("A21", "F21"):
         r = fit21d["models"][m]
@@ -305,13 +326,16 @@ def evaluate21() -> None:
     for name, res in results.items():
         lines += ["", f"## {name} ({res['n_wrong']} wrong, {res['n_right']} right)", "",
                   "| model | AUROC [95% CI] | wrong flagged | right flagged |", "|---|---|---|---|"]
-        for m in ("A21", "F21"):
+        for m in [x for x in ("A21", "A21-noisy", "F21") if x in res["models"]]:
             r = res["models"][m]
             lines.append(f"| {names[m]} | {r['auroc']:.2f} [{r['ci95'][0]:.2f}, {r['ci95'][1]:.2f}] | "
                          f"{r['wrong_flagged']}/{res['n_wrong']} | {r['right_flagged']}/{res['n_right']} |")
         for m, r in res["reference_v2"].items():
             lines.append(f"| (v2) {m} | {r['auroc']:.2f} [{r['ci95'][0]:.2f}, {r['ci95'][1]:.2f}] | | |")
-        for k, lab in (("A21_minus_F21", "A2.1 − F2.1"), ("A21_minus_A2", "A2.1 − A2"), ("F21_minus_F2", "F2.1 − F2")):
+        for k, lab in (("A21_minus_F21", "A2.1 − F2.1"), ("A21_minus_A2", "A2.1 − A2"), ("F21_minus_F2", "F2.1 − F2"),
+                       ("A21noisy_minus_A21", "A2.1 noisy − A2.1 noiseless")):
+            if k not in res:
+                continue
             d = res[k]
             lines.append(f"\nPaired bootstrap {lab}: {d[0]:+.3f} [{d[1]:+.3f}, {d[2]:+.3f}].")
         lines += ["", "| group | n wrong / right | A2.1 | F2.1 |", "|---|---|---|---|"]
@@ -320,7 +344,8 @@ def evaluate21() -> None:
             lines.append(f"| {g} | {row['n_wrong']} / {row['n_right']} | {cell('A21')} | {cell('F21')} |")
     lines += ["", "## Primary criterion", "",
               f"A2.1's lower 95% bound {a['ci95'][0]:.2f} vs F2.1's upper 95% bound {f['ci95'][1]:.2f}: "
-              f"**{'PASS: the honest-hedge quantum encoding beats its classical twin' if passed else 'NOT MET: the honest-hedge quantum encoding ties or loses to its classical twin'}**."]
+              f"**{'PASS: the honest-hedge quantum encoding beats its classical twin' if passed else 'NOT MET: the honest-hedge quantum encoding ties or loses to its classical twin'}**.",
+              "", noisy_line]
     OUT21_MD.write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

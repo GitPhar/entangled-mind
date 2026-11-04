@@ -253,6 +253,50 @@ def conflict21(it: Item, quantum: bool, v) -> float:
     return conflict_from_probs(p, h, tau) + lam * uncertainty(it)
 
 
+def build_a21_circuit(it: Item, v, measure: bool = True):
+    """The selected A2.1 as a Qiskit circuit (Addendum C): reproduces conflict21's exact probabilities
+    gate for gate, so it can run on the noisy simulator. Returns (circuit, hedged item, U)."""
+    from qiskit import QuantumCircuit
+    *a, tau, lam = v
+    s_theta, k_sup, k_con, n_trotter, gamma0, beta0, alpha = a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6]
+    h = hedged(it)
+    web = coupled_web(h, k_sup, k_con)
+    phi = hedge_phases(web, hedge_mask(it))
+    theta = np.clip(s_theta * h.conf, 0, 2) * math.pi / 2
+    n = h.n
+    qc = QuantumCircuit(n, name="A2.1")
+    for k in range(n):
+        qc.ry(float(theta[k]), k)
+        qc.rz(float(phi[k]), k)
+    for i, j, J in web.edges:
+        qc.rzz(config.KAPPA * J, i, j)
+    for step in range(1, n_trotter + 1):
+        s_ = step / (n_trotter + 1)
+        g, b = gamma0 * s_, beta0 * (1 - s_)
+        qc.h(range(n))
+        for i, j, J in web.edges:
+            qc.rzz(-2 * g * J, i, j)
+        for k in range(n):
+            if web.lean[k]:
+                qc.rz(float(-2 * g * web.lean[k]), k)
+        qc.h(range(n))
+        for k in range(n):
+            qc.rz(-2 * b, k)
+    for k in range(n):
+        qc.ry(-math.pi / 2 + alpha, k)
+    if measure:
+        qc.measure_all()
+    return qc, h, uncertainty(it)
+
+
+def conflict21_from_counts(counts: dict, h: Item, u: float, v) -> float:
+    *_, tau, lam = v
+    p = np.zeros(2 ** h.n)
+    for bs, c in counts.items():
+        p[int(bs.replace(" ", ""), 2)] += c
+    return conflict_from_probs(p / p.sum(), h, tau) + lam * u
+
+
 # ---------------------------------------------------------------------------
 # L: linear score on relation-web features
 
