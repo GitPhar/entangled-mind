@@ -651,3 +651,21 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 - own > other means source-dependent self-consistency;
 - attraction from both sources means stimulus-history serial dependence;
 - revision 1's sign-flip prediction is withdrawn.
+
+## D45 — Robustness wave, 1 of 3: direction 2 on all 40 experiment-5 items pre-registered
+
+**Date:** 2026-11-04 06:30 MST, before any call. Recorded in `experiments/gm2b-self-conditioning-40.md`, with the planted values fixed in `experiments/gm2b-planted-values.json`.
+
+**Design.** Identical to D37.
+- The 10 items already run are reused as archived; the other 30 are run now, at about $1.6.
+- Budget $2.50, enforced in code; stop on any refusal.
+
+**Planted M values for the 30 new items** come from run-1 anchor-(a) first turns identical to B0, because run 2's B0 covers only the first 10.
+
+**Reporting.** Primary on all 40, with two further sets:
+- replication on the 30 new items;
+- sensitivity without h191 and h261.
+
+Concentration and within-order SD are reported alongside.
+
+**Code.** `gm2_self_conditioning.analyse` was split into `compute()` plus the writer. The output is unchanged, and `reproduce.py` still matches.

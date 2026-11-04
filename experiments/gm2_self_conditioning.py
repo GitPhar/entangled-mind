@@ -85,7 +85,12 @@ def item_boot(items, fn, seed, n=2000):
 def analyse():
     conv = json.loads(CACHE.read_text())
     planted = json.loads(PLANTED.read_text())["items"]
-    items = list(planted)
+    res = compute(conv, planted, list(planted))
+    OUT_JSON.write_text(json.dumps(res, indent=1))
+    write_md(res)
+
+
+def compute(conv, planted, items):
     # gate: permutation test of sum MS_between in the shown condition
     rng = np.random.default_rng(PERM_SEED)
     data = {q: [finals(conv, q, f"O{i}", "shown") for i in (1, 2, 3, 4)] for q in items}
@@ -148,8 +153,7 @@ def analyse():
     else:
         reading = f"leaning {'question-driven' if res['R'][0] >= 0.5 else 'self-anchoring'} (CI straddles 0.5; not decisive)"
     res["reading"] = reading
-    OUT_JSON.write_text(json.dumps(res, indent=1))
-    write_md(res)
+    return res
 
 
 def write_md(r):
