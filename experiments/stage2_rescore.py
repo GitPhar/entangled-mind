@@ -77,6 +77,12 @@ def boot_auroc(pos: list[float], neg: list[float], seed: int = BOOT_SEED) -> tup
     return point, float(lo), float(hi)
 
 
+def _single_thread():
+    """Worker initialiser: one Aer thread per process, so 10 workers do not oversubscribe the CPU."""
+    backends.noisy_simulator().set_options(max_parallel_threads=1, max_parallel_experiments=1,
+                                           max_parallel_shots=1)
+
+
 def _null_item(args):
     """Conflict scores of one test item under each of its shuffles (noisy simulator)."""
     rec, seeds = args
@@ -96,7 +102,7 @@ def d_null(recs: dict, test: list[str]) -> dict:
     # shuffle k of item q uses seed NULL_SEED + 1000 * k + item number: independent across shuffles and items
     jobs = [(recs[q], [NULL_SEED + 1000 * k + int(q[1:]) for k in range(N_NULL)]) for q in todo]
     t0 = time.time()
-    with ProcessPoolExecutor(max_workers=10) as ex:
+    with ProcessPoolExecutor(max_workers=11, initializer=_single_thread) as ex:
         for q, scores in ex.map(_null_item, jobs):
             cache[q] = scores
             NULL_CACHE.write_text(json.dumps(cache))
