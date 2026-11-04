@@ -481,3 +481,10 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 **Date:** 2026-11-04 03:55 MST, before the analysis. Sean's overnight brief runs six gold-map directions in order, each pre-registered in its own commit before its first call, every new design on one scale direction only, with stop-on-refusal for every call.
 - **Direction 9** (`experiments/gm9-nsit.md`) is a $0 analysis of the archived experiment 5 conversations. It uses anchor (a) only, six NSIT families, a within-cell permutation test, and Holm correction.
 - **Results files** for the overnight run open with a hand-written "In plain English" section. `reproduce.py` excludes that section from its comparison, as it already does for "## Reading".
+
+## D35 — Overnight run, 2 of 6: direction 3's free look (anchor-direction gap against errors) pre-registered
+
+**Date:** 2026-11-04 04:05 MST, before the analysis.
+- `experiments/gm3a-anchor-gap.md`: a $0 analysis of the archived experiment-5 B0 conversations.
+- **Primary score:** the per-item |gap| between the two scale directions. **Primary statistic:** its AUROC for the model's hard-pool errors.
+- This is the only overnight analysis that uses both scale directions, because the gap between them is its subject. The directions are compared, never pooled.
