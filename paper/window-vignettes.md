@@ -139,3 +139,35 @@ The vignettes above show two of the mechanisms behind this.
 - It cannot turn same-side inconsistency into opposition (W2).
 
 The quantum layer does not merely fail to add information. On this pool it removes information that its own unentangled input already held.
+
+---
+
+## Note W4. Hedges are forced into camps: a candidate mechanism for the signal loss (flagged for version two)
+
+**Exploratory, not pre-registered.** Everything in this note was found by looking at the window and then at the run-2 test set after the Stage 2 results were known. It is a hypothesis for the version-two design, not a finding.
+
+**The observation (h046, claim 6).**
+- **The claim.** "The writer relies on memory for the exact day and month, so is not fully certain." Confidence 0.80, lean 0: a *hedge*, a statement of uncertainty that takes no side.
+- **The encoding commits it anyway.** Its confidence sets its tilt toward the equator (θ = 0.80 · π/2), so it starts with amplitude 0.951. That treats "confident that I am unsure" as "strongly committed".
+- **One weak relation picks its side.** Its only relation is a weak contradiction (J = −0.2) with claim 3, "Firozabad became a separate district on 13 May 1989", which leans no. The phase solver therefore places the hedge opposite claim 3, on the yes side, at 43°.
+- **The state keeps pushing it.** Across the stages its probability of a yes outcome goes 0.846 at encode, 0.865 after entangling, 0.966 after evolve 1, and **0.970** after evolve 2, with phase 43° → 39° → 9° → −6°.
+- **The result.** In the measured state, the most strongly yes-committed claim is the model's remark about its own uncertain memory, at amplitude 0.945. The two claims that actually argue for yes (claims 0 and 1) have shrunk to amplitude 0.40 and 0.36.
+
+In the window (`?item=h046&stage=0` to `stage=3`), the dotted gold ring marks the hedge, and the point can be watched rotating into the yes camp.
+
+**Why it matters only indirectly.** The readout weights each claim's vote by |lean|, so a hedge has **weight zero** in the vote and cannot add to the conflict score directly. It acts through the dynamics instead. During the RZZ preparation and the Ising-style evolution it is a fully committed spin, coupled to its neighbours like any other claim. The encoding therefore does two things to a hedge, both plausibly harmful:
+- **it discards** whatever the hedge says about the model's uncertainty, because the hedge carries no weight in the vote;
+- **it distorts** the hedge's neighbours, by coupling them to a confident spin whose side was chosen by the phase solver rather than by the model.
+
+**How common it is (run-2 test set, 40 wrong and 40 right items).**
+- Hedges are 97 of the 697 claims, and appear in 52 of the 80 items.
+- **The phase solver commits them at encode.** 99% of hedges sit at |2·P(yes) − 1| ≥ 0.5 before any evolution (mean 0.94). Evolution loosens them somewhat (mean 0.67 after evolve 2; 92% still ≥ 0.5). h046's claim 6, which evolution pushes further out, is the vivid case rather than the typical one. The forcing happens mainly in the phase solve.
+- **Hedges track errors.** There are 72 hedges in the 40 wrong items against 25 in the 40 right items. 35 of 40 wrong items contain at least one hedge, against 17 of 40 right items.
+- **A plain hedge count separates wrong from right items at AUROC 0.78** (hedge fraction: 0.77). That is better than any pre-registered arm on this set (best: C at 0.68). This number was computed on the test set after the fact. It must be treated as a hypothesis until it holds on held-out data.
+
+**Candidate mechanism.** Part of the error signal in the model's explanations lives in its hedges: how often it says, in effect, "I am not sure". The version-one encoding gives hedges zero weight in the vote, turns their confidence into commitment, and lets one weak relation assign them a side. That loses the signal, and may corrupt neighbouring claims. It is consistent with Table W1, where the product state already scores 0.63 and the coupled steps take it down to 0.49. It has not been tested as a cause.
+
+**Flagged for the version-two design (not yet pre-registered).**
+1. **A pre-registered hedge baseline.** Add hedge count (or fraction) as a classical arm and test it on the locked v2 split, untouched by this analysis. If it beats the learned quantum encoding (A2), the quantum layer has more to answer for. The current linear baseline L does not include it, although its "mean |lean|" feature overlaps with it.
+2. **An honest encoding of hedges.** In A2 *and* its classical twin F2 alike, map a hedge to an uncommitted state (amplitude near 0, or a separate "uncertainty" weight) instead of letting its confidence set its commitment and the phase solver set its side. Compare with the version-one treatment as a pre-registered ablation.
+3. **Report it in the window.** The hedge ring stays on through every stage, so any version-two encoding can be checked by eye for the same forcing.
