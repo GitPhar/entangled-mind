@@ -235,8 +235,14 @@ All models share a rating link. A model probability p maps to a predicted rating
 
 **State.** Arm A's preparation and entangling layer from `src/entangled_mind/encoder.py`:
 - RY(θ_k = confidence·π/2) RZ(φ_k) on each claim's qubit, then RZZ(κ·J_ij) on every related pair.
-- φ is the XY-energy phase solution with the D15 frame pin applied (`pin_frame(solve_phases(web), web)`).
-- No-lean claims take the version 2.1 honest-hedge orientation φ = π/2 (Addendum B).
+- **Phases, in this order:**
+  1. Set aside the no-lean claims (|lean| ≤ 0.1).
+  2. Solve the XY energy on the leaning claims and their mutual edges with the **anchored** solver, `encoder.solve_phases_anchored`. This is D15's working correction: lean anchors are scaled by λ = max(1, max_k Σ_j |J_kj|) in the phase solve only, which cuts the share of off-axis camps from 20% to 7%.
+  3. Set every no-lean claim to φ = π/2 with lean 0. This is the version 2.1 honest-hedge orientation (Addendum B, `v2.hedge_phases`). The hedges keep their couplings in the circuit.
+
+  No existing function composes these steps, so the runner will implement this order and test it against both parents: with no hedges it must equal `solve_phases_anchored`, and with a plain solve it must equal `hedge_phases`.
+- **Why the anchored solver and not `pin_frame`.** D15 found that the drift is camps pulled *together*, not a rotated frame, so the rigid rotation of `pin_frame` leaves the off-axis share at 20%. Here the off-axis angle Δφ_k is itself the predicted source of order effects. Solver drift would therefore plant spurious "quantum" predictions, and the anchored solver keeps Δφ_k down to what the relation web genuinely forces.
+- **Sensitivity, reported and not part of the verdict:** A5 refitted with the plain v1 solver (`solve_phases`), the encoding of every earlier arm.
 - All claims of the item are in the state, not just the four that are asked about.
 
 **Measurement operators.**
@@ -421,7 +427,7 @@ A "quantum supported" verdict would mean the quantum *probability* model describ
 3. **Silent consideration.** The model may weigh every claim while reading the question, as with the silent categorisation in Busemeyer et al. (2009). Then omissions do nothing. This is visible as X1–X4 ≈ O1, and it is reported, not explained away.
 4. **Scale and label artefacts.** These are handled by anchor reversal and by a fixed sequential presentation mode (Kreutner et al. 2025).
 5. **Equal parameter counts are not equal flexibility** (Trueblood & Busemeyer 2011). So the contest is on held-out chains and held-out items, never on in-sample fit.
-6. **Encoder choices could bias the contest toward A5.** The frame pin (D15) and the honest-hedge orientation (v2.1) apply identically to F5's priors. F5 is A5's commuting limit by construction.
+6. **Encoder choices could bias the contest toward A5.** The anchored phase solve (D15) and the honest-hedge orientation (v2.1) are fixed here, before any data, and applied identically to F5's priors. F5 is A5's commuting limit by construction. The anchored solve works *against* A5: it shrinks the off-axis angles that give A5 its order effects, so whatever non-commutation remains comes from the relation web, not from solver drift. Expect A5 and F5 to be close on most claims.
 7. **The grand-reciprocity tests do not apply.** Boyer-Kassem et al. (2016) apply them to non-degenerate projectors. Ours are degenerate (rank 2ⁿ⁻¹), so grand reciprocity is not a prediction and is not tested.
 
 ## 9. Candidate main questions (40)
