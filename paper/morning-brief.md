@@ -20,7 +20,7 @@ On Haiku, no single credence explains the different questions' answers; one fitt
 
 **After the robustness wave.**
 - **The question finding survives on 40 items.** The question alone carries roughly the whole order effect, spread across items.
-- **Format-free belief is the smaller part on Haiku.** One belief predicts a left-out format only 39% as well as that format predicts itself.
+- **Format-free belief is the smaller part on Haiku.** One belief predicts a left-out format only 39% as well as that format predicts itself (an exploratory re-analysis, D46).
 - **The model leans on its own answers.** Numbers planted as its own answer pull its re-rating at every distance tested and after three filler turns, while the same numbers credited to another person, in a differently worded prompt, have no reliable pull.
 - **The format finding is specific to Haiku**, and partly to Sonnet. On Opus's 68 statements, one belief fitted on five formats predicts the sixth at 94% of its ceiling (Q = 0.94 [0.90, 0.97], *a usable single belief*, D49), though the stricter held-out-repeats test is undecided (*mixed*). The own-record finding holds on all three models, and no self-advantage was detected on any of them.
 
@@ -92,7 +92,7 @@ On Haiku, no single credence explains the different questions' answers; one fitt
     - The visible record still makes the model look stable: 86% repeat agreement shown against 36% hidden. A planted first answer pulls the final one 0.85 points per point.
     - File: `results/gm2b-self-conditioning-40.md`.
 
-13. **One belief recovers well under half of each format (D46, $0; the test recommended below).** For each of the six formats, one belief per statement was fitted on the other five and used to predict it.
+13. **One belief recovers well under half of each format (D46, $0; exploratory re-analysis of direction 3's calls, not a frozen test).** For each of the six formats, one belief per statement was fitted on the other five and used to predict it.
     - It recovers 39% [30%, 50%] of what that format reproducibly says (mean R² 0.37, against the formats' own split-half ceilings of 0.88–0.97).
     - The pre-registered reading is *little format-free belief*, though the interval's top end (0.499) only just misses the 0.5 line for "partial".
     - The coin comparison is the least predictable (17%), the 0–100 rating the most (53%).
@@ -150,7 +150,7 @@ Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, 
 
 ## The one next test I would recommend
 
-**Done since:** the held-out-format test below ran as D46 (result 13). It reads *little format-free belief* on Haiku, *partial* on Sonnet (Q = 0.69), and was not computed on Opus.
+**Done since:** the held-out-format test below ran as D46 (result 13), an exploratory re-analysis of the archived calls. It reads *little format-free belief* on Haiku, *partial* on Sonnet (Q = 0.69), and was not computed on Opus.
 
 **Done since (D49, `a8be4b5`):** Opus's arm was completed to 68 of 80 claims. A single belief predicts each left-out format at 94% of its ceiling (Q = 0.94 [0.90, 0.97], *a usable single belief*). Kendall's W on those same claims is 0.56, 0.76 and 0.87 for Haiku, Sonnet and Opus. The paper now says the format claim is contradicted on Opus (D50). The recommendation that led to it:
 
@@ -172,7 +172,7 @@ If one latent predicts a left-out format close to that format's own ceiling, the
 
 ## Technical details
 
-Rows 1, 2, 7, 8 and 9 are exploratory re-analyses of already-opened archives, not frozen tests: their "pre-registration" is a plan committed before the analysis ran, and their "pre-registered reading" is that plan's reading.
+Rows 1, 2, 7, 8, 9 and 13 are exploratory re-analyses of already-opened archives, not frozen tests: their "pre-registration" is a plan committed before the analysis ran, and their "pre-registered reading" is that plan's reading.
 
 | # | test | pre-registration (commit) | primary statistic | pre-registered reading | cost |
 |---|---|---|---|---|---|
@@ -188,7 +188,7 @@ Rows 1, 2, 7, 8 and 9 are exploratory re-analyses of already-opened archives, no
 | 10 | biomimetic, PT+N identity | `experiments/bm2-sampling-identity.md` (D43) | split-half Z slope | +0.02 [−0.17, +0.16]: **flat**; mean Z −0.03 [−0.07, +0.00] | $0.05 |
 | 11 | biomimetic, source dependence | `experiments/bm1-serial-dependence.md` (D44) | s_own, s_own − s_other | s_own +0.42 [+0.25, +0.60], s_other +0.05; difference +0.37 [+0.17, +0.57]: **source-dependent self-consistency** | $0.24 |
 | 12 | robustness, direction 2 on 40 items | `experiments/gm2b-self-conditioning-40.md` (`4894bfc`, D45; result `758609a`) | R = OE_redacted / OE_shown | 1.23 [0.75, 2.02]: **question-driven**; 30 new 0.99 [0.51, 1.61]; without h191/h261 0.99 [0.62, 1.49]; b_MF 0.85 [0.65, 1.13] | $1.68 |
-| 13 | robustness, held-out format | `experiments/gm3c-heldout-format.md` (`1f2a837`, D46; result `52aedb6`) | mean Q = R²_cross / R²_ceiling | 0.39 [0.30, 0.50]: **little format-free belief** | $0 |
+| 13 | robustness, held-out format (*exploratory re-analysis*) | `experiments/gm3c-heldout-format.md` (`1f2a837`, D46; result `52aedb6`) | mean Q = R²_cross / R²_ceiling | 0.39 [0.30, 0.50]: **little format-free belief** | $0 |
 | 14 | robustness, source × distance × lag | `experiments/bm0-source-distance-lag.md` (`8acc007`, D47; result `e2c3b90`) | pooled u_own − u_other; β₂; lag 0 − lag 3 | +0.46 [+0.21, +0.84]; β₂ −0.99 [−1.53, −0.48], no reversal; lag −0.13 [−0.25, −0.00]: **self-consistency** | $0.50 (cap; lag arm R = 17, D47a) |
 
 **Deviations worth knowing about.**

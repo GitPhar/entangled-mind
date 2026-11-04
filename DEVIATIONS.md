@@ -1082,6 +1082,14 @@ It is to be frozen as DP2 in its own commit before any run. Nothing has been run
 
 **Not relabelled.** D46 (test F′, `gm3c`) is also an archival re-analysis of gm3b's calls; the audit counts it as the sixth of 14 with the robustness wave. The relabelling asked for covers the five overnight tests, so D46 keeps its label for now. Its own audit verdict is UNDETERMINED (`audits/gm3c-heldout-format.md`).
 
+## D54a — D46 (test F′) relabelled as an exploratory re-analysis too
+
+**Date:** 2026-11-04 13:48 MST, at the user's request after D54.
+
+D46 re-analyses direction 3's six-format calls (D38), which had already been opened and analysed. Its plan was frozen with the pairwise ρ and split-half reliabilities already known (`audits/gm3c-heldout-format.md`). It is now labelled the same way as D34, D35 and D40–D42: an exploratory re-analysis, not a frozen test.
+- **Where:** README (the format bullet of the overnight section), the morning brief (result 13's heading, the "Done since" note, technical-table row 13 and the note above the table) and `paper/record.md` (its row, the D54 row and the Standing section).
+- **What did not change:** the numbers. Nor did D49, which applied test F′ to Opus's newly collected calls, under a rule frozen before those calls existed.
+
 ---
 
 # Probes branch (`probes`): entry DP1
