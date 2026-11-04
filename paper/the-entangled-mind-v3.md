@@ -1,0 +1,625 @@
+# The Entangled Mind: Quantum Cognition as a Cognitive Architecture for Language Models
+
+**Sean Pharris**
+Independent Researcher, Colorado Springs, Colorado
+Version 3, November 4, 2026 (version 2: November 3, 2026; version 1: October 25, 2026)
+
+**Author note.** Sean Pharris is an independent researcher with a background in psychology and philosophy and professional experience in prompt engineering and AI pipeline development.
+
+**Versions.**
+- Version 1 was a pre-registration-style proposal.
+- Version 2 reported the first experiments.
+- This version reports everything on the project's `main` branch as of the night of November 3–4, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the halted second-model replication.
+- It ends with the two experiments still to run, both pre-registered as drafts: experiment 4 run 3 and experiment 5.
+
+**Number conventions.**
+- **Results** are quoted verbatim from the files in `results/` of the project repository (https://github.com/GitPhar/entangled-mind).
+- **Design constants** are cited to the pre-registration files, `DEVIATIONS.md` or the code.
+- **Results that do not exist** are marked [NOT RUN] or [HALTED].
+- **Exploratory** analyses (anything not pre-registered) are labelled as such wherever they appear.
+- **Other people's numbers** come from the cited papers. Where we recomputed them, we say so.
+
+Correspondence: seanm.pharris@gmail.com.
+
+---
+
+## Abstract
+
+Do machines need quantum minds? Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. We built one into a machine that judges, and tested it against classical twins under pre-registered rules.
+
+**Pipeline.**
+- For each yes/no question, a language model (`claude-haiku-5-5`) answers and briefly explains its considerations for and against.
+- The claims in that explanation are extracted, and every pair is judged to support, contradict or be unrelated to the other.
+- The resulting web is encoded as one entangled state on 5–16 qubits, evolved briefly, and measured in a "yes"-oriented basis.
+
+**Error prediction: negative, and robust.** The main question was whether the quantum state flags the model's wrong answers better than classical controls.
+- **The fixed encoding fails.**
+  - On an 80-item test set (40 wrong, 40 right), the entangled readout scored AUROC 0.55 [0.41, 0.67].
+  - The same circuit without entangling gates scored 0.68, a shuffled relation web 0.65, and a plain contradiction count 0.64.
+  - The model's own stated confidence scored 0.82 [0.71, 0.90], better than every structural arm.
+  - The real relation web scored below 99% of 200 random webs of the same strengths.
+- **The learned encodings tie their classical twins.**
+  - Version 2: the learned encoding (9 parameters) scored 0.83 against 0.84 for a classical twin with the same parameters and fitting rule. Its couplings fitted small, and the fit did not depend on them.
+  - Version 2.1, which stops forcing hedging claims into camps: 0.84 against 0.82. Both fits set the new hedge term's weight to 0, and simulated hardware noise changed nothing.
+  - Self-reported confidence scored 0.83 on the same locked test set.
+
+**Hardware: positive, and narrow.**
+- On IBM's `ibm_fez`, a pre-registered witness certified that the encoded belief states are physically entangled: 3 of 3 items, negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
+- Calibration logged at job time shows median CZ error of about 2 × 10⁻³ and median T₁ of 134–146 µs.
+- The device washed the states out more than its noise model predicts.
+
+**Sequential judgment: open.** The evidence for quantum cognition is about one judgment changing the next.
+- **Yes/no answers.** The model is near-deterministic: in experiment 3 it gave the same answer in all 5 runs on 85% of items, so order effects were undetectable.
+- **Graded ratings.**
+  - Experiment 4 found single conjunction fallacies (7 of 16 items) and no double fallacies.
+  - Order effects of about +0.10 satisfied the Yearsley–Trueblood bound R2 on 3 of 3 scored items.
+  - The pre-registered estimator meant to separate a quantum account from anchoring on the first answer turned out to be close to circular, so the mechanism is undetermined.
+
+**What remains.** Two experiments are pre-registered as drafts and not yet run:
+- a run that moves the first rating independently of the item;
+- a test of sequential, context-dependent judgment with parameter-free quantum signatures (the QQ equality, and interference of a choice on later confidence).
+
+**Keywords:** quantum cognition, entanglement, language models, error prediction, order effects, pre-registration, classical twin, entanglement witness
+
+---
+
+## 1. Introduction
+
+Physics has a mathematics of states that cannot be decomposed into parts: entanglement. Psychology has three decades of evidence that human judgment departs from classical probability in ways that mathematics describes well (Busemeyer & Bruza, 2012; Pothos & Busemeyer, 2013; Bruza et al., 2015). Artificial intelligence has built machines that produce something like deliberation, and has built them on classical probability.
+
+The first version of this project proposed putting the three in one room. Take the competing considerations behind a language model's answer, hold them as one entangled state rather than a list of weights, let the state evolve under their mutual support and contradiction, and read the answer from a measurement. It argued this could change how a machine judges, and could give quantum cognition its first working mechanism rather than a descriptive fit. It also said that "a clean negative result is still a contribution."
+
+This version reports a clean negative result on the question the project was built to answer, and an open question in the place it should have looked first.
+
+**The negative result.** As an error detector, the quantum state adds nothing.
+- With fixed constants, it is worse than every classical control.
+- With learned constants, it ties a classical twin given the same parameters and fitting rule.
+- In every comparison, the model's own one-line statement of confidence matches or beats both.
+
+The search did not stop at the first failure. It went from fixed to learned encodings, then to an "honest hedge" encoding, then to a second base model, and the second model was halted by a refusal (Section 5.11).
+
+**The open question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our sequential experiments so far were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. The last section describes the two pre-registered experiments that test the sequential question properly.
+
+---
+
+## 2. Related work
+
+A fuller version, with every paper's design, numbers and limitations, is in `paper/related-work.md`. The sequential-judgment literature behind experiment 5 is summarised in `experiments/exp5-sequential-judgment.md`, §2.
+
+**Order effects and the QQ equality.** Asking two questions in different orders changes people's answers.
+- Wang and Busemeyer (2013) derived a parameter-free constraint that projective quantum models impose on questions asked back to back: the QQ equality. Four Gallup surveys satisfied it (Clinton/Gore q = −0.003, Gingrich/Dole −0.003, White/Black −0.019). Rose/Jackson, where background text intervenes, failed as predicted (q = +0.151).
+- Wang, Solloway, Shiffrin and Busemeyer (2014) extended this to about 70 national surveys. Order effects were present, and q did not deviate from zero.
+- Boyer-Kassem, Duchêne and Guerci (2016a) showed that the same datasets violate Grand Reciprocity, a stronger condition every non-degenerate quantum model must meet.
+- Khrennikov, Basieva, Dzhafarov and Busemeyer (2014) showed that order effects combined with repeat-consistency are incompatible with projective measurement. Non-projective quantum instruments resolve this (Ozawa & Khrennikov, 2020, 2021; Fuyama, Khrennikov & Ozawa, 2025), but at the cost of the QQ equality's predictive edge.
+
+**Sequences of judgments.** The strongest human evidence for quantum models is about what one judgment does to the next.
+- **Intermediate decisions.** Asking for a categorisation first changed a later decision, and violated the law of total probability by 10 points for one face type (Busemeyer, Wang & Lambert-Mogiliansky, 2009).
+- **The disjunction effect.** In the prisoner's dilemma, people defect less when the opponent's move is unknown than in either known condition. Any Markov model must treat the unknown case as a mixture of the known cases, so it cannot produce this (Pothos & Busemeyer, 2009).
+- **Choice and confidence.** A choice made in the middle of random-dot evidence accumulation made later confidence less extreme (interference coefficient −0.11 [−0.18, −0.04]). The quantum random walk was favoured over a Markov random walk with the same parameters by a group log Bayes factor of 1,713 (Kvam, Pleskac, Yu & Busemeyer, 2015).
+- **Evidence order.** Order effects in legal and medical inference fitted a quantum model as well as or better than parameter-matched belief-adjustment models (Trueblood & Busemeyer, 2011; Hogarth & Einhorn, 1992).
+- **A counterpoint.** Busemeyer, Wang and Townsend (2006) found that a Markov random walk fitted response-time data better than its quantum counterpart.
+
+**Conjunction fallacies and co-occurrence.** In probability formats, 85–90% of people rank "Linda is a bank teller and is active in the feminist movement" above "Linda is a bank teller" (Tversky & Kahneman, 1983). Frequency formats cut this to 0–25% (Fiedler, 1988; Hertwig & Gigerenzer, 1999).
+- The quantum account explains single fallacies and forbids double ones (Busemeyer, Pothos, Franco & Trueblood, 2011).
+- Yearsley and Trueblood (2018) predicted that order effects and fallacies should co-occur. In 1,200 participants they found recency effects in all 10 comparisons, single fallacies in 37 of 40, and no double fallacies.
+
+**The flexibility critique.** The commentaries on Pothos and Busemeyer (2013) argued that the freedom to choose compatibility, dimension, state placement and processing order lets quantum models fit opposite patterns. We take this as the design constraint for our work. Our state is built from the model's claims before any outcome is seen, and every quantum arm has a classical twin.
+
+**Language models.**
+- **Bell-type values and coherence.**
+  - Aerts et al. (2025/2026) report CHSH values up to 4 for chat models. We recomputed their tables (version 2 of this paper), and under Contextuality-by-Default every one of those datasets, human and model, is non-contextual.
+  - LLM probability judgments break probability identities (Zhu & Griffiths, 2024) and the law of total probability (Wolf et al., 2026).
+  - GPT-5 is nearly coherent, and its conjunction fallacies are almost all single (Imannezhad, Pothos & Wills, 2026).
+- **Sequential effects.**
+  - Evidence order and an intermediate rating shift final ratings in GPT-4o and GPT-5.2, though not in the human pattern (Bessis et al., 2026).
+  - Earlier outputs left in context act as anchors (Echterhoff et al., 2024).
+  - Measurement artefacts are large: answer-option position and label effects (Dominguez-Olmedo, Hardt & Mendler-Dünner, 2024; Rupprecht, Ahnert & Strohmaier, 2025), and dependence on presentation mode (Kreutner et al., 2025).
+- **The closest precedent.** Kang (2026) audited an LLM's sequential answers against the QQ equality and found near-deterministic distributions on 17 of 18 pairs, which is the saturation that also limited our experiments 3 and 4.
+
+**Where this leaves us.** No study we found gives a dispersed, counterbalanced test of the QQ equality or of choice-on-confidence interference in a language model.
+
+---
+
+## 3. Method as run
+
+### 3.1 Items and base models
+
+| pool | items | source | base model | wrong | file |
+|---|---|---|---|---|---|
+| standard (run 1) | 60 original + 75 computational extension (D4) | author-written puzzles and misconceptions; code-verified computations | `claude-sonnet-5-5`, effort `xhigh` | **0** of 117 answered | `results/pool-run-1.md` |
+| standard (run 2) | 125 | as above | `claude-haiku-5-5`, default effort (D5) | **4** of 125 | `results/pool-run-2.md` |
+| hard (run 3) | 300 (D6) | 120 SimpleQA, 120 MMLU-Pro physics/chemistry, 60 author-written claims | `claude-haiku-5-5` | **44** of 300 | `results/pool-run-3.md` |
+| training, v2 (run 5) | 1,048 (D9) | SimpleQA, MMLU-Pro biology/engineering/physics/chemistry, computed puzzles, verified claims | `claude-haiku-5-5` | **158** of 1,048 | `results/pool-run-5.md` |
+| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | [HALTED] after 102 items, 12 wrong (D20) | `results/refusal-sonnet-replication.md` |
+
+Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04, and the halted replication $1.39.
+
+### 3.2 Pipeline
+
+For every question:
+1. **Base call** (`claude-haiku-5-5`, adaptive thinking). The model answers with a brief explanation of the main considerations for and against, ending in `FINAL ANSWER: YES/NO`. Thinking content is archived and never sent to any other call (D1–D3).
+2. **Extractor** (`claude-sonnet-5-5`). The visible answer is presented as a document, and its distinct claims are listed as `{text, confidence, lean}`, with 5–16 claims kept.
+3. **Relation judge** (`claude-haiku-5-5`). Each pair of claims is labelled `supports`, `contradicts` or `unrelated`, with a strength.
+
+### 3.3 Encoding and readout (version one, pre-registered, fixed)
+
+- **Qubits:** one per claim.
+- **Preparation:** RY(θ) with θ = confidence · π/2, then RZ(φ). The phases φ minimise the XY energy E(φ) = −Σ J_ij cos(φ_i − φ_j) − Σ lean_k cos φ_k. Phase 0 is "yes".
+- **Entangling:** RZZ(κ · J_ij) on every related pair, κ = π/4.
+- **Evolution:** N = 2 Trotter steps of a problem Hamiltonian, −Σ J_ij X_i X_j − Σ lean_i X_i, plus a mixer, −Σ Z_i, with γ₀ = 0.5 and β₀ = 0.4.
+- **Measurement:** X basis, 1,000 shots.
+- **Readout:** a weighted vote m = Σ w_k x_k, with w_k ∝ |lean_k|.
+  - Judgment = yes if P(m > 0) ≥ 0.5.
+  - Conflict score = 2 · min(P(m ≥ 1/3), P(m ≤ −1/3)).
+
+**A known defect (D15, found after all pre-registered runs).** The phase solve's lean anchors are weak against the relation couplings, so in 20% of run-2 items the yes camp sits more than 30° off the readout axis.
+- A stronger-anchor solve (`solve_phases_anchored`) fixes most of this.
+- It leaves the error-detection AUROCs unchanged: arm A0 goes from 0.49 to 0.47 and arm C from 0.68 to 0.67 (exploratory, `results/frame-fix-check.md`).
+- Every archived result uses the solver as run.
+
+### 3.4 Arms
+
+| arm | what runs | conflict / error score |
+|---|---|---|
+| **A** | entangled circuit, noisy Aer simulator built from `ibm_fez` | as above |
+| **B** | the identical transpiled circuit on `ibm_fez` | as above (run only if the simulator gate opens) |
+| **C** | A with every two-qubit term removed | as above |
+| **D** | A built from a shuffled relation web (same strengths, random pairs) | as above; also a 200-shuffle null distribution |
+| **E** | classical, no qubits | total contradiction strength |
+| **A0** | A on a noiseless simulator | as above |
+| **F** | classical Ising twin: same graph, couplings and fields, exact enumeration | share of the near-minimum energy landscape in strongly opposed camps |
+| **G** | the base model's self-reported confidence (0–100) in its answer | 100 − confidence |
+
+Every arm's flag threshold is the 75th percentile of its own scores on a calibration pool. Arms F and G, bootstrap intervals and the shuffle null were pre-registered in Addendum A, after run 2 and before any of those numbers existed.
+
+### 3.5 Version two: learned encoding, and version 2.1
+
+**Version two.**
+- **The three models** (`experiments/preregistration-v2.md`, D12), with 9 parameters each including the flag threshold:
+  - **A2:** a learned quantum encoding (angle scale, separate support and contradiction coupling scales, Trotter steps N ∈ {0,…,4}, two step scales, a readout-basis angle, the camp threshold τ).
+  - **F2:** a learned classical twin (the same graph and priors, heat-bath dynamics, no amplitudes).
+  - **L:** a linear score on 8 relation-web features.
+- **Fitting:** the same rule for all three. 400 random draws, then hill-climbing of the 10 best for 60 steps on train AUROC, selection on validation AUROC, and a Youden threshold on train.
+- **Split:** 60/20/20 with seed 2026. Train has 629 items (95 wrong), validation 210 (31 wrong) and the locked test set 209 (32 wrong). The split was locked before any fitting.
+- **Pass criterion:** A2's lower 95% bound must exceed F2's upper 95% bound on the locked test set.
+- **Held-out set:** the run-2 hard pool is scored once as a secondary, held-out set.
+
+**Version 2.1, the "honest hedge"** (Addenda B and C, D14, D16).
+- Claims with no lean (|lean| ≤ 0.1) are no longer pulled into a camp by the phase solve. They are fixed at phase π/2, are left out of the solve, and keep their couplings.
+- A separate uncertainty term, the hedges' share of confidence weighted by a learned λ_h ∈ [0, 2], is added to both A2.1 and F2.1. They have 10 parameters each.
+- **Fitting and scoring:** both are fitted noiseless. A2.1 is also scored on the noisy `ibm_fez` simulator. The pass criterion is the same as v2's.
+- **H, a hedge baseline with no fitted parameters,** was pre-registered alongside v2.1.
+
+### 3.6 Hardware
+
+- **Backend:** IBM `ibm_fez` (Heron r2, 156 qubits), Open Plan, with a project hard stop at 420 QPU s.
+- **Stage 1:** one circuit, to test the hardware path.
+- **Entanglement witness** (`experiments/witness.md`, D8):
+  - For each of 3 run-2 test items, take the most entangled related pair. Run two-qubit tomography (9 Pauli settings plus 4 readout-calibration circuits, 4,000 shots each) and compute negativity, with 500 bootstrap resamples.
+  - An item is certified if the 95% lower bound is above 0; the run succeeds if at least 2 of 3 are certified.
+- **Calibration at job time.** Read afterwards from `backend.properties(datetime=…)` for the physical qubits and CZ pairs each as-run circuit used (`results/ibm-calibration.md`). The exact as-run gate lists are exported from IBM's job records (`window/data/hardware/`).
+
+### 3.7 Experiments 3 and 4
+
+**Experiment 3: order effects in yes/no answers** (`experiments/exp3-order-effects.md`, D13).
+- **Items and pairs:** 40 run-2 test items, with up to 6 claim pairs each.
+- **Conversations:** three turns: consider claim *i*, consider claim *j*, answer the question. 5 conversations per pair and order, plus 5 baselines.
+- **Predictions:**
+  - Quantum: "considering" a claim is a local evolution, and the predicted order effect comes from non-commuting evolutions.
+  - Classical: sequential heat-bath updates of the twin.
+- **Primary test:** Spearman ρ(quantum prediction, observed) against ρ(classical prediction, observed).
+
+**Experiment 4: the Yearsley–Trueblood test** (`experiments/exp4-yearsley-trueblood.md`, D11, D17).
+- **Items:** 16 conjunction items: Linda and three variants, a name-swapped Linda, and 8 author-written items.
+- **Run 1, in two phases:**
+  - **Phase 1:** graded 0–100 ratings of P(X), P(Y) and P(X and Y) in both wordings.
+  - **Phase 2:** on the items with a fallacy, a binary forced-branch QQ audit.
+- **Run 2:** graded ratings in both orders (X → XY, Y → XY, X → Y, Y → X), with 20 repeats per cell.
+- **Rules:** R1 (a fallacy needs an order effect); R2 (the order effect on the conjunction is at least the fallacy); R3 (no double fallacies).
+- **Reading R2:** meeting R2 is consistent with the quantum model *or* a sequential-update classical model. It rules out only a static classical twin (D11).
+
+---
+
+## 4. Pre-registration and deviations
+
+The pre-registrations were committed before the data they govern (`experiments/preregistration.md`, `preregistration-v2.md`, `exp3-order-effects.md`, `exp4-yearsley-trueblood.md`). `DEVIATIONS.md` records every change, with its date and reason.
+
+| | what changed | why | effect on interpretation |
+|---|---|---|---|
+| **D1–D3** | Claims come from the model's *visible* explanation, not its hidden thinking. | The API's `reasoning_extraction` safeguard refused two designs. We redesigned rather than route around it. | Every result concerns the reasoning the model wrote down. |
+| **D4–D6** | Computational extension; base model changed to `claude-haiku-5-5`; 300-item hard pool. | Sonnet made no errors, and Haiku few, on the standard pool. | Errors are mostly ignorance (SimpleQA) and multi-step science. |
+| **D7** | Arms F and G, bootstrap intervals, the 200-shuffle null (Addendum A). | Added after run 2, before any F, G or null number existed. | Reported as run 2b. |
+| **D8** | Witness readout calibration built on the measured physical qubits. | The transpiler could move calibration circuits elsewhere. | None. |
+| **D9, D10** | 1,048-item training pool; QPU-seconds ledger fixed. | v2 needs separate training data; a parsing bug. | None. |
+| **D11** | Experiment 4 pre-registered; R2 wording corrected before any call. | R2 is not unique to the quantum model. | R2 rules out only the static twin. |
+| **D12** | Version two pre-registered; pass criterion read as non-overlapping intervals; fitting on exact noiseless scores. | Before any fitting. | The strongest version of the quantum model is tested. |
+| **D13** | Experiment 3 implementation choices. | Logged before any result. | None. |
+| **D14** | Hedge baseline H and the v2.1 honest hedge. | Prompted by an exploratory window observation (W4); added before any v2 test evaluation. | The run-2 held-out set is not independent of the suggestion; the locked test set is. |
+| **D15** | The phase solver's frame drifts off axis; a stronger-anchor correction was characterised. | Found by inspecting the window. | Archived results keep the as-run solver; AUROCs are unchanged by the fix. |
+| **D16** | v2.1 fitted noiseless, evaluated noiseless and on the noisy simulator. | Before any v2.1 fit. | The pass criterion uses the noiseless comparison. |
+| **D17** | Experiment 4 run 2, graded, pre-registered; temperature cannot be set for this model. | Run 1's binary phase saturated. | Graded ratings at the default temperature of 1.0. |
+| **D18** | Second base model (`claude-sonnet-5-5`) replication set up. | To test whether results depend on one base model. | — |
+| **D19** | The pre-registered anchoring estimator in experiment 4 run 2 is near-tautological. | Logged after run 2's results. | The run's pre-registered verdict stands but does not show anchoring; the mechanism is undetermined. |
+| **D20** | Sonnet replication stopped on a `reasoning_extraction` refusal of the extractor. | The project's rule: stop at once, reword nothing, retry nothing. | The replication has no results. |
+
+**On sequencing.** The analysis grew in stages:
+- Addendum A came after run 2.
+- Version two came after run 2b.
+- v2.1 came after an exploratory observation.
+- Experiment 4's graded run came after run 1 saturated.
+
+Each addition was committed before its data existed. Even so, every addition after run 2 was designed knowing that run 2 had failed.
+
+---
+
+## 5. Results
+
+### 5.1 Stage 1: the hardware path works
+
+From `results/stage1-run-1.md`.
+- **The item:** `q01` (bat and ball), 9 qubits, 33 RZZ gates and N = 0.
+- **The circuit:** transpiled for `ibm_fez` to depth 208 with 117 CZ gates. The exact as-run circuit, exported from the job record, has the same counts.
+- **The job:** it waited 2 h 50 min in the queue and used 2 QPU s.
+
+| run | P(yes) | judgment | conflict score | distinct bitstrings |
+|---|---|---|---|---|
+| ideal_sim | 0.294 | no | 0.276 | 235 |
+| noisy_sim | 0.251 | no | 0.276 | 284 |
+| hardware | 0.502 | yes | 0.666 | 336 |
+
+Hardware washed the state out far more than the `ibm_fez` noise model predicts. Calibration at job time is in Section 5.7.
+
+### 5.2 Stage 2, run 1: standard pool
+
+From `results/stage2-run-1.md`, with 4 wrong and 10 hard-right items.
+- **H1** passes (0.86).
+- **H2** is underpowered, with only 4 wrong items.
+- **H3** is falsified: A 0.45, C 0.51.
+- **H4** fails: A 0.45, D 0.42.
+- Contradiction strength E scored 0.69.
+
+### 5.3 Stage 2, runs 2 and 2b: hard pool, 40 wrong + 40 right
+
+From `results/stage2-run-2.md` and `results/stage2-run-2b.md`. The calibration pool has 220 items.
+
+| arm | wrong flagged (of 40) | right flagged (of 40) | AUROC test [95% bootstrap CI] |
+|---|---|---|---|
+| A  entangled, noisy sim | 10 | 9 | 0.55 [0.41, 0.67] |
+| B  entangled, real hardware | not run: simulator gate not met | | |
+| C  no entangling gates | 21 | 9 | 0.68 [0.57, 0.79] |
+| D  shuffled relation web (one shuffle) | 17 | 11 | 0.65 [0.52, 0.76] |
+| E  classical contradiction strength | 18 | 10 | 0.64 [0.52, 0.75] |
+| F  classical Ising twin | 0 | 0 | 0.50 [0.50, 0.50] |
+| **G  self-reported confidence** | **30** | **12** | **0.82 [0.71, 0.90]** |
+| A0 entangled, noiseless | 9 | 11 | 0.49 [0.36, 0.62] |
+
+- **H2 fails**, both under its original controls and with F and G held to the same bar.
+- **H3 and H4 are falsified.**
+- **The model's own stated confidence is the best error signal by a wide margin.**
+- **The real relation web is worse than random ones.** 200 shuffles of each item's web (the same strengths on random pairs) give a null AUROC with mean 0.62 and central 95% range [0.57, 0.68]. Arm A's 0.55 is below 99% of them (p = 0.99).
+- **Arm F is degenerate, as pre-registered.** Its near-minimum-energy window holds 1–6 configurations per item and never contains both camps, so every score is 0. It is reported as is. Redefining F after seeing this would be post hoc.
+
+### 5.4 Split analysis (run 2, nothing refitted)
+
+From `results/stage2-run-2-split.md`, using each arm's existing threshold. The groups are small, so read the intervals as descriptive.
+
+| group (wrong / right) | A | C | D | E | G |
+|---|---|---|---|---|---|
+| SimpleQA (22 / 19) | 0.53 | 0.72 | 0.61 | 0.58 | **0.74** |
+| science (18 / 16) | 0.56 | 0.61 | 0.67 | 0.72 | **0.89** |
+| ≥ 3 contradictions (29 / 24) | 0.52 | 0.65 | 0.68 | 0.63 | **0.75** |
+| < 3 contradictions (11 / 16) | 0.63 | 0.75 | 0.58 | 0.68 | **0.93** |
+
+- Self-reported confidence is the best arm in every group.
+- The entangled readout is near chance in every group.
+- Items whose webs contain many contradictions, where an entangled representation should matter most, are not an exception.
+
+### 5.5 Version two: learned encoding
+
+From `results/v2-run-1.md`. Locked test set: 32 wrong, 177 right.
+
+| model | locked test AUROC [95% CI] | run-2 held-out AUROC [95% CI] |
+|---|---|---|
+| A2 learned quantum encoding | 0.83 [0.75, 0.90] | 0.82 [0.71, 0.91] |
+| F2 learned classical twin | 0.84 [0.78, 0.89] | 0.71 [0.59, 0.82] |
+| L relation-web features (linear) | 0.79 [0.70, 0.86] | 0.66 [0.53, 0.77] |
+| G self-reported confidence | 0.83 [0.78, 0.89] | 0.82 [0.71, 0.90] |
+| H hedge baseline (no fitting) | 0.67 [0.57, 0.76] | 0.77 [0.66, 0.87] |
+
+- **The primary criterion is not met. The learned quantum encoding ties its classical twin.** The paired A2 − F2 difference is −0.007 [−0.079, +0.062].
+- **The fit made no use of the couplings.** A2's coupling scales fitted to k_sup = 0.12 and k_con = 0.21, against 1 in version one, with one Trotter step. Other climbed candidates reach the same train AUROC with couplings from 0.06 to 1.5, so the fit does not depend on them. Entanglement is irrelevant to error prediction here.
+- **F2 also fitted to a static model,** with zero sweeps.
+- **The structure of the explanation does not beat the model's self-report.** L scores 0.79 and 0.66, against G's 0.83 and 0.82.
+- **On the run-2 held-out set (secondary),** A2 beats F2 by +0.108 [+0.012, +0.215]. But G matches A2 there, and with A2's couplings near zero the gain cannot be credited to entanglement.
+
+### 5.6 Version 2.1: the honest hedge
+
+From `results/v2.1-run-1.md`.
+
+| model | locked test AUROC [95% CI] | run-2 held-out AUROC [95% CI] |
+|---|---|---|
+| A2.1 honest-hedge quantum (noiseless) | 0.84 [0.75, 0.90] | 0.84 [0.74, 0.92] |
+| A2.1 on the noisy `ibm_fez` simulator | 0.84 [0.75, 0.90] | — |
+| F2.1 honest-hedge classical twin | 0.82 [0.76, 0.88] | 0.72 [0.60, 0.83] |
+
+- **The primary criterion is not met. The honest-hedge encoding ties its classical twin.** The paired A2.1 − F2.1 difference is +0.017 [−0.064, +0.095].
+- **The hedge change did nothing.**
+  - **Hedge term:** both fits set the hedge-uncertainty weight λ_h to **0**.
+  - **Against v2:** A2.1 is indistinguishable from A2 (paired +0.002 [−0.042, +0.047]), and F2.1 is slightly worse than F2 (−0.021 [−0.044, −0.004]).
+  - **The hedge baseline:** H, the exploratory observation that motivated v2.1, scores 0.67 on the locked test set.
+- **Noise has no effect.** A2.1 noisy minus noiseless is +0.000 [−0.020, +0.023]. A2.1 chose N = 0 and small couplings, so its circuit is shallow and close to a product state.
+- **On the held-out set, A2.1 beats F2.1** by +0.116 [+0.013, +0.225], almost all of it on SimpleQA (0.92 against 0.67). With no evolution and weak couplings, the quantum model's distinctive ingredient is its tilted readout basis, which belongs to single-claim geometry, not to entanglement. This set also motivated v2.1, so it is not an independent test (D14).
+
+### 5.7 Entanglement witness, and calibration at job time
+
+From `results/witness-run-1.md` and `results/ibm-calibration.md`. Job `dbl6e1d8mdtc73d5gesg`: 39 circuits × 4,000 shots, 44 QPU s.
+
+| item | pair (physical qubits) | N ideal | N noisy sim [95% CI] | **N hardware [95% CI]** | certified |
+|---|---|---|---|---|---|
+| `h221` | (0, 6) on 10, 9 | 0.184 | 0.171 [0.157, 0.181] | **0.147 [0.134, 0.157]** | yes |
+| `h088` | (5, 6) on 44, 37 | 0.175 | 0.149 [0.138, 0.162] | **0.063 [0.051, 0.075]** | yes |
+| `h268` | (5, 6) on 4, 16 | 0.162 | 0.118 [0.105, 0.132] | **0.067 [0.055, 0.081]** | yes |
+
+**3 of 3 items are certified,** and the result holds without readout mitigation.
+- The `h221` pair's reduced state is pure, so that test is effectively a two-qubit entangling test.
+- The `h088` and `h268` pairs are mixed, so they are entangled with the rest of their belief states.
+
+**Calibration at each job's execution start.** The calibration snapshot is from 2026-11-03 15:31 MST; both jobs ran at 23:06 UTC.
+
+| job | qubits used | T₁ median [range] µs | T₂ median [range] µs | readout error median | √X error median | CZ error median [range] |
+|---|---|---|---|---|---|---|
+| Stage 1 | 9 | 133.5 [87.6, 203.5] | 114.1 [44.6, 191.1] | 6.35 × 10⁻³ | 2.79 × 10⁻⁴ | 2.06 × 10⁻³ [1.50, 2.43] × 10⁻³ |
+| witness | 14 | 146.2 [23.0, 272.0] | 116.3 [18.6, 183.9] | 7.81 × 10⁻³ | 2.32 × 10⁻⁴ | 1.97 × 10⁻³ [1.58, 2.36] × 10⁻³ |
+
+- **The device was not unusually bad on the day.** These are ordinary Heron-class numbers.
+- **The measured witness qubits include one with T₂ = 33.3 µs.** It is qubit 9, one of the `h221` pair, which nonetheless gave the highest negativity.
+- **A rough check of our own,** not a noise model: 117 CZ gates at a 2 × 10⁻³ error each leave a product of CZ fidelities of about 0.79. That ignores idle decoherence and crosstalk. Stage 1's washout to P(yes) 0.50 is far larger than this suggests, consistent with the noisy simulator underestimating the device.
+- **Total QPU time:** 46 s.
+
+### 5.8 Experiment 3: order effects in yes/no answers
+
+From `results/exp3-run-1.md`: 2,380 conversations, $1.63.
+
+**Primary: inconclusive.**
+- Spearman ρ with the quantum prediction is −0.034; with the classical twin's prediction, +0.082.
+- The difference has a 95% CI of [−0.284, +0.060].
+
+**Why: the base model shows almost no order effects to predict.**
+- Only 27 of 218 item-pairs show any difference between orders.
+- The order-label permutation test gives p = 0.24.
+- The model gives the same answer in all 5 baseline runs on 85% of items.
+
+The point estimate leans slightly toward the classical twin.
+
+### 5.9 Experiment 4: conjunction fallacies and order
+
+**Run 1** (`results/exp4-run-1.md`; 5,480 calls, $0.23).
+- **Phase 1, graded 0–100 ratings:**
+  - 7 of 16 items show a reliable single fallacy: Linda +0.085, and the author-written co05 and co06 at +0.29 and +0.19.
+  - **There are no double fallacies (R3).** That is what the quantum account requires, and it matches people.
+- **Phase 2, binary:**
+  - The QQ phase is fully saturated: the low-probability conjunct was answered "no" in every first-position sample.
+  - So **0 items are scored and R2 is untestable.**
+
+**Run 2, graded and in both orders** (`results/exp4-run-2.md`; 1,120 calls, $0.04).
+
+| item | o (order effect) [95% CI] | f (fallacy) [95% CI] | OE_X |
+|---|---|---|---|
+| co-lin06 (Bill) | +0.118 [+0.103, +0.132] | +0.094 [+0.079, +0.108] | −0.118 |
+| co-lin10 (Marta) | +0.103 [+0.093, +0.112] | +0.087 [+0.077, +0.096] | −0.080 |
+| co05 | +0.069 [+0.067, +0.072] | +0.041 [+0.038, +0.044] | −0.230 |
+| co-lin09 | +0.080 [+0.053, +0.105] | −0.042 | −0.122 |
+
+- **The order effects are real.** Rating the representative conjunct first raises the later conjunction rating. o is reliably positive on 6 of 7 items, at about +0.10 on the largest.
+- **R2 holds on 3 of 3 scored items.** Those are the items with a reliable graded fallacy, and on each o ≥ f − 0.05.
+- **The pre-registered verdict is "static classical twin (with anchoring) supported". That verdict is not informative (D19).**
+  - The anchoring term was pre-registered as a regression of the second rating on the first, across both cells pooled.
+  - Those cells differ mainly in their first-rating means, so the slope is about o / (P(X) − P(Y)), and the "order effect beyond anchoring" is about 0 by construction.
+  - A within-cell estimate cannot be made, because ratings barely vary between repeats (SD 0.00–0.05).
+- **Net.** Graded order effects exist and satisfy R2. This design cannot tell a quantum account from anchoring on the first answer. It cannot tell either from a sequential-update classical model.
+
+### 5.10 Exploratory: what the window shows
+
+These analyses are not pre-registered. They come from `paper/window-vignettes.md`, using exact statevectors on run 2.
+- **The error signal is lost at the entangling step.** Reading the conflict score at each stage, arm A's test-set AUROC goes from 0.63 at encode to 0.60 after entangling and 0.49 after evolution. Without entangling gates it rises to 0.68.
+- **Hedging claims are forced into camps** by the phase solve. That observation motivated v2.1, which then changed nothing (Section 5.6).
+
+### 5.11 Second base model: halted
+
+The replication on `claude-sonnet-5-5` (D18) stopped at 102 of 300 hard-pool questions, with 12 wrong, at $1.39. The extractor call for `h101` was refused under `reasoning_extraction` (request `req_011Cgh7v49vVQNR6AgY3EDui`, D20). It is the first refusal since the D3 redesign, after 1,473 Haiku-based items and 102 Sonnet-based ones.
+
+Following the project's rule, nothing was reworded or retried, and no further calls are made until Sean decides how to proceed. **There are no Sonnet results.** Every conclusion in this paper therefore rests on one base model.
+
+---
+
+## 6. Discussion
+
+### 6.1 Error prediction: the answer is no
+
+Four pre-registered comparisons agree:
+- the fixed encoding against its controls (H2);
+- the learned encoding against a matched classical twin (v2);
+- the honest-hedge encoding against its twin (v2.1);
+- and every structural arm against the model's self-report (run 2b).
+
+In none of them does the quantum state add anything to error prediction.
+
+The data rule out the easy explanations.
+- **It is not noise.** The noiseless state scores 0.49, and A2.1 scores the same noisy and noiseless.
+- **It is not one flawed choice of constants.** Version two learned them, and the fit set the couplings to whatever it liked, because they did not matter.
+- **It is not the hedge encoding.** v2.1 removed that distortion, and the hedge term was fitted to zero.
+- **It is not the frame bug.** Correcting it leaves the AUROCs unchanged (D15).
+
+The window shows *where* the fixed encoding loses the signal: at the entangling and coupled-evolution steps. The learned encodings avoid the loss by switching those steps nearly off.
+
+### 6.2 What does predict the model's errors
+
+**The model's own statement of confidence does.**
+- AUROC 0.82 on the run-2 test set, and 0.83 on the locked test set.
+- It is the best arm in every subgroup of the split analysis.
+
+**The structure of the model's explanation adds nothing beyond that self-report.** Version 2 of this paper reported the contradiction signal (arm E, 0.64) as "a modest but real finding" and left open whether it adds to self-report. It does not:
+- E scores 0.64 against G's 0.82;
+- the learned 8-feature relation-web model L scores 0.79 and 0.66 against G's 0.83 and 0.82;
+- the real relation web scores *below* 99% of random webs of the same strengths.
+
+The relation judge's labels of *which* claims support or contradict which carry no error signal that survives encoding. The counts and strengths behave like noisy proxies for how unsure the model already says it is.
+
+This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On this pool, the model can see them, and says so when asked.
+
+### 6.3 Sequential judgment: what is and is not known
+
+**Two measurement facts.**
+- The model's yes/no answers are near-deterministic at its default temperature, which cannot be changed (D17).
+- Graded ratings move.
+
+**What the graded ratings show.**
+- Single but not double conjunction fallacies. That is the pattern the quantum account predicts, and Imannezhad et al. (2026) also find it in GPT-5.
+- Order effects of about +0.10 on the conjunction.
+- R2 holds on the 3 items where it applies.
+
+**What they cannot yet show.** Whether the order effect comes from a quantum-like non-commuting update, a sequential classical update, or simple anchoring on the first number. Experiment 4 run 2's estimator for that last question was circular (D19).
+
+**The circularity is deeper than that one estimator.** Take a quantum model with rank-one projectors. Judging X first leaves the state on X, so the conjunction rating is r₁ · |⟨Y|X⟩|². By reciprocity, the constant is the same in both orders. So the order effect is c · (P(X) − P(Y)), exactly the form anchoring predicts. While the first rating is fixed by the item, no analysis of these data can separate the two.
+
+### 6.4 The hardware result
+
+The witness separates two claims that behavioural Bell tests conflate: *the system holds an entangled state*, and *the outcomes shift with context*. For our belief states, the first is certified on real hardware. The second, the claim that the entanglement helps judgment, has been answered negatively for error prediction.
+
+At 5–16 qubits every state is exactly classically simulable, so the hardware's role was certification, and it played that role. The job-time calibration shows an ordinary device on an ordinary day. The gap between hardware and its noise model is therefore a property of the noise model, not of bad luck.
+
+---
+
+## 7. Implications
+
+**Physics.** A real quantum processor held the entangled states of a language model's belief webs, with certified negativity on 3 of 3 items. That is a modest near-term use of hardware: certification, not speed. The device washed states out more than its own noise model and calibration predict. Any claim about "cognitive work" done by entanglement on current hardware should budget for that.
+
+**Psychology.** Our results neither confirm nor refute quantum cognition, which models human aggregates. What we offer is a method: build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. The negative results show that method can return "no". The sequential experiments ahead point it at the effects the field actually rests on.
+
+**Philosophy of mind.** A judgment layer built as a certified-entangled whole judged no better than one built as a list. When it was free to choose, it chose to be nearly a list. That does not settle anything about minds. It does show that being an indecomposable whole is not, by itself, an advantage for this kind of judgment.
+
+**Artificial intelligence.** The practical finding is about self-report, not quantum structure. For this model, on hard factual and scientific questions, one call asking how confident it is predicts its errors better than any analysis of its written reasoning we built, quantum or classical. A pipeline that wants an error flag should ask the model first, and should require any structural method to beat that baseline. Ours did not.
+
+---
+
+## 8. Limitations
+
+- **One base model.** All results use `claude-haiku-5-5`. The Sonnet replication was halted by a refusal (D20), so we cannot say whether any result generalises.
+- **Visible explanations, not deliberation.** Claims come from what the model writes for the reader (D1–D3).
+- **Models judging models.** The extractor and relation judge are language models, and their errors bound what any arm can find.
+- **Error types.** The model's errors are mostly ignorance and multi-step science, not the judgment errors quantum cognition studies.
+- **Moderate test sets.**
+  - Run 2's test set has 80 items, and the locked v2 test set 209 items with 32 wrong. Intervals are reported throughout, and many overlap.
+  - The secondary held-out gains of A2 and A2.1 over their twins are the only positive quantum-vs-classical differences, and they come from a set that motivated v2.1.
+- **Analysis grew after the primary result.** Every addition was pre-registered before its data, but designed knowing run 2 had failed (Section 4).
+- **Hardware scope.** The witness certified one pair in each of 3 items, and arm B never ran.
+- **Sequential experiments are limited by the measurement.** The yes/no answers saturate, and temperature cannot be raised. Graded ratings vary between repeats by only 0–5 points. One pre-registered estimator was circular (D19).
+- **Single author, no independent replication.** The code, data and decisions are public.
+
+---
+
+## 9. What comes next
+
+Two experiments are pre-registered as drafts. Neither has been run. Each needs Sean's go-ahead and is frozen in a commit before its first call. Together they cost under $5, with no QPU time.
+
+**Experiment 4, run 3: a manipulated first rating** (`experiments/exp4-run-3.md`).
+- **Design:** before rating the conjunction, the model is shown a provided first rating for one conjunct, low or high, and accepts or revises it. That moves the first rating independently of the item.
+- **What it separates:**
+  - Numeric anchoring predicts a nonzero intercept, pulled toward the fresh conjunction rating. Content-driven updating is multiplicative, with a zero intercept.
+  - Within content-driven updating, rank-one quantum projectors predict equal slopes in both orders, by reciprocity. Classical Bayes predicts a slope ratio of P(Y)/P(X), which is about 0.05–0.08 on these items.
+- **Cost:** about $0.35, with a $2 cap.
+
+**Experiment 5: sequential, context-dependent judgment** (`experiments/exp5-sequential-judgment.md`).
+- **Design:**
+  - On 40 hard-pool questions with competing claims, the model rates 4 of its own claims and then the question, all on 0–100.
+  - The chains vary the order, omit claims, ask the question first and repeat it, and insert a yes/no choice against a matched filler.
+- **Models:**
+  - A dynamic quantum belief state built from the existing encoder, with the anchored phase solve and honest hedges.
+  - Its commuting-limit Markov/Bayes twin, with the same 5 parameters.
+- **Verdict:** the quantum model must predict held-out ratings better, **and** a parameter-free signature must appear: the QQ equality where order effects exceed 0.10, or a less extreme final rating after a choice.
+- **Pilot gates** stop the run if the ratings do not move with sequence.
+- **Cost:** about $1.85, with a $4 cap.
+
+**What each outcome would mean** is fixed in advance in `paper/next-steps.md`. A null on both static and sequential judgment would be the project's answer for this model, and we would publish it as such.
+
+---
+
+## References
+
+Aerts, D. (2009). Quantum structure in cognition. *Journal of Mathematical Psychology, 53*(5), 314–348. https://doi.org/10.1016/j.jmp.2009.04.005
+
+Aerts, D., Aerts Arguëlles, J., Beltran, L., Geriente, S., Leporini, R., Sassoli de Bianchi, M., & Sozzo, S. (2026). Identifying quantum structure in AI language: Evidence for evolutionary convergence of human and artificial cognition. *Entropy, 28*(6), 622. https://doi.org/10.3390/e28060622 (arXiv:2511.21731, 2025)
+
+Aerts, D., & Sozzo, S. (2011). Quantum structure in cognition: Why and how concepts are entangled. In *Quantum Interaction 2011*, Lecture Notes in Computer Science 7052 (pp. 116–127). Springer. https://doi.org/10.1007/978-3-642-24971-6_12
+
+Bessis, T. F., Wills, A. J., Wojciechowski, B. W., White, L. C., & Pothos, E. M. (2026). Legal decision biases in GPT: A comparison with human judgment. *Behavioral Sciences, 16*(3), 437. https://doi.org/10.3390/bs16030437
+
+Beuria, J. (2026). Emergent non-classical probabilistic structure in large language models under contextual modulations. *Scientific Reports*. https://doi.org/10.1038/s41598-026-65824-7
+
+Binz, M., & Schulz, E. (2023). Using cognitive psychology to understand GPT-3. *Proceedings of the National Academy of Sciences, 120*(6), e2218523120. https://doi.org/10.1073/pnas.2218523120
+
+Boyer-Kassem, T., Duchêne, S., & Guerci, E. (2016a). Testing quantum-like models of judgment for question order effect. *Mathematical Social Sciences, 80*, 33–46. https://doi.org/10.1016/j.mathsocsci.2016.01.001
+
+Bruza, P. D., Wang, Z., & Busemeyer, J. R. (2015). Quantum cognition: A new theoretical approach to psychology. *Trends in Cognitive Sciences, 19*(7), 383–393. https://doi.org/10.1016/j.tics.2015.05.001
+
+Busemeyer, J. R., & Bruza, P. D. (2012). *Quantum models of cognition and decision*. Cambridge University Press. https://doi.org/10.1017/CBO9780511997716
+
+Busemeyer, J. R., Pothos, E. M., Franco, R., & Trueblood, J. S. (2011). A quantum theoretical explanation for probability judgment errors. *Psychological Review, 118*(2), 193–218. https://doi.org/10.1037/a0022542
+
+Busemeyer, J. R., Wang, Z., & Lambert-Mogiliansky, A. (2009). Empirical comparison of Markov and quantum models of decision making. *Journal of Mathematical Psychology, 53*(5), 423–433. https://doi.org/10.1016/j.jmp.2009.03.002
+
+Busemeyer, J. R., Wang, Z., & Townsend, J. T. (2006). Quantum dynamics of human decision-making. *Journal of Mathematical Psychology, 50*(3), 220–241. https://doi.org/10.1016/j.jmp.2006.01.003
+
+Dominguez-Olmedo, R., Hardt, M., & Mendler-Dünner, C. (2024). Questioning the survey responses of large language models. In *Advances in Neural Information Processing Systems 37*. arXiv:2306.07951
+
+Dzhafarov, E. N., & Kujala, J. V. (2014). On selective influences, marginal selectivity, and Bell/CHSH inequalities. *Topics in Cognitive Science, 6*(1), 121–128. https://doi.org/10.1111/tops.12060
+
+Echterhoff, J., Liu, Y., Alessa, A., McAuley, J., & He, Z. (2024). Cognitive bias in decision-making with LLMs. arXiv:2403.00811
+
+Fiedler, K. (1988). The dependence of the conjunction fallacy on subtle linguistic factors. *Psychological Research, 50*(2), 123–129. https://doi.org/10.1007/BF00309212
+
+Fuyama, M., Khrennikov, A., & Ozawa, M. (2025). Quantum-like cognition and decision-making in the light of quantum measurement theory. *Philosophical Transactions of the Royal Society A, 383*(2309), 20240372. https://doi.org/10.1098/rsta.2024.0372
+
+Hertwig, R., & Gigerenzer, G. (1999). The 'conjunction fallacy' revisited: How intelligent inferences look like reasoning errors. *Journal of Behavioral Decision Making, 12*(4), 275–305. https://doi.org/10.1002/(SICI)1099-0771(199912)12:4<275::AID-BDM323>3.0.CO;2-M
+
+Hogarth, R. M., & Einhorn, H. J. (1992). Order effects in belief updating: The belief-adjustment model. *Cognitive Psychology, 24*(1), 1–55. https://doi.org/10.1016/0010-0285(92)90002-J
+
+Imannezhad, P., Pothos, E. M., & Wills, A. J. (2026). Divergent patterns of probabilistic reasoning in humans and GPT-5. *Frontiers in Psychology, 17*, 1782184. https://doi.org/10.3389/fpsyg.2026.1782184
+
+Javadi-Abhari, A., Treinish, M., Krsulich, K., Wood, C. J., Lishman, J., Gacon, J., Martiel, S., Nation, P. D., Bishop, L. S., Cross, A. W., Johnson, B. R., & Gambetta, J. M. (2024). Quantum computing with Qiskit. arXiv:2405.08810. https://doi.org/10.48550/arXiv.2405.08810
+
+Kang, P. (2026). Auditing question-order effects in large language models with the QQ equality: Mechanism characterization and a saturation caveat. arXiv:2607.17219
+
+Khrennikov, A., Basieva, I., Dzhafarov, E. N., & Busemeyer, J. R. (2014). Quantum models for psychological measurements: An unsolved problem. *PLoS ONE, 9*(10), e110909. https://doi.org/10.1371/journal.pone.0110909
+
+Kreutner, M., Rupprecht, J., Ahnert, G., Salem, A., & Strohmaier, M. (2025). QSTN: A modular framework for robust questionnaire inference with large language models. arXiv:2512.08646
+
+Kujala, J. V., & Dzhafarov, E. N. (2016). Proof of a conjecture on contextuality in cyclic systems with binary variables. *Foundations of Physics, 46*(3), 282–299. https://doi.org/10.1007/s10701-015-9964-8
+
+Kvam, P. D., Pleskac, T. J., Yu, S., & Busemeyer, J. R. (2015). Interference effects of choice on confidence: Quantum characteristics of evidence accumulation. *Proceedings of the National Academy of Sciences, 112*(34), 10645–10650. https://doi.org/10.1073/pnas.1500688112
+
+McCoy, R. T., Yao, S., Friedman, D., Hardy, M. D., & Griffiths, T. L. (2024). Embers of autoregression show how large language models are shaped by the problem they are trained to solve. *Proceedings of the National Academy of Sciences, 121*(41), e2322420121. https://doi.org/10.1073/pnas.2322420121
+
+Ozawa, M., & Khrennikov, A. (2020). Application of theory of quantum instruments to psychology: Combination of question order effect with response replicability effect. *Entropy, 22*(1), 37. https://doi.org/10.3390/e22010037
+
+Ozawa, M., & Khrennikov, A. (2021). Modeling combination of question order effect, response replicability effect, and QQ-equality with quantum instruments. *Journal of Mathematical Psychology, 100*, 102491. https://doi.org/10.1016/j.jmp.2020.102491
+
+Pothos, E. M., & Busemeyer, J. R. (2009). A quantum probability explanation for violations of 'rational' decision theory. *Proceedings of the Royal Society B, 276*(1665), 2171–2178. https://doi.org/10.1098/rspb.2009.0121
+
+Pothos, E. M., & Busemeyer, J. R. (2013). Can quantum probability provide a new direction for cognitive modeling? *Behavioral and Brain Sciences, 36*(3), 255–274. https://doi.org/10.1017/S0140525X12001525
+
+Rupprecht, J., Ahnert, G., & Strohmaier, M. (2025). Prompt perturbations reveal human-like biases in large language model survey responses. arXiv:2507.07188
+
+Trueblood, J. S., & Busemeyer, J. R. (2011). A quantum probability account of order effects in inference. *Cognitive Science, 35*(8), 1518–1552. https://doi.org/10.1111/j.1551-6709.2011.01197.x
+
+Tversky, A., & Kahneman, D. (1983). Extensional versus intuitive reasoning: The conjunction fallacy in probability judgment. *Psychological Review, 90*(4), 293–315. https://doi.org/10.1037/0033-295X.90.4.293
+
+Wang, Z., & Busemeyer, J. R. (2013). A quantum question order model supported by empirical tests of an a priori and precise prediction. *Topics in Cognitive Science, 5*(4), 689–710. https://doi.org/10.1111/tops.12040
+
+Wang, Z., Solloway, T., Shiffrin, R. M., & Busemeyer, J. R. (2014). Context effects produced by question orders reveal quantum nature of human judgments. *Proceedings of the National Academy of Sciences, 111*(26), 9431–9436. https://doi.org/10.1073/pnas.1407756111
+
+Wolf, P., Kleine Buening, T., Krause, A., & Mendler-Dünner, C. (2026). Partition, prompt, aggregate: Statistical self-consistency in language models. arXiv:2607.15277
+
+Yearsley, J. M., & Trueblood, J. S. (2018). A quantum theory account of order effects and conjunction fallacies in political judgments. *Psychonomic Bulletin & Review, 25*(4), 1517–1525. https://doi.org/10.3758/s13423-017-1371-z
+
+Zhu, J.-Q., & Griffiths, T. L. (2024). Incoherent probability judgments in large language models. arXiv:2401.16646
