@@ -51,7 +51,7 @@ def run(m):
                     text, schema = g.prompt(recs[q], k, fmt, r)
                     reqs[key] = mc.params(model, [{"role": "user", "content": text}], schema, max_tokens=1000)
     print(f"{m}: {len(reqs)} requests to run, {len(cache)} cached", flush=True)
-    br = mc.BatchRunner(f"gm3b-{m}", CAPS[m], lambda: sum(v["cost"] for v in cache.values()), chunk=1600)
+    br = mc.BatchRunner(f"gm3b-{m}", CAPS[m], lambda: sum(v["cost"] for v in cache.values()), chunk=400 if m == "sonnet" else 1600)   # DM2a
     br.run(reqs, lambda k, msg: {"value": next(iter(json.loads(mc.text_of(msg)).values()))},
            cache.__setitem__, lambda: path.write_text(json.dumps(cache)), EST[m])
 

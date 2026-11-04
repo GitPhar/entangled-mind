@@ -813,3 +813,13 @@ The rule depends only on costs, and it was set before any DM4 data existed.
 **Budget.** $3, separate from the $20: caps $0.30 (Haiku) and $2.60 (Sonnet), batch rate.
 
 **Testing.** The code was tested on random fake answers before freezing; no call had been made.
+
+## DM2a — DM2's Sonnet arm stopped by the runner's safety factor, not by its cap; resumed in smaller chunks
+
+**Date:** 2026-11-04 08:50 MST. Only costs had been read; no DM2 answer had been looked at.
+
+**What happened.**
+- After 3,200 of 4,800 calls ($1.36), the third 1,600-call chunk was projected at $0.85: the observed $0.000425 per call × 1.25 safety factor. That made $2.21 against the $2.20 cap, so `mm_common` refused to submit it.
+- The expected cost of the chunk is about $0.68, which would end the arm at about $2.04, under its cap.
+
+**Amendment.** The remaining 1,600 Sonnet calls are submitted in chunks of 400, each still checked against the $2.20 cap with the same factor. The cap and every other rule are unchanged. The Opus arm stays stopped (DM4a).
