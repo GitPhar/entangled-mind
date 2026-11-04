@@ -116,6 +116,7 @@ def main() -> int:
     step("exp5-pilot.md", lambda: importlib.import_module("exp5_run").cmd_pilot())
     step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
     step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
+    step("gm3a-anchor-gap.md", lambda: importlib.import_module("gm3a_anchor_gap").main())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]
