@@ -335,3 +335,14 @@ This is the first refusal since the D3 redesign. The same extractor prompt had r
 Question `h101`, whose extractor call was refused (`reasoning_extraction`, request ID `req_011Cgh7v49vVQNR6AgY3EDui`), is **dropped** from pool run 4. It is recorded in `run_pool.REFUSAL_EXCLUDED`, and nothing was reworded or retried. The remaining hard-pool items and pool run 6 (the training pool) continue with the extractor unchanged.
 
 If a second refusal occurs, the run stops again and is reported. The support ticket is filed separately, from `results/refusal-sonnet-replication.md`.
+
+## D22 — Experiment 5 pre-registration frozen; pilot-item clarification
+
+**Date:** 2026-11-03 20:15 MST, before any experiment-5 call.
+
+`experiments/exp5-sequential-judgment.md` is frozen in its own commit, at Sean's go-ahead, with a $4 cap. One clarification was made at freezing:
+- §7.1's "next 2 right" pilot items do not exist under the 5-per-category cap, which admits exactly the 20 selected right items across the 4 categories.
+- The pilot therefore uses the next 2 right items in the uncapped ranking (h001, h170), alongside the next 3 wrong (h018, h088, h039).
+- Re-running §3's selection rule from `results/pool-run-3.json` reproduces §9's 40 ids exactly and in order.
+
+Nothing else in the design was changed.

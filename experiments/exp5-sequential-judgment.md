@@ -1,6 +1,6 @@
 # Experiment 5: sequential, context-dependent judgment (pre-registration draft)
 
-Written 2026-11-04, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: draft. Not run, and nothing in it has been piloted.** It is the second of the two remaining pre-registered tests. The first is experiment 4 run 2, the graded QQ/R2 test on the 7 fallacy items (D17), which is designed but not yet run. Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
+Written 2026-11-04, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: FROZEN 2026-11-03 20:15 MST, in its own commit, before any experiment-5 call (Sean's go-ahead; budget cap $4).** Nothing in it had been piloted at freezing. It is the second of the two remaining pre-registered tests. The first is experiment 4 run 2, the graded QQ/R2 test on the 7 fallacy items (D17), which is designed but not yet run. Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
 
 ## 1. Why this experiment
 
@@ -333,7 +333,11 @@ The test chains and the held-out items are each scored **once**.
 
 ### 7.1 Gate: dispersion (pilot)
 
-**Pilot items.** 5 items not among the 40: the next 3 wrong and the next 2 right in the selection ranking. Each runs the full design (all 12 chain types and the QQ block). Pilot data are reported but never used in any test.
+**Pilot items.** 5 items not among the 40: the next 3 wrong and the next 2 right in the selection ranking. *Clarification at freezing (DEVIATIONS.md, D22):*
+- Under the 5-per-category cap there is no "next" right item. There are 4 categories, so the cap admits exactly the 20 right items already selected.
+- The 2 right pilot items are therefore the next 2 in the **uncapped** right ranking, excluding the 40.
+- The pilot is **h018, h088, h039** (wrong) and **h001, h170** (right).
+- §3's rule was re-run from the archived records before freezing, and it reproduces §9's 40 ids exactly and in order. Each runs the full design (all 12 chain types and the QQ block). Pilot data are reported but never used in any test.
 
 **Gate G1, the experiment's go/no-go** (stated in advance). On at least 3 of the 5 pilot items, either:
 - the main-rating means across O1–O4, X1–X4 and B0 span at least 5 rating points, **or**
