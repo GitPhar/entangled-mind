@@ -66,6 +66,9 @@ def chain_claims(rec) -> list[int]:
     pick = yes[:2] + no[:2]
     rest = sorted([k for k in comp if k not in pick], key=score)
     pick += rest[: 4 - len(pick)]
+    if len(pick) < 4:   # D24: fewer than 4 competing claims (pilot item h001 only) - fill from leaning non-competing claims
+        extra = sorted([k for k in range(len(cs)) if k not in pick and abs(L[k]) > 0.1], key=score)
+        pick += extra[: 4 - len(pick)]
     return sorted(pick)
 
 

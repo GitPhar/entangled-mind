@@ -362,3 +362,9 @@ Nothing else in the design was changed.
 6. **Phase solver check (§5.1)**, run before freezing the split, with a maximum difference of exactly 0 in both cases:
    - the composed solver against `solve_phases_anchored`, on the 116 items with no hedges;
    - the composed solver against `v2.hedge_phases`, using a plain solve, on all 300 items.
+
+## D24 — Experiment 5: pilot item h001 has only 3 competing claims
+
+**Date:** 2026-11-03, before any experiment-5 call. The run raised an error while building the job list, so no API call had been made.
+
+§3 states that all 40 candidates have at least 4 competing claims, and they do. The pilot item `h001`, chosen under the D22 clarification, has only 3. For any item with fewer than 4, the 4th chain slot is filled with the leaning, non-competing claim with the highest confidence × |lean|. This affects `h001` only. The 40 candidates' chain claims are unchanged, which was checked against `split-exp5.json`. Pilot data are never used in any test.
