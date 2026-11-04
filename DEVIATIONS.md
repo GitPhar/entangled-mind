@@ -534,3 +534,21 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 - In experiment 4 run 3, the model rejected provided ratings 30 points away.
 
 **Primary:** R = OE_redacted / OE_shown, with an item-bootstrap CI read against 0.5. A permutation gate checks first that the shown condition has an order effect.
+
+## D38 — Overnight run, 5 of 6: direction 3's six-format run pre-registered
+
+**Date:** 2026-11-04 04:02 MST, before any call. Recorded in `experiments/gm3b-format-invariance.md`.
+
+**Design.**
+- The 160 chain claims × 6 formats × 10 repeats, on Haiku with thinking disabled.
+- Budget $1, enforced in code; stop on any refusal.
+
+**Changes from the gold map.**
+- **The reversed 0–100 scale is replaced by a 7-point verbal scale,** per the overnight rule of one scale direction in every design.
+- **The model comparison is a 2-fold held-out-repeat log-likelihood** of one credence per claim (L1) against one per claim and format (L6).
+- **The "CbD-style consistency test" is not attempted.** The formats have no shared outcome space.
+- **The precedent is cited:** Smolin & Wilder 2609.07943, which found single latents fit capable models well. The gold map's P falls from 0.45 to 0.25.
+
+**Check before freezing.** The fitting code was tested on simulated data.
+- With one latent and monotone links, ΔLL was −8.2 per claim and 0% of claims were positive.
+- With format-specific latents, ΔLL was +36 and 100% were positive.
