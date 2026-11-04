@@ -823,3 +823,40 @@ The rule depends only on costs, and it was set before any DM4 data existed.
 - The expected cost of the chunk is about $0.68, which would end the arm at about $2.04, under its cap.
 
 **Amendment.** The remaining 1,600 Sonnet calls are submitted in chunks of 400, each still checked against the $2.20 cap with the same factor. The cap and every other rule are unchanged. The Opus arm stays stopped (DM4a).
+
+## DM5 — Multi-model replications: what ran and what was found
+
+**Date:** 2026-11-04, after the runs. Summary in `results/multi-model.md`. No call was refused.
+
+**Spend:** $16.28 of the $20. Pilot $0.03; DM2 Sonnet $2.04, Opus $3.10 (budget-stopped); DM3 $4.03; DM4 Sonnet $2.19, Opus $4.89 (DM4a cap $8.51).
+
+**DM4's Opus fallback.** After wave 1, the projection ($8.74 at R = 3) exceeded the cap, so the fallback ran at **R = 2**. Later waves cost less per call than wave 1, so R = 3 would in fact have fitted. The rule makes the drop irreversible, which is why $3.72 is unspent.
+
+**Readings:**
+
+| test | Sonnet | Opus |
+|---|---|---|
+| DM3, self-knowledge (Sonnet × Opus pair) | **no self-advantage**, I = −0.045 [−0.107, +0.017] | (same test) |
+| DM4, transcripts | **question-driven**, R = 2.95 [0.99, 12.55] | **leaning question-driven (not decisive)**, R = 0.93 [0.06, 7.31] at R = 2 |
+| DM2, six formats | **mixed**, +9.22 [−1.29, +16.24], 92% positive; F′ Q 0.69, partial | **mixed** on 26 claims, +0.42 [−1.83, +2.69] |
+
+## DM6a — Calibration demonstration: parse and referent problems found after the run; exploratory re-analysis
+
+**Date:** 2026-11-04, after the pre-registered analysis had been run and read. Spend $2.61 of the $3 (Haiku $0.12, Sonnet $2.49).
+
+**Pre-registered readings** (strict parse rule):
+- **Haiku:** no detectable format dependence; no detectable order dependence.
+- **Sonnet:** calibration depends on format (ΔECE −0.143 [−0.233, −0.066]); no detectable order dependence.
+
+**Problems found.**
+1. About 120 hard-pool questions are phrased "Is this claim true?". "Guess: True/False" answers were unparsed under the frozen yes/no rule.
+2. Long worked answers hit max_tokens 300. Under the frozen rule a hit ends the conversation, so 32 Haiku and 105 Sonnet conversations ended early, about half of them fresh single calls.
+3. On "Is the answer X?" questions, the models often report the probability that X is correct rather than that their guess is. How often depends on format and context.
+
+As a result, each pre-registered cell rests on 68–199 of 300 questions.
+
+**Exploratory, not pre-registered** (`experiments/cal_format_explore.py`, no new calls):
+- True/False is mapped to yes/no, and every cell is scored under both readings of the number.
+- Sonnet's format effect stays clear under Tian's intended reading (−0.083 [−0.137, −0.032]). It reverses sign under the other reading.
+- Order is null in every version.
+- The pre-registered readings are not changed.
