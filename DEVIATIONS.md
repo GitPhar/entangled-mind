@@ -935,3 +935,22 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - F′ Q = 0.94 [0.90, 0.97], *a usable single belief*.
 - DM2 primary ΔLL +1.90 [−0.82, +4.65], *mixed*.
 - Paper rule: **"does not hold on Opus"**.
+
+## D50 — The No Credence paper's Opus claim narrowed from "not supported" to "contradicted", by D49's frozen rule
+
+**Date:** 2026-11-04 10:31 MST, after D49's result (`a8be4b5`). No new data.
+
+**The rule.** D49 froze it before any call: F′ CI wholly above 0.75 → "does not hold on Opus". The CI was [0.90, 0.97].
+
+**What changed in `paper/no-credence-to-read.md`.**
+- **Abstract and contributions:** the format claim is "contradicted on Opus", with Q 0.29 / 0.69 / 0.94 and the item-matched W 0.56 / 0.76 / 0.87.
+- **Section 4.6:** the table and the Opus paragraph now use the 68-claim arm.
+  - F′ 0.94 [0.90, 0.97]; ΔLL +1.90 [−0.82, +4.65], mixed; 6–14% reversed pairs.
+  - The exploratory item-matched W is labelled as such.
+- **Sections 5.1 and 5.3:** "On Opus there is a credence to read"; Opus's R² of 0.92 is above Smolin and Wilder's range; the reversed-pair range is updated.
+- **Limitations, reproduction and costs:** D49 added ($6.04).
+
+**Unchanged.**
+- The Haiku and Sonnet numbers.
+- The self-knowledge and own-record findings, which hold on all three models.
+- The title.
