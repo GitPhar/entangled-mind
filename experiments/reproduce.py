@@ -45,6 +45,7 @@ SKIPPED = {
     "ibm-job-status-log.md": "log of status checks, not a table",
     "refusal-attempt-2.md": "log of a refused call",
     "refusal.md": "log of a refused call",
+    "multi-model.md": "hand-written summary of the multi-model replications (DM5)",
     "refusal-sonnet-replication.md": "log of a refused call",
 }
 
@@ -134,6 +135,11 @@ def main() -> int:
             step(md, lambda fn=fn: getattr(importlib.import_module("bm_runs"), fn)())
     if "bm0-source-distance-lag.md" in committed:     # D47, from its call cache
         step("bm0-source-distance-lag.md", lambda: importlib.import_module("bm0_source_distance_lag").analyse())
+    for mod, md in (("mm_gm1", "mm-gm1-self-knowledge.md"), ("mm_gm2", "mm-gm2-self-conditioning.md"),
+                    ("mm_gm3b", "mm-gm3b-format-invariance.md"), ("cal_format", "calibration-under-format.md"),
+                    ("mm_gm3b_opus_complete", "mm-gm3b-opus-completion.md")):
+        if md in committed:          # multi-model replications (DM1-DM6, D49), from their batch caches
+            step(md, lambda mod=mod: importlib.import_module(mod).analyse())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]

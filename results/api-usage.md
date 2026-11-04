@@ -1,6 +1,6 @@
 # Anthropic API usage
 
-Prices per MTok: `claude-sonnet-5-5` $2.00 in / $10.00 out, `claude-haiku-5-5` $0.10 in / $0.50 out. Thinking tokens bill as output. Extractor `claude-sonnet-5-5`, judge `claude-haiku-5-5` in every run.
+Prices per MTok: `claude-sonnet-5-5` $2.00 in / $10.00 out, `claude-haiku-5-5` $0.10 in / $0.50 out, `claude-opus-5-5` $4.00 in / $20.00 out. Thinking tokens bill as output. Extractor `claude-sonnet-5-5`, judge `claude-haiku-5-5` in every run.
 
 ## Pool run 1: base `claude-sonnet-5-5`, effort xhigh
 
