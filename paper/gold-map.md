@@ -425,6 +425,21 @@ Quantum theory says they cannot all hold. A violation does not overturn quantum 
 
 ---
 
+## Overnight results (2026-11-04), against the probabilities above
+
+Each first test below was pre-registered on `main` before its data (D34–D39) and is reported in `paper/the-entangled-mind-v3.md` §5.13.
+
+| direction | P given | outcome | in the overturning direction? |
+|---|---|---|---|
+| 9, NSIT on archived data | 0.20 (conceptual) | invasive in 5 of 6 families; the midway choice is not (`results/gm9-nsit.md`) | the conceptual result is written up in `paper/clonable-minds.md` |
+| 3, free look | — | the anchor gap does not predict errors, AUROC 0.48 (`results/gm3a-anchor-gap.md`) | no evidence either way |
+| 1, self-knowledge | 0.15 | no self-advantage; interaction −0.055 [−0.103, −0.007] (`results/gm1-self-knowledge.md`) | no: self-report is text-reading |
+| 2, self-conditioning | 0.25 | question-driven, R = 1.91 [0.92, 4.90]; the planted record also pulls (`results/gm2-self-conditioning.md`) | yes, by the rule, with caveats (two items; the placeholder turn) |
+| 3, six formats | 0.25 | no single credence: 86% of claims, ΔLL +19.4 (`results/gm3b-format-invariance.md`) | yes, by a held-out-repeats criterion stricter than Smolin & Wilder's |
+| 4, evidence seeking | 0.20 | mixed: beats chance for EIG and confirmatory alike (`results/gm4-evidence-seeking.md`) | no |
+
+Two of the four API tests came out in the overturning direction, against probabilities of 0.25 each. The expected number was about 0.8. Both results are on 10 and 160 items from one model, and each names its own follow-up.
+
 ## Recommended order
 
 1. **Direction 9's free analysis** of the archived experiment 5 data ($0), together with **direction 3's free look** (the anchor-gap AUROC on existing B0 conversations, $0). Both are pre-registered before the analysis.
