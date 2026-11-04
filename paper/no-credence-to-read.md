@@ -6,7 +6,7 @@ Draft, November 4, 2026. Dates and times are local, America/Denver (MST, UTC−7
 
 Correspondence: seanm.pharris@gmail.com. Code, data and pre-registrations: https://github.com/GitPhar/entangled-mind.
 
-**Status of the numbers.** Every number below is copied from a results file in the repository's `results/` directory and was produced under a pre-registration committed before its data, unless it is labelled *exploratory*. Numbers whose robustness run has not yet landed carry the tag **[R-pending: run]**. Those runs are listed in Section 8. The replications on `claude-sonnet-5-5` and `claude-opus-5-5` (Section 4.6) are pre-registered in `DEVIATIONS.md` entries DM1–DM6; the claims below are narrowed to what they replicate (D48).
+**Status of the numbers.** Every number below is copied from a results file in the repository's `results/` directory and was produced under a pre-registration committed before its data, unless it is labelled *exploratory*. All three planned robustness runs have landed and are folded in (Section 8), so no number here is pending. The replications on `claude-sonnet-5-5` and `claude-opus-5-5` (Section 4.6) are pre-registered in `DEVIATIONS.md` entries DM1–DM6; the claims below are narrowed to what they replicate (D48).
 
 ---
 
@@ -18,7 +18,7 @@ On `claude-haiku-5-5`, in pre-registered tests, the answer is the second. Three 
 - **Asking is invasive.** Earlier questions change later ratings in 5 of 6 no-signalling-in-time comparisons on 40 hard questions. A midway yes/no choice is the one exception.
 - **The question alone is enough.** With every earlier answer hidden, the order of the questions still changes the final rating. On 40 items the ratio of redacted to shown order effect is 1.23 [0.75, 2.02]: the question carries roughly all of the order effect, and the record adds little to it.
 - **The record also acts, but only when it is the model's own.**
-  - Planting the model's own earlier answer pulls its re-rating 0.42 of the way toward the planted value. The same number attributed to another person pulls it 0.05 [R-pending: source × distance × lag].
+  - Planting the model's own earlier answer pulls its re-rating 0.42 of the way toward the planted value. The same number attributed to another person pulls it 0.05. Own beats other whether the planted number is 10, 30 or 60 points from the model's view, and the pull does not fade over three intervening turns.
   - The model's agreement with itself on a repeated question falls from 86% to 36% when its first answer is hidden.
 - **Formats disagree.** Across six elicitation formats, a separate credence per format predicts held-out answers better than one credence per statement for 86% of 160 statements. The formats rank the statements differently four to six times more often than repeat noise does. Predicting each format from the other five recovers only 0.39 [0.30, 0.50] of what is reproducible in that format.
 - **Self-report is not privileged.** The model's confidence predicts its errors well (AUROC 0.85), but a stronger model reading the same answers predicts them better (0.93). The judge × author interaction is −0.055 [−0.103, −0.007].
@@ -149,7 +149,7 @@ Each test was pre-registered in its own commit before any call or analysis. The 
 |---|---|---|---|---|
 | **N** (gold-map direction 9) | does asking change later answers? | archived experiment-5 conversations, one scale direction, $0 | six NSIT families: per-cell mean shift d between asked and not-asked conversations; permutation test of Σd²; Holm correction | `gm9-nsit.md`, D34 |
 | **T** (direction 2) | the question, or the record? | all 40 experiment-5 items (10 run first, 30 added in D45), chains O₁–O₄ and MF; shown, redacted ("[rating recorded]") and planted ±15 points in the model's own turn; 10 conversations per cell; 8,000 conversations, $2.23 | R = OE_redacted / OE_shown, where OE is the between-order spread of the final M; question-driven if the CI lies wholly at or above 0.5 | `gm2-self-conditioning.md`, D37; `gm2b-self-conditioning-40.md`, D45 |
-| **S** (bm1) | does the source of a number matter? | experiment 4's 16 items, values 30 points below and above the model's mean, planted as its own earlier answer, then a re-rating; 40 per cell; 2,560 conversations, $0.24; compared with the archived condition in which the same values were "another person's estimate" | slope s of the re-rating on the shown value, own against other | `bm1-serial-dependence.md`, D44 |
+| **S** (bm1) | does the source of a number matter? | experiment 4's 16 items, values 30 points below and above the model's mean, planted as its own earlier answer, then a re-rating; 40 per cell; 2,560 conversations, $0.24; compared with the archived condition in which the same values were "another person's estimate". Extended in D47 to ±10 and ±60 points for both sources, and to own ±30 after three filler turns; 3,650 conversations, $0.50 | slope s of the re-rating on the shown value, own against other | `bm1-serial-dependence.md`, D44 |
 | **A** (bm9) | does the next rating move toward the last number? | archived single-scale (S_k, M) conversations, $0 | β in d_M = α + β·L + γ·C, where L is the S rating's level relative to the unprompted M and C is the claim's content push | `bm9-contrast.md`, D42 |
 | **P** (direction 1) | does authorship help judge errors? | both models rate confidence in both models' answers on 298 questions, with one matched prompt ("an answer another assistant gave"); 1,710 calls, $2.82 recorded | the judge × author interaction I = HH + SS − SH − HS (judge first, then author), which cancels each judge's skill | `gm1-self-knowledge.md`, D36 |
 | **F′** (robustness) | is one credence at least useful? | test F's calls, $0 | Q = R² of each format predicted from the other five / that format's split-half R² | `gm3c-heldout-format.md`, D46 |
@@ -222,13 +222,27 @@ Intervals are 95% bootstrap intervals over items: 2,000 resamples unless stated,
 
 ### 4.3 The record acts only when it is the model's own, and new ratings move toward old ones
 
-**Test S** [R-pending: source × distance × lag]. The same numbers, presented two ways:
+**Test S.** The same numbers, presented two ways:
 - **as the model's own earlier answer:** they pull its re-rating with slope **s_own = +0.42 [+0.25, +0.60]**, and the model repeats the planted value exactly in 42% of conversations;
 - **as another person's estimate** (the archived condition): they barely pull it, with s_other = +0.05 [−0.08, +0.17].
 
 The difference is **+0.37 [+0.17, +0.57]**, so the pre-registered reading is *source-dependent self-consistency*.
 
 In the archived condition, 7 item-orders moved *away* from another person's higher estimate. On 6 of them, the same number framed as the model's own pulls it up (descriptive). This matches Kumaran et al. (2025), who found that the stickiness of an earlier answer in other models disappears when it is attributed to another model.
+
+**Distance and lag** (D47, `results/bm0-source-distance-lag.md`). Uptake u is the shift divided by the displacement: 1 means the model takes the planted value fully, 0 that it ignores it, below 0 that it moves away.
+
+| distance from the model's view | own (no lag) | other | own − other (paired) |
+|---|---|---|---|
+| 10 points | +0.71 [+0.54, +0.86] | +0.19 [−0.19, +0.50] | +0.52 [+0.21, +0.95] |
+| 30 points | +0.44 [+0.27, +0.62] | −0.11 [−0.40, +0.13] | +0.55 [+0.26, +0.92] |
+| 60 points | +0.21 [+0.11, +0.31] | −0.13 [−0.44, +0.10] | +0.33 [+0.07, +0.72] |
+
+- **Own beats other at every distance:** pooled, +0.46 [+0.21, +0.84]. Another person's number is ignored rather than resisted: mean uptake +0.02 at ±10 and ±60, with 28 of 106 cells below zero.
+- **The pull of an own answer has a limit.** The share taken up falls with distance, and the actual movement peaks for answers about 35 points away (turning point |D*| 0.35, against a largest tested 0.67). By the pre-registered rule the shape is *non-monotone*. There is no reversal: at 60 points the model still moves about 6 points toward its "own" answer (sign-adjusted attraction +0.06 [+0.03, +0.10]). Discarding an "own" answer as implausible once it is far from the model's view (Kumaran et al., 2025) predicts the same shape, and this test cannot tell the two apart.
+- **No decay over three turns.** After three "continue" turns the model takes up 57% [42%, 72%] of its own planted answer at ±30, against 44% with none. By the rule the uptake *grows* (lag 0 − lag 3 = −0.13 [−0.25, −0.00]), though the interval's upper end only just clears zero.
+- **Pre-registered reading: self-consistency.** Attraction to any recent number would weaken with intervening turns and would not care whose number it was. What the data show is a commitment to the model's own visible answers, weighted down when they sit far from its view.
+- **The run.** The $0.50 cap stopped it at 3,650 of 3,840 conversations; as planned, only the lag arm was cut, to 17 of 20 repeats (D47a). 68 of 448 cells were dropped because clipping at 2 or 98 left too small a displacement. The 6-of-7 reversal above is bm1's descriptive observation and was not recomputed.
 
 **Test A.** In unedited single-scale conversations, the main rating moves toward the level of the sub-question rating just given, beyond the claim's content: **β = +0.27 [+0.11, +0.43]**, replicating at +0.27 [+0.05, +0.58]. No contrast appears.
 
@@ -340,7 +354,7 @@ The finding sits alongside Smolin and Wilder (2026), who fit one latent belief a
 ### 5.2 Confidence elicitation
 
 **The transcript is part of the measurement.** A confidence elicited in the same conversation as the answer, or after other questions, is conditioned on the record:
-- planted own answers pull later ratings at 0.42 to 0.85 points per point (Sections 4.2 and 4.3) [R-pending: source × distance × lag];
+- planted own answers pull later ratings at 0.42 to 0.85 points per point (Sections 4.2 and 4.3), and the share taken up runs from 0.71 for a number 10 points from the model's view to 0.21 for one 60 points away, with no decay over three turns;
 - ratings move about a quarter of the way toward the last number given (Section 4.3).
 
 Practical consequences:
@@ -355,7 +369,7 @@ Calibration is usually measured in one format, for example verbal 0–100 or a p
 **Calibration need not transfer across formats, at least on weaker models.** Haiku's six formats order the same statements differently on 21–35% of pairs (exploratory baseline). Predicting one format from the other five recovers only 39% of its reproducible answer (test F′). A model that is well calibrated in one format can therefore rank propositions differently in another. On the same 80 statements, against the 0–100 rating, Haiku's formats reverse 25–35% of pairs, Sonnet's 14–20%, and Opus's 3–14% on its 26, so the risk shrinks with model strength. Calibration claims should still name the format, and where possible be checked in more than one.
 
 **Within-conversation consistency is not evidence of a stable credence.** A model that keeps giving the same number in one conversation may be reading its own earlier answer:
-- it stays consistent with itself far more than with an external estimate (s_own +0.42, s_other +0.05) [R-pending: source × distance × lag];
+- it stays consistent with itself far more than with an external estimate (s_own +0.42, s_other +0.05; own − other +0.46 pooled over 10, 30 and 60 points);
 - its repeat agreement falls from 86% to 36% when its first answer is hidden.
 
 Test–retest reliability for model confidence should be measured across copies, not within a conversation.
@@ -392,7 +406,7 @@ None of these can show that a model's judgments lack definite values. A quantum-
   - the replications ran with each model's thinking as low as the API allows, which for Opus is not off.
   The format finding does not hold on Opus, and nothing here establishes any result for models outside the Claude 5.5 family.
 - **Thinking was disabled, and the temperature is the default 1.0,** since the API rejects another. With extended thinking, the thinking text becomes part of the context, so the argument of Section 2 still applies, but the measurements may differ.
-- **The source comparison (test S) differs in wording as well as source.** It uses "Please give your rating again" against the archived "accept or revise". The planted values were ±30 points from the model's mean, which is large enough to read as implausible.
+- **The source comparison (test S) differs in wording as well as source.** It uses "Please give your rating again" against the archived "accept or revise", and D47's "other" cells keep that wording, so this caveat stands. D47 does remove the worry that ±30 points simply read as implausible: at ±10, own still beats other by +0.52. But the fall-off of own uptake with distance has two readings (serial-dependence tuning, or discarding implausible own answers) that the design cannot separate.
 - **Direction 1 was cut short** by cost overruns and a crash. The paraphrase arm covers 60 of 80 questions, and Sonnet's recognition check did not run. The primary statistic uses all 298 questions. Recorded spend was $2.82; calls lost in the crash bound the true spend at about $3.02, against a $3 cap.
 - **The items are hard questions and the model's own contested claims about them.** Statements on which the model is certain may behave differently.
 - **Several analyses reuse archived data** (N, A and the free look). They were pre-registered before the archive was opened for them, but the data had been collected for other tests.
@@ -410,6 +424,7 @@ Every table in this paper can be rebuilt from archived data.
   - `results/gm2b-conversations.json` (the 30 items added in D45)
   - `results/gm3b-calls.json`
   - `results/bm1-calls.json`
+  - `results/bm0-calls.json` (D47)
   - `results/exp5-conversations.json`
   - `results/exp5-run-2-conversations.json`
 - **Each analysis script** sits next to its pre-registration in `experiments/`:
@@ -419,23 +434,23 @@ Every table in this paper can be rebuilt from archived data.
   - `gm3b_format_invariance.py`
   - `gm3a_anchor_gap.py`
   - `gm3c_heldout_format.py` (test F′)
-  - `bm_runs.py` (test S's calls)
+  - `bm_runs.py` (test S's calls) and `bm0_source_distance_lag.py` (D47)
   - `bm_offline.py` (test A and the other archived-data biomimetic analyses)
 - **The replications (Section 4.6):** `experiments/mm_gm1.py`, `mm_gm2.py` and `mm_gm3b.py`, each with an `analyse` mode that rebuilds its table from `results/mm-*.json` with no API call. The summary is `results/multi-model.md`.
-- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D48 and DM1–DM6. A chronological record is in `paper/record.md`.
-- **Costs.** The new tests reported here used $5.70 of recorded API spend: P $2.82, T $2.23 ($0.55 for the first 10 items, $1.68 for the other 30), F $0.41, S $0.24, and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates. No QPU time was used.
+- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D48 (with D47a) and DM1–DM6. A chronological record is in `paper/record.md`.
+- **Costs.** The new tests reported here used $6.20 of recorded API spend: P $2.82, T $2.23 ($0.55 for the first 10 items, $1.68 for the other 30), F $0.41, S $0.74 ($0.24 for bm1, $0.50 for D47), and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates. No QPU time was used.
 
 ---
 
 ## 8. Pending robustness runs
 
-Three robustness runs were planned, each pre-registered in its own commit before its data. Two have landed; the third is pre-registered and not yet reported. No other robustness run is planned, so every number without a tag is final as pre-registered.
+Three robustness runs were planned, each pre-registered in its own commit before its data. All three have landed. No other robustness run is planned.
 
 | tag | run | what it tests | affects |
 |---|---|---|---|
 | landed | D45 (`758609a`, pre-registered at `4894bfc`), $1.68 of $2.50 | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | reported in Section 4.2: R = 1.23 [0.75, 2.02], question-driven (30 new 0.99; without h191 and h261 0.99); 82% of items; SD 5.1 against 5.4; b_MF 0.85; MF agreement 86% against 36% |
 | landed | D46 (`52aedb6`, pre-registered at `1f2a837`), $0 | the held-out-format prediction | reported in Section 4.5 as test F′: Q = 0.39 [0.30, 0.50], "little format-free belief" |
-| [R-pending: source × distance × lag] | D47, pre-registered at `8acc007`, $0.50 cap; running | own against other source at ±10 and ±60 points (lag 0, R = 10); own at ±30 after 3 filler turns (R = 20); bm1's own ±30 and run 3's other ±30 reused. Readings: own > other; non-monotone or reversal at ±60; decay over lag | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
+| landed | D47 (`e2c3b90`, pre-registered at `8acc007`), $0.50 of $0.50, cap-stopped at 3,650 of 3,840 (D47a) | own against other source at ±10 and ±60 points (lag 0, R = 10); own at ±30 after 3 filler turns (R = 20, cut to 17); bm1's own ±30 and run 3's other ±30 reused. Readings: own > other; non-monotone or reversal at ±60; decay over lag | reported in Section 4.3: self-consistency; own − other +0.46 [+0.21, +0.84], positive at 10, 30 and 60 points; own uptake 0.71 → 0.44 → 0.21, non-monotone shift with no reversal; no decay over 3 turns. bm1's s_own, s_other and difference stand; the 6-of-7 reversal stays descriptive; the wording caveat stands |
 
 ---
 
