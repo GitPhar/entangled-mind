@@ -6,13 +6,16 @@ window's circuit strip; re-transpiling today drifts, e.g. 170 vs 162 CZ on h046)
 For each circuit of the Stage 1 job and of the witness batch, writes
 window/data/hardware/<job>-<circuit index>.json with the ordered gate list
 (gate, physical qubits, angles), the logical-claim -> physical-qubit layout (initial
-and final, from the transpiler layout stored with the job), and what the circuit is."""
+and final, from the transpiler layout stored with the job), and what the circuit is;
+and window/hardware/<job>-<circuit index>.svg, the circuit drawn from the job record
+with Qiskit's circuit drawer (idle wires hidden, unfolded). Needs matplotlib and pylatexenc."""
 
 import json
 
 from entangled_mind import backends, config
 
 OUT = config.ROOT / "window" / "data" / "hardware"
+SVG = config.ROOT / "window" / "hardware"
 JOBS = {"dbl423dgg49c73dk0db0": "stage1", "dbl6e1d8mdtc73d5gesg": "witness"}
 SETTINGS = [a + b for a in "XYZ" for b in "XYZ"]
 CALIB = ["00", "01", "10", "11"]
@@ -37,6 +40,10 @@ def describe(kind: str, k: int) -> dict:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    SVG.mkdir(parents=True, exist_ok=True)
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
     svc = backends.service()
     index = []
     for jid, kind in JOBS.items():
@@ -58,7 +65,8 @@ def main() -> None:
                 n_logical = len(qc.layout.input_qubit_mapping) if qc.layout.input_qubit_mapping else qc.num_qubits
                 init = qc.layout.initial_index_layout(filter_ancillas=True)
                 fin = qc.layout.final_index_layout(filter_ancillas=True)
-                layout = {"initial_logical_to_physical": {str(i): p for i, p in enumerate(init)},
+                layout = {"initial": list(init), "final": list(fin),
+                          "initial_logical_to_physical": {str(i): p for i, p in enumerate(init)},
                           "final_logical_to_physical": {str(i): p for i, p in enumerate(fin)},
                           "n_logical": len(init)}
             else:
@@ -68,6 +76,10 @@ def main() -> None:
                    "layout": layout, "active_physical_qubits": active,
                    "counts": {name: int(c) for name, c in qc.count_ops().items()},
                    "n_gates": len(gates), "gates": gates}
+            fig = qc.draw(output="mpl", idle_wires=False, fold=-1)
+            fig.savefig(SVG / f"{jid}-{k}.svg", format="svg", bbox_inches="tight")
+            plt.close(fig)
+            rec["svg"] = f"window/hardware/{jid}-{k}.svg"
             path = OUT / f"{jid}-{k}.json"
             path.write_text(json.dumps(rec))
             index.append({"file": path.name, "job_id": jid, "circuit_index": k, "item": rec["item"],
