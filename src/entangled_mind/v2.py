@@ -126,9 +126,9 @@ def _all(psi, n, u):
     return psi
 
 
-def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
-                       gamma0: float, beta0: float, alpha: float) -> np.ndarray:
-    """Exact readout distribution of the (learned) arm-A circuit. alpha = 0 is the v1 X-basis readout."""
+def fast_quantum_state(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
+                       gamma0: float, beta0: float) -> np.ndarray:
+    """Pre-readout statevector of the (learned) arm-A circuit (computational basis)."""
     n = it.n
     web = coupled_web(it, k_sup, k_con)
     phi = solve_phases_fast(web)
@@ -151,7 +151,14 @@ def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_t
         psi = psi * np.exp(-0.5j * (-2 * g) * zz) * np.exp(-0.5j * (-2 * g) * lean_z)
         psi = _all(psi, n, H)
         psi = psi * np.exp(-0.5j * (-2 * b) * mix_z)
-    psi = _all(psi, n, _ry(-math.pi / 2 + alpha))   # alpha = 0: |+> -> |0>, the X-basis readout
+    return psi
+
+
+def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
+                       gamma0: float, beta0: float, alpha: float) -> np.ndarray:
+    """Exact readout distribution of the (learned) arm-A circuit. alpha = 0 is the v1 X-basis readout."""
+    psi = fast_quantum_state(it, s_theta, k_sup, k_con, n_trotter, gamma0, beta0)
+    psi = _all(psi, it.n, _ry(-math.pi / 2 + alpha))   # alpha = 0: |+> -> |0>, the X-basis readout
     return np.abs(psi) ** 2
 
 

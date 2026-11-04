@@ -207,3 +207,12 @@ The overstated sentences were corrected in `experiments/items-borrowed.json` (ru
 4. **Shared fitting rule:** 400 random draws, then hill-climbing of the 10 best with 60 steps each (1,000 train evaluations), with the final candidate selected on validation AUROC. Seeds are A2 101, F2 202, L 303.
 5. **Arm G** (self-reported confidence) needs one Haiku call per locked-test item. It is made at evaluation time and cached in `results/v2-arm-g-confidence.json`. On the run-2 held-out set it reuses the existing arm-G calls.
 6. **Phase solver.** `v2.solve_phases_fast` is a vectorised form of `encoder.solve_phases`, with the same starts and update rule plus early stopping. It agrees within 2×10⁻⁶ rad. v1's solver is unchanged.
+
+## D13 — Experiment 3 implementation choices (logged before any experiment-3 result)
+
+**Date:** 2026-11-03
+
+1. **Budget:** $10, as set in Sean's run instruction. This replaces the $4 cap written in the pre-registration. The expected cost of about $2.60 is unchanged.
+2. **Secondary test 1 (do order effects exist at all?)** The pre-registration compares order effects with baseline split-halves. It is implemented as a permutation test that shuffles the order labels within each item-pair. This compares the observed |P(yes | i first) − P(yes | j first)| with what run-to-run variability alone produces, using the same 5 + 5 conversations. The 5 single-turn baseline runs per item are still collected and reported.
+3. **Secondary test 2 (do the largest-Δᴼ pairs show bigger effects than the smallest?)** The pre-registration says paired Wilcoxon over items. It is implemented as a sign-flip permutation test on the per-item difference, because scipy is not a dependency.
+4. **Exact U_k.** In the yes/no (X) basis, H_k's coupling and field terms are diagonal and −Z_k flips qubit k. So U_k = exp(−iγ₀H_k) is applied as exact 2×2 rotations, one for each configuration of the other qubits, with no truncation. This was checked to preserve the norm to 10⁻¹².
