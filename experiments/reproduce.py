@@ -115,12 +115,20 @@ def main() -> int:
 
     step("exp5-pilot.md", lambda: importlib.import_module("exp5_run").cmd_pilot())
     step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
+    step("exp4-run-3.md", lambda: importlib.import_module("exp4_run3").main())          # all calls cached: no API use
+    step("exp5-run-2.md", lambda: importlib.import_module("exp5_rerun").main())          # all calls cached: no API use
     step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
     step("gm3a-anchor-gap.md", lambda: importlib.import_module("gm3a_anchor_gap").main())
     for mod, md in (("gm1_self_knowledge", "gm1-self-knowledge.md"), ("gm2_self_conditioning", "gm2-self-conditioning.md"),
                     ("gm3b_format_invariance", "gm3b-format-invariance.md"), ("gm4_evidence_seeking", "gm4-evidence-seeking.md")):
-        if (config.RESULTS / md).exists():          # overnight runs: analysis recomputed from the call caches
+        if md in committed:          # overnight runs: analysis recomputed from the call caches
             step(md, lambda mod=mod: importlib.import_module(mod).analyse())
+    for fn, md in (("bm3", "bm3-confirmation.md"), ("bm7", "bm7-serial-position.md"), ("bm9", "bm9-contrast.md")):
+        if md in committed:          # biomimetic $0 analyses (D40-D42)
+            step(md, lambda fn=fn: getattr(importlib.import_module("bm_offline"), fn)())
+    for fn, md in (("bm2_analyse", "bm2-sampling-identity.md"), ("bm1_analyse", "bm1-serial-dependence.md")):
+        if md in committed:          # biomimetic runs (D43-D44), from their call caches
+            step(md, lambda fn=fn: getattr(importlib.import_module("bm_runs"), fn)())
 
     def sonnet():
         sys.argv = ["sonnet_replication.py", "--offline"]
