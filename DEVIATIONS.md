@@ -232,3 +232,38 @@ These were added at Sean's request, prompted by the exploratory window vignette 
 - v2.1 is evaluated on the locked test set once, after the v2 arms.
 
 Because W4 was an exploratory observation on run-2 data, v2.1 is a hypothesis suggested by data from the run-2 hard pool. Its evaluation on the **run-2 held-out set** is therefore not independent of that suggestion. The **locked v2 test set**, which shares no item with run 2, is the clean test.
+
+## D15 — Correction: the phase solver's frame drifts off the yes/no axis (encoding bug, documented and characterised)
+
+**Date:** 2026-11-04. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
+
+**Finding.** Two causes were possible: (a) a display convention error in `export_window.py`, or (b) the encoding itself. It is **not (a)**: the exported encode-stage Bloch azimuth equals the solver's φ exactly, claim for claim. It **is (b)**, in a more specific form than a free rotation.
+
+The XY energy E(φ) = −Σ J_ij cos(φ_i − φ_j) − Σ lean_k cos φ_k is pinned by its lean anchors, so it cannot rotate freely. But the anchors are weak, with weight 1, against the relation couplings. The relation judge marks "supports" between claims that lean opposite ways when one makes the other more plausible. Those couplings pull the yes and no camps toward each other, and the ground state settles at a compromise off the readout axis. The energy is also symmetric under φ → −φ, so the direction of the tilt is arbitrary.
+
+On h046, the yes claims sit at −62° and −71° and the no claims at −137° to −174°. Across the 225 run-2 items that have both camps:
+- 20% have the yes camp more than 30° off axis;
+- 20% have camps less than 90° apart;
+- at least 10% have fully merged camps.
+
+**Fix 1, a rigid frame pin (`encoder.pin_frame`), does not work.** It applies the least-squares rotation putting the yes camp at 0° and the no camp at 180°. A rotation only fixes a frame that has rotated, so it cannot pull merged camps apart. It changed nothing material.
+
+**Fix 2, the correction: stronger anchors (`encoder.solve_phases_anchored`).** In the phase solve only, the lean field is scaled by λ = max(1, the largest total coupling Σⱼ|J_kj| of any claim in the item). This rule was fixed before its AUROC was computed. Effects:
+- yes camps more than 30° off axis fall from 20% to 7%;
+- the 10th-percentile camp separation rises from 0° to 147°.
+
+The λ → ∞ limit, which puts every leaning claim exactly on the axis, is reported for reference.
+
+**Effect on error detection, exploratory.** Exact noiseless scores on the run-2 test set:
+
+| arm | as run | with the correction | at λ → ∞ |
+|---|---|---|---|
+| A0 | 0.49 [0.35, 0.62] | 0.47 [0.34, 0.61] | 0.47 [0.33, 0.60] |
+| C | 0.68 [0.56, 0.79] | 0.67 [0.55, 0.78] | 0.67 [0.54, 0.78] |
+
+Details are in `results/frame-fix-check.md`. The frame bug is real, but it does not explain the entangled arm's poor error detection.
+
+**Disposition.**
+- v1, v2 and every archived result keep the as-run solver, as pre-registered.
+- Following Sean's rule ("if the fix matters, it goes into v2.1"), the correction is **not** added to v2.1, because it does not change the AUROCs. v2.1 stays a single change, the honest hedge. The v2.1 fit had not started when this was decided, so the correction could still be folded in, as a correctness fix, by a pre-registered amendment before `fit21`.
+- `export_window.py` needs no fix.
