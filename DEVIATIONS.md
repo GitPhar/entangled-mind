@@ -436,7 +436,7 @@ Also corrected:
 
 ## D30 — Addendum E: the frozen F2+ on Haiku's run-2 held-out set
 
-**Date:** 2026-11-03 21:45 MST. Pre-registered in `experiments/preregistration-v2.md`, Addendum E (`52e80a0`), before the scoring, at Sean's go-ahead.
+**Date:** 2026-11-03 21:49 MST (the commit time of `52e80a0`). Pre-registered in `experiments/preregistration-v2.md`, Addendum E (`52e80a0`), before the scoring, at Sean's go-ahead.
 
 The frozen F2+ was scored once on the run-2 held-out set (40 wrong, 40 right), with no refitting and no API calls. Its AUROC was 0.80 [0.69, 0.88]:
 - F2+ − A2 = −0.019 [−0.073, +0.029];
