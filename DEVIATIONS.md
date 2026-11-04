@@ -616,3 +616,10 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 - The data are experiment 5's O1–O4 chains, anchor (a) only.
 - Position weights are fitted with item fixed effects.
 - The primary reading is revision 2's U-shape exclusion for the LCA.
+
+## D42 — Biomimetic run, 3 of 5: contrast or assimilation on the single-scale QQ data pre-registered
+
+**Date:** 2026-11-04 05:08 MST, before the archive was opened for this analysis. Recorded in `experiments/bm9-contrast.md`.
+- The data are the QQ conversations on anchor (a): run 1 is primary and run 2 is the replication.
+- The test regresses the shift in M on the level of the S rating, with the content push as a covariate.
+- It is not a normalization test (map revision 2, §3.10).
