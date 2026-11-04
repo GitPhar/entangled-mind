@@ -131,7 +131,7 @@ A fuller version, with every paper's design, numbers and limitations, is in `pap
 | standard (run 2) | 125 | as above | `claude-haiku-5-5`, default effort (D5) | **4** of 125 | `results/pool-run-2.md` |
 | hard (run 3) | 300 (D6) | 120 SimpleQA, 120 MMLU-Pro physics/chemistry, 60 author-written claims | `claude-haiku-5-5` | **44** of 300 | `results/pool-run-3.md` |
 | training, v2 (run 5) | 1,048 (D9) | SimpleQA, MMLU-Pro biology/engineering/physics/chemistry, computed puzzles, verified claims | `claude-haiku-5-5` | **158** of 1,048 | `results/pool-run-5.md` |
-| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). Arms [NOT SCORED] (D25) | `results/refusal-sonnet-replication-2.md` |
+| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). Arms [NOT SCORED] (D25) | `results/pool-run-4.md` |
 | training, second model (run 6) | locked-test questions first (D18) | the training pool | `claude-sonnet-5-5` | [HALTED] after 82 items, 7 wrong, on a second refusal (D25) | `results/refusal-sonnet-replication-2.md` |
 
 Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04. The Sonnet replication cost $4.07 (hard pool, including the $1.39 spent before the first stop) and $1.10 (training pool, before the second stop). Experiment 5's pilot cost $0.21.
