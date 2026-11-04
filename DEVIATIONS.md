@@ -623,3 +623,15 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 - The data are the QQ conversations on anchor (a): run 1 is primary and run 2 is the replication.
 - The test regresses the shift in M on the level of the S rating, with the content push as a covariate.
 - It is not a normalization test (map revision 2, §3.10).
+
+## D43 — Biomimetic run, 4 of 5: the PT+N identity and its Z slope pre-registered
+
+**Date:** 2026-11-04 05:09 MST, before any call. Recorded in `experiments/bm2-sampling-identity.md`.
+
+**Design.**
+- 16 exp-4 items × 4 statements × 20 repeats, on one scale.
+- Budget $0.10, enforced in code; stop on any refusal.
+
+**Primary test:** the item-level Z slope (map revision 2), with **split halves**. A check on random ratings before freezing showed that shared repeat noise alone gives b ≈ +0.95 without the split.
+
+**Secondary test:** mean Z within ±0.05.
