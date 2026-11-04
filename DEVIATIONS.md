@@ -552,3 +552,18 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 **Check before freezing.** The fitting code was tested on simulated data.
 - With one latent and monotone links, ΔLL was −8.2 per claim and 0% of claims were positive.
 - With format-specific latents, ΔLL was +36 and 100% were positive.
+
+## D39 — Overnight run, 6 of 6: direction 4 (the evidence-seeking menu test) pre-registered
+
+**Date:** 2026-11-04 04:05 MST, before any call. Recorded in `experiments/gm4-evidence-seeking.md`. The menus and per-claim scores are fixed in `experiments/gm4-menus.json`, built by `experiments/gm4_menus.py`.
+
+**Design.**
+- The 40 items × 3 menus × 10 repeats, on Haiku with thinking disabled.
+- Budget $0.50, enforced in code; stop on any refusal.
+
+**Additions from the literature session's reads.**
+- A most-uncertain baseline, to check whether EIG is confounded with the most uncertain-sounding claim.
+- Jhaveri et al.'s confirmatory-testing finding, as the expected alternative.
+- The gold map's P falls from 0.25 to 0.20.
+
+**Check before freezing.** The analysis code was tested on simulated choices.
