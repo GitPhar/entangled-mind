@@ -12,7 +12,13 @@ Pre-registered in `experiments/bm2-sampling-identity.md` (D43), committed before
 - **Z sits near zero:** −0.03 [−0.07, +0.00]. That is close to Costello & Watts' human values but not tight enough to pass the ±0.05 band.
 - **Repeat-to-repeat spread is largest for mid-scale statements** (r = −0.54). That fits a Bayesian sampler, but floor and ceiling effects predict the same.
 
-**What it means.** The model commits the classic fallacies while its four ratings still nearly cancel in Costello & Watts' combination, with no sign of the item-by-item slope the noisy-sampling versions need. That pattern fits coherent probabilities passed through a shared distortion, or the original PT+N 2014 model, better than the fallacy-producing samplers. The sampling account, as tested here, is not supported.
+**What it means.** The model commits the classic fallacies, yet its four ratings nearly cancel in Costello & Watts' combination, with no item-by-item slope.
+- **Coherent probability** cannot produce the fallacies at all, so it is ruled out, along with any shared distortion of coherent values.
+- **The later fallacy-producing sampler versions** need the slope, and it isn't there.
+- **The original PT+N 2014 model fits best.** Its noise produces fallacies and then cancels in Z.
+- **The variance evidence points the other way.** The mid-scale peak in spread favours the Bayesian sampler over PT+N 2014, which predicts constant spread, but floors and ceilings confound that.
+
+The test separates the sampling family's variants. It does not show that the model samples.
 
 ## Z = P(X) + P(Y) − P(X∧Y) − P(X∨Y)
 
