@@ -499,7 +499,7 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
 - **The paraphrase arm has its own recognition check.** Panickssery et al. only proposed a paraphrase control and never ran one.
 - **The disagreement subset means the authors' correctness differs** (Ashuach et al.): 26 questions.
 
-**Budget and stops:** , enforced in code. The steps run in a fixed order, so a cap stop truncates the least important step. The run stops on any refusal.
+**Budget and stops:** $3, enforced in code. The steps run in a fixed order, so a cap stop truncates the least important step. The run stops on any refusal.
 
 **Timestamps:** D34 and D35 were corrected to their commit times (03:48 and 03:50) per the America/Denver rule. The literature session flagged both.
 

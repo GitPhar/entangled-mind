@@ -151,7 +151,9 @@ def write_md(res, rep) -> None:
     lines += ["", "## Pre-registered reading", "",
               f"- Invasive families (Holm p < 0.05): **{', '.join(inv) if inv else 'none'}**.",
               "- Because the model's state at every turn is its copyable context, macrorealism holds by construction and the "
-              "\"not asked\" condition is an exact counterfactual. Every NSIT violation above is therefore invasiveness, "
+              "\"not asked\" condition is an exact counterfactual at the level of the response distribution (the API exposes no "
+              "sampler seed, so the specific draw is not recovered; the clone-read model is still factorisable). Every NSIT "
+              "violation above is therefore invasiveness, "
               "never evidence against definite states (§5.2).",
               "- Whether the invasiveness comes from the question or from the record of the answer is direction 2's question."]
     OUT_MD.write_text("\n".join(lines) + "\n")

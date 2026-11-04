@@ -14,7 +14,7 @@ Pre-registered in `experiments/gm9-nsit.md` (D34), committed before this analysi
 - **A midway yes/no choice, in place of a filler turn,** has no detectable effect: 5 points against 3 from noise, p = 0.16. This matches experiment 5's null on the Kvam test.
 - The two single-question effects replicate on the separate run-2 conversations: 17 and 16 points, against about 3 from noise.
 
-**What it means.** A person's mind can't be copied, so when an earlier question changes a later answer, two explanations can't be told apart: either there was no settled opinion until asked, or asking changed it. A language model's whole state is the conversation text, which can be copied exactly. So it always has a definite state, and the "never asked" comparison is an exact copy, not a different person or a different day. Every effect above is therefore the act of asking adding text to the state (**invasiveness**). None of it is evidence that the model had no answer until asked.
+**What it means.** A person's mind can't be copied, so when an earlier question changes a later answer, two explanations can't be told apart: either there was no settled opinion until asked, or asking changed it. A language model's whole state is the conversation text, which can be copied exactly. So it always has a definite state, and the "never asked" comparison runs on an exact copy, not a different person or a different day. (Strictly, the copy reproduces the *distribution* of answers, not the specific random draw: the API exposes no sampling seed. That is all the test needs.) Every effect above is therefore the act of asking adding text to the state (**invasiveness**). None of it is evidence that the model had no answer until asked.
 
 The same reasoning applies to every order-effect, QQ or Leggett–Garg-style test run on a language model through its conversation, ours and other people's. Such tests can measure how much asking disturbs the model. They cannot show that its judgments lack definite values.
 
@@ -43,5 +43,5 @@ d = mean later rating when the earlier question was asked minus when it was not 
 ## Pre-registered reading
 
 - Invasive families (Holm p < 0.05): **N1M, N1S, N2, N3, N5**.
-- Because the model's state at every turn is its copyable context, macrorealism holds by construction and the "not asked" condition is an exact counterfactual. Every NSIT violation above is therefore invasiveness, never evidence against definite states (§5.2).
+- Because the model's state at every turn is its copyable context, macrorealism holds by construction and the "not asked" condition is an exact counterfactual at the level of the response distribution (the API exposes no sampler seed, so the specific draw is not recovered; the clone-read model is still factorisable). Every NSIT violation above is therefore invasiveness, never evidence against definite states (§5.2).
 - Whether the invasiveness comes from the question or from the record of the answer is direction 2's question.
