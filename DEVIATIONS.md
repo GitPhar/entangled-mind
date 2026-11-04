@@ -452,3 +452,13 @@ The frozen F2+ was scored once on the run-2 held-out set (40 wrong, 40 right), w
 - `results/ibm-calibration.md`'s "Job ran at" line is now MST: Stage 1 ran at 16:06 MST, which is 23:06 UTC.
 - `check_job.py` now writes local time. The existing `results/ibm-job-status-log.md` was converted once, and its instants are unchanged.
 - Both tables were regenerated from their archived JSON by their writers, so `reproduce.py` still matches byte for byte.
+
+## D32 — Experiment 5 analysis fix: tolerance in the a priori QQ sub-test (found after results)
+
+**Date:** 2026-11-03, after experiment 5's first results were written.
+
+The a priori sub-test compares order effects on each item's two QQ pairs, ordered by predicted non-commutativity |sin Δφ|. The analysis first compared these values with exact floating-point inequality. After the anchored phase solve, almost every chain claim's |sin Δφ| is 0 up to solver round-off (10⁻¹⁶–10⁻⁹), so round-off decided which pair counted as "larger". That gave a spurious 28 wins to 9 losses (p = 0.001) over "37 items".
+
+Treating differences of 10⁻⁶ or less as ties, the tolerance already used for the encode-stage non-commutativity count, leaves 3 items with genuinely distinct predictions: 1 win, 2 losses, p = 0.875. The markdown was regenerated from the archived JSON, and nothing was refitted.
+
+The pre-registered design is unchanged, and so is the verdict, which does not use this sub-test. The selection of QQ pairs for the many items whose claims all sit at |sin Δφ| = 0 was made by `qq_pairs` before any data. It is therefore effectively arbitrary on those items, which is consistent with §8.6's expectation that most claims commute.

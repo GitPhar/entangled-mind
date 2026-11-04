@@ -319,7 +319,7 @@ def qq_check(cand, recs, conv, split) -> dict:
     for p in pairs:
         by_item.setdefault(p["item"], []).append(p)
     for q, ps in by_item.items():
-        if len(ps) != 2 or ps[0]["nc"] == ps[1]["nc"]:
+        if len(ps) != 2 or abs(ps[0]["nc"] - ps[1]["nc"]) <= 1e-6:   # D32: solver round-off is not a prediction
             ties_nc += 1
             continue
         hi_p, lo_p = sorted(ps, key=lambda p: -p["nc"])
@@ -419,7 +419,9 @@ def write_md(o) -> None:
              "Frozen pre-registration: `experiments/exp5-sequential-judgment.md` (D22–D26). Base model `claude-haiku-5-5`, "
              "thinking disabled, default temperature. 40 items × 12 chain types × 10 conversations, plus the QQ block "
              "(40 items × 2 pairs × 2 orders × 40). Pilot gates passed (`results/exp5-pilot.md`). "
-             f"Conversations excluded for a schema failure: {o['n_conversations_excluded_schema']}.", "",
+             f"Conversations excluded for a schema failure: {o['n_conversations_excluded_schema']}."
+             + (f" Conversations in all (pilot included): {o['n_conversations']:,}; experiment-5 API cost **${o['cost_usd']:.2f}** "
+                f"of the $4 cap; no refusal." if "n_conversations" in o else ""), "",
              f"Predicted non-commutativity at encode: |sin Δφ| > 10⁻⁶ on {o['noncommuting_chain_claims'][0]} of "
              f"{o['noncommuting_chain_claims'][1]} chain claims across the 40 items (max {o['noncommuting_chain_claims'][2]:.3f}); "
              "every other chain claim's sub-question commutes with the main question at encode.", "",
@@ -452,7 +454,9 @@ def write_md(o) -> None:
     lines += [f"- Signature present: **{q['signature_present']}**; contradicted: **{q['signature_contradicted']}**.",
               f"- A priori sub-test (OE larger on the larger-|sin Δφ| pair): {a['wins']} wins, {a['losses']} losses over "
               f"{a['items_with_distinct_noncommutativity']} items with distinct predicted non-commutativity "
-              f"({a['items_tied_noncommutativity']} items tied, mostly both 0); one-sided sign test p = {a['sign_test_p_one_sided']:.3f}.",
+              f"({a['items_tied_noncommutativity']} items tied within 10⁻⁶, almost all with both pairs at 0); one-sided sign test "
+              f"p = {a['sign_test_p_one_sided']:.3f}. (First computed with exact float comparison, which let solver round-off "
+              "of 10⁻¹⁶–10⁻⁹ order the pairs and gave a spurious 28–9; corrected in D32.)",
               "", "| pair | |sin Δφ| | OE [95% CI] | OE_S | OE_M | OSS | q | z | Γ |", "|---|---|---|---|---|---|---|---|---|"]
     for p in q["pairs"]:
         s = p["stats"]
@@ -476,5 +480,30 @@ def write_md(o) -> None:
     print("\n".join(lines[:40]))
 
 
+def md_only() -> None:
+    """Rewrite the markdown from the archived JSON (no refitting); recomputes the a priori sub-test with the D32 tolerance."""
+    o = json.loads(OUT_JSON.read_text())
+    by = {}
+    for p in o["qq"]["pairs"]:
+        by.setdefault(p["item"], []).append(p)
+    wins = losses = ties = 0
+    for ps in by.values():
+        if len(ps) != 2 or abs(ps[0]["nc"] - ps[1]["nc"]) <= 1e-6:
+            ties += 1
+            continue
+        hi_p, lo_p = sorted(ps, key=lambda p: -p["nc"])
+        wins += hi_p["stats"]["OE"] > lo_p["stats"]["OE"]
+        losses += hi_p["stats"]["OE"] < lo_p["stats"]["OE"]
+    nn = wins + losses
+    o["qq"]["apriori_subtest"] = {"items_with_distinct_noncommutativity": nn, "wins": wins, "losses": losses,
+                                  "items_tied_noncommutativity": ties,
+                                  "sign_test_p_one_sided": sum(math.comb(nn, j) for j in range(wins, nn + 1)) / 2 ** nn if nn else float("nan")}
+    conv = json.loads(CONV.read_text())
+    o["n_conversations"] = len(conv)
+    o["cost_usd"] = sum(v["cost"] for v in conv.values())
+    OUT_JSON.write_text(json.dumps(o, indent=1, default=float))
+    write_md(o)
+
+
 if __name__ == "__main__":
-    main()
+    md_only() if "--md-only" in sys.argv else main()
