@@ -382,3 +382,16 @@ Per Sean's rule ("if a second refusal occurs, stop again and report"):
 - The scorer (`sonnet_replication.py`) was **not** run, because its arm-G step would make further Sonnet calls.
 
 The record is in `results/refusal-sonnet-replication-2.md`. Both refusals came on SimpleQA items with Sonnet as the base model, after 1,473 Haiku-based and 381 Sonnet-based items had gone through the same extractor prompt without one.
+
+## D26 — Experiment 5 model details left open by the frozen text (fixed before any full-run data were examined)
+
+**Date:** 2026-11-03. The full run was collecting data, unread, while these were fixed. Code: `experiments/exp5_models.py`.
+
+1. **κ in A5.** κ scales the prep RZZ(κJ) and the evolution couplings by κ/κ₀, with κ₀ = π/4. So A5⁰ (κ = π/4, γ = 0.5, β = 0.4) reproduces v1's coupling strengths in both places.
+2. **Evolution steps.** Every turn gets one evolution step before it, including K1's choice and K0's filler. The filler gets the step only, with no update.
+3. **Π_M.** It has eigenvalue 1 for vote m > 0, 0 for m < 0 and ½ for m = 0, matching the readout's tie rule. The POVM and the choice updates use √ of these eigenvalues.
+4. **D5 in practice.** In the yes/no basis the coupling and field terms are diagonal phases, so after dephasing only the mixer moves populations. D5 is therefore A5's prepared populations evolving by independent bit flips with probability sin²β per qubit per step. That is still exactly the dephased model, with 5 parameters, of which γ has no effect.
+5. **F5 hedges.** A hedge has no "true" direction, so it is given a prior P(x = +1) = ½. Hedges are never asked about.
+6. **BA5's parameter boxes**, which the text does not give: ω_supp, ω_con ∈ [0, 2] and ρ ∈ [0, 1]. C₀ is A5⁰'s prepared P(yes), before any evolution step. The "side" of a claim is the sign of its lean, compared with the model's original answer.
+7. **The ablation, A5 with κ = 0,** is refitted with κ pinned at 0, under the same rule and budget (seed 505). The plain-solver sensitivity run, A5plain, is also refitted (seed 506).
+8. **Rows with a schema failure.** A conversation containing one is excluded whole, and the count is reported.
