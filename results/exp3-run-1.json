@@ -1,0 +1,6663 @@
+{
+ "items": [
+  "h004",
+  "h039",
+  "h057",
+  "h058",
+  "h065",
+  "h102",
+  "h111",
+  "h115",
+  "h137",
+  "h140",
+  "h191",
+  "h194",
+  "h197",
+  "h222",
+  "h229",
+  "h262",
+  "h277",
+  "h279",
+  "h283",
+  "h293",
+  "h008",
+  "h034",
+  "h077",
+  "h120",
+  "h121",
+  "h126",
+  "h141",
+  "h142",
+  "h146",
+  "h149",
+  "h160",
+  "h173",
+  "h175",
+  "h179",
+  "h211",
+  "h258",
+  "h259",
+  "h263",
+  "h282",
+  "h300"
+ ],
+ "rows": [
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.012113467735796565,
+   "df": 0.00037663153841626957,
+   "p_yes_ij": 0.2,
+   "p_yes_ji": 0.2,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "yes",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010769386540776957,
+   "df": 0.001114246379841385,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    5,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00018945851018958848,
+   "df": 0.0005029344438037082,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0003256058424454533,
+   "df": 0.0006112009432892055,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    1,
+    6
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.008605161283280899,
+   "df": 0.0015277796288248307,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h004",
+   "wrong": true,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0005631955143135525,
+   "df": 1.870244021107831e-05,
+   "p_yes_ij": 0.2,
+   "p_yes_ji": 0.2,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    5,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.012471315283998086,
+   "df": 8.81158514266675e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    3,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010501190962343143,
+   "df": 7.409847864621715e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 1.7391368323127487e-05,
+   "df": 1.8751865376173007e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 7.379489516762261e-05,
+   "df": 6.083901476598437e-08,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.0,
+   "observed": 0.4,
+   "answers_ij": [
+    "no",
+    "yes",
+    "no",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    6,
+    8
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0019750220075624436,
+   "df": 0.00020150213600845146,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.2,
+   "observed": 0.2,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h039",
+   "wrong": true,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0008235185357681196,
+   "df": 7.78078975185168e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010324407899393373,
+   "df": 1.0126800029217207e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.00907258448198947,
+   "df": 2.7506017889289543e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00010701136371013553,
+   "df": 7.710323960592772e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    7,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0007823070248567099,
+   "df": 4.78128875431958e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0031712327871375456,
+   "df": 1.0444809369483053e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h057",
+   "wrong": true,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0032370865785144587,
+   "df": 1.0655991112981576e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h058",
+   "wrong": true,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01249139086479717,
+   "df": 7.334039209522703e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h058",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.010480221305683157,
+   "df": 0.00027075433350585813,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h058",
+   "wrong": true,
+   "pair": [
+    1,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00030026482383538333,
+   "df": 1.5043456789718746e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h058",
+   "wrong": true,
+   "pair": [
+    2,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00032346048132075866,
+   "df": 1.653227173816765e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h058",
+   "wrong": true,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0023802329638853426,
+   "df": 1.3284689620448546e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009718303148991678,
+   "df": 9.218455742331687e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.00967430514700654,
+   "df": 6.184542220231192e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00010288008582082231,
+   "df": 1.3483817023128757e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.000784288323846527,
+   "df": 1.8347436497376706e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.005088202603216241,
+   "df": 2.159534689618123e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h065",
+   "wrong": true,
+   "pair": [
+    1,
+    8
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0010458793239201958,
+   "df": 3.733520007967435e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h102",
+   "wrong": true,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.025129167786187956,
+   "df": 0.000431050006845261,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h102",
+   "wrong": true,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.011800084281394813,
+   "df": 0.000804090874010583,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h102",
+   "wrong": true,
+   "pair": [
+    7,
+    8
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 2.7755575615628914e-17,
+   "df": 6.938893903907228e-18,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h102",
+   "wrong": true,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0001713492113550874,
+   "df": 0.0002151962833596005,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h102",
+   "wrong": true,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0018859531932367002,
+   "df": 0.0051635360892440425,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.015119416033292948,
+   "df": 2.6003939195108588e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010011606580630661,
+   "df": 1.0882469595564876e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 6.717195763988881e-05,
+   "df": 5.163592991245576e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0005068193456052306,
+   "df": 2.995284048692161e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.002487550567565777,
+   "df": 0.00015329167616984313,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h111",
+   "wrong": true,
+   "pair": [
+    1,
+    3
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0015068718699694506,
+   "df": 2.8875884841369375e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h115",
+   "wrong": true,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.019171300680949716,
+   "df": 0.0018768996219571815,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.0,
+   "observed": 0.4,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h115",
+   "wrong": true,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.016363999029760656,
+   "df": 0.000914117696124114,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h115",
+   "wrong": true,
+   "pair": [
+    1,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00012637612240670726,
+   "df": 0.0007540982317109715,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.2,
+   "observed": 0.39999999999999997,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "no",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "yes",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h115",
+   "wrong": true,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.001938175207225501,
+   "df": 0.0017717851715244384,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h115",
+   "wrong": true,
+   "pair": [
+    3,
+    6
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.005283736803651962,
+   "df": 0.0002665784794532982,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    1,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009412955183784738,
+   "df": 0.001258164354270618,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    0,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.0062644249975883776,
+   "df": 0.001435351308863594,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    3,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 9.92022471061893e-05,
+   "df": 0.0009201324901279822,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.000381762444441866,
+   "df": 0.0011122631108894387,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.002871845329367906,
+   "df": 0.0028539726594512347,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h137",
+   "wrong": true,
+   "pair": [
+    6,
+    8
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0018503183750264857,
+   "df": 0.00011661150713811381,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h140",
+   "wrong": true,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.03437522030613588,
+   "df": 0.00011409479749741307,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h140",
+   "wrong": true,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.03192645448135756,
+   "df": 4.75475823284539e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h140",
+   "wrong": true,
+   "pair": [
+    7,
+    8
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 5.551115123125783e-17,
+   "df": 0.0,
+   "p_yes_ij": 0.2,
+   "p_yes_ji": 0.0,
+   "observed": 0.2,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h140",
+   "wrong": true,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.004597647873095079,
+   "df": 0.0001272853948580746,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h140",
+   "wrong": true,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.005482424746880515,
+   "df": 0.000357253047817,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h191",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.045622168483806846,
+   "df": 0.017018620447352917,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h191",
+   "wrong": true,
+   "pair": [
+    7,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.030427743995242063,
+   "df": 0.012069620764734501,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h191",
+   "wrong": true,
+   "pair": [
+    6,
+    8
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 0.0,
+   "df": 0.0,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 1.0,
+   "observed": 0.4,
+   "answers_ij": [
+    "yes",
+    "no",
+    "no",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h191",
+   "wrong": true,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 2.220446049250313e-16,
+   "df": 1.1102230246251565e-16,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h194",
+   "wrong": true,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.03156729802676672,
+   "df": 0.0025923741268763303,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h194",
+   "wrong": true,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.026213446512228122,
+   "df": 0.0007337598721943034,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h194",
+   "wrong": true,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00020148059275426622,
+   "df": 0.00018415813342024384,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h194",
+   "wrong": true,
+   "pair": [
+    1,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0008423528979421002,
+   "df": 0.000232334772465842,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.2,
+   "observed": 0.2,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "item": "h194",
+   "wrong": true,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.010409419803537379,
+   "df": 0.0001318634195603685,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.018567306112229676,
+   "df": 1.097504158302867e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.015020942334519033,
+   "df": 7.749723340863969e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    4,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0007621594220098005,
+   "df": 1.9513491207534908e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.000796843297369898,
+   "df": 4.238490129366437e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    3,
+    7
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0019999010855629162,
+   "df": 0.0001720055616833045,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h197",
+   "wrong": true,
+   "pair": [
+    2,
+    5
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.00245330529519569,
+   "df": 8.927201078518519e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009947708494969051,
+   "df": 0.001515341235364731,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009947708494969038,
+   "df": 0.001515341235364731,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    2,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0,
+   "df": 4.163336342344337e-17,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0,
+   "df": 6.938893903907228e-18,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    5,
+    10
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.008159868060983039,
+   "df": 0.01008956812161858,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h222",
+   "wrong": true,
+   "pair": [
+    2,
+    8
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 1.3877787807814457e-17,
+   "df": 0.0,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h229",
+   "wrong": true,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.013098697420484931,
+   "df": 4.503967351762774e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h229",
+   "wrong": true,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01101645063911924,
+   "df": 1.1711444715683031e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h229",
+   "wrong": true,
+   "pair": [
+    1,
+    2
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 0.0,
+   "df": 6.776263578034403e-21,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h229",
+   "wrong": true,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 6.917336137488017e-05,
+   "df": 3.2750561921829715e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h229",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0015525970721254057,
+   "df": 0.00010883195670102324,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h262",
+   "wrong": true,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.013073088522961074,
+   "df": 1.3647626972090876e-05,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 0.8,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h262",
+   "wrong": true,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.012451784587647508,
+   "df": 6.716822029684266e-07,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h262",
+   "wrong": true,
+   "pair": [
+    1,
+    2
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 1.1102230246251565e-16,
+   "df": 5.551115123125783e-16,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h262",
+   "wrong": true,
+   "pair": [
+    4,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0001593842018912106,
+   "df": 8.333948053884654e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    0,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.013451923631020324,
+   "df": 4.4271504614163827e-07,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.2,
+   "observed": 0.39999999999999997,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "no",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    0,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.006820327140292071,
+   "df": 2.671439693127234e-07,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.0,
+   "observed": 0.6,
+   "answers_ij": [
+    "yes",
+    "no",
+    "no",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 9.337587731350627e-05,
+   "df": 6.380472535203432e-09,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.4,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "yes",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00013000883127239904,
+   "df": 6.090013067288598e-08,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.2,
+   "observed": 0.2,
+   "answers_ij": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0011488834322334607,
+   "df": 1.4496997146045756e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.4,
+   "observed": 0.4,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "no",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "item": "h277",
+   "wrong": true,
+   "pair": [
+    3,
+    9
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0026460776662192154,
+   "df": 7.114442171229281e-10,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 0.4,
+   "observed": 0.6,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01160159205468958,
+   "df": 0.008236399541682038,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.2,
+   "observed": 0.2,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.011075599875915276,
+   "df": 0.008499021825256095,
+   "p_yes_ij": 0.2,
+   "p_yes_ji": 0.2,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "yes",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0002772418551604261,
+   "df": 0.0010788611425056327,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    0,
+    9
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0005852181139215373,
+   "df": 0.0003443362718861115,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    4,
+    9
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.005257293203372926,
+   "df": 0.010003747281369463,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h279",
+   "wrong": true,
+   "pair": [
+    2,
+    9
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.004835827873116039,
+   "df": 4.586040456146245e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h283",
+   "wrong": true,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.024225185116720283,
+   "df": 4.4876697126116904e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h283",
+   "wrong": true,
+   "pair": [
+    0,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01877011315390037,
+   "df": 4.504829817162511e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h283",
+   "wrong": true,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 0.0,
+   "df": 0.0,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h283",
+   "wrong": true,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0,
+   "df": 1.0587911840678754e-22,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h283",
+   "wrong": true,
+   "pair": [
+    8,
+    9
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.012457621451995637,
+   "df": 1.772251140334177e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    3,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.018040311707979872,
+   "df": 0.0016816393394317036,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    2,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.015447418932390461,
+   "df": 0.0023064481455757485,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.4,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "yes",
+    "no",
+    "no",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "no",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0009363119176642315,
+   "df": 0.00039136188404735595,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    2,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0013781267237588657,
+   "df": 0.0012494642475335133,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 0.4,
+   "observed": 0.4,
+   "answers_ij": [
+    "yes",
+    "no",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "no",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.010008013071466815,
+   "df": 0.015854252194260926,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h293",
+   "wrong": true,
+   "pair": [
+    4,
+    7
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.006180855368025151,
+   "df": 0.00037321292184340493,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    5,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.018754918447435487,
+   "df": 1.0706266316828916e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    3,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010847494717168837,
+   "df": 1.3265264633410823e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00028301468898650484,
+   "df": 1.0516611064215198e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0013888494379774574,
+   "df": 3.2796852877936544e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.005448707142919673,
+   "df": 4.637231310722356e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h008",
+   "wrong": false,
+   "pair": [
+    0,
+    8
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.003422482000438598,
+   "df": 7.988610328801826e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    3,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.014315692582696493,
+   "df": 2.4868620496221183e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    4,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.010268546750797913,
+   "df": 3.914909507685138e-10,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00027226989123840806,
+   "df": 5.891799381707585e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00028652787940952607,
+   "df": 8.765527303999932e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    5,
+    8
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0014852828648883598,
+   "df": 1.7259969342653392e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h034",
+   "wrong": false,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0007446636063934697,
+   "df": 1.9096502157367468e-10,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h077",
+   "wrong": false,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.015410685058194318,
+   "df": 3.210704776490658e-07,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h077",
+   "wrong": false,
+   "pair": [
+    2,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.014603443213753953,
+   "df": 2.516708197397577e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h077",
+   "wrong": false,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00018947983378181377,
+   "df": 1.7489229953149277e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h077",
+   "wrong": false,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00029464568521164747,
+   "df": 1.8995125805609803e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h077",
+   "wrong": false,
+   "pair": [
+    1,
+    3
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.002154423722852794,
+   "df": 2.756775030476888e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h120",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.04197337550729871,
+   "df": 1.6399098013766947e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h120",
+   "wrong": false,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-high",
+    "F-low"
+   ],
+   "dq": 0.02817988520767345,
+   "df": 1.703595486163235e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h120",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.007230627265554068,
+   "df": 1.1044978779022619e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h120",
+   "wrong": false,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00790802590435774,
+   "df": 5.872962961164446e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h120",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.008868932935305829,
+   "df": 2.3526129216216724e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h121",
+   "wrong": false,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.014611740196759482,
+   "df": 1.539710252396187e-05,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h121",
+   "wrong": false,
+   "pair": [
+    5,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.014195943202323424,
+   "df": 7.95302817802046e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h121",
+   "wrong": false,
+   "pair": [
+    3,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 6.099707939488663e-05,
+   "df": 1.2569488871627676e-05,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h121",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00028862836603238406,
+   "df": 6.0684574080260845e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 0.6,
+   "observed": 0.4,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "yes",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h121",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0008683677053347161,
+   "df": 1.2891666967274062e-07,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007609452843201359,
+   "df": 0.00014192044524607983,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    5,
+    9
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.005770827018666158,
+   "df": 0.000628599515059669,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 7.886758695785367e-06,
+   "df": 1.6713426396197661e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00019496579619726617,
+   "df": 2.7025294695004476e-05,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    7,
+    9
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.003970726847604911,
+   "df": 0.0007165432947386918,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h126",
+   "wrong": false,
+   "pair": [
+    6,
+    8
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.001805083312408029,
+   "df": 1.5272446753922253e-06,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "no",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009601878782388745,
+   "df": 0.0005764674166376018,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007822217129351286,
+   "df": 0.0020421998420913634,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00021299967705924738,
+   "df": 0.0009069089436713716,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0005539039649423289,
+   "df": 0.0021947928518424413,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0032615146373975445,
+   "df": 0.003377872334522535,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h141",
+   "wrong": false,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.006736445278440806,
+   "df": 4.249308520993221e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    1,
+    5
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01896852768084223,
+   "df": 0.00038635932203257006,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    0,
+    1
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.01740752632547149,
+   "df": 0.0016663225284899719,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 1.0,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0003514578765483334,
+   "df": 0.0001992690989890411,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0009726180872172696,
+   "df": 0.00045254957030171905,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0013692416742849822,
+   "df": 0.0018371755777869536,
+   "p_yes_ij": 0.8,
+   "p_yes_ji": 0.8,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h142",
+   "wrong": false,
+   "pair": [
+    1,
+    6
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.008954660757807709,
+   "df": 1.559059271039054e-05,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h146",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.0031600708288119783,
+   "df": 1.5718767398809064e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h146",
+   "wrong": false,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.0031600708288119783,
+   "df": 1.5718767398809064e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h146",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 0.0,
+   "df": 2.220446049250313e-16,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.8,
+   "observed": 0.20000000000000007,
+   "answers_ij": [
+    "no",
+    "yes",
+    "no",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h146",
+   "wrong": false,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 4.879853286554603e-05,
+   "df": 4.478756254755467e-10,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h146",
+   "wrong": false,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0014829126581665797,
+   "df": 1.101565161309992e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h149",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007352295248127416,
+   "df": 0.0024353859392638455,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h149",
+   "wrong": false,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.006138295806936922,
+   "df": 0.0065626751277571005,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.2,
+   "observed": 0.2,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h149",
+   "wrong": false,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 3.883439158836044e-05,
+   "df": 0.0021332939945396534,
+   "p_yes_ij": 0.6,
+   "p_yes_ji": 0.6,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "no",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "item": "h149",
+   "wrong": false,
+   "pair": [
+    6,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0003108282160084741,
+   "df": 0.0006182669507752703,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.6,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "no",
+    "no",
+    "yes",
+    "yes",
+    "no"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "no",
+    "no",
+    "yes"
+   ]
+  },
+  {
+   "item": "h149",
+   "wrong": false,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0010882258560155345,
+   "df": 0.0005747758529988101,
+   "p_yes_ij": 0.4,
+   "p_yes_ji": 0.6,
+   "observed": 0.19999999999999996,
+   "answers_ij": [
+    "yes",
+    "no",
+    "yes",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "yes",
+    "yes",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    4,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.002629189555720224,
+   "df": 6.4130678545382125e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.002002556249002474,
+   "df": 1.6491699450504882e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    1,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0001555483997135454,
+   "df": 1.4455776020660949e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0002242268634786715,
+   "df": 1.0817507778426716e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0006990398916602025,
+   "df": 5.128880020688342e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h160",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0004970376257917852,
+   "df": 8.33524360643878e-11,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.012818067955966711,
+   "df": 0.00027667544206666506,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.012085041190007584,
+   "df": 0.0004493071505587559,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 8.886671192681606e-05,
+   "df": 9.933932481092506e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    1,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00015123661059654459,
+   "df": 0.0005233844410877479,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.008316721798952237,
+   "df": 0.0012066709732383076,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h173",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0009951104870689897,
+   "df": 2.0132278699437622e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.017366172366060112,
+   "df": 1.4505896246916098e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    2,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.016075031790712402,
+   "df": 3.4235907166254774e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.001090833493911425,
+   "df": 3.7372545688247028e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0014366072881004666,
+   "df": 1.0452606209655361e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    5,
+    6
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0073514666969555775,
+   "df": 1.2097459789369016e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h175",
+   "wrong": false,
+   "pair": [
+    3,
+    5
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.005974416632679169,
+   "df": 4.307714747839136e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h179",
+   "wrong": false,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.009939256366872068,
+   "df": 1.1110636179078702e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h179",
+   "wrong": false,
+   "pair": [
+    4,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007497937811428018,
+   "df": 3.078862732863487e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h179",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-low",
+    "F-high"
+   ],
+   "dq": 2.3342467604409167e-05,
+   "df": 7.759961317491139e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h179",
+   "wrong": false,
+   "pair": [
+    3,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 9.008111695940624e-05,
+   "df": 9.120570546584241e-11,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h179",
+   "wrong": false,
+   "pair": [
+    1,
+    3
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0016540471569941873,
+   "df": 7.909594881560663e-11,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.002384838607196349,
+   "df": 8.492126862309214e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    1,
+    7
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.002219610806526634,
+   "df": 7.583890400186858e-07,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.0001852198500351121,
+   "df": 6.113442017825307e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    2,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00023629688116297287,
+   "df": 1.2730675167327013e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0014399666420023827,
+   "df": 2.364888210644704e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h211",
+   "wrong": false,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0019229587104591661,
+   "df": 1.3827624576214513e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h258",
+   "wrong": false,
+   "pair": [
+    2,
+    3
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.011516292710398487,
+   "df": 8.201406280357857e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h258",
+   "wrong": false,
+   "pair": [
+    2,
+    8
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007265222914412173,
+   "df": 3.571371565073826e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h258",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 4.706668475135123e-05,
+   "df": 6.085583550856789e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h258",
+   "wrong": false,
+   "pair": [
+    6,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00025759839957888164,
+   "df": 8.18799129326123e-05,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h258",
+   "wrong": false,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.001160153592567853,
+   "df": 6.482987434955779e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    1,
+    4
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.007215442145245166,
+   "df": 2.083450303502765e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.00672512556136895,
+   "df": 6.840569276578279e-07,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    0,
+    7
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 5.077225244698447e-05,
+   "df": 7.558089043513405e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    2,
+    4
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00015230453293402224,
+   "df": 2.681148980610004e-07,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    1,
+    3
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.006211199346265905,
+   "df": 2.814817349539034e-06,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h259",
+   "wrong": false,
+   "pair": [
+    0,
+    5
+   ],
+   "tags": [
+    "F-low"
+   ],
+   "dq": 0.0027796847023175975,
+   "df": 1.5711876244495215e-10,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h263",
+   "wrong": false,
+   "pair": [
+    3,
+    6
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.022422529979573863,
+   "df": 7.297213008740077e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h263",
+   "wrong": false,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.00931636758225976,
+   "df": 4.819942605022519e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h263",
+   "wrong": false,
+   "pair": [
+    4,
+    5
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 0.0,
+   "df": 0.0,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h263",
+   "wrong": false,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 2.5606746117512458e-05,
+   "df": 3.03137371284118e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h263",
+   "wrong": false,
+   "pair": [
+    1,
+    8
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.00235748702585023,
+   "df": 2.125644430642488e-06,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h282",
+   "wrong": false,
+   "pair": [
+    1,
+    2
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.00947534363239158,
+   "df": 3.3824097359266808e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h282",
+   "wrong": false,
+   "pair": [
+    0,
+    6
+   ],
+   "tags": [
+    "Q-high",
+    "F-high"
+   ],
+   "dq": 0.009189438054286264,
+   "df": 2.39803040287236e-08,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h282",
+   "wrong": false,
+   "pair": [
+    2,
+    6
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 2.0765113040832617e-05,
+   "df": 1.7975565457441267e-09,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h282",
+   "wrong": false,
+   "pair": [
+    4,
+    7
+   ],
+   "tags": [
+    "Q-low",
+    "F-low"
+   ],
+   "dq": 8.052290591561984e-05,
+   "df": 1.9385842870894046e-11,
+   "p_yes_ij": 0.0,
+   "p_yes_ji": 0.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ],
+   "answers_ji": [
+    "no",
+    "no",
+    "no",
+    "no",
+    "no"
+   ]
+  },
+  {
+   "item": "h300",
+   "wrong": false,
+   "pair": [
+    3,
+    8
+   ],
+   "tags": [
+    "Q-high",
+    "F-low"
+   ],
+   "dq": 0.00498924812122592,
+   "df": 1.5013514875761302e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h300",
+   "wrong": false,
+   "pair": [
+    0,
+    3
+   ],
+   "tags": [
+    "Q-high"
+   ],
+   "dq": 0.004579816187156416,
+   "df": 3.5139250398330546e-09,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h300",
+   "wrong": false,
+   "pair": [
+    0,
+    2
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 2.444202945806051e-05,
+   "df": 2.3027773909944926e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h300",
+   "wrong": false,
+   "pair": [
+    0,
+    8
+   ],
+   "tags": [
+    "Q-low"
+   ],
+   "dq": 0.00016252255680881955,
+   "df": 1.3105023177750752e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "item": "h300",
+   "wrong": false,
+   "pair": [
+    0,
+    4
+   ],
+   "tags": [
+    "F-high"
+   ],
+   "dq": 0.0026311355675938675,
+   "df": 6.953281217469964e-08,
+   "p_yes_ij": 1.0,
+   "p_yes_ji": 1.0,
+   "observed": 0.0,
+   "answers_ij": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ],
+   "answers_ji": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  }
+ ],
+ "baseline_p_yes": {
+  "h004": 0.0,
+  "h039": 0.2,
+  "h057": 0.0,
+  "h058": 0.4,
+  "h065": 0.0,
+  "h102": 0.0,
+  "h111": 0.0,
+  "h115": 0.4,
+  "h137": 0.0,
+  "h140": 0.0,
+  "h191": 1.0,
+  "h194": 0.0,
+  "h197": 0.0,
+  "h222": 0.0,
+  "h229": 0.0,
+  "h262": 1.0,
+  "h277": 0.6,
+  "h279": 0.0,
+  "h283": 0.0,
+  "h293": 0.4,
+  "h008": 1.0,
+  "h034": 1.0,
+  "h077": 1.0,
+  "h120": 0.0,
+  "h121": 0.8,
+  "h126": 1.0,
+  "h141": 0.0,
+  "h142": 1.0,
+  "h146": 1.0,
+  "h149": 1.0,
+  "h160": 1.0,
+  "h173": 0.0,
+  "h175": 0.0,
+  "h179": 0.0,
+  "h211": 0.0,
+  "h258": 0.0,
+  "h259": 1.0,
+  "h263": 0.0,
+  "h282": 0.0,
+  "h300": 1.0
+ },
+ "rho_quantum": -0.03434492464672724,
+ "rho_classical": 0.08183049057547313,
+ "rho_diff_ci95": [
+  -0.2838792920740968,
+  0.060005919924083016
+ ],
+ "primary": "inconclusive",
+ "mean_observed_order_effect": 0.03577981651376147,
+ "order_effect_exists_p": 0.2433783108445777,
+ "q_high_minus_low_mean": -0.005000000000000004,
+ "q_high_low_p": 0.679032096790321,
+ "n_conversations": 2380,
+ "cost_usd": 1.632837
+}

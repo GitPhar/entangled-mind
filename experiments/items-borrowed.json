@@ -1431,7 +1431,7 @@
    {
     "id": "R2_order_bound",
     "status": "our derivation from ||P_Y P_X psi||^2 <= ||P_X psi||^2; not stated in Yearsley & Trueblood 2018",
-    "rule": "Write P(X then Y) for the conjunction judged with X considered first. Quantum theory gives P(Y then X) <= P(Y). So if P(X then Y) > P(Y) (a fallacy relative to Y), then P(X then Y) - P(Y then X) >= P(X then Y) - P(Y) > 0: the order effect on the conjunction is at least as large as the fallacy. Classical probability, probability-plus-noise, and the classical twin (arm F) all predict P(X then Y) = P(Y then X) in expectation, whatever the fallacy rate."
+    "rule": "Write P(X then Y) for the conjunction judged with X considered first. Quantum theory gives P(Y then X) <= P(Y). So if P(X then Y) > P(Y) (a fallacy relative to Y), then P(X then Y) - P(Y then X) >= P(X then Y) - P(Y) > 0: the order effect on the conjunction is at least as large as the fallacy. R2 is a consequence of the quantum model but not unique to it: an updating classical model, in which each judgment updates the state before the next, also satisfies it. Only the static classical twin (arm F: classical probability with no updating between judgments) is ruled out, because it predicts P(X then Y) = P(Y then X) in expectation, whatever the fallacy rate."
    },
    {
     "id": "R3_no_double_fallacy",
@@ -1459,7 +1459,7 @@
     "double_fallacy": "mean P(X and Y) - max(mean P(X), mean P(Y)) > 0",
     "order_o": "mean P(X then Y) - mean P(Y then X), with X the more probable conjunct"
    },
-   "pre_registerable_test": "Over items with f reliably > 0: (i) the share with o reliably > 0 (R1); (ii) the share with o >= f - 0.05 (R2, 5-point tolerance); (iii) the double-fallacy count (R3). The quantum account passes if (i) and (ii) are both at least 0.5 and (iii) is 0. The classical twin predicts o = 0, so (i) near the false-positive rate.",
+   "pre_registerable_test": "Over items with f reliably > 0: (i) the share with o reliably > 0 (R1); (ii) the share with o >= f - 0.05 (R2, 5-point tolerance); (iii) the double-fallacy count (R3). The quantum account passes if (i) and (ii) are both at least 0.5 and (iii) is 0. The static classical twin predicts o = 0, so (i) near the false-positive rate; an updating classical model can pass (i) and (ii) too.",
    "caveat": "Imannezhad et al. 2026 warn that a high correlation between fallacy types can be a floor effect when fallacies are rare. Use items that produce fallacies in the base model, and report the item count behind every share."
   },
   "items": [

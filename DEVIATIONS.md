@@ -179,3 +179,126 @@ The supplement excludes every existing training item and the held-out hard pool.
 Also handled in this addendum: an item whose explanation yields fewer than 5 claims after one retry is now recorded as excluded, not counted as wrong, instead of crashing the run. This happened once.
 
 **Finding:** the two-sided computed puzzles do not elicit errors from Haiku 5.5. Its errors on this pool are ignorance-type (SimpleQA) and multi-step science, not the base-rate or harmonic-mean traps.
+
+## D11 — Experiment 4 (quantitative Yearsley & Trueblood) pre-registered
+
+**Date:** 2026-11-03, before any experiment-4 call.
+
+Pre-registered in `experiments/exp4-yearsley-trueblood.md`, with items in `experiments/exp4-items.json`. Choices made at pre-registration:
+
+1. **Items.** Only 4 co-occurrence items exist in `items-borrowed.json`, too few for a share-based rule. They were joined by the 4 Linda variants that convert cleanly to X/Y form (Bill, Priya, the analytical person, name-swapped Marta) and by 8 new author-written items (co05–co12), for 16 in all.
+2. **Letter-copying check.** Swapping the A/B labels on both questions together cannot detect a model that copies its first *letter*: under any shared mapping, a repeated letter is also a repeated content answer. The check therefore uses crossed mappings, where Q1 and Q2 use different label mappings, and compares how often the content answers agree under same versus crossed mappings.
+3. **"Beyond repetition."** The classical comparator is Kang (2026)'s symmetric repetition model, fitted per item, which predicts o_rep = r · (p_X − p_Y). The quantum claim is tested on o − o_rep as well as on o.
+4. **Thinking disabled for the base calls,** following the borrowed protocol's "thinking off". The base model is `claude-haiku-5-5`.
+
+The budget is $10, enforced in code. The experiment runs last in the queue.
+
+**D11 addendum: R2 wording corrected (same day, before any experiment-4 call).** Rule R2 (the order effect is at least the fallacy size) is a consequence of the quantum model, but it is not unique to it. An updating classical model, in which each judgment updates the state before the next, also satisfies R2. Only the *static* classical twin is ruled out.
+
+The overstated sentences were corrected in `experiments/items-borrowed.json` (rule R2 and the pre-registerable test) and in `experiments/exp4-yearsley-trueblood.md`. In experiment 4, meeting R2 is now read as "consistent with quantum or sequential-update classical; rules out the static twin", not as support for the quantum account. The pass rules' thresholds are unchanged.
+
+## D12 — Version two pre-registered (before any fitting)
+
+**Date:** 2026-11-03. The split was locked in `experiments/split-v2.json` (train 629 with 95 wrong, validation 210 with 31 wrong, test 209 with 32 wrong; stratified, seed 2026) and committed before this pre-registration. Both came before any fitting. Choices made here:
+
+1. **Pass criterion.** "Exceeds the classical twin's AUROC by more than the width of both bootstrap 95% intervals" is read as **non-overlapping intervals**: A2's lower 95% bound must be above F2's upper 95% bound. The paired bootstrap difference is reported as well.
+2. **Equal parameter counts.** A2 and F2 each have 8 scored parameters plus a flag threshold. To match that, L uses the 5 features named in the brief plus 3 more relation-web summaries (number of related pairs, mean |lean|, and the share of confidence leaning against the vote), giving 8 weights plus a flag threshold. L's bias term is left out because AUROC does not depend on it.
+3. **Fitting uses exact noiseless statevector scores** (`v2.fast_quantum_probs`, verified equal to the Qiskit circuit at v1 values to 10⁻¹⁶). This makes A2 the strongest version of the quantum model. A noisy-simulator fit at about 1,000 train evaluations was not computationally feasible. The classical twin F2 is also exact.
+4. **Shared fitting rule:** 400 random draws, then hill-climbing of the 10 best with 60 steps each (1,000 train evaluations), with the final candidate selected on validation AUROC. Seeds are A2 101, F2 202, L 303.
+5. **Arm G** (self-reported confidence) needs one Haiku call per locked-test item. It is made at evaluation time and cached in `results/v2-arm-g-confidence.json`. On the run-2 held-out set it reuses the existing arm-G calls.
+6. **Phase solver.** `v2.solve_phases_fast` is a vectorised form of `encoder.solve_phases`, with the same starts and update rule plus early stopping. It agrees within 2×10⁻⁶ rad. v1's solver is unchanged.
+
+## D13 — Experiment 3 implementation choices (logged before any experiment-3 result)
+
+**Date:** 2026-11-03
+
+1. **Budget:** $10, as set in Sean's run instruction. This replaces the $4 cap written in the pre-registration. The expected cost of about $2.60 is unchanged.
+2. **Secondary test 1 (do order effects exist at all?)** The pre-registration compares order effects with baseline split-halves. It is implemented as a permutation test that shuffles the order labels within each item-pair. This compares the observed |P(yes | i first) − P(yes | j first)| with what run-to-run variability alone produces, using the same 5 + 5 conversations. The 5 single-turn baseline runs per item are still collected and reported.
+3. **Secondary test 2 (do the largest-Δᴼ pairs show bigger effects than the smallest?)** The pre-registration says paired Wilcoxon over items. It is implemented as a sign-flip permutation test on the per-item difference, because scipy is not a dependency.
+4. **Exact U_k.** In the yes/no (X) basis, H_k's coupling and field terms are diagonal and −Z_k flips qubit k. So U_k = exp(−iγ₀H_k) is applied as exact 2×2 rotations, one for each configuration of the other qubits, with no truncation. This was checked to preserve the norm to 10⁻¹².
+
+## D14 — Pre-registered additions: hedge baseline H and version 2.1 "honest hedge" encoding
+
+**Date:** 2026-11-04 00:45 UTC, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
+
+These were added at Sean's request, prompted by the exploratory window vignette W4 (`paper/window-vignettes.md`), which notes that the encoding forces hedging claims into a yes or no camp. Full definitions are in `experiments/preregistration-v2.md`, Addendum B.
+
+**Choices made here:**
+- A no-lean claim is defined as |lean| ≤ 0.1. This was set from the train split's lean distribution only.
+- The H primary score is the total confidence of no-lean claims, with H-count reported alongside.
+- In v2.1, hedges are fixed at phase π/2 with lean 0, and are left out of the phase solver while keeping their couplings.
+- The uncertainty term is U = confidence share of hedges, with a learned weight λ_h in [0, 2].
+- A2.1 and F2.1 each have 10 parameters, matched to each other.
+- v2.1 is evaluated on the locked test set once, after the v2 arms.
+
+Because W4 was an exploratory observation on run-2 data, v2.1 is a hypothesis suggested by data from the run-2 hard pool. Its evaluation on the **run-2 held-out set** is therefore not independent of that suggestion. The **locked v2 test set**, which shares no item with run 2, is the clean test.
+
+## D15 — Correction: the phase solver's frame drifts off the yes/no axis (encoding bug, documented and characterised)
+
+**Date:** 2026-11-04. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
+
+**Finding.** Two causes were possible: (a) a display convention error in `export_window.py`, or (b) the encoding itself. It is **not (a)**: the exported encode-stage Bloch azimuth equals the solver's φ exactly, claim for claim. It **is (b)**, in a more specific form than a free rotation.
+
+The XY energy E(φ) = −Σ J_ij cos(φ_i − φ_j) − Σ lean_k cos φ_k is pinned by its lean anchors, so it cannot rotate freely. But the anchors are weak, with weight 1, against the relation couplings. The relation judge marks "supports" between claims that lean opposite ways when one makes the other more plausible. Those couplings pull the yes and no camps toward each other, and the ground state settles at a compromise off the readout axis. The energy is also symmetric under φ → −φ, so the direction of the tilt is arbitrary.
+
+On h046, the yes claims sit at −62° and −71° and the no claims at −137° to −174°. Across the 225 run-2 items that have both camps:
+- 20% have the yes camp more than 30° off axis;
+- 20% have camps less than 90° apart;
+- at least 10% have fully merged camps.
+
+**Fix 1, a rigid frame pin (`encoder.pin_frame`), does not work.** It applies the least-squares rotation putting the yes camp at 0° and the no camp at 180°. A rotation only fixes a frame that has rotated, so it cannot pull merged camps apart. It changed nothing material.
+
+**Fix 2, the correction: stronger anchors (`encoder.solve_phases_anchored`).** In the phase solve only, the lean field is scaled by λ = max(1, the largest total coupling Σⱼ|J_kj| of any claim in the item). This rule was fixed before its AUROC was computed. Effects:
+- yes camps more than 30° off axis fall from 20% to 7%;
+- the 10th-percentile camp separation rises from 0° to 147°.
+
+The λ → ∞ limit, which puts every leaning claim exactly on the axis, is reported for reference.
+
+**Effect on error detection, exploratory.** Exact noiseless scores on the run-2 test set:
+
+| arm | as run | with the correction | at λ → ∞ |
+|---|---|---|---|
+| A0 | 0.49 [0.35, 0.62] | 0.47 [0.34, 0.61] | 0.47 [0.33, 0.60] |
+| C | 0.68 [0.56, 0.79] | 0.67 [0.55, 0.78] | 0.67 [0.54, 0.78] |
+
+Details are in `results/frame-fix-check.md`. The frame bug is real, but it does not explain the entangled arm's poor error detection.
+
+**Disposition.**
+- v1, v2 and every archived result keep the as-run solver, as pre-registered.
+- Following Sean's rule ("if the fix matters, it goes into v2.1"), the correction is **not** added to v2.1, because it does not change the AUROCs. v2.1 stays a single change, the honest hedge. The v2.1 fit had not started when this was decided, so the correction could still be folded in, as a correctness fix, by a pre-registered amendment before `fit21`.
+- `export_window.py` needs no fix.
+
+## D16 — v2.1 amendment: fit noiseless, evaluate noiseless and on the noisy simulator
+
+**Date:** 2026-11-03 18:36 MST, before any v2.1 fit or any test-set evaluation.
+
+At Sean's instruction (`experiments/preregistration-v2.md`, Addendum C):
+- A2.1 and F2.1 are fitted on exact noiseless statevectors and selected on validation.
+- The selected models are evaluated once on the locked test set, noiseless, and A2.1 is also evaluated once on the noisy `ibm_fez` simulator (1,000 shots per item).
+- F2.1 has no circuit, so it has only the noiseless evaluation.
+- The pass criterion is applied to the noiseless comparison, with the noisy result reported alongside.
+- Everything else in Addendum B is unchanged.
+
+## D17 — Experiment 4 run 2 (graded form) pre-registered
+
+**Date:** 2026-11-03 19:06 MST, before any run-2 call. Full design: `experiments/exp4-yearsley-trueblood.md`, "Addendum — run 2".
+
+At Sean's request, the order test is re-run on run 1's 7 fallacy items with graded 0–100 ratings in both orders, 20 repeats per cell. Choices made here:
+- Temperature is the model default (1.0); no explicit parameter is sent, because the API rejects one for this model.
+- The graded analogue of "beyond repetition" is anchoring of the second rating on the first, fitted by regression.
+- q_QQ and Γ are dropped, because they are defined only for binary answers. The marginal shifts OE_X, OE_Y and OSS are kept.
+
+## D18 — Second base model (claude-sonnet-5-5): replication set-up
+
+**Date:** 2026-11-03, before any Sonnet replication call.
+
+At Sean's request, the hard pool (pool run 4, already defined in D6) and the training pool (new pool run 6) are run through `claude-sonnet-5-5` as base, at default effort with adaptive thinking. The extractor and judge are unchanged.
+
+G, L, H and the **already-fitted** A2 and F2 are scored on Sonnet's errors, using the frozen v2 parameters in `results/v2-fit.json`. Nothing is refitted.
+
+**Budget.** At about $0.02 per item, both pools (1,348 items) would cost about $27, against Sean's $15 budget. So:
+- the pool runs are capped at $12 together and arm G at $3, both enforced in code;
+- run 4 (the full hard pool) goes first;
+- run 6 processes the locked v2 test questions first, so a budget stop still covers them, then as much of the rest as the budget allows.
+
+What actually ran is reported in `results/sonnet-replication.md`.

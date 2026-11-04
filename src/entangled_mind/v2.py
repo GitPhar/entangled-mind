@@ -126,12 +126,14 @@ def _all(psi, n, u):
     return psi
 
 
-def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
-                       gamma0: float, beta0: float, alpha: float) -> np.ndarray:
-    """Exact readout distribution of the (learned) arm-A circuit. alpha = 0 is the v1 X-basis readout."""
+def fast_quantum_state(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
+                       gamma0: float, beta0: float, phi: np.ndarray | None = None) -> np.ndarray:
+    """Pre-readout statevector of the (learned) arm-A circuit (computational basis).
+    `phi` overrides the solved phases (used by the v2.1 honest-hedge encoding)."""
     n = it.n
     web = coupled_web(it, k_sup, k_con)
-    phi = solve_phases_fast(web)
+    if phi is None:
+        phi = solve_phases_fast(web)
     theta = np.clip(s_theta * it.conf, 0, 2) * math.pi / 2
     psi = np.zeros(2 ** n, complex)
     psi[0] = 1
@@ -151,7 +153,14 @@ def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_t
         psi = psi * np.exp(-0.5j * (-2 * g) * zz) * np.exp(-0.5j * (-2 * g) * lean_z)
         psi = _all(psi, n, H)
         psi = psi * np.exp(-0.5j * (-2 * b) * mix_z)
-    psi = _all(psi, n, _ry(-math.pi / 2 + alpha))   # alpha = 0: |+> -> |0>, the X-basis readout
+    return psi
+
+
+def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_trotter: int,
+                       gamma0: float, beta0: float, alpha: float) -> np.ndarray:
+    """Exact readout distribution of the (learned) arm-A circuit. alpha = 0 is the v1 X-basis readout."""
+    psi = fast_quantum_state(it, s_theta, k_sup, k_con, n_trotter, gamma0, beta0)
+    psi = _all(psi, it.n, _ry(-math.pi / 2 + alpha))   # alpha = 0: |+> -> |0>, the X-basis readout
     return np.abs(psi) ** 2
 
 
@@ -160,14 +169,15 @@ def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_t
 
 
 def fast_classical_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_sweeps: int,
-                         beta_t: float, flip: float, field: float) -> np.ndarray:
+                         beta_t: float, flip: float, field: float, phi: np.ndarray | None = None) -> np.ndarray:
     """Exact distribution after N sequential heat-bath sweeps of the classical Ising twin.
     Prior: independent spins with P(yes) = (1 + sin(theta) cos(phi)) / 2, the same single-contention
     marginals as A2's preparation. Sweep t uses inverse temperature beta_t * s_t and then flips each
     spin independently with probability flip * (1 - s_t) / 2."""
     n = it.n
     web = coupled_web(it, k_sup, k_con)
-    phi = solve_phases_fast(web)
+    if phi is None:
+        phi = solve_phases_fast(web)
     theta = np.clip(s_theta * it.conf, 0, 2) * math.pi / 2
     py = np.clip((1 + np.sin(theta) * np.cos(phi)) / 2, 1e-9, 1 - 1e-9)
     b = bits(n)
@@ -190,6 +200,101 @@ def fast_classical_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n
             for k in range(n):
                 p = (1 - fl) * p + fl * p[idx ^ (1 << k)]
     return p / p.sum()
+
+
+# ---------------------------------------------------------------------------
+# v2.1 "honest hedge" (preregistration-v2.md, Addendum B) and the H baseline
+
+NO_LEAN = 0.1
+
+
+def hedge_mask(it: Item) -> np.ndarray:
+    return np.abs(it.lean) <= NO_LEAN
+
+
+def hedged(it: Item) -> Item:
+    """The item with every no-lean claim's lean set to exactly 0."""
+    return Item(it.id, it.wrong, it.conf, np.where(hedge_mask(it), 0.0, it.lean), it.edges)
+
+
+def hedge_phases(web: Web, mask: np.ndarray) -> np.ndarray:
+    """Hedges fixed at pi/2 (neutral); the phase solver runs on the leaning claims and their mutual edges only."""
+    keep = np.where(~mask)[0]
+    phi = np.full(web.n, math.pi / 2)
+    if len(keep):
+        pos = {k: a for a, k in enumerate(keep)}
+        sub = Web(web.confidence[keep], web.lean[keep],
+                  tuple((pos[i], pos[j], J) for i, j, J in web.edges if i in pos and j in pos))
+        phi[keep] = solve_phases_fast(sub)
+    return phi
+
+
+def uncertainty(it: Item) -> float:
+    m = hedge_mask(it)
+    return float(it.conf[m].sum() / it.conf.sum()) if it.conf.sum() > 0 else 0.0
+
+
+def hedge_scores(it: Item) -> tuple[float, int]:
+    """H baseline: (total confidence of no-lean claims, number of no-lean claims)."""
+    m = hedge_mask(it)
+    return float(it.conf[m].sum()), int(m.sum())
+
+
+def conflict21(it: Item, quantum: bool, v) -> float:
+    """v2.1 conflict score for A2.1 (quantum=True) or F2.1: conflict(tau) + lambda_h * U."""
+    *a, tau, lam = v
+    h = hedged(it)
+    phi = hedge_phases(coupled_web(h, a[1], a[2]), hedge_mask(it))
+    if quantum:
+        psi = fast_quantum_state(h, a[0], a[1], a[2], int(a[3]), a[4], a[5], phi=phi)
+        p = np.abs(_all(psi, h.n, _ry(-math.pi / 2 + a[6]))) ** 2
+    else:
+        p = fast_classical_probs(h, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6], phi=phi)
+    return conflict_from_probs(p, h, tau) + lam * uncertainty(it)
+
+
+def build_a21_circuit(it: Item, v, measure: bool = True):
+    """The selected A2.1 as a Qiskit circuit (Addendum C): reproduces conflict21's exact probabilities
+    gate for gate, so it can run on the noisy simulator. Returns (circuit, hedged item, U)."""
+    from qiskit import QuantumCircuit
+    *a, tau, lam = v
+    s_theta, k_sup, k_con, n_trotter, gamma0, beta0, alpha = a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6]
+    h = hedged(it)
+    web = coupled_web(h, k_sup, k_con)
+    phi = hedge_phases(web, hedge_mask(it))
+    theta = np.clip(s_theta * h.conf, 0, 2) * math.pi / 2
+    n = h.n
+    qc = QuantumCircuit(n, name="A2.1")
+    for k in range(n):
+        qc.ry(float(theta[k]), k)
+        qc.rz(float(phi[k]), k)
+    for i, j, J in web.edges:
+        qc.rzz(config.KAPPA * J, i, j)
+    for step in range(1, n_trotter + 1):
+        s_ = step / (n_trotter + 1)
+        g, b = gamma0 * s_, beta0 * (1 - s_)
+        qc.h(range(n))
+        for i, j, J in web.edges:
+            qc.rzz(-2 * g * J, i, j)
+        for k in range(n):
+            if web.lean[k]:
+                qc.rz(float(-2 * g * web.lean[k]), k)
+        qc.h(range(n))
+        for k in range(n):
+            qc.rz(-2 * b, k)
+    for k in range(n):
+        qc.ry(-math.pi / 2 + alpha, k)
+    if measure:
+        qc.measure_all()
+    return qc, h, uncertainty(it)
+
+
+def conflict21_from_counts(counts: dict, h: Item, u: float, v) -> float:
+    *_, tau, lam = v
+    p = np.zeros(2 ** h.n)
+    for bs, c in counts.items():
+        p[int(bs.replace(" ", ""), 2)] += c
+    return conflict_from_probs(p / p.sum(), h, tau) + lam * u
 
 
 # ---------------------------------------------------------------------------
@@ -219,6 +324,8 @@ SPACES = {
            ("beta_t", 0.0, 3.0), ("flip", 0.0, 1.0), ("field", 0.0, 2.0), ("tau", 0.05, 0.6)],
     "L": [(f"w{k}", -3.0, 3.0) for k in range(8)],
 }
+SPACES["A21"] = SPACES["A2"] + [("lambda_h", 0.0, 2.0)]
+SPACES["F21"] = SPACES["F2"] + [("lambda_h", 0.0, 2.0)]
 # + one flag threshold per model (chosen on train after fitting), and a bias for L, which AUROC ignores:
 # 8 scored parameters + 1 threshold = 9 for every model.
 INTEGER = {"n_trotter", "n_sweeps"}
@@ -248,6 +355,8 @@ class Scorer:
         v = clamp(self.model, v)
         if self.model == "L":
             return self.F @ v
+        if self.model in ("A21", "F21"):
+            return np.array([conflict21(it, self.model == "A21", v) for it in self.items])
         if self.model == "A2":
             *a, tau = v
             return np.array([conflict_from_probs(fast_quantum_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6]),

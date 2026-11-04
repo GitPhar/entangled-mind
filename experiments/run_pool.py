@@ -6,6 +6,7 @@ then fix the test / calibration split.
     python experiments/run_pool.py 3   # hard pool, base claude-haiku-5-5 (D6)
     python experiments/run_pool.py 4   # hard pool, base claude-sonnet-5-5, default effort (D6)
     python experiments/run_pool.py 5   # v2 training pool, base claude-haiku-5-5 (D9)
+    python experiments/run_pool.py 6   # v2 training pool, base claude-sonnet-5-5, locked-test items first (D18)
 
 Questions run on 4 worker threads sharing a stop flag. If any API call is
 refused, no new call starts (calls already in flight may finish), the refused
@@ -32,6 +33,7 @@ UNITEMISED_USD = 0.25
 SPEND_STOP_USD = 8.50                 # DEVIATIONS.md, D4
 HARD_BUDGET_USD = 15.0                # D6: runs 3 + 4 together
 TRAIN_BUDGET_USD = 20.0               # D9: run 5
+SONNET_BUDGET_USD = 12.0              # D18: runs 4 + 6 (of the $15 replication budget; the rest is for arm G)
 STANDARD = ("questions.json", "questions_extension.json")
 HARD = ("questions-hard.json",)
 RUNS = {
@@ -40,8 +42,9 @@ RUNS = {
     3: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
     4: {"base_model": "claude-sonnet-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": HARD},
     5: {"base_model": "claude-haiku-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": ("questions-train.json",)},
+    6: {"base_model": "claude-sonnet-5-5", "base_effort": None, "extension_stop_wrong": None, "pool": ("questions-train.json",)},
 }
-BUDGET_GROUP = {1: "standard", 2: "standard", 3: "hard", 4: "hard", 5: "train"}
+BUDGET_GROUP = {1: "standard", 2: "standard", 3: "hard", 4: "sonnet", 5: "train", 6: "sonnet"}
 
 
 def paths(run: int):
@@ -97,7 +100,8 @@ def session_spend_with(done: dict, current: int) -> float:
 
 
 def cap(run: int) -> float:
-    return {"standard": SPEND_STOP_USD, "hard": HARD_BUDGET_USD, "train": TRAIN_BUDGET_USD}[BUDGET_GROUP[run]]
+    return {"standard": SPEND_STOP_USD, "hard": HARD_BUDGET_USD, "train": TRAIN_BUDGET_USD,
+            "sonnet": SONNET_BUDGET_USD}[BUDGET_GROUP[run]]
 
 
 def write_usage() -> None:
@@ -124,6 +128,7 @@ def write_usage() -> None:
               "", f"**Standard pool, runs 1-2 (incl. unitemised): ${UNITEMISED_USD + sum(r['cost_usd'] for run in (1, 2) for r in load(run)['records']):.2f}** of the ${config.API_BUDGET_USD:.2f} budget.",
               f"**Hard pool, runs 3-4: ${sum(r['cost_usd'] for run in (3, 4) for r in load(run)['records']):.2f}** of the ${HARD_BUDGET_USD:.2f} budget (D6).",
               f"**v2 training pool, run 5: ${sum(r['cost_usd'] for r in load(5)['records']):.2f}** of the ${TRAIN_BUDGET_USD:.2f} budget (D9).",
+              f"**Sonnet replication, runs 4 + 6: ${sum(r['cost_usd'] for run in (4, 6) for r in load(run)['records']):.2f}** of the ${SONNET_BUDGET_USD:.2f} pool budget (D18).",
               f"**Session total: ${session_spend():.2f}.**"]
     USAGE_MD.write_text("\n".join(lines) + "\n")
 
@@ -142,7 +147,7 @@ def split(records: list[dict], run: int) -> dict:
     wrong = sorted(r["id"] for r in records if r["correct"] is False)
     right = sorted(r["id"] for r in records if r["correct"] is True)
     rng = random.Random(config.SPLIT_SEED)
-    if run == 5:   # D9: the v2 split is made separately (experiments/lock_split_v2.py), not here
+    if run in (5, 6):   # D9 / D18: the v2 split is made separately (experiments/lock_split_v2.py), not here
         return {"rule": "none (v2 split locked separately in experiments/split-v2.json)", "test_wrong": [],
                 "test_right": [], "calibration": [], "excluded_truncated": sorted(r["id"] for r in records if r["correct"] is None)}
     if run >= 3:   # D6: all wrong items (at most 40) + as many right items, both at random
@@ -170,6 +175,9 @@ def main(run: int) -> None:
     config.BASE_MODEL, config.BASE_EFFORT = spec["base_model"], spec["base_effort"]
     out, md = paths(run)
     questions = [q for f in spec["pool"] for q in json.loads((config.EXPERIMENTS / f).read_text())]   # D4, D6
+    if run == 6:   # D18: locked v2 test items first, so a budget stop still covers them
+        test = set(json.loads((config.EXPERIMENTS / "split-v2.json").read_text())["test"])
+        questions = sorted(questions, key=lambda q: (q["id"] not in test, q["id"]))
     if run == 2:   # items that hit the token cap in run 1 are excluded (D5)
         capped = {r["id"] for r in load(1)["records"] if r.get("truncated")}
         questions = [q for q in questions if q["id"] not in capped]

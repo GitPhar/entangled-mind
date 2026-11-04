@@ -40,3 +40,11 @@ All three items are certified on the noisy simulator. The real device's drift, c
 - **Estimate:** each circuit takes about 9–16 µs to execute, and each shot waits out a 250 µs repetition delay. 39 circuits × 4,000 shots comes to about 40 s of shot time. Adding about 5 s of per-job overhead gives **≈ 45 QPU seconds**, inside the remaining allowance (600 s per month, project hard stop at 420 s, 0 s used so far).
 - **Cheaper option:** 2,000 shots per circuit costs about 25 s. That widens the intervals by about √2, and the noisy-simulator lower bounds would still clear 0.
 - **Not submitted:** this waits for Sean's approval. The Stage 1 job also has to return first, to confirm that the hardware path works.
+
+## Note for future runs: prune to the measured qubits' light cone
+
+The as-run witness circuits (`window/data/hardware/dbl6e1d8mdtc73d5gesg-*.json`) prepare the whole belief state but measure only the target pair. They therefore carry gates on unmeasured qubits that have no path to a measured qubit, including gates placed after the target pair's last interaction. Those gates cannot change the measured statistics, but they still cost execution time and add crosstalk.
+
+Before submitting a future run, prune every gate outside the **backward light cone** of the measured qubits. Walk the circuit from the measurements backwards, keep a gate only if it touches a qubit already in the cone, and add that gate's qubits to the cone. This shortens each shot, which cuts QPU seconds per shot. It also removes avoidable noise sources.
+
+The pruned circuit must give the same two-qubit reduced state as the full circuit, which can be checked by exact simulation before submission. Run 1 was submitted unpruned, exactly as designed.

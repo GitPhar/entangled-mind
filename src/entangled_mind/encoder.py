@@ -86,11 +86,56 @@ def solve_phases(web: Web, restarts: int = 8, iters: int = 1500, lr: float = 0.0
     return np.mod(best + math.pi, 2 * math.pi) - math.pi
 
 
+def pin_frame(phi: np.ndarray, web: Web, no_lean: float = 0.1, rotate: np.ndarray | None = None) -> np.ndarray:
+    """Frame correction (DEVIATIONS.md, D15). The XY ground state's frame can drift off the yes/no
+    readout axis when relations between opposite-leaning claims outweigh the lean anchors (and the
+    energy is symmetric under phi -> -phi). Rotate the phases rigidly by the least-squares angle that
+    puts the confidence-weighted yes-leaning claims at 0 and the no-leaning claims at pi:
+    alpha = arg sum_k c_k |lean_k| exp(i (t_k - phi_k)), t_k = 0 (lean > no_lean) or pi (lean < -no_lean).
+    `rotate` selects which phases move (default: all); hedges excluded from the fit."""
+    lean, c = web.lean, web.confidence
+    lean_mask = np.abs(lean) > no_lean
+    if not lean_mask.any():
+        return phi
+    t = np.where(lean > 0, 0.0, math.pi)
+    z = np.sum((c * np.abs(lean) * np.exp(1j * (t - phi)))[lean_mask])
+    alpha = float(np.angle(z)) if abs(z) > 1e-12 else 0.0
+    out = phi.copy()
+    sel = np.ones(web.n, bool) if rotate is None else rotate
+    out[sel] = phi[sel] + alpha
+    return np.mod(out + math.pi, 2 * math.pi) - math.pi
+
+
+def anchor_weight(web: Web) -> float:
+    """lambda = max(1, the largest total coupling sum_j |J_kj| of any claim): a fully leaning claim's
+    anchor is then at least as strong as all its relation couplings together (DEVIATIONS.md, D15)."""
+    deg = np.zeros(web.n)
+    for i, j, J in web.edges:
+        deg[i] += abs(J)
+        deg[j] += abs(J)
+    return float(max(1.0, deg.max() if web.n else 1.0))
+
+
+def solve_phases_anchored(web: Web, weight: float | None = None) -> np.ndarray:
+    """Frame correction (D15): solve the XY energy with the lean anchors scaled by anchor_weight(web)
+    (or `weight`; math.inf = every leaning claim exactly at 0 or pi, hedges solved by the relations).
+    Only the phase solve changes; the circuit's couplings and evolution field do not."""
+    lam = anchor_weight(web) if weight is None else weight
+    if math.isinf(lam):
+        phi = np.where(web.lean > 0.1, 0.0, np.where(web.lean < -0.1, math.pi, np.nan))
+        if np.isnan(phi).any():
+            free = solve_phases(web)
+            phi = np.where(np.isnan(phi), free, phi)
+        return phi
+    return solve_phases(Web(web.confidence, web.lean * lam, web.edges))
+
+
 def build_circuit(web: Web, entangle: bool = True, n_trotter: int = config.N_TROTTER,
-                  measure: bool = True) -> QuantumCircuit:
+                  measure: bool = True, phi: np.ndarray | None = None) -> QuantumCircuit:
     """entangle=False is arm C: every two-qubit term (prep RZZ and evolution XX) removed."""
     n = web.n
-    phi = solve_phases(web)
+    if phi is None:
+        phi = solve_phases(web)
     theta = web.confidence * math.pi / 2
     qc = QuantumCircuit(n, name="entangled_mind")
     for k in range(n):

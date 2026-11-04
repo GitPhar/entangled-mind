@@ -1,0 +1,132 @@
+[
+  {
+    "id": "co01",
+    "X": "Linda is active in the feminist movement",
+    "Y": "Linda is a bank teller",
+    "context": "Linda is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations.",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence.",
+    "note": "classic pair; X is the more probable conjunct for humans"
+  },
+  {
+    "id": "co02",
+    "X": "Tomas repairs electronics as a hobby",
+    "Y": "Tomas is a primary-school teacher",
+    "context": "Tomas is 29 years old, quiet and meticulous. He studied electrical engineering and spends his weekends restoring vintage radios.",
+    "source": "author-written for this project",
+    "license": "MIT"
+  },
+  {
+    "id": "co03",
+    "X": "the fictional Republic of Arveny's ruling party wins the northern provincial election",
+    "Y": "the ruling party wins the southern provincial election",
+    "context": "Arveny is a fictional country. Its ruling party has led polls in the north by 20 points for a year, while the south has been a toss-up. Both provincial elections are held on the same day, and neither result can affect the other.",
+    "source": "author-written for this project, after Yearsley & Trueblood's same-day, causally unlinked primaries",
+    "license": "MIT",
+    "note": "fictional, so no outcome can be known from training data"
+  },
+  {
+    "id": "co04",
+    "X": "the fictional Halden Rovers win their home match on Saturday",
+    "Y": "the fictional Ostra City win their away match on Saturday",
+    "context": "Halden Rovers have won 9 of their last 10 home matches. Ostra City have won 3 of their last 10 away matches. The two matches are in different leagues and are played at the same time.",
+    "source": "author-written for this project",
+    "license": "MIT"
+  },
+  {
+    "id": "co-lin06",
+    "X": "Bill is an accountant",
+    "Y": "Bill plays jazz for a hobby",
+    "context": "Bill is 34 years old. He is intelligent, but unimaginative, compulsive, and generally lifeless. In school, he was strong in mathematics but weak in social studies and humanities.",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293 (via items-borrowed.json lin06)",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence."
+  },
+  {
+    "id": "co-lin08",
+    "X": "Priya does her own tax returns",
+    "Y": "Priya is a professional cellist",
+    "context": "Priya is 45 years old. She is careful with money, reads company annual reports for fun, and chairs her neighbourhood budget committee.",
+    "source": "author-written for this project (via items-borrowed.json lin08)",
+    "license": "MIT"
+  },
+  {
+    "id": "co-lin09",
+    "X": "this person enjoys mathematics",
+    "Y": "this person is a scientist",
+    "context": "A person is described only as analytical and intelligent.",
+    "source": "author-written for this project, after the non-stereotyped control battery of Beuria 2026 (Sci. Rep., doi:10.1038/s41598-026-65824-7) (via items-borrowed.json lin09)",
+    "license": "MIT"
+  },
+  {
+    "id": "co-lin10",
+    "X": "Marta is active in the feminist movement",
+    "Y": "Marta is a bank teller",
+    "context": "Marta is 31 years old, single, outspoken and very bright. She majored in philosophy. As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in anti-nuclear demonstrations.",
+    "source": "Tversky & Kahneman 1983, Psychological Review 90(4):293-315, doi:10.1037/0033-295X.90.4.293 with the name changed (via items-borrowed.json lin10)",
+    "license": "Vignette text (c) 1983 American Psychological Association, quoted verbatim for non-commercial research with citation; not covered by this repository's MIT licence."
+  },
+  {
+    "id": "co05",
+    "X": "Dana volunteers with a first-aid charity",
+    "Y": "Dana is a competitive chess player",
+    "context": "Dana is 45 and has been a hospital nurse for 20 years. Colleagues know her for staying calm under pressure.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co06",
+    "X": "Ravi owns a telescope",
+    "Y": "Ravi plays in a rock band",
+    "context": "Ravi is 38, a software engineer who builds model rockets and reads physics papers for fun.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co07",
+    "X": "the Green Party wins the Port Avel by-election",
+    "Y": "the Green Party wins the Dunmere by-election",
+    "context": "In the fictional nation of Celland, the Green Party has led national polls by 15 points for six months. By-elections in Port Avel and in Dunmere are held on the same day; Dunmere has never elected a Green, and neither result can affect the other.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co08",
+    "X": "it rains in Merrow next Tuesday in November",
+    "Y": "it rains in Sallow next Tuesday in November",
+    "context": "The fictional town of Merrow has rain on about 80% of November days. The fictional town of Sallow, 300 km away in a different weather system, has rain on about 15% of November days.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co09",
+    "X": "the Brennan Hawks win their home game on Sunday",
+    "Y": "the Corvo Lions win their away game on Sunday",
+    "context": "The fictional Brennan Hawks top their league and are unbeaten at home this season. The fictional Corvo Lions are bottom of a different league and have lost every away game. Both play on Sunday.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co10",
+    "X": "Elena owns a heart-rate monitor",
+    "Y": "Elena is a heavy smoker",
+    "context": "Elena is 27, a marathon runner who works as a dietitian and posts training plans online.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co11",
+    "X": "Marcus wakes up before 6 a.m.",
+    "Y": "Marcus works as a nightclub DJ",
+    "context": "Marcus is 52, a retired army officer who keeps a strict daily schedule and collects military history books.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  },
+  {
+    "id": "co12",
+    "X": "Norland Steel shares rise tomorrow",
+    "Y": "Pellar Media shares rise tomorrow",
+    "context": "Shares in the fictional company Norland Steel have risen on 9 of the last 10 trading days. Shares in the fictional Pellar Media, in an unrelated sector, have fallen on 8 of the last 10.",
+    "source": "author-written for this project (experiment 4)",
+    "license": "MIT"
+  }
+]
