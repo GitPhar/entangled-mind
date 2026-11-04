@@ -230,12 +230,12 @@ This project joins a conversation that has run for about fifteen years. Most of 
   - No rival model covers both effects, so a formal model comparison was not possible.
 - **What we borrow:** the prediction, written as four rules (`cooccurrence_rule` in the JSON).
   - R1: a single fallacy implies incompatibility, which implies a nonzero order effect.
-  - R2: our derivation from ‖P_Y P_X ψ‖² ≤ ‖P_X ψ‖². If P(X then Y) > P(Y), then P(X then Y) − P(Y then X) ≥ the size of the fallacy. The classical twin predicts 0 for this order difference.
+  - R2: our derivation from ‖P_Y P_X ψ‖² ≤ ‖P_X ψ‖². If P(X then Y) > P(Y), then P(X then Y) − P(Y then X) ≥ the size of the fallacy. The static classical twin (arm F) reads every judgment from one joint distribution, so it predicts no fallacy and no order difference. **Correction (2026-11-03):** a classical model in which each judgment updates the state (Experiment 3's sequential twin is one) can produce both, and it also satisfies this inequality, because P(Y then X) ≤ P(Y) holds for it too. R2 is therefore a necessary condition for the quantum account, not a discriminator against sequential classical models.
   - R3: no double fallacies.
   - R4: more likely conjunct first.
 
   Fictional same-day events are included so that outcomes cannot be known from training data.
-- **How we differ:** R2 turns their qualitative "should co-occur" into a quantitative inequality that an equally tuned classical model cannot meet. That is the comparison style of the rest of this project.
+- **How we differ:** R1–R3 make their qualitative "should co-occur" quantitative, and they rule out static classical accounts by construction. Against classical models whose judgments update the state, only per-item numerical predictions from a state fixed in advance (the model's own claims) can discriminate. That is the comparison style of the rest of this project.
 
 ### Busemeyer & Bruza 2012: *Quantum Models of Cognition and Decision* `busemeyer2012quantum` **[partial: official table of contents and preface, chapter abstract, and the underlying papers]**, Busemeyer, Wang & Townsend 2006 `busemeyer2006quantum`, and Pothos & Busemeyer 2009 `pothos2009quantum`
 
@@ -414,7 +414,7 @@ These are findings we can build on without re-arguing them.
    - QQ satisfaction is reproduced exactly by a classical symmetric-repetition mechanism (Kang 2026, Prop. 4). Beuria (2026) finds that "the order data do not independently select a quantum account", because an order-invariant classical joint does as well.
    - Boyer-Kassem et al. (2016a) show that the datasets satisfying QQ violate Grand Reciprocity. Only degenerate, higher-dimensional quantum models survive, and their extra dimensions need independent justification.
    - Busemeyer and colleagues reply that realistic models are multi-dimensional, so the GR test targets toy versions, and that "dimensionality is not a free parameter."
-   - Our position: QQ is a good *necessary* check and a poor *selector*. Selecting a quantum account needs a prediction that an equally constrained classical model cannot make (rule R2 in our co-occurrence block is one attempt), or a structure that classical models forbid outright, as with LTP violations under Markov dynamics.
+   - Our position: QQ is a good *necessary* check and a poor *selector*. Selecting a quantum account needs a prediction that an equally constrained classical model cannot make (per-item magnitudes predicted from a fixed state, as in Experiment 3; the inequality R2 alone separates quantum only from static classical accounts), or a structure that classical models forbid outright, as with LTP violations under Markov dynamics.
 2. **Whether projective measurement is the right model at all.** Order effects plus response replicability are incompatible with projective measurement (Khrennikov et al. 2014). The proposed fix, non-projective quantum instruments (Ozawa & Khrennikov 2020, 2021; Fuyama et al. 2025), can both satisfy and violate QQ, so it gives up the QQ equality's predictive edge. Only one experiment has tested replicability (Busemeyer & Wang 2017), and its interpretation is disputed.
 3. **Whether Bell/CHSH violations in concept combination show entanglement.** Aerts and colleagues read CHSH > 2 as non-Kolmogorovian structure, in humans (2.42) and now in LLMs (2.12–4). Dzhafarov & Kujala hold that when marginals shift between contexts, as they do strongly here, CHSH > 2 is explained by direct influences. Our recomputation finds every published Animal Acts dataset non-contextual under the corrected bound, and LLM values above Tsirelson's bound require signalling. We think the Bose–Einstein word-statistics result is a separate question that our work does not bear on.
 4. **Whether quantum models are too flexible.** The BBS commentators (Tentori & Crupi; Kaznatcheev & Shultz; Rakow; Newell et al.) argue that the choice of compatibility, dimension, state placement and processing order, such as "more likely first", leaves the framework able to fit opposite patterns. The authors answer that these choices are empirically constrained. This is the critique our classical-twin design is built to answer.
@@ -439,7 +439,14 @@ These are findings we can build on without re-arguing them.
    - The pre-registered negativity witness certified entanglement of the encoded contention pairs on `ibm_fez` for 3 of 3 items: N = 0.147, 0.063 and 0.067, all with lower 95% bounds above 0, with or without readout mitigation, for 44 QPU seconds.
    - This certifies the *encoding*, not its usefulness. The two questions are now answered separately: the entanglement is physically there, and on the simulator it does not help.
 4. **The window.**
-   - *(Our reading of the term.)* Every belief state here has 5–16 qubits. That is small enough that the quantum state, its classical twin, and every order-effect prediction can be computed **exactly** on a laptop, and large enough to hold genuine multi-party entanglement that hardware can certify.
-   - Inside this window nothing is approximated. A quantum-versus-classical difference cannot hide in sampling error or in a heuristic classical comparator.
-   - The same idea applies on the behavioural side. Kang's saturation finding shows that order effects are only measurable when the model's answers are dispersed rather than near-deterministic, so Experiment 3 needs a dispersion gate before it is read.
-   - What we offer the field is a regime where the quantum claim can be checked cleanly, and an honest record of what it did there.
+   - The window is the project's visual display of a single run.
+     - Each of the model's contentions is a point in a point cloud.
+     - Brightness is its amplitude (how strongly it is held) and hue is its phase (which way it leans).
+     - Dashed links show which contentions are entangled.
+     - A rewindable timeline steps through encoding, evolution and collapse to the readout.
+     - Every run is archived.
+   - Nothing like it exists in the work above. Quantum-cognition models are fitted to aggregate answer frequencies, so there is no per-item state to look at. The LLM studies observe only answers or probabilities.
+   - Here the state behind each judgment is constructed, simulable exactly at 5–16 qubits, and recorded. A reader can watch a contradiction pair settle into opposed camps, or fail to, on the very item the model got wrong, and compare that run with the classical twin's.
+   - The archive of runs is a dataset that cannot be rebuilt from the outside. Every arm's readout, including the raw counts, is already archived as JSON in `results/`.
+   - The display itself is designed (v1 proposal, Stage 3) but not yet built.
+   - Its scientific use is diagnostic rather than evidential. It shows *where* the entangling step moves probability mass on items that the classical contradiction count flags and the entangled readout misses (Stage 2, run 2). That is the most useful thing to look at next, given H2's result.
