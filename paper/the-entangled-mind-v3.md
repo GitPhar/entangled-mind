@@ -9,13 +9,13 @@ Version 3, November 4, 2026 (version 2: November 3, 2026; version 1: October 25,
 **Versions.**
 - Version 1 was a pre-registration-style proposal.
 - Version 2 reported the first experiments.
-- This version reports everything on the project's `main` branch as of the night of November 3–4, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which a refusal stopped and which has since resumed without the refused item.
-- It ends with the two experiments still to run, both pre-registered as drafts: experiment 4 run 3 and experiment 5.
+- This version reports everything on the project's `main` branch as of the night of November 3–4, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which completed the hard pool and then stopped on a second refusal.
+- It ends with the two sequential experiments: experiment 4 run 3 (a pre-registration draft, not run) and experiment 5 (frozen; pilot gates passed; full run collecting).
 
 **Number conventions.**
 - **Results** are quoted verbatim from the files in `results/` of the project repository (https://github.com/GitPhar/entangled-mind).
 - **Design constants** are cited to the pre-registration files, `DEVIATIONS.md` or the code.
-- **Results that do not exist yet** are marked [NOT RUN] or [RUNNING].
+- **Results that do not exist yet** are marked [NOT RUN], [RUNNING] or [NOT SCORED].
 - **Reproducibility.** `experiments/reproduce.py` rebuilds every results table from the archived JSON with the network blocked, and its output matches the committed tables byte for byte above their Reading sections.
 - **Exploratory** analyses (anything not pre-registered) are labelled as such wherever they appear.
 - **Other people's numbers** come from the cited papers. Where we recomputed them, we say so.
@@ -56,7 +56,7 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
   - Order effects of about +0.10 satisfied the Yearsley–Trueblood bound R2 on 3 of 3 scored items.
   - The pre-registered estimator meant to separate a quantum account from anchoring on the first answer turned out to be close to circular, so the mechanism is undetermined.
 
-**What remains.** Two experiments are pre-registered as drafts and not yet run:
+**What remains.** Two sequential experiments. Experiment 5 is frozen, has passed its pilot gates and is collecting data; experiment 4 run 3 is a draft:
 - a run that moves the first rating independently of the item;
 - a test of sequential, context-dependent judgment with parameter-free quantum signatures (the QQ equality, and interference of a choice on later confidence).
 
@@ -77,7 +77,7 @@ This version reports a clean negative result on the question the project was bui
 - With learned constants, it ties a classical twin given the same parameters and fitting rule.
 - In every comparison, the model's own one-line statement of confidence matches or beats both.
 
-The search did not stop at the first failure. It went from fixed to learned encodings, then to an "honest hedge" encoding, then to a second base model. That replication was stopped by a refusal, resumed without the refused item, and has not yet reported (Section 5.11).
+The search did not stop at the first failure. It went from fixed to learned encodings, then to an "honest hedge" encoding, then to a second base model. That replication collected the hard pool, then stopped on a second refusal before any arm was scored on it (Section 5.11).
 
 **The open question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our sequential experiments so far were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. The last section describes the two pre-registered experiments that test the sequential question properly.
 
@@ -131,9 +131,10 @@ A fuller version, with every paper's design, numbers and limitations, is in `pap
 | standard (run 2) | 125 | as above | `claude-haiku-5-5`, default effort (D5) | **4** of 125 | `results/pool-run-2.md` |
 | hard (run 3) | 300 (D6) | 120 SimpleQA, 120 MMLU-Pro physics/chemistry, 60 author-written claims | `claude-haiku-5-5` | **44** of 300 | `results/pool-run-3.md` |
 | training, v2 (run 5) | 1,048 (D9) | SimpleQA, MMLU-Pro biology/engineering/physics/chemistry, computed puzzles, verified claims | `claude-haiku-5-5` | **158** of 1,048 | `results/pool-run-5.md` |
-| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | [RUNNING]: stopped at 102 items (12 wrong) on a refusal (D20), resumed with `h101` excluded (D21) | `results/sonnet-replication.md` (when it lands) |
+| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). Arms [NOT SCORED] (D25) | `results/refusal-sonnet-replication-2.md` |
+| training, second model (run 6) | locked-test questions first (D18) | the training pool | `claude-sonnet-5-5` | [HALTED] after 82 items, 7 wrong, on a second refusal (D25) | `results/refusal-sonnet-replication-2.md` |
 
-Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04. The replication had spent $1.39 when it was stopped; its final cost is [RUNNING].
+Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04. The Sonnet replication cost $4.07 (hard pool, including the $1.39 spent before the first stop) and $1.10 (training pool, before the second stop). Experiment 5's pilot cost $0.21.
 
 ### 3.2 Pipeline
 
@@ -242,7 +243,10 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D18** | Second base model (`claude-sonnet-5-5`) replication set up. | To test whether results depend on one base model. | — |
 | **D19** | The pre-registered anchoring estimator in experiment 4 run 2 is near-tautological. | Logged after run 2's results. | The run's pre-registered verdict stands but does not show anchoring; the mechanism is undetermined. |
 | **D20** | Sonnet replication stopped on a `reasoning_extraction` refusal of the extractor. | The project's rule: stop at once, reword nothing, retry nothing. | — |
-| **D21** | Replication resumed with the refused item `h101` excluded; the extractor is unchanged, and a second refusal stops the run again. | Sean's decision after D20. | The Sonnet hard pool has at most 299 items; results [RUNNING]. |
+| **D21** | Replication resumed with the refused item `h101` excluded; the extractor is unchanged, and a second refusal stops the run again. | Sean's decision after D20. | The Sonnet hard pool has 299 items. |
+| **D22–D24** | Experiment 5 frozen; pilot items clarified (the 5-per-category cap left no further right items, so the next 2 in the uncapped ranking are used); split and runner committed; one pilot item's 4th chain slot filled. | Gaps in the draft's wording, found and fixed before any call. | None on the 40 scored items. |
+| **D25** | Sonnet replication stopped on a second `reasoning_extraction` refusal (`t368`, training pool). The scorer was not run, because its arm-G step would make further Sonnet calls. | The project's rule and Sean's instruction. | There are no Sonnet arm results. |
+| **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
 
 **On sequencing.** The analysis grew in stages:
 - Addendum A came after run 2.
@@ -426,13 +430,17 @@ These analyses are not pre-registered. They come from `paper/window-vignettes.md
 - **The error signal is lost at the entangling step.** Reading the conflict score at each stage, arm A's test-set AUROC goes from 0.63 at encode to 0.60 after entangling and 0.49 after evolution. Without entangling gates it rises to 0.68.
 - **Hedging claims are forced into camps** by the phase solve. That observation motivated v2.1, which then changed nothing (Section 5.6).
 
-### 5.11 Second base model: stopped, then resumed
+### 5.11 Second base model: collected, then halted
 
 The replication on `claude-sonnet-5-5` (D18) stopped at 102 of 300 hard-pool questions, with 12 wrong, at $1.39. The extractor call for `h101` was refused under `reasoning_extraction` (request `req_011Cgh7v49vVQNR6AgY3EDui`, D20). It is the first refusal since the D3 redesign, after 1,473 Haiku-based items and 102 Sonnet-based ones.
 
-Following the project's rule, the run stopped at once, and nothing was reworded or retried. Sean then decided to drop `h101` and resume (D21). Pool run 4 is continuing on the other hard-pool items, and pool run 6 (the training pool) follows, with the extractor unchanged and a stop on any second refusal.
+Following the project's rule, the run stopped at once, and nothing was reworded or retried. Sean then decided to drop `h101` and resume (D21).
+- **The hard pool completed:** 299 items processed, 1 hit the token cap, and Sonnet was wrong on **30** of 298 answered, for $4.07. Haiku was wrong on 44 of 300.
+- **The training pool (run 6) then stopped** on a second extractor refusal, for question `t368` (request `req_011CghAdzJQ9nFBMocCLUMhf`, D25), after 82 items (7 wrong, $1.10).
+- **Both refusals** came on SimpleQA items with Sonnet as the base model. Before them, 1,473 Haiku-based items and 381 Sonnet-based items had passed through the same extractor prompt without one.
+- **Per Sean's rule,** the replication is halted, and nothing was retried. The scorer was **not run**, because its arm-G step would make further Sonnet calls.
 
-**There are no Sonnet results yet** [RUNNING]. Until there are, every conclusion in this paper rests on one base model.
+**So there are no Sonnet numbers for G, L, H, A2 or F2** [NOT SCORED]. Every conclusion in this paper rests on one base model. The Sonnet hard-pool records exist, and could be scored without new calls for every arm except G.
 
 ---
 
@@ -508,7 +516,7 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 ## 8. Limitations
 
-- **One base model.** All results use `claude-haiku-5-5`. The Sonnet replication was stopped by a refusal (D20) and resumed without that item (D21). Until it reports, we cannot say whether any result generalises.
+- **One base model.** All scored results use `claude-haiku-5-5`. The Sonnet replication collected its hard pool but was halted by a second refusal before scoring (D25), so we cannot say whether any result generalises.
 - **Visible explanations, not deliberation.** Claims come from what the model writes for the reader (D1–D3).
 - **Models judging models.** The extractor and relation judge are language models, and their errors bound what any arm can find.
 - **Error types.** The model's errors are mostly ignorance and multi-step science, not the judgment errors quantum cognition studies.
@@ -524,16 +532,19 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 ## 9. What comes next
 
-Two experiments are pre-registered as drafts. Neither has been run. Each needs Sean's go-ahead and is frozen in a commit before its first call. Together they cost under $5, with no QPU time.
+Two sequential experiments remain. Together they cost under $5, with no QPU time.
 
-**Experiment 4, run 3: a manipulated first rating** (`experiments/exp4-run-3.md`).
+**Experiment 4, run 3: a manipulated first rating** (`experiments/exp4-run-3.md`). A pre-registration draft, not run; it needs Sean's go-ahead and a freezing commit.
 - **Design:** before rating the conjunction, the model is shown a provided first rating for one conjunct, low or high, and accepts or revises it. That moves the first rating independently of the item.
 - **What it separates:**
   - Numeric anchoring predicts a nonzero intercept, pulled toward the fresh conjunction rating. Content-driven updating is multiplicative, with a zero intercept.
   - Within content-driven updating, rank-one quantum projectors predict equal slopes in both orders, by reciprocity. Classical Bayes predicts a slope ratio of P(Y)/P(X), which is about 0.05–0.08 on these items.
 - **Cost:** about $0.35, with a $2 cap.
 
-**Experiment 5: sequential, context-dependent judgment** (`experiments/exp5-sequential-judgment.md`).
+**Experiment 5: sequential, context-dependent judgment** (`experiments/exp5-sequential-judgment.md`, frozen at D22). Status: [RUNNING].
+- **The pilot passed both gates** (`results/exp5-pilot.md`, $0.21). On G1, the main-rating means span 9.8–73.8 points across chain types on 5 of 5 items. On G2, all 10 QQ pairs have a binarised minority of at least 12%.
+- **The full run is collecting.** Its models and analysis code were committed before any full-run data were examined (D26).
+- **One fact fixed by the encoder before any data.** On all 10 pilot QQ pairs the anchored phase solve puts the claim exactly on the yes/no axis (|sin Δφ| = 0.000). So the quantum model predicts almost no non-commutation between a claim and the main question there, and A5 and its classical twin are expected to be close, as §8.6 of the pre-registration anticipated. Any order structure the ratings show (the pilot's spans suggest there is some) must then be carried by the between-question evolution, or it will favour neither model.
 - **Design:**
   - On 40 hard-pool questions with competing claims, the model rates 4 of its own claims and then the question, all on 0–100.
   - The chains vary the order, omit claims, ask the question first and repeat it, and insert a yes/no choice against a matched filler.
