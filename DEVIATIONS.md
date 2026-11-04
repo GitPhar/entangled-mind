@@ -860,3 +860,19 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - Sonnet's format effect stays clear under Tian's intended reading (−0.083 [−0.137, −0.032]). It reverses sign under the other reading.
 - Order is null in every version.
 - The pre-registered readings are not changed.
+
+---
+
+## D48 — The No Credence paper's claims narrowed to what replicated on Sonnet and Opus
+
+**Date:** 2026-11-04 09:18 MST, after merging `multi-model` (DM1–DM6) into `main`. No new data or analysis. Every number is copied from `results/multi-model.md`, `results/mm-gm1-self-knowledge.md`, `results/mm-gm2-self-conditioning.md` and `results/mm-gm3b-format-invariance.md`.
+
+**What changed in `paper/no-credence-to-read.md`.**
+- **Stated for all three models:** no privileged self-knowledge (I = −0.055 for Haiku × Sonnet; −0.045 [−0.107, +0.017] for Sonnet × Opus) and reliance on the model's own record (MF agreement shown → redacted: 78% → 25%, 88% → 35%, 95% → 65%).
+- **Narrowed:** the no-format-free-credence claim now holds for Haiku, partly for Sonnet (ΔLL +9.22 [−1.29, +16.24], *mixed*; F′ Q 0.69 [0.53, 0.82], *partial*), and not for Opus (26 claims, ΔLL +0.42 [−1.83, +2.69], *mixed*).
+  - The Kendall's W trend is stated: 0.54 → 0.71 → 0.86.
+  - Opus's pre-registered reading is *mixed*, not *single credence*, so the paper says the claim is "not supported" on Opus, not that it is refuted.
+  - Opus's W is on 26 claims, all from items Haiku answered wrongly, so the last step of the trend is not item-matched.
+- **Also narrowed, for consistency:** the question-alone claim, which holds on Haiku and Sonnet and is not decisive on Opus at 2 conversations per cell.
+- **Where:** a new Section 4.6 with the per-model table; the abstract, contributions, §3.1 settings, the §4.5 heading, §§5.1, 5.3 and 5.4, the limitations and the reproduction list.
+- **Unchanged:** the title, the [R-pending] tags and every Haiku-only number. Test S (own against other) was run on Haiku only, and the paper does not extend it.

@@ -6,7 +6,7 @@ Draft, November 4, 2026. Dates and times are local, America/Denver (MST, UTC−7
 
 Correspondence: seanm.pharris@gmail.com. Code, data and pre-registrations: https://github.com/GitPhar/entangled-mind.
 
-**Status of the numbers.** Every number below is copied from a results file in the repository's `results/` directory and was produced under a pre-registration committed before its data, unless it is labelled *exploratory*. Numbers whose robustness run has not yet landed carry the tag **[R-pending: run]**. Those runs are listed in Section 8.
+**Status of the numbers.** Every number below is copied from a results file in the repository's `results/` directory and was produced under a pre-registration committed before its data, unless it is labelled *exploratory*. Numbers whose robustness run has not yet landed carry the tag **[R-pending: run]**. Those runs are listed in Section 8. The replications on `claude-sonnet-5-5` and `claude-opus-5-5` (Section 4.6) are pre-registered in `DEVIATIONS.md` entries DM1–DM6; the claims below are narrowed to what they replicate (D48).
 
 ---
 
@@ -14,7 +14,7 @@ Correspondence: seanm.pharris@gmail.com. Code, data and pre-registrations: https
 
 A language model reached through a stateless API has, at every turn, a complete state that is a classical string: the conversation so far, plus the sampler's random state. That string can be copied. So the model satisfies macrorealism by construction, and every "measurement disturbance" it shows can be decomposed by editing the transcript, which neither a person nor a quantum system allows. We use this to ask whether a model's stated degree of belief is a stored quantity that questions read out, or something that the act of asking constructs.
 
-On `claude-haiku-5-5`, in pre-registered tests, the answer is the second.
+On `claude-haiku-5-5`, in pre-registered tests, the answer is the second. Three of the tests were then repeated on `claude-sonnet-5-5` and `claude-opus-5-5`, and the claims below are stated only as far as they replicate.
 - **Asking is invasive.** Earlier questions change later ratings in 5 of 6 no-signalling-in-time comparisons on 40 hard questions. A midway yes/no choice is the one exception.
 - **The question alone is enough.** With every earlier answer hidden, the order of the questions still changes the final rating. The ratio of redacted to shown order effect is 1.91 [0.92, 4.90] [R-pending: direction 2, 40 items].
 - **The record also acts, but only when it is the model's own.**
@@ -23,7 +23,13 @@ On `claude-haiku-5-5`, in pre-registered tests, the answer is the second.
 - **Formats disagree.** Across six elicitation formats, a separate credence per format predicts held-out answers better than one credence per statement for 86% of 160 statements. The formats rank the statements differently four to six times more often than repeat noise does. Predicting each format from the other five recovers only 0.39 [0.30, 0.50] of what is reproducible in that format.
 - **Self-report is not privileged.** The model's confidence predicts its errors well (AUROC 0.85), but a stronger model reading the same answers predicts them better (0.93). The judge × author interaction is −0.055 [−0.103, −0.007].
 
-There is a stable process that turns a prompt and a transcript into a number. There is no format-free credence behind it for that process to report. We discuss what this means for confidence elicitation, calibration measurement and introspection evaluations.
+**What replicates on Sonnet and Opus** (Section 4.6):
+- **No privileged self-knowledge holds on all three models.** With Sonnet and Opus judging each other's answers, the judge × author interaction is −0.045 [−0.107, +0.017], again *no self-advantage*.
+- **Reliance on the model's own record holds on all three.** Repeat agreement falls when the first answer is hidden: 78% → 25% (Haiku), 88% → 35% (Sonnet), 95% → 65% (Opus).
+- **The no-format-free-credence claim holds for Haiku, partly for Sonnet, and not for Opus.** Agreement across the six formats rises with model strength: Kendall's W is 0.54 for Haiku, 0.71 for Sonnet and 0.86 for Opus. One credence predicts a left-out format with Q = 0.29 on Haiku and 0.69 on Sonnet, on the same 80 statements. On Opus's 26 statements, one credence per statement fits as well as one per format.
+- **The question alone constructs the judgment on Sonnet** (R = 2.95 [0.99, 12.55]). On Opus the test is not decisive.
+
+On Haiku, there is a stable process that turns a prompt and a transcript into a number, and no format-free credence behind it for that process to report. On stronger models, the transcript still conditions the number and self-report is still not privileged, but the formats increasingly read as one belief. We discuss what this means for confidence elicitation, calibration measurement and introspection evaluations.
 
 ---
 
@@ -49,7 +55,7 @@ Our tests came out of a longer project that tried to model this model's judgment
 **Contributions.**
 1. **An argument.** For a model reached through its context, macrorealism holds by construction. Leggett–Garg, no-signalling-in-time (NSIT), total-probability and question-order violations in such a model can only measure invasiveness, never the absence of a definite state (Section 2).
 2. **A decomposition.** Invasiveness splits into the turn itself, the question, and the recorded answer. Transcript editing measures each one (Sections 2.3 and 4.2).
-3. **Pre-registered measurements on one model.** They show that the question and the model's own recorded answer both construct later judgments, that the format constructs the credence, and that self-reported confidence carries no information a capable reader of the answer lacks (Section 4).
+3. **Pre-registered measurements on one model, with replications on two more.** On Haiku, they show that the question and the model's own recorded answer both construct later judgments, that the format constructs the credence, and that self-reported confidence carries no information a capable reader of the answer lacks (Sections 4.1–4.5). On Sonnet and Opus, the self-report and own-record findings replicate. The format finding weakens with model strength and does not hold on Opus (Section 4.6).
 
 ---
 
@@ -113,6 +119,11 @@ For people, only "shown" exists. For a quantum system, "not asked" is not availa
 All tests use `claude-haiku-5-5`, with thinking disabled and the default sampling temperature of 1.0. The API rejects an explicit temperature for this model. Outputs are structured (for example `{"rating": <integer>}`), and every rating scale states one direction: "0 = certainly false, 100 = certainly true".
 
 Direction 1 also uses `claude-sonnet-5-5`, as both author and judge.
+
+**The replications (Section 4.6)** re-run tests P, T and F with `claude-sonnet-5-5` and `claude-opus-5-5` as base models, through the Message Batches API. Thinking is as close to off as each model allows: Sonnet `between_tools` (Sonnet 5.5 rejects `disabled`), and Opus at effort `low` (Opus 5.5 cannot disable thinking). Opus's thinking text is never returned or placed in a transcript. The designs are scaled down to fit a $20 budget (DM1):
+- test F on 80 of the 160 claims;
+- test T at 4 conversations per cell (Opus: 2);
+- test P with Opus authoring new answers to the 298 questions and the paraphrase and recognition arms not run.
 
 Every run stops at its first refusal, logs the request ID, and neither rewords nor retries. No run in this paper was stopped.
 
@@ -234,7 +245,7 @@ In the archived condition, 7 item-orders moved *away* from another person's high
 - **Wording makes no difference.** "An answer you gave" instead of "another assistant" changes the self cells by −0.011 (Haiku) and +0.007 (Sonnet).
 - **Haiku cannot pick out its own answers:** recognition AUROC 0.51 [0.36, 0.67].
 
-### 4.5 There is no format-free credence
+### 4.5 On Haiku, there is no format-free credence
 
 **Test F**
 
@@ -264,7 +275,39 @@ In the archived condition, 7 item-orders moved *away* from another person's high
 
 - **Mean Q = 0.39 [0.30, 0.50]**, so the pre-registered reading is *little format-free belief*. The interval's upper end, 0.499, sits just under the 0.5 line, so a "partial" reading is excluded only narrowly.
 - **Mean R² from the other five formats is 0.37 [0.28, 0.47].** Smolin and Wilder report held-out R² of 0.60–0.90 on other capable models. Haiku, on its own contested claims, is below that whole range.
-- **Reading.** Each format's answers are highly reproducible (ceilings 0.88–0.97). Only a third to a half of that reproducible answer is shared with the other formats. There is a common component, but it is the smaller part.
+- **Reading.** Each format's answers are highly reproducible (ceilings 0.88–0.97). Only a third to a half of that reproducible answer is shared with the other formats. On Haiku, there is a common component, but it is the smaller part. Section 4.6 shows that this does not carry over to stronger models.
+
+### 4.6 Which findings hold on Sonnet and Opus
+
+Tests P, T and F were re-run with `claude-sonnet-5-5` and `claude-opus-5-5` as base models. Each used the original's prompts, analysis code and pre-registered reading, and was pre-registered in its own commit before its first call (DM2–DM4; summary in `results/multi-model.md`). No call was refused. They cost $16.28 at batch rates.
+
+| finding | Haiku | Sonnet | Opus | holds on |
+|---|---|---|---|---|
+| **no privileged self-knowledge** (test P: judge × author interaction I) | −0.055 [−0.103, −0.007] (Haiku × Sonnet) | −0.045 [−0.107, +0.017] (Sonnet × Opus); also in the Haiku pair | (Sonnet × Opus) | **all three** |
+| **reliance on own record** (test T: MF repeat agreement, shown → redacted) | 78% → 25% | 88% → 35% | 95% → 65% | **all three** |
+| the question alone (test T: R = OE_redacted / OE_shown) | 2.01 [1.04, 4.43] (repeats 0–3) | 2.95 [0.99, 12.55], question-driven | 0.93 [0.06, 7.31] at 2 per cell, not decisive | Haiku, Sonnet |
+| **no format-free credence** (test F: mean ΔLL, L6 − L1) | +19.42 [+15.40, +23.21], 86% of claims | +9.22 [−1.29, +16.24], 92% of claims: *mixed* | +0.42 [−1.83, +2.69], 58% of claims (26 claims): *mixed* | Haiku; partly Sonnet; not Opus |
+| test F′: one credence predicting a left-out format (Q) | 0.29 [0.19, 0.43] | 0.69 [0.53, 0.82], *partial* | not computed (arm incomplete) | |
+| **agreement across formats** (Kendall's W) | 0.54 | 0.71 | 0.86 | rises with model strength |
+
+Haiku's rows for test F are re-analyses of its archived calls on the same 80 claims. Its 160-claim figures are in Section 4.5.
+
+**No privileged self-knowledge holds on all three models.**
+- Opus predicts Sonnet's errors better than Sonnet does: AUROC 0.959 against 0.903.
+- On Opus's own answers, being the author adds almost nothing: Opus reaches 0.904, Sonnet reading the same answers 0.893.
+- With each judge's skill cancelled, I = −0.045 [−0.107, +0.017]. That is the same sign and size as the Haiku × Sonnet pair, and again the pre-registered reading is *no self-advantage*.
+
+**Reliance on the model's own record holds on all three.**
+- With its first answer visible, each model repeats it within 5 points far more often than with it hidden. The pre-registered memory reading (a drop of more than 10 points) holds on every model.
+- Opus is the most stable without its record (65%), so less of its stability is memory.
+- The per-point pull of a planted first answer is weaker on the stronger models: b_MF is 1.23 [0.65, 2.11] (Haiku), 0.39 [−0.05, 0.76] (Sonnet) and 0.35 [0.17, 0.54] (Opus).
+- The own-against-other comparison (test S) was run on Haiku only.
+
+**The no-format-free-credence claim holds for Haiku, partly for Sonnet, and not for Opus.**
+- **Haiku** fails the one-credence test clearly, on the 80 claims as on all 160.
+- **Sonnet's** formats disagree beyond one credence on 92% of claims. But one extreme claim (ΔLL −308) pulls the interval across zero, so the pre-registered reading is *mixed*. On test F′, one credence recovers about two-thirds of what a left-out format reproducibly says (Q = 0.69), against Haiku's 0.29 on the same claims.
+- **Opus's** arm was budget-stopped after 26 claims, all from items Haiku answered wrongly. On those, one credence per statement fits as well as one per format (ΔLL +0.42 [−1.83, +2.69]), and its formats rank the statements almost alike (W 0.86; 3–14% of pairs reversed against the 0–100 rating, against Haiku's 25–35%). Its pre-registered reading is *mixed*, not *single credence*. So the claim is not shown false on Opus. It is not supported there, and the evidence that exists points the other way.
+- **The trend.** Kendall's W rises from 0.54 (Haiku) to 0.71 (Sonnet) to 0.86 (Opus). The stronger the model, the more its six ways of answering behave like readings of one belief. Opus's W comes from a different and smaller set of claims, so the last step of the trend is not item-matched.
 
 ---
 
@@ -279,16 +322,18 @@ Taken together, the results describe two things.
 - A midway yes/no choice leaves the final judgment alone.
 - The scale-direction slip is unrelated to errors.
 
-**A credence that is not format-free.** The generator's output depends on three things beyond the proposition:
+**A credence that is not format-free, on Haiku.** The generator's output depends on three things beyond the proposition:
 - the question and the questions before it (Sections 4.1 and 4.2);
 - the format (Section 4.5);
 - the model's own recorded answers, but not other people's (Sections 4.2 and 4.3).
 
 What looks like a stable belief within a conversation is, to a large degree, consistency with the transcript: repeat agreement falls from 81% to 23% when the first answer is hidden [R-pending: direction 2, 40 items].
 
-By the argument of Section 2, none of this shows that the model "has no definite state". Its state is perfectly definite. What it lacks is a format-free, transcript-free quantity for elicitation to read.
+By the argument of Section 2, none of this shows that the model "has no definite state". Its state is perfectly definite. What Haiku lacks is a format-free, transcript-free quantity for elicitation to read.
 
-The finding sits alongside Smolin and Wilder (2026), who fit one latent belief across 16 framings of other capable models. Their criterion is usefulness: does one latent predict new framings? Test F's criterion was stricter, but test F′ applies theirs directly. On it, one latent predicts a left-out format with R² 0.37, against their 0.60–0.90 for other models. It recovers 39% of what the format reproducibly says. So the difference from their result is not only the criterion. On this model and these statements, a format-free belief exists only as the smaller part of each answer.
+**How far this generalises** (Section 4.6). The transcript part does: on Sonnet and Opus too, repeat agreement is partly memory of the record. The format part does not. On Sonnet a single credence is partly usable, and on Opus the formats agree closely enough that one credence fits as well as six. "No credence to read" is therefore a finding about Haiku, and to a lesser degree Sonnet, on contested claims. It should not be stated for language models in general.
+
+The finding sits alongside Smolin and Wilder (2026), who fit one latent belief across 16 framings of other capable models. Their criterion is usefulness: does one latent predict new framings? Test F's criterion was stricter, but test F′ applies theirs directly. On Haiku, one latent predicts a left-out format with R² 0.37, against their 0.60–0.90 for other models. It recovers 39% of what the format reproducibly says. On Sonnet, on 80 of the same claims, it predicts with R² 0.65, inside their range. So the difference from their result is mostly the model, not the criterion: the weaker the model, the less of a format-free belief there is to find.
 
 ### 5.2 Confidence elicitation
 
@@ -305,7 +350,7 @@ Practical consequences:
 
 Calibration is usually measured in one format, for example verbal 0–100 or a probability token.
 
-**Calibration need not transfer across formats.** The six formats order the same statements differently on 21–35% of pairs (exploratory baseline). Predicting one format from the other five recovers only 39% of its reproducible answer (test F′). A model that is well calibrated in one format can therefore rank propositions differently in another. Calibration claims should name the format, and where possible be checked in more than one.
+**Calibration need not transfer across formats, at least on weaker models.** Haiku's six formats order the same statements differently on 21–35% of pairs (exploratory baseline). Predicting one format from the other five recovers only 39% of its reproducible answer (test F′). A model that is well calibrated in one format can therefore rank propositions differently in another. On the same 80 statements, against the 0–100 rating, Haiku's formats reverse 25–35% of pairs, Sonnet's 14–20%, and Opus's 3–14% on its 26, so the risk shrinks with model strength. Calibration claims should still name the format, and where possible be checked in more than one.
 
 **Within-conversation consistency is not evidence of a stable credence.** A model that keeps giving the same number in one conversation may be reading its own earlier answer:
 - it stays consistent with itself far more than with an external estimate (s_own +0.42, s_other +0.05) [R-pending: source × distance × lag];
@@ -315,14 +360,14 @@ Test–retest reliability for model confidence should be measured across copies,
 
 ### 5.4 Introspection evaluations
 
-**Self-report against a reader.** A model's stated confidence is often taken as evidence that it knows what it knows. Here it is a good error signal (AUROC 0.85 for Haiku, 0.90 for Sonnet on its own answers), but a stronger model reading the same answer does better (0.93).
+**Self-report against a reader.** A model's stated confidence is often taken as evidence that it knows what it knows. Here it is a good error signal (AUROC 0.85 for Haiku, 0.90 for Sonnet and Opus on their own answers), but a stronger model reading the same answer does better (Sonnet on Haiku's 0.93, Opus on Sonnet's 0.96). The absence of a self-advantage holds on all three models (Section 4.6).
 
 **An evaluation of privileged self-knowledge needs three controls:**
 - **A reader control with matched framing:** another model judges the same text with the same prompt.
 - **A statistic that cancels capability.** The judge × author interaction does this. Per-author self-minus-other comparisons confound authorship with judge strength (Xiao et al., 2026, report the same pattern in open models).
 - **Transcript-editing controls for any self-consistency claim,** because a model's agreement with its earlier self can be memory.
 
-**What our result says.** On this test, self-reported confidence is text-reading. That does not rule out privileged access in other settings, such as hidden-state probes (Ashuach et al., 2026, find a small one there) or trained self-prediction (Binder et al., 2025). It does mean that a verbal-confidence AUROC, however high, is not by itself evidence of introspection.
+**What our result says.** On this test, and on all three models, self-reported confidence is text-reading. That does not rule out privileged access in other settings, such as hidden-state probes (Ashuach et al., 2026, find a small one there) or trained self-prediction (Binder et al., 2025). It does mean that a verbal-confidence AUROC, however high, is not by itself evidence of introspection.
 
 ### 5.5 Quantum-cognition tests on language models
 
@@ -340,7 +385,11 @@ None of these can show that a model's judgments lack definite values. A quantum-
 - **Two items carry much of direction 2's redacted effect** (h191, h261), and there are 10 items in all. The 40-item run (Section 8) is the test of whether the question-driven reading survives. Until it lands, every direction 2 number in this paper is provisional.
 - **The redaction placeholder** "[rating recorded]" is an unusual turn. It may add variance of its own: the redacted order effect is larger than the shown one.
 - **Two criteria for the format result.** Test F's criterion (held-out *repeats*) is stricter than Smolin and Wilder's. Because Haiku's repeats vary little, any reproducible format-by-claim deviation favours the format-specific model. Test F′ applies their usefulness criterion (held-out *formats*) and also finds little format-free belief. Its interval's upper end, 0.499, lies just under the pre-registered 0.5 line, so the margin over a "partial" reading is thin.
-- **One base model for most tests.** Every test except direction 1 uses `claude-haiku-5-5` alone. Direction 1 uses Haiku and `claude-sonnet-5-5`. Nothing here establishes the results for other models.
+- **Three models, unevenly.** Tests N, S, A and F′ on all 160 claims use `claude-haiku-5-5` alone. Tests P, T and F were replicated on `claude-sonnet-5-5` and `claude-opus-5-5` at reduced scale (Section 4.6):
+  - Opus's six-format arm stopped at 26 of 80 claims, all from items Haiku answered wrongly;
+  - Opus's transcript arm ran at 2 conversations per cell, too few to decide the question-alone reading;
+  - the replications ran with each model's thinking as low as the API allows, which for Opus is not off.
+  The format finding does not hold on Opus, and nothing here establishes any result for models outside the Claude 5.5 family.
 - **Thinking was disabled, and the temperature is the default 1.0,** since the API rejects another. With extended thinking, the thinking text becomes part of the context, so the argument of Section 2 still applies, but the measurements may differ.
 - **The source comparison (test S) differs in wording as well as source.** It uses "Please give your rating again" against the archived "accept or revise". The planted values were ±30 points from the model's mean, which is large enough to read as implausible.
 - **Direction 1 was cut short** by cost overruns and a crash. The paraphrase arm covers 60 of 80 questions, and Sonnet's recognition check did not run. The primary statistic uses all 298 questions. Recorded spend was $2.82; calls lost in the crash bound the true spend at about $3.02, against a $3 cap.
@@ -370,8 +419,9 @@ Every table in this paper can be rebuilt from archived data.
   - `gm3c_heldout_format.py` (test F′)
   - `bm_runs.py` (test S's calls)
   - `bm_offline.py` (test A and the other archived-data biomimetic analyses)
-- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D44. A chronological record is in `paper/record.md`.
-- **Costs.** The new tests reported here used $4.02 of recorded API spend: P $2.82, T $0.55, F $0.41, S $0.24, and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. No QPU time was used.
+- **The replications (Section 4.6):** `experiments/mm_gm1.py`, `mm_gm2.py` and `mm_gm3b.py`, each with an `analyse` mode that rebuilds its table from `results/mm-*.json` with no API call. The summary is `results/multi-model.md`.
+- **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D48 and DM1–DM6. A chronological record is in `paper/record.md`.
+- **Costs.** The new tests reported here used $4.02 of recorded API spend: P $2.82, T $0.55, F $0.41, S $0.24, and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates. No QPU time was used.
 
 ---
 
