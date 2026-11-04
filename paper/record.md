@@ -1,9 +1,9 @@
-# Project record: October 25 to November 3, 2026
+# Project record: October 25 to November 4, 2026
 
 This is a chronological record of each question the project tested: its pre-registration, the test, the result, the diagnosis, and the redirect it led to.
 - Hashes are short commit ids on `main`.
 - Times are local, America/Denver (MST, UTC−7), as `git log main` records them. Every date in the repository uses this time zone.
-- Numbers are from `results/`, and decision labels (D1–D26) are from `DEVIATIONS.md`.
+- Numbers are from `results/`, and decision labels (D1–D36 onward) are from `DEVIATIONS.md`.
 
 **2026-10-25: proposal (version 1).** It proposed holding a language model's competing considerations as one entangled state, with five hypotheses: divergence, entanglement signal, contextuality, emergence and human-likeness. It was added to the repository as PDFs in `f09175d` (11-03 16:53).
 
@@ -40,6 +40,13 @@ All remaining entries are from 2026-11-03.
 | 22:24 | experiment 5 result: does a quantum belief state predict sequential ratings better than a matched classical updater, with a parameter-free signature? | `2c2ef6c` (D22), details D23–D26 | 12,600 conversations including the pilot, $1.93, no refusal (`75744dc`) | **tie:** F5 − A5 = +67.0 [−34.1, +211.5] on test chains; order effects in 60 of 80 pairs; QQ mean q +0.005 [−0.058, +0.065], not certified; Kvam Δ_K = +0.29 [−1.12, +1.65], no interference; dephased Markov D5 = A5; belief adjustment best on main ratings | real sequential effects, classical account; only 12 of 160 claims had predicted non-commutation (§8.6); anchor-direction artefact (33.8 vs 71.3); sub-test tolerance fix (D32) | experiment 4 run 3 (draft) is the last test |
 | 23:14 | experiment 5 run 2: do the order effects and the near-zero q survive one scale direction? | D33, `fbc2fbf` (23:00) | B0 and the QQ block on 10 items, one scale, 1,700 conversations, $0.14 (`bffc4ab`) | order effects survive (12 of 16 large pairs); **q = −0.146 [−0.439, +0.137]** on one scale against +0.031 pooled; KS p = 0.008 | run 1's near-zero q was an anchor-pooling artefact; QQ not supported | — |
 | 23:17 | experiment 4 run 3: anchoring or content-driven updating, with a provided first rating? | frozen with one scale, D33, `fbc2fbf` | 16 items, 6,720 calls, $0.30 (`de38306`) | **untestable:** manipulation check passed in both orders on 1 item (3 needed); accept rate 0% in 15 of 32 item-orders; a higher anchor gave a lower rating in 6 | the model resists provided first ratings (reactance or contrast) | planted own answers (`paper/gold-map.md`, direction 2) |
+
+**2026-11-04: the overnight gold-map run.** It takes six directions of `paper/gold-map.md` in order. Each is pre-registered in its own commit before its first call or analysis, each new design uses one scale direction, and each run stops on any refusal (D34 onward). Before the run, the gold map's abstract-only citations for directions 1–4 were read in full and corrected (`01b1ce9`, on `related-work`).
+
+| time | question | pre-registered | test (commit) | result | diagnosis | redirect |
+|---|---|---|---|---|---|---|
+| 03:49 | direction 9: does asking an earlier question change later answers (no-signalling in time)? | `7f0dd3e` (03:48, D34) | archived experiment 5 conversations, anchor (a) only, 6 families, $0 (`39a1a66`) | **invasive in 5 of 6 families** (Holm p = 0.001). For example, the main rating after one sub-question moves a mean of 12.4 points against 2.6 from noise. A midway yes/no choice is not invasive beyond a filler (p = 0.16) | the model's state is its copyable context, so macrorealism holds by construction and every effect is invasiveness, not indefiniteness (`paper/clonable-minds.md`) | direction 2 separates the question from the recorded answer |
+| 03:51 | direction 3, free look: does the scale-direction gap mark the model's errors? | `a1bc421` (03:50, D35) | per-item gap on the archived B0 conversations against hard-pool errors, $0 (`43592e5`) | **no evidence either way:** AUROC 0.48 [0.28, 0.66]; stated confidence on the same 40 items 0.75 | the gap looks like a reading slip in the reversed scale, not a missing credence | direction 3's six-format run |
 
 **Redirects in writing.**
 - `851040f` (19:21), `paper/next-steps.md`: the pivot from error prediction to sequential judgment, with each outcome's reading fixed in advance.
