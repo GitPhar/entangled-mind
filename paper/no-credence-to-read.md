@@ -16,10 +16,10 @@ A language model reached through a stateless API has, at every turn, a complete 
 
 On `claude-haiku-5-5`, in pre-registered tests, the answer is the second. Three of the tests were then repeated on `claude-sonnet-5-5` and `claude-opus-5-5`, and the claims below are stated only as far as they replicate.
 - **Asking is invasive.** Earlier questions change later ratings in 5 of 6 no-signalling-in-time comparisons on 40 hard questions. A midway yes/no choice is the one exception.
-- **The question alone is enough.** With every earlier answer hidden, the order of the questions still changes the final rating. The ratio of redacted to shown order effect is 1.91 [0.92, 4.90] [R-pending: direction 2, 40 items].
+- **The question alone is enough.** With every earlier answer hidden, the order of the questions still changes the final rating. On 40 items the ratio of redacted to shown order effect is 1.23 [0.75, 2.02]: the question carries roughly all of the order effect, and the record adds little to it.
 - **The record also acts, but only when it is the model's own.**
   - Planting the model's own earlier answer pulls its re-rating 0.42 of the way toward the planted value. The same number attributed to another person pulls it 0.05 [R-pending: source × distance × lag].
-  - The model's agreement with itself on a repeated question falls from 81% to 23% when its first answer is hidden [R-pending: direction 2, 40 items].
+  - The model's agreement with itself on a repeated question falls from 86% to 36% when its first answer is hidden.
 - **Formats disagree.** Across six elicitation formats, a separate credence per format predicts held-out answers better than one credence per statement for 86% of 160 statements. The formats rank the statements differently four to six times more often than repeat noise does. Predicting each format from the other five recovers only 0.39 [0.30, 0.50] of what is reproducible in that format.
 - **Self-report is not privileged.** The model's confidence predicts its errors well (AUROC 0.85), but a stronger model reading the same answers predicts them better (0.93). The judge × author interaction is −0.055 [−0.103, −0.007].
 
@@ -148,7 +148,7 @@ Each test was pre-registered in its own commit before any call or analysis. The 
 | test | question | data | primary statistic | pre-registration |
 |---|---|---|---|---|
 | **N** (gold-map direction 9) | does asking change later answers? | archived experiment-5 conversations, one scale direction, $0 | six NSIT families: per-cell mean shift d between asked and not-asked conversations; permutation test of Σd²; Holm correction | `gm9-nsit.md`, D34 |
-| **T** (direction 2) | the question, or the record? | 10 experiment-5 items, chains O₁–O₄ and MF; shown, redacted ("[rating recorded]") and planted ±15 points in the model's own turn; 10 conversations per cell; 2,000 conversations, $0.55 | R = OE_redacted / OE_shown, where OE is the between-order spread of the final M; question-driven if the CI lies wholly at or above 0.5 | `gm2-self-conditioning.md`, D37 |
+| **T** (direction 2) | the question, or the record? | all 40 experiment-5 items (10 run first, 30 added in D45), chains O₁–O₄ and MF; shown, redacted ("[rating recorded]") and planted ±15 points in the model's own turn; 10 conversations per cell; 8,000 conversations, $2.23 | R = OE_redacted / OE_shown, where OE is the between-order spread of the final M; question-driven if the CI lies wholly at or above 0.5 | `gm2-self-conditioning.md`, D37; `gm2b-self-conditioning-40.md`, D45 |
 | **S** (bm1) | does the source of a number matter? | experiment 4's 16 items, values 30 points below and above the model's mean, planted as its own earlier answer, then a re-rating; 40 per cell; 2,560 conversations, $0.24; compared with the archived condition in which the same values were "another person's estimate" | slope s of the re-rating on the shown value, own against other | `bm1-serial-dependence.md`, D44 |
 | **A** (bm9) | does the next rating move toward the last number? | archived single-scale (S_k, M) conversations, $0 | β in d_M = α + β·L + γ·C, where L is the S rating's level relative to the unprompted M and C is the claim's content push | `bm9-contrast.md`, D42 |
 | **P** (direction 1) | does authorship help judge errors? | both models rate confidence in both models' answers on 298 questions, with one matched prompt ("an answer another assistant gave"); 1,710 calls, $2.82 recorded | the judge × author interaction I = HH + SS − SH − HS (judge first, then author), which cancels each judge's skill | `gm1-self-knowledge.md`, D36 |
@@ -200,23 +200,25 @@ Intervals are 95% bootstrap intervals over items: 2,000 resamples unless stated,
 
 ### 4.2 The question alone is enough, and the model's own record also steers
 
-**Test T** [R-pending: direction 2, 40 items]
+**Test T**, all 40 items (D45):
 
 | condition | order effect across O₁–O₄ (points) | repeat agreement in MF (|M₂ − M₁| ≤ 5) |
 |---|---|---|
-| shown | 8.7 [4.1, 12.7] | 81% |
-| redacted | 16.7 [8.0, 24.1] | 23% |
-| planted high | 6.2 [3.6, 8.3] | 30% |
-| planted low | 3.2 [2.2, 4.0] | 40% |
+| shown | 9.8 [5.8, 13.5] | 86% |
+| redacted | 12.0 [7.3, 15.9] | 36% |
+| planted high | 6.3 | 38% |
+| planted low | 5.3 | 45% |
 
-- **The question alone changes the judgment.** R = 1.91 [0.92, 4.90]. The interval lies wholly above 0.5, so the pre-registered reading is *question-driven*: with no record of its answers, the order of the questions still changes the model's final rating.
+- **The question alone changes the judgment.** R = 1.23 [0.75, 2.02]. The interval lies wholly above 0.5, so the pre-registered reading is *question-driven*: with no record of its answers, the order of the questions still changes the model's final rating by about as much as with the record visible. The question carries roughly all of the order effect, and the record adds little to it.
+- **The effect is broad, and the placeholder does not make it.**
+  - It holds on the 30 new items alone (R = 0.99 [0.51, 1.61]) and with h191 and h261, the two items that dominated the first 10, left out (0.99 [0.62, 1.49]).
+  - On 82% of 39 items the redacted order effect is at least half the shown one.
+  - The spread of final ratings within one order is the same shown and redacted (SD 5.1 against 5.4), so the "[rating recorded]" turn adds no noise of its own.
 - **The record steers too.**
-  - The final M follows a planted first M at 1.27 [0.70, 2.14] points per point.
-  - Planted-high earlier ratings raise the next actual ratings by 5.6 [3.4, 7.6] points over planted-low, and the final M by 10.4 [4.2, 16.8].
-- **Apparent stability is memory.** With its first answer visible, the model repeats it within 5 points 81% of the time, close to experiment 5's 84%. With it hidden, it does so 23% of the time.
-- **Caveats.**
-  - Much of the redacted order effect comes from 2 of the 10 items (h191, h261).
-  - The redacted effect is *larger* than the shown one, so the placeholder turn may add variance of its own. The verdict stands by its rule, but the excess over "shown" should not be read as the question's own effect.
+  - The final M follows a planted first M at 0.85 [0.65, 1.13] points per point.
+  - Planted-high earlier ratings raise the next actual rating by 5.2 [3.7, 6.5] points over planted-low, and the final M by 9.0 [5.4, 12.6].
+- **Apparent stability is memory.** With its first answer visible, the model repeats it within 5 points 86% of the time, close to experiment 5's 84%. With it hidden, it does so 36% of the time.
+- **The first 10 items overstated two numbers.** On them, R was 1.91 [0.92, 4.90] and b_MF 1.27 [0.70, 2.14]. R's excess over 1 came mostly from h191, whose order effect is 0.4 points shown and 38 points redacted. The readings are unchanged; the 40-item values are the ones to use.
 
 ### 4.3 The record acts only when it is the model's own, and new ratings move toward old ones
 
@@ -290,7 +292,7 @@ Tests P, T and F were re-run with `claude-sonnet-5-5` and `claude-opus-5-5` as b
 | test F′: one credence predicting a left-out format (Q) | 0.29 [0.19, 0.43] | 0.69 [0.53, 0.82], *partial* | not computed (arm incomplete) | |
 | **agreement across formats** (Kendall's W) | 0.54 | 0.71 | 0.86 | rises with model strength |
 
-Haiku's rows for test F are re-analyses of its archived calls on the same 80 claims. Its 160-claim figures are in Section 4.5.
+Haiku's rows for test F are re-analyses of its archived calls on the same 80 claims. Its 160-claim figures are in Section 4.5. Haiku's rows for test T re-analyse the first 10 items (D37) at the replications' scale, so that the three models are compared on the same items. Its 40-item figures are in Section 4.2 (R = 1.23 [0.75, 2.02]; 86% → 36%).
 
 **No privileged self-knowledge holds on all three models.**
 - Opus predicts Sonnet's errors better than Sonnet does: AUROC 0.959 against 0.903.
@@ -327,7 +329,7 @@ Taken together, the results describe two things.
 - the format (Section 4.5);
 - the model's own recorded answers, but not other people's (Sections 4.2 and 4.3).
 
-What looks like a stable belief within a conversation is, to a large degree, consistency with the transcript: repeat agreement falls from 81% to 23% when the first answer is hidden [R-pending: direction 2, 40 items].
+What looks like a stable belief within a conversation is, to a large degree, consistency with the transcript: repeat agreement falls from 86% to 36% when the first answer is hidden.
 
 By the argument of Section 2, none of this shows that the model "has no definite state". Its state is perfectly definite. What Haiku lacks is a format-free, transcript-free quantity for elicitation to read.
 
@@ -338,7 +340,7 @@ The finding sits alongside Smolin and Wilder (2026), who fit one latent belief a
 ### 5.2 Confidence elicitation
 
 **The transcript is part of the measurement.** A confidence elicited in the same conversation as the answer, or after other questions, is conditioned on the record:
-- planted own answers pull later ratings at 0.42 to 1.27 points per point (Sections 4.2 and 4.3) [R-pending: direction 2, 40 items; source × distance × lag];
+- planted own answers pull later ratings at 0.42 to 0.85 points per point (Sections 4.2 and 4.3) [R-pending: source × distance × lag];
 - ratings move about a quarter of the way toward the last number given (Section 4.3).
 
 Practical consequences:
@@ -354,7 +356,7 @@ Calibration is usually measured in one format, for example verbal 0–100 or a p
 
 **Within-conversation consistency is not evidence of a stable credence.** A model that keeps giving the same number in one conversation may be reading its own earlier answer:
 - it stays consistent with itself far more than with an external estimate (s_own +0.42, s_other +0.05) [R-pending: source × distance × lag];
-- its repeat agreement collapses when its first answer is hidden [R-pending: direction 2, 40 items].
+- its repeat agreement falls from 86% to 36% when its first answer is hidden.
 
 Test–retest reliability for model confidence should be measured across copies, not within a conversation.
 
@@ -382,8 +384,7 @@ None of these can show that a model's judgments lack definite values. A quantum-
 
 ## 6. Limitations
 
-- **Two items carry much of direction 2's redacted effect** (h191, h261), and there are 10 items in all. The 40-item run (Section 8) is the test of whether the question-driven reading survives. Until it lands, every direction 2 number in this paper is provisional.
-- **The redaction placeholder** "[rating recorded]" is an unusual turn. It may add variance of its own: the redacted order effect is larger than the shown one.
+- **Direction 2's sizes moved with the item set.** On its first 10 items, two (h191, h261) carried much of the redacted effect, and R and b_MF were 1.91 and 1.27. On all 40 they are 1.23 and 0.85, the effect is spread across items, and the redaction placeholder adds no spread of its own (Section 4.2). The question-driven reading survived, but the cross-model comparison of Section 4.6 still uses the first 10 items.
 - **Two criteria for the format result.** Test F's criterion (held-out *repeats*) is stricter than Smolin and Wilder's. Because Haiku's repeats vary little, any reproducible format-by-claim deviation favours the format-specific model. Test F′ applies their usefulness criterion (held-out *formats*) and also finds little format-free belief. Its interval's upper end, 0.499, lies just under the pre-registered 0.5 line, so the margin over a "partial" reading is thin.
 - **Three models, unevenly.** Tests N, S, A and F′ on all 160 claims use `claude-haiku-5-5` alone. Tests P, T and F were replicated on `claude-sonnet-5-5` and `claude-opus-5-5` at reduced scale (Section 4.6):
   - Opus's six-format arm stopped at 26 of 80 claims, all from items Haiku answered wrongly;
@@ -406,13 +407,14 @@ Every table in this paper can be rebuilt from archived data.
 - **The raw calls and conversations** are archived next to each result:
   - `results/gm1-calls.json`
   - `results/gm2-conversations.json`
+  - `results/gm2b-conversations.json` (the 30 items added in D45)
   - `results/gm3b-calls.json`
   - `results/bm1-calls.json`
   - `results/exp5-conversations.json`
   - `results/exp5-run-2-conversations.json`
 - **Each analysis script** sits next to its pre-registration in `experiments/`:
   - `gm9_nsit.py`
-  - `gm2_self_conditioning.py`
+  - `gm2_self_conditioning.py` and `gm2b_self_conditioning_40.py` (test T on 10, then 40 items)
   - `gm1_self_knowledge.py`
   - `gm3b_format_invariance.py`
   - `gm3a_anchor_gap.py`
@@ -421,19 +423,19 @@ Every table in this paper can be rebuilt from archived data.
   - `bm_offline.py` (test A and the other archived-data biomimetic analyses)
 - **The replications (Section 4.6):** `experiments/mm_gm1.py`, `mm_gm2.py` and `mm_gm3b.py`, each with an `analyse` mode that rebuilds its table from `results/mm-*.json` with no API call. The summary is `results/multi-model.md`.
 - **Pre-registrations and their commit hashes** are listed in `DEVIATIONS.md`, entries D34–D48 and DM1–DM6. A chronological record is in `paper/record.md`.
-- **Costs.** The new tests reported here used $4.02 of recorded API spend: P $2.82, T $0.55, F $0.41, S $0.24, and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates. No QPU time was used.
+- **Costs.** The new tests reported here used $5.70 of recorded API spend: P $2.82, T $2.23 ($0.55 for the first 10 items, $1.68 for the other 30), F $0.41, S $0.24, and N, A and the free look $0. At most $0.20 more was lost in direction 1's crash. The archived experiment-5 conversations they reuse cost $2.07 when collected. The replications on Sonnet and Opus cost $16.28 at batch rates. No QPU time was used.
 
 ---
 
 ## 8. Pending robustness runs
 
-Three robustness runs were planned, each pre-registered in its own commit before its data. One has landed; the other two are pre-registered and not yet reported. No other robustness run is planned, so every number without a tag is final as pre-registered.
+Three robustness runs were planned, each pre-registered in its own commit before its data. Two have landed; the third is pre-registered and not yet reported. No other robustness run is planned, so every number without a tag is final as pre-registered.
 
 | tag | run | what it tests | affects |
 |---|---|---|---|
-| [R-pending: direction 2, 40 items] | D45, pre-registered at `4894bfc`, $2.50 cap; running | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | Section 4.2 and the abstract: R, b_MF, the next-rating pull, MF agreement 81% against 23% |
+| landed | D45 (`758609a`, pre-registered at `4894bfc`), $1.68 of $2.50 | direction 2's design on all 40 experiment-5 items: the 10 already run pooled with 30 new ones, and the 30 also reported alone. Sensitivity checks: excluding h191 and h261; the share of items whose redacted order effect is at least half the shown one; and within-order spread, shown against redacted, to check the placeholder | reported in Section 4.2: R = 1.23 [0.75, 2.02], question-driven (30 new 0.99; without h191 and h261 0.99); 82% of items; SD 5.1 against 5.4; b_MF 0.85; MF agreement 86% against 36% |
 | landed | D46 (`52aedb6`, pre-registered at `1f2a837`), $0 | the held-out-format prediction | reported in Section 4.5 as test F′: Q = 0.39 [0.30, 0.50], "little format-free belief" |
-| [R-pending: source × distance × lag] | D47, pre-registered at `8acc007`, $0.50 cap; starts after D45 | own against other source at ±10 and ±60 points (lag 0, R = 10); own at ±30 after 3 filler turns (R = 20); bm1's own ±30 and run 3's other ±30 reused. Readings: own > other; non-monotone or reversal at ±60; decay over lag | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
+| [R-pending: source × distance × lag] | D47, pre-registered at `8acc007`, $0.50 cap; running | own against other source at ±10 and ±60 points (lag 0, R = 10); own at ±30 after 3 filler turns (R = 20); bm1's own ±30 and run 3's other ±30 reused. Readings: own > other; non-monotone or reversal at ±60; decay over lag | Section 4.3: s_own, s_own − s_other and the 6-of-7 reversal. It addresses the wording caveat only in part, since the "other" cells keep run 3's accept-or-revise wording |
 
 ---
 
