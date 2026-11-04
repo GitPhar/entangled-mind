@@ -489,6 +489,7 @@ The point estimate leans slightly toward the classical twin.
 - **The model resists provided first ratings.**
   - Its accept rate is 0% in 15 of 32 item-orders, and its revisions return close to its own value.
   - In 6 item-orders a *higher* provided estimate produced a *lower* first rating, down to −0.50 on Marta (co-lin10). That is a contrast or reactance effect, not anchoring.
+  - **Followed up on November 4** (`results/bm1-serial-dependence.md`, D44; `results/bm0-source-distance-lag.md`, `e2c3b90`, D47). The same values planted as the model's *own* earlier answer pull its re-rating (slope +0.42 against +0.05 for another person's). Own beats other at 10, 30 and 60 points from the model's view (pooled +0.46 [+0.21, +0.84]), and the pull does not fade over three intervening turns. Another person's number is ignored rather than resisted (mean uptake +0.02). So run 3's resistance is about whose number it is, not about provided numbers as such. The accept-or-revise wording still differs between the two conditions.
 - **The ceiling held.** The conjunction rating almost never exceeded the first rating (at most 10% of conversations).
 - **Run 2's order effects only partly replicate under the explicit scale wording.** Bill holds at +0.10, but Marta falls to +0.02 and co05 to +0.04.
 
