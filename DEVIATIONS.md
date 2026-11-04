@@ -679,3 +679,20 @@ Concentration and within-order SD are reported alongside.
 **Primary:** mean Q = R²_cross / R²_ceiling, read against 0.75 and 0.5.
 
 **Check before freezing.** The code was tested on simulated data. A one-belief world gave Q = 1.06 [1.04, 1.09]; a format-specific world gave 0.21 [0.14, 0.29].
+
+## D47 — Robustness wave, 3 of 3: the biomimetic §3.0 shared test (source × distance × lag) pre-registered
+
+**Date:** 2026-11-04 06:37 MST, before any call. Recorded in `experiments/bm0-source-distance-lag.md`.
+
+**Cells.**
+- own and other at d = ±10 and ±60, lag 0, R = 10;
+- own at ±30, lag 3, R = 20;
+- reused: own ±30 lag 0 from bm1 (R = 40) and other ±30 from run 3 (R = 40).
+
+**Budget:** $0.50, enforced in code; stop on any refusal.
+
+**Changes from map revision 2's §3.0.**
+- R = 10 rather than 20 in the new distance cells, to fit the budget.
+- The lag arm at ±30 only.
+
+**Run order.** The run waits for D45 to finish, so the two API runs do not compete. The analysis was tested on simulated data before freezing.
