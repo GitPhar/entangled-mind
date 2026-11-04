@@ -302,3 +302,13 @@ G, L, H and the **already-fitted** A2 and F2 are scored on Sonnet's errors, usin
 - run 6 processes the locked v2 test questions first, so a budget stop still covers them, then as much of the rest as the budget allows.
 
 What actually ran is reported in `results/sonnet-replication.md`.
+
+## D19 — Experiment 4 run 2: the pre-registered anchoring estimator is near-tautological (logged after results)
+
+**Date:** 2026-11-03, after run 2's results.
+
+The pre-registered "beyond repetition" analogue regresses the second rating on the first across cells X→XY and Y→XY pooled. Because those two cells differ mainly in their first-rating means, the slope r ≈ o / (P(X) − P(Y)), so o − o_rep ≈ 0 regardless of mechanism. The run's verdict, "static classical twin (with anchoring) supported", is reported as pre-registered, but the results file says plainly that it does not show anchoring explains the effect.
+
+An exploratory within-cell slope, using repeat-to-repeat variation only, cannot be estimated reliably either: at the default temperature the rating standard deviation is 0.00–0.05.
+
+**Lesson for experiment 5 and later runs:** estimate anchoring only within cells, or manipulate the first rating directly.
