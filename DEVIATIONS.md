@@ -749,3 +749,15 @@ Numbered DM so as not to collide with D-entries written on `main` at the same ti
 **Reference.** The Haiku reference on the same 80 claims (from D38's archive) was computed while the code was being tested, before freezing: ΔLL +19.42 [+15.40, +23.21], 86% positive.
 
 **Secondary.** Test F′ (D46) runs on the new calls with its frozen code, which forms 3 item folds at 20 items.
+
+## DM3 — Multi-model replication 2 of 3: self-knowledge with Sonnet × Opus pre-registered
+
+**Date:** 2026-11-04 08:05 MST, before any call for this test. Recorded in `experiments/mm-gm1-self-knowledge.md`.
+
+**Design.** Opus answers direction 1's 298 questions with the base prompt and base settings. Sonnet and Opus then judge each other's answers, and Opus its own, with D36's matched prompt and settings. SS is D36's archived cell.
+
+**Primary.** I = SS + OO − OS − SO, with D36's reading.
+
+**Not run, for budget:** the paraphrase and recognition arms.
+
+**Cap:** $4.60 (batch rate).
