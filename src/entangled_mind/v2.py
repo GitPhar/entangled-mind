@@ -169,7 +169,8 @@ def fast_quantum_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_t
 
 
 def fast_classical_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n_sweeps: int,
-                         beta_t: float, flip: float, field: float, phi: np.ndarray | None = None) -> np.ndarray:
+                         beta_t: float, flip: float, field: float, phi: np.ndarray | None = None,
+                         alpha: float = 0.0) -> np.ndarray:
     """Exact distribution after N sequential heat-bath sweeps of the classical Ising twin.
     Prior: independent spins with P(yes) = (1 + sin(theta) cos(phi)) / 2, the same single-contention
     marginals as A2's preparation. Sweep t uses inverse temperature beta_t * s_t and then flips each
@@ -179,7 +180,8 @@ def fast_classical_probs(it: Item, s_theta: float, k_sup: float, k_con: float, n
     if phi is None:
         phi = solve_phases_fast(web)
     theta = np.clip(s_theta * it.conf, 0, 2) * math.pi / 2
-    py = np.clip((1 + np.sin(theta) * np.cos(phi)) / 2, 1e-9, 1 - 1e-9)
+    # alpha != 0 (F2+, Addendum D): the marginal an uncoupled qubit gives when measured along an axis tilted by alpha
+    py = np.clip((1 + np.sin(theta) * np.cos(phi) * np.cos(alpha) + np.cos(theta) * np.sin(alpha)) / 2, 1e-9, 1 - 1e-9)
     b = bits(n)
     x = 1 - 2 * b                                   # +1 yes
     p = np.prod(np.where(b == 0, py, 1 - py), axis=1)
@@ -325,6 +327,7 @@ SPACES = {
     "L": [(f"w{k}", -3.0, 3.0) for k in range(8)],
 }
 SPACES["A21"] = SPACES["A2"] + [("lambda_h", 0.0, 2.0)]
+SPACES["F2P"] = SPACES["F2"][:-1] + [("alpha", -math.pi / 2, math.pi / 2), SPACES["F2"][-1]]   # Addendum D
 SPACES["F21"] = SPACES["F2"] + [("lambda_h", 0.0, 2.0)]
 # + one flag threshold per model (chosen on train after fitting), and a bias for L, which AUROC ignores:
 # 8 scored parameters + 1 threshold = 9 for every model.
@@ -362,6 +365,9 @@ class Scorer:
             return np.array([conflict_from_probs(fast_quantum_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6]),
                                                  it, tau) for it in self.items])
         *a, tau = v
+        if self.model == "F2P":
+            return np.array([conflict_from_probs(fast_classical_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6],
+                                                                      alpha=a[7]), it, tau) for it in self.items])
         return np.array([conflict_from_probs(fast_classical_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6]),
                                              it, tau) for it in self.items])
 

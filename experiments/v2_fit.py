@@ -52,6 +52,8 @@ def _score_one(args):
     *a, tau = v
     if model == "A2":
         p = v2.fast_quantum_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6])
+    elif model == "F2P":
+        p = v2.fast_classical_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6], alpha=a[7])
     else:
         p = v2.fast_classical_probs(it, a[0], a[1], a[2], int(a[3]), a[4], a[5], a[6])
     return v2.conflict_from_probs(p, it, tau)

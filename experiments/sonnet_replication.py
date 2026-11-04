@@ -10,6 +10,7 @@ shown alongside. Writes results/sonnet-replication.{md,json}. On any refusal it 
 
 import json
 import os
+import sys
 from multiprocessing import Pool
 
 import numpy as np
@@ -71,6 +72,45 @@ def main() -> None:
         results[name] = res
     OUT_JSON.write_text(json.dumps({"results": results, "g_cost_usd": spent}, indent=1))
     write_md(results, haiku, spent)
+
+
+def arm_g_hard_pool() -> None:
+    """D28: Sonnet's self-confidence on its 298 hard-pool answers. $2 cap; stop on any refusal."""
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+    from entangled_mind import llm
+    config.BASE_MODEL = "claude-sonnet-5-5"
+    recs = [r for r in json.loads(POOL4.read_text())["records"] if r["correct"] is not None]
+    cache = json.loads(G_CACHE.read_text()) if G_CACHE.exists() else {}
+    lock, stop, refusal = threading.Lock(), threading.Event(), {}
+
+    def work(r):
+        if r["id"] in cache or stop.is_set():
+            return
+        with lock:
+            if sum(v["usage"]["cost_usd"] for v in cache.values()) >= 2.0:
+                stop.set()
+                return
+        try:
+            conf, usage, rid = llm.self_confidence(r["question"], r["deliberation_record"]["visible_answer"])
+        except llm.RefusalError as e:
+            refusal.setdefault("e", (r["id"], e))
+            stop.set()
+            return
+        with lock:
+            cache[r["id"]] = {"confidence": conf, "usage": usage.as_dict(), "request_id": rid}
+            G_CACHE.write_text(json.dumps(cache, indent=1))
+
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        list(ex.map(work, recs))
+    if refusal:
+        q, e = refusal["e"]
+        (config.RESULTS / "refusal-sonnet-arm-g.md").write_text(
+            f"# Pipeline stopped on a refusal\n\nSonnet arm G, question `{q}`\n\nRefused call: **{e.call}**\n\n"
+            f"Request ID: `{e.request_id}`\n\nExact stop details:\n\n```\n{e.stop_details}\n```\n\n"
+            "Nothing was reworded or retried.\n")
+        sys.exit(f"STOPPED: {e}")
+    print(len(cache), "G calls cached", f"${sum(v['usage']['cost_usd'] for v in cache.values()):.3f}")
 
 
 def offline() -> None:
@@ -155,5 +195,4 @@ def write_md(results, haiku, g_cost) -> None:
 
 
 if __name__ == "__main__":
-    import sys
-    offline() if "--offline" in sys.argv else main()
+    {"--offline": offline, "--arm-g": arm_g_hard_pool}.get(next((a for a in sys.argv[1:]), ""), main)()
