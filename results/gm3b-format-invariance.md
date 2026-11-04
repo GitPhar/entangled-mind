@@ -31,7 +31,10 @@ Two things could explain the difference:
 - **The material.** Their statements were standalone cases. Ours are the model's own contested claims about hard questions, where it may simply have no settled view.
 - **The model.** Claude was not among the models they tested.
 
+**Noise baseline (computed after the run, not pre-registered).** Is the reordering more than repeat noise? Compare one half of a format's repeats with the other half of the same format: they order statement pairs differently only 4–8% of the time. Compare the 0–100 rating's even repeats with another format's odd repeats, the same amount of data, and the figure is 21–35%. The cross-format reordering is about four to six times the noise.
+
 **Caveats.**
+- **Two different criteria.** The test compares on held-out *repeats*. Smolin & Wilder judged usefulness on held-out *framings*. Haiku's repeats vary little, so any reproducible statement-by-format deviation favours the separate-belief model, even if one belief would still predict a new format reasonably well. "No single credence" holds by the pre-registered rule. It does not show that a single latent is useless, and it does not contradict Smolin & Wilder. A like-for-like follow-up would predict each left-out format from the other five. That would need its own pre-registration. (Point raised by the literature session.)
 - One model (Haiku), one context per statement.
 - Some formats, such as the coin comparison, may carry their own response biases. The per-format link absorbs any bias that is monotone, so a monotone bias is not the explanation. The ranking disagreements are.
 

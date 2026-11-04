@@ -21,6 +21,7 @@ Pre-registered in `experiments/gm2-self-conditioning.md` (D37), committed before
 
 **Caveats.**
 - 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).
+- The redacted order effect is *larger* than the shown one. The verdict stands by the rule, since the CI lies wholly above 0.5, but the excess over "shown" should not be read as the question's own effect. The placeholder turn may add variance.
 - "[rating recorded]" is itself an unusual turn and may unsettle the model. The planted conditions, which keep a number in place, show smaller order effects than either.
 
 ## Order effect across O1–O4 (final main rating)
