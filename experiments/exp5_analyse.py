@@ -193,7 +193,9 @@ def main() -> None:
                     sem.setdefault(q, []).extend(b)
                 evals[name][mk] = {"se": {q: np.array(v_) for q, v_ in se.items()},
                                    "se_m": {q: np.array(v_) for q, v_ in sem.items()}}
-    out = {"n_conversations_excluded_schema": n_err, "fits": fits, "evals": {}}
+    nc = [v_ for q in cand for v_ in er.qq_pairs(recs[q], er.chain_claims(recs[q]))[1].values()]
+    out = {"n_conversations_excluded_schema": n_err, "fits": fits, "evals": {},
+           "noncommuting_chain_claims": [int(sum(x > 1e-6 for x in nc)), len(nc), float(max(nc))]}
     for name, ev in evals.items():
         its = sorted(ev["A5"]["se"])
         row = {"items": its, "mse": {}, "mse_M": {}}
@@ -418,6 +420,9 @@ def write_md(o) -> None:
              "thinking disabled, default temperature. 40 items × 12 chain types × 10 conversations, plus the QQ block "
              "(40 items × 2 pairs × 2 orders × 40). Pilot gates passed (`results/exp5-pilot.md`). "
              f"Conversations excluded for a schema failure: {o['n_conversations_excluded_schema']}.", "",
+             f"Predicted non-commutativity at encode: |sin Δφ| > 10⁻⁶ on {o['noncommuting_chain_claims'][0]} of "
+             f"{o['noncommuting_chain_claims'][1]} chain claims across the 40 items (max {o['noncommuting_chain_claims'][2]:.3f}); "
+             "every other chain claim's sub-question commutes with the main question at encode.", "",
              "> As the pre-registration put it before any data (§8.6): *the anchored phase solve works against A5 … "
              "Expect A5 and F5 to be close on most claims.* A tie is therefore the predicted outcome, not a surprise.", "",
              "## Fits (train / validation MSE, rating points²)", "", "| model | train | validation | parameters |", "|---|---|---|---|"]
