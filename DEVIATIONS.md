@@ -519,3 +519,18 @@ The pre-registered design is unchanged, and so is the verdict, which does not us
   3. Sonnet's recognition calls, for as long as the cap allows.
 - The cap stays at $3. Nothing else in the design or the analysis changes.
 - If Sonnet's recognition check is truncated, the results report how many of its calls ran.
+
+## D37 — Overnight run, 4 of 6: direction 2 (shown, redacted and planted transcripts) pre-registered
+
+**Date:** 2026-11-04 03:58 MST, before any call. Recorded in `experiments/gm2-self-conditioning.md`, with the planted values fixed in `experiments/gm2-planted-values.json`.
+
+**Design.**
+- First 10 experiment-5 items; chains O1–O4 and MF; anchor (a) only.
+- Four conditions, 10 conversations each.
+- Budget $1, enforced in code; stop on any refusal.
+
+**Change from the gold map:** planted values are **±15** points rather than ±30, on the literature session's full-text read of Kumaran et al. 2507.03120.
+- A planted answer must be plausible and must sit in the model's own turn.
+- In experiment 4 run 3, the model rejected provided ratings 30 points away.
+
+**Primary:** R = OE_redacted / OE_shown, with an item-bootstrap CI read against 0.5. A permutation gate checks first that the shown condition has an order effect.
