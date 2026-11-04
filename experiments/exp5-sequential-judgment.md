@@ -1,6 +1,6 @@
 # Experiment 5: sequential, context-dependent judgment (pre-registration draft)
 
-Written 2026-11-04, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: draft. Not run, and nothing in it has been piloted.** Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
+Written 2026-11-04, after the version-two result (`results/v2-run-1.md`), before any experiment-5 data. **Status: draft. Not run, and nothing in it has been piloted.** It is the second of the two remaining pre-registered tests. The first is experiment 4 run 2, the graded QQ/R2 test on the 7 fallacy items (D17), which is designed but not yet run. Running it needs Sean's go-ahead on the budget below, and the pre-registration is frozen in a commit before the pilot starts.
 
 ## 1. Why this experiment
 
@@ -179,7 +179,7 @@ Each entry below gives the paradigm, the quantum prediction, the classical compa
 
 **Base model.**
 - `claude-haiku-5-5`, the same base model as the pool runs, with thinking disabled as in experiment 4.
-- Temperature at the API default of 1.0. That is already the maximum, so the determinism in experiments 3 and 4 happened at T = 1.
+- Sampling temperature is the model default, 1.0. No temperature parameter is sent: the current API rejects an explicit temperature for this model (DEVIATIONS D17). So temperature is not a lever here, and the determinism in experiments 3 and 4 happened at the default 1.0.
 - Each rating is returned as structured output: `{"rating": <integer 0-100>}`.
 
 **Main questions.** The 40 candidates in §9. They come from Stage 2 run 2's hard pool (`results/pool-run-3.json`).
@@ -411,7 +411,7 @@ A "quantum supported" verdict would mean the quantum *probability* model describ
 
    **Mitigations:**
    - Graded 0–100 ratings throughout. Experiment 4's ratings had real spread and showed the fallacy.
-   - Temperature stays at 1.0, the API maximum; there is no higher setting to use.
+   - Temperature cannot be raised: the API rejects an explicit temperature for this model (D17), so sampling stays at the default 1.0. Dispersion has to come from the measurement, not from sampling settings.
    - R = 10 repeats per chain and R = 40 per QQ order.
    - Anchor counterbalancing.
    - Inference over **items**. Even a chain whose ratings are identical across repeats still contributes its mean to the order and omission contrasts.
