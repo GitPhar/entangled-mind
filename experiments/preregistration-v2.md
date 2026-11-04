@@ -80,3 +80,39 @@ On the locked test set, A2 passes if its AUROC exceeds F2's by more than the wid
 Otherwise, the learned quantum encoding **ties or loses** to its classical twin, and the README says so plainly. The paired bootstrap interval of AUROC(A2) − AUROC(F2) is reported as well.
 
 Secondary comparisons, reported but not part of the pass criterion: A2 against L, A2 against G, and every model on the run-2 held-out set.
+
+## Addendum B — hedge baseline (H) and version 2.1 "honest hedge" encoding
+
+**Written 2026-11-04 00:45 UTC.** At this point the v2 fit was still on train and validation, and **no test-set evaluation of any v2 model had been run**. The locked test set and the run-2 held-out set had not been scored.
+
+**Definition.** A **no-lean claim** (a *hedge*) is one whose extracted lean satisfies |lean| ≤ 0.1. Leans are extracted in steps of 0.05. On the train split, 10.3% of claims have a lean of exactly 0 and 11.2% have |lean| ≤ 0.1, and 55% of train items have at least one hedge.
+
+### H — hedge-count baseline (no fitted parameters)
+
+- **H (primary score):** the total confidence of the item's no-lean claims.
+- **H-count (reported alongside):** the number of no-lean claims.
+
+H is evaluated on the locked v2 test set and on the run-2 held-out set alongside A2, F2, L and G, in the same single evaluation and with the same bootstrap intervals. Its flag threshold is Youden-optimal on train, like the other models.
+
+### Version 2.1 — "honest hedge" encoding (applied identically to the quantum arm and its classical twin)
+
+In v1 and v2, a no-lean claim's phase is solved by the relation web, so it gets pulled into a yes or a no camp. In v2.1:
+
+1. **Neutral orientation.** Each no-lean claim's lean is set to 0, and its phase is fixed at φ = π/2, equidistant from yes (0) and no (π). In the quantum arm this gives P(yes) = 1/2 at readout. In the classical twin it gives a prior P(yes) = (1 + sin θ cos φ)/2 = 1/2.
+2. **Phase solving on the rest.** The XY-energy phase solver runs only on the claims that lean, using the relation edges among them. A hedge takes no part in the phase solution.
+3. **Couplings unchanged.** A hedge keeps its relation edges in the circuit (prep RZZ and evolution) and in the classical twin's energy, exactly as before. Only its orientation and field change.
+4. **Separate uncertainty term.** U = Σ(confidence of no-lean claims) / Σ(confidence of all claims), in [0, 1]. The conflict score becomes conflict(τ) + λ_h · U, with a learned λ_h in [0, 2].
+
+**Models.**
+- **A2.1** is A2's 8 scored parameters, plus λ_h, plus a flag threshold.
+- **F2.1** is F2's 8 scored parameters, plus λ_h, plus a flag threshold.
+
+Both have 10 parameters, so they are matched to each other.
+
+**Fitting.** The same rule as v2: 400 random draws, then hill-climbing of the 10 best with 60 steps each, selection on validation AUROC, and a Youden threshold on train. Seeds are A2.1 111 and F2.1 212. Fitting reads train and validation only.
+
+**Evaluation.** The locked v2 test set is scored **once**, after the v2 arms have been evaluated, and the run-2 held-out set is also scored once. AUROC is reported with 95% bootstrap intervals (1,000 resamples), along with the paired A2.1 − F2.1 difference and the split-by-type table.
+
+**Pass criterion (stated as for v2).** On the locked test set, A2.1 passes if its AUROC exceeds F2.1's by more than the width of both bootstrap 95% intervals, read as non-overlapping intervals: A2.1's lower 95% bound > F2.1's upper 95% bound. Otherwise the honest-hedge quantum encoding ties or loses to its classical twin, and the README says so plainly.
+
+**Reported, not a pass criterion:** A2.1 against A2 and F2.1 against F2 (does the honest hedge help each family?), and A2.1 and F2.1 against H, L and G.

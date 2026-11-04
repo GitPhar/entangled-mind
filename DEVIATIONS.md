@@ -216,3 +216,19 @@ The overstated sentences were corrected in `experiments/items-borrowed.json` (ru
 2. **Secondary test 1 (do order effects exist at all?)** The pre-registration compares order effects with baseline split-halves. It is implemented as a permutation test that shuffles the order labels within each item-pair. This compares the observed |P(yes | i first) − P(yes | j first)| with what run-to-run variability alone produces, using the same 5 + 5 conversations. The 5 single-turn baseline runs per item are still collected and reported.
 3. **Secondary test 2 (do the largest-Δᴼ pairs show bigger effects than the smallest?)** The pre-registration says paired Wilcoxon over items. It is implemented as a sign-flip permutation test on the per-item difference, because scipy is not a dependency.
 4. **Exact U_k.** In the yes/no (X) basis, H_k's coupling and field terms are diagonal and −Z_k flips qubit k. So U_k = exp(−iγ₀H_k) is applied as exact 2×2 rotations, one for each configuration of the other qubits, with no truncation. This was checked to preserve the norm to 10⁻¹².
+
+## D14 — Pre-registered additions: hedge baseline H and version 2.1 "honest hedge" encoding
+
+**Date:** 2026-11-04 00:45 UTC, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
+
+These were added at Sean's request, prompted by the exploratory window vignette W4 (`paper/window-vignettes.md`), which notes that the encoding forces hedging claims into a yes or no camp. Full definitions are in `experiments/preregistration-v2.md`, Addendum B.
+
+**Choices made here:**
+- A no-lean claim is defined as |lean| ≤ 0.1. This was set from the train split's lean distribution only.
+- The H primary score is the total confidence of no-lean claims, with H-count reported alongside.
+- In v2.1, hedges are fixed at phase π/2 with lean 0, and are left out of the phase solver while keeping their couplings.
+- The uncertainty term is U = confidence share of hedges, with a learned weight λ_h in [0, 2].
+- A2.1 and F2.1 each have 10 parameters, matched to each other.
+- v2.1 is evaluated on the locked test set once, after the v2 arms.
+
+Because W4 was an exploratory observation on run-2 data, v2.1 is a hypothesis suggested by data from the run-2 hard pool. Its evaluation on the **run-2 held-out set** is therefore not independent of that suggestion. The **locked v2 test set**, which shares no item with run 2, is the clean test.
