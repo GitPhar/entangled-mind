@@ -312,3 +312,18 @@ The pre-registered "beyond repetition" analogue regresses the second rating on t
 An exploratory within-cell slope, using repeat-to-repeat variation only, cannot be estimated reliably either: at the default temperature the rating standard deviation is 0.00–0.05.
 
 **Lesson for experiment 5 and later runs:** estimate anchoring only within cells, or manipulate the first rating directly.
+
+## D20 — Sonnet replication stopped on a reasoning_extraction refusal
+
+**Date:** 2026-11-03
+
+During pool run 4 (hard pool, base `claude-sonnet-5-5`), the **extractor** call for question `h101` was refused with `stop_reason: refusal`, category `reasoning_extraction`. The request ID is `req_011Cgh7v49vVQNR6AgY3EDui`.
+
+This is the first refusal since the D3 redesign. The same extractor prompt had run on 1,473 Haiku-based items without a refusal (pool runs 2, 3 and 5), and on 102 Sonnet-based items in this run before `h101`.
+
+**Action, per the hard rule:**
+- The run stopped at once, and nothing was reworded or retried.
+- The record is in `results/refusal-sonnet-replication.md`, which is a copy of `results/refusal.md`.
+- The next step is a support ticket with the request ID, which Sean will file.
+- The Sonnet replication (D18) is halted at 102 of 300 hard-pool questions (12 wrong, $1.39), and pool run 6 was not started.
+- No further Anthropic calls will be made until Sean decides how to proceed.
