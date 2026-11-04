@@ -50,6 +50,7 @@ All remaining entries are from 2026-11-03.
 | 04:15 | direction 1: does a model know its own errors better than another model reading the same answer? | `28a20b2` (03:52, D36; amended 03:58 and 04:07) | 2×2 judges × authors on 298 hard-pool answers, matched prompt, plus paraphrase and recognition arms; 1,710 calls, $2.82 recorded (`bc0f125`) | **no self-advantage:** judge × author interaction −0.055 [−0.103, −0.007]; Sonnet judges Haiku's errors better than Haiku (0.93 vs 0.85); disagreement subset −0.14 [−0.50, +0.23]; Haiku does not recognise its own answers (0.51) | self-report is text-reading, not privileged access | — (the paraphrase arm was cut to 60 of 80 questions and Sonnet's recognition check did not run; lost calls bound the true spend at about $3.02 against the $3 cap) |
 | 04:41 | direction 2: is the order effect the question, or the model seeing its own answers? | `9e23b6f` (03:58, D37) | 10 experiment-5 items, O1–O4 and MF, shown / redacted / planted ±15 transcripts, one scale; 2,000 conversations, $0.55 (`4c5c34f`) | **question-driven:** R = 1.91 [0.92, 4.90] (bar 0.5); the planted record also pulls (b_MF 1.27 [0.70, 2.14]); MF repeat agreement 81% shown vs 23% redacted | both the question and the recorded answer change the judgment; the apparent consistency is memory; caveats: 2 items drive the redacted effect, and the placeholder turn may add variance | — |
 | 05:02 | direction 3: does the model hold one credence per statement across six formats? | `34eb191` (04:02, D38) | 160 chain claims × 6 one-direction formats × 10; 9,600 calls, $0.41 (`1fd521d`) | **no single credence:** format-specific credences win on held-out repeats for 86% of claims, mean ΔLL +19.4 [+16.5, +22.1]; Kendall W 0.56; 20–34% of claim pairs ordered differently from the 0–100 rating | on contested claims the format constructs the answer; the criterion (held-out repeats) is stricter than Smolin & Wilder's usefulness criterion, so the two need not conflict | — |
+| 05:05 | direction 4: does the model seek the evidence that would settle its own conflict? | `e913227` (04:05, D39) | 40 items × 3 menus of 4 own claims × 10, scored against EIG under frozen D5 and BA5, confirmatory and most-uncertain rules; 1,200 calls, $0.11 (`bc9e70d`) | **mixed:** choices beat chance for EIG (+0.14, +0.21) and confirmatory (+0.21) and avoid the most uncertain claim (−0.13); on discriminating menus the model leans confirmatory, CI including 0 (−0.24 [−0.52, +0.04]; −0.14 [−0.40, +0.14]) | it chooses claims that bear on its answer, but does not prefer the informative check over the confirming one | — |
 
 **Redirects in writing.**
 - `851040f` (19:21), `paper/next-steps.md`: the pivot from error prediction to sequential judgment, with each outcome's reading fixed in advance.
@@ -61,9 +62,17 @@ All remaining entries are from 2026-11-03.
 - IBM calibration at job time: in `e2215bb`.
 - `experiments/reproduce.py`, which rebuilds every results table from the archived JSON: `bf28953` (20:11).
 
-**Standing at the end of the record (`de38306`, 23:17).**
+**Standing at the end of the record (`bc9e70d`, 2026-11-04 05:05).**
 - Error prediction: four pre-registered comparisons find no advantage for the quantum state, and the model's self-report is the best signal where it was measured.
 - Secondary results: every positive quantum-vs-classical difference (Haiku's held-out set, Sonnet's hard pool) comes with near-zero coupling. A classical twin with the same per-claim readout reproduces it (Addenda D and E). Sonnet's self-report (0.91) matches A2. Experiment 5's held-out edge of A5 over F5 is matched by a dephased classical Markov chain (D5).
 - Hardware: the states are certified entangled.
 - Sequential judgment: graded order effects are real, large and survive one scale direction. Experiment 5 is a tie, with no QQ or Kvam signature: the near-zero q came from pooling scale directions. A classical Markov chain matches the quantum state.
-- No pre-registered test remains. Experiment 4 run 3 was untestable, because the model resists provided first ratings. Next directions are in `paper/gold-map.md`.
+- The original programme has no pre-registered test left. Experiment 4 run 3 was untestable, because the model resists provided first ratings.
+- The overnight gold-map tests:
+  - asking is invasive (direction 9);
+  - both the question and the recorded answer change later judgments, and consistency is memory (direction 2);
+  - self-report is text-reading, not privileged access (direction 1);
+  - there is no single credence across formats (direction 3);
+  - evidence seeking is mixed (direction 4);
+  - the scale gap carries no error signal (direction 3's free look).
+- The theory note is `paper/clonable-minds.md`. The remaining directions are in `paper/gold-map.md`.

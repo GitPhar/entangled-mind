@@ -68,7 +68,16 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
   - Neither parameter-free quantum signature appeared. The QQ statistic was near zero only when the two scale directions were pooled; on one scale it is not supported (q = −0.146 [−0.439, +0.137], run 2). A mid-chain choice left later confidence unchanged.
   - Where the quantum state predicted better (on 8 held-out items), a dephased version, which is a classical Markov chain, did equally well.
 
-**What remains.** Experiment 4 run 3, the last pre-registered test, was untestable: the model resisted provided first ratings, so the first rating could not be moved independently of the item. No pre-registered test remains. Candidate next directions are ranked in `paper/gold-map.md`.
+**What remains.** Experiment 4 run 3, the last test of the original programme, was untestable: the model resisted provided first ratings.
+
+**After the programme: six gold-map tests on November 4,** each pre-registered before its data (Section 5.13).
+- **Asking is invasive.** Earlier questions change later ratings in 5 of 6 comparisons on the archived experiment 5 data. A midway yes/no choice is the exception.
+  - The model's state is its copyable conversation, so it has a definite state at every turn. The effects therefore measure how asking disturbs it, not an absence of definite judgments (`paper/clonable-minds.md`).
+- **Question and record both act.** The order effect survives hiding the model's earlier answers (ratio 1.91 [0.92, 4.90] against a bar of 0.5). Planted own answers pull later ratings. The model's consistency on a repeated question is memory of its answer (81% agreement shown, 23% hidden).
+- **No privileged self-knowledge.** Authorship does not help a model judge its own errors: judge × author interaction −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does.
+- **No single credence.** Across six question formats, format-specific credences predict held-out answers better for 86% of claims. The formats rank the claims differently, four to six times beyond repeat noise.
+- **Evidence seeking is mixed.** The model's choice of which claim to check beats chance for informative and confirming checks alike, and prefers neither when they differ.
+- **The scale gap is not an error signal.** The 37-point scale-direction gap does not mark the model's errors (AUROC 0.48).
 
 **Keywords:** quantum cognition, entanglement, language models, error prediction, order effects, pre-registration, classical twin, entanglement witness
 
@@ -295,6 +304,7 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D34, D35** | Gold-map direction 9 (NSIT on archived experiment 5 data, anchor (a) only) and direction 3's free look (the scale-direction gap against errors) pre-registered, each in its own commit, before analysis. | Sean's overnight brief: six gold-map directions in order, one scale direction for every new design, stop on any refusal. | Section 5.13. |
 | **D36** | Direction 1 pre-registered with a judge × author interaction as the primary statistic, matched framing in all four cells, and a recognition check for the paraphrase arm. | Changed from the gold map's sketch before freezing, after full-text reads (Xiao et al.; Panickssery et al.; Ashuach et al.). | Section 5.13. |
 | **D36 amendments** | Direction 1's step order changed mid-run, before steps 3 and 4, when Sonnet calls cost more than assumed. A token-cap crash then lost up to $0.20 of calls; token-capped judge calls are recorded as no rating. | Budget. | The paraphrase arm covers 60 of 80 questions and Sonnet's recognition check did not run. The primary result is unaffected. Spend may have exceeded the $3 cap by up to $0.02. |
+| **D37–D39** | Gold-map directions 2 (shown / redacted / planted transcripts), 3 (six formats) and 4 (evidence-seeking menus) pre-registered, each in its own commit, before any call. | The overnight brief. Changes from the gold map were made before freezing, after the full-text reads: plants ±15 rather than ±30 (Kumaran et al.); a 7-point verbal scale in place of the reversed scale; a most-uncertain baseline beside EIG. | Section 5.13. |
 | **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
 
 **On sequencing.** The analysis grew in stages:
@@ -712,7 +722,26 @@ Paired item-bootstrap differences (MSE in rating points²):
   - **The material.** Our statements are the model's own contested claims about hard questions.
   - **The model.** Claude was not in their set.
   So the two results need not conflict. Ours says this model's credences are not format-invariant on contested claims; it does not say a single latent is useless.
-- **Not done here.** The ranking disagreements are not compared against a noise baseline in the results file, and no held-out-*format* test was run.
+- **Noise baseline** (exploratory: computed after the run, not pre-registered). Two halves of the *same* format's repeats order claim pairs differently only 4–8% of the time. The 0–100 rating's even repeats against another format's odd repeats, the same amount of data, disagree 21–35% of the time. So the cross-format reordering is four to six times the noise.
+- **Not done here.** No held-out-*format* test was run. That would be the like-for-like comparison with Smolin & Wilder, and it would need its own pre-registration.
+
+
+**Direction 4: does the model seek the evidence that would settle its own conflict?** (`results/gm4-evidence-seeking.md`, `bc9e70d`; pre-registered in `experiments/gm4-evidence-seeking.md`, `e913227`, D39; 1,200 calls, $0.11)
+- **Design.** For each of the 40 experiment-5 items, Haiku saw its own answer and a menu of four of its own claims, and said which it would check first. There were 3 menus per item and 10 repeats.
+- **Scoring.** Choices were scored against four rules:
+  - the expected-information-gain (EIG) choice under the frozen D5 and BA5 fits;
+  - expected change in the main rating;
+  - the confirmatory choice, the claim that most supports the model's own answer;
+  - the most uncertain claim.
+- **The choices are systematic.** The modal claim is picked 87% of the time.
+- **The choices beat chance under every rule that weighs a claim's bearing on the answer.** The excess over chance is:
+  - EIG under D5: +0.14 [+0.04, +0.25];
+  - EIG under BA5: +0.21 [+0.11, +0.31];
+  - confirmatory: +0.21 [+0.11, +0.31].
+- **It avoids the most uncertain claim:** −0.13 [−0.21, −0.04].
+- **Pre-registered verdict: mixed.** On the menus where the EIG and confirmatory choices differ, the model leans confirmatory, but neither difference is reliable: −0.24 [−0.52, +0.04] under D5 (46 menus) and −0.14 [−0.40, +0.14] under BA5 (26 menus). So neither "tracks EIG" nor "confirmatory" holds under either model.
+- **Reading.** The model picks claims that bear strongly on its answer. When the informative and the confirming check come apart, it does not prefer the informative one. Active-inference-style evidence seeking is not shown, and neither is a clear confirmation bias.
+- **Caveat.** EIG is computed from our fitted models of the model, which the chooser never sees. A miss may be a miss of those models: the D5 and BA5 argmax choices agree on only 41 of 120 menus.
 
 
 ---
@@ -828,9 +857,10 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 ## 9. What comes next
 
-**No pre-registered test remains.**
+**No pre-registered test of the original programme remains.**
 - Experiment 4 run 3 was untestable, because the model resists provided first ratings.
 - Experiment 5 and its single-scale re-run are complete.
+- The six overnight gold-map tests (Section 5.13) are complete. Directions 5–8, 10 and 11 need new tooling or QPU time, and none is pre-registered.
 
 **The readings fixed in advance.** `paper/next-steps.md` fixed the reading of experiment 5's tie before the run: quantum probability adds nothing over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
 
@@ -839,9 +869,17 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 - Every positive quantum-vs-classical difference along the way was traced to a classical mechanism.
 - The one parameter-free quantum signature that looked close, the QQ equality, came from pooling two scale directions.
 
-**Candidate next directions** are ranked in `paper/gold-map.md`, each with its cheapest first test, cost and an honest probability. The two cheapest go to the mechanism these experiments left open:
-- whether the model's self-reported confidence reflects privileged self-knowledge or text-reading;
-- whether its large order effects come from the question itself or from seeing its own earlier answers. This is the manipulation experiment 4 run 3 could not achieve with another person's estimate.
+**What the gold-map tests settled.**
+- The model's self-reported confidence is text-reading, not privileged self-knowledge.
+- Its order effects come from both the question and its own recorded answers.
+- On contested claims, the question format constructs its credence.
+
+**The follow-ups each result names.** Each would need its own pre-registration:
+- a held-out-*format* test of a single credence, the like-for-like comparison with Smolin & Wilder;
+- a redaction placeholder that is less unusual than "[rating recorded]";
+- direction 2's design on experiment 4's conjunction items, where the mechanism of the order effect is still open.
+
+`paper/gold-map.md` ranks the remaining directions.
 
 ---
 
