@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Window</title>
+<style>
+  :root {
+    --bg: #0b0d12; --panel: #12151d; --panel2: #171b25; --line: #262b38;
+    --text: #e6e8ee; --muted: #9aa1b2; --faint: #5d6476;
+    --yes: hsl(190 85% 60%); --no: hsl(16 90% 62%);
+    --flag: #f5c84c; --ok: #6fd39b; --bad: #ff7a7a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+  header { padding: 18px 24px 14px; border-bottom: 1px solid var(--line); }
+  h1 { margin: 0 0 6px; font-size: 20px; font-weight: 650; letter-spacing: .2px; }
+  h1 span { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 8px; }
+  .intro { margin: 0; max-width: 1180px; color: #c4c9d6; font-size: 13.5px; }
+  .intro b { color: var(--text); font-weight: 600; }
+  .yes { color: var(--yes); } .no { color: var(--no); }
+  main { display: grid; grid-template-columns: 250px minmax(560px, 1fr) 370px; gap: 0; min-height: calc(100vh - 120px); }
+  @media (max-width: 1200px) { main { grid-template-columns: 1fr; } #picker { max-height: 260px; } }
+  section { padding: 14px 16px; }
+  #picker { border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  #side { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; }
+  label.small, .small { font-size: 12px; color: var(--muted); }
+  select, input[type=search] { width: 100%; background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 8px; font: inherit; font-size: 13px; }
+  #list { overflow-y: auto; flex: 1; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+  .row { padding: 7px 10px; border-bottom: 1px solid #1c2029; cursor: pointer; display: flex; gap: 8px; align-items: center; }
+  .row:hover { background: #1a1f2b; } .row.sel { background: #222a3a; }
+  .row .id { font-variant-numeric: tabular-nums; font-weight: 600; width: 44px; }
+  .row .mark { width: 14px; text-align: center; }
+  .chips { display: flex; gap: 3px; flex-wrap: wrap; }
+  .chip { font-size: 10.5px; padding: 0 5px; border-radius: 4px; background: #262c3a; color: var(--muted); }
+  .chip.on { background: #4a3d12; color: var(--flag); }
+  #stage-wrap { display: flex; flex-direction: column; gap: 10px; }
+  #qtext { font-size: 15px; color: var(--text); margin: 0; }
+  #qmeta { font-size: 12.5px; color: var(--muted); }
+  svg text { fill: var(--text); }
+  #cloud { width: 100%; height: auto; background: radial-gradient(ellipse at center, #121725 0%, #0b0d12 70%); border-radius: 10px; border: 1px solid var(--line); }
+  .scrub { display: flex; align-items: center; gap: 10px; }
+  .scrub button { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; cursor: pointer; font: inherit; }
+  .scrub button:hover { border-color: #3a4256; }
+  .scrub input[type=range] { flex: 1; accent-color: #8fb4ff; }
+  .ticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); padding: 0 4px 0 86px; }
+  .ticks span.cur { color: var(--text); font-weight: 600; }
+  #stage-desc { font-size: 13px; color: #c4c9d6; min-height: 38px; }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px) { .panels { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .card h3 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  #side h2 { font-size: 13px; margin: 14px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13.5px; }
+  .facts div:nth-child(odd) { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 4px 4px; border-bottom: 1px solid var(--line); }
+  td { padding: 5px 4px; border-bottom: 1px solid #1c2029; vertical-align: middle; }
+  td.arm { font-weight: 650; width: 26px; }
+  .bar { position: relative; height: 8px; background: #20263a; border-radius: 4px; overflow: hidden; min-width: 70px; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #6b7da8; border-radius: 4px; }
+  .bar i.on { background: var(--flag); }
+  .bar b { position: absolute; left: 50%; top: -2px; bottom: -2px; width: 2px; background: #e6e8ee; opacity: .7; }
+  .flag { color: var(--flag); font-weight: 700; }
+  .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+  #claims { font-size: 12.5px; list-style: none; padding-left: 0; margin: 0; }
+  #claims li { margin: 0 0 4px; color: #c9ceda; }
+  #claims li .k { display: inline-block; width: 22px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); align-items: center; }
+  .sw { display: inline-block; width: 26px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+  #err { display: none; margin: 24px; padding: 16px; border: 1px solid #5a2a2a; background: #1e1214; border-radius: 10px; }
+  code { background: #1c2130; padding: 1px 5px; border-radius: 4px; }
+  .tip { position: fixed; pointer-events: none; background: #1b2030; border: 1px solid #333b50; padding: 8px 10px; border-radius: 8px; font-size: 12.5px; max-width: 360px; display: none; z-index: 5; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>The Window <span>The Entangled Mind · one belief state, from encoding to collapse</span></h1>
+  <p class="intro"><b>What you are looking at.</b> Each glowing point is one claim from the language model's own short explanation of its answer to the question shown. Its <b>brightness</b> is the claim's amplitude, how strongly it is held in the quantum state. Its <b>hue</b> is its phase: <span class="yes">cyan points toward yes</span>, <span class="no">orange toward no</span>, and grey points toward neither. Faint solid lines are the relation web the model's claims were judged to form (green supports, red contradicts). <b>Dashed lines</b> appear once the claims are entangled, and their opacity is the measured entanglement (negativity) of that pair. Drag the scrubber from <i>encode</i> through each <i>evolve</i> step to <i>collapse</i>, where the state is measured in the yes/no basis, and on to <i>readout</i>, where the archived runs of every arm are compared. The panel on the right shows the truth, the model's answer, and each arm's conflict score against its own pre-registered threshold. Compare the entangled arm <b>A</b> with the classical contradiction count <b>E</b> to see items where the entangling step loses a signal that plain counting keeps. Every stage here is an exact, noiseless state computed from the archived claims. The arm scores are the archived results, as run.</p>
+</header>
+<div id="err"></div>
+<main>
+  <section id="picker">
+    <label class="small">Run
+      <select id="f-run"><option value="2">Run 2: hard pool (40 wrong + 40 right test items)</option><option value="1">Run 1: standard pool (4 wrong + 10 hard-right)</option></select></label>
+    <label class="small">Items
+      <select id="f-role"><option value="test">Test set</option><option value="test_wrong">Test, model wrong</option><option value="test_right">Test, model right</option><option value="calibration">Calibration pool</option><option value="all">All</option></select></label>
+    <label class="small">Flag pattern
+      <select id="f-pat"><option value="any">Any</option><option value="A">Entangled arm A flagged</option><option value="onlyE">Only E (contradiction count) flagged</option><option value="EnotA">E flagged, A not</option><option value="AnotE">A flagged, E not</option><option value="none">No arm flagged</option></select></label>
+    <input type="search" id="f-q" placeholder="Search question text or id">
+    <div class="small" id="count"></div>
+    <div id="list" role="listbox" aria-label="Items"></div>
+  </section>
+
+  <section id="stage-wrap">
+    <p id="qtext"></p>
+    <div id="qmeta"></div>
+    <svg id="cloud" viewBox="0 0 1000 600" role="img" aria-label="Point cloud of claims"></svg>
+    <div class="scrub">
+      <button id="play" title="Play (space)">▶ Play</button>
+      <input type="range" id="stage" min="0" max="5" step="1" value="0" aria-label="Stage">
+    </div>
+    <div class="ticks" id="ticks"></div>
+    <div id="stage-desc"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:linear-gradient(90deg,hsl(16 90% 58%),hsl(16 8% 50%),hsl(190 8% 50%),hsl(190 90% 58%))"></span>phase: no → neither → yes</span>
+      <span><span class="sw" style="background:linear-gradient(90deg,#1a1f2c,#e8f6ff)"></span>brightness = amplitude</span>
+      <span><svg width="30" height="10"><line x1="0" y1="5" x2="30" y2="5" stroke="#cfd8ff" stroke-width="2" stroke-dasharray="5 4"/></svg> entanglement (opacity = negativity, full at 0.20)</span>
+      <span><label><input type="checkbox" id="show-web" checked> relation web</label></span>
+    </div>
+    <div class="panels">
+      <div class="card"><h3>Vote distribution if measured now</h3><svg id="hist" viewBox="0 0 420 178"></svg>
+        <div class="note" id="hist-note"></div></div>
+      <div class="card"><h3>Conflict score through the run</h3><svg id="traj" viewBox="0 0 420 172"></svg>
+        <div class="note">Noiseless conflict score at each stage, for the entangled circuit (A) and the same circuit with no entangling gates (C). The dashed line is the noiseless arm A0's flag threshold. The dot at the end is arm A as run, on the noisy simulator, against its own threshold.</div>
+        <div class="note" id="stage-auroc"></div></div>
+    </div>
+    <div class="card"><h3>Claims</h3><ul id="claims"></ul></div>
+  </section>
+
+  <section id="side">
+    <h2>Item</h2>
+    <div class="facts" id="facts"></div>
+    <h2>Arms at readout</h2>
+    <table id="arms"><thead><tr><th></th><th>arm</th><th>score</th><th>thr</th><th>score ÷ threshold</th><th></th></tr></thead><tbody></tbody></table>
+    <p class="note">Each arm flags an item when its score is above that arm's own threshold, which is set so that it flags the top quarter of the calibration pool. The bar's white mark is the threshold, and a gold bar means flagged. E's score is total contradiction strength in the relation web, so its units differ from the others.</p>
+    <h2>What to look for</h2>
+    <p class="note" id="reading"></p>
+    <h2>Run summary</h2>
+    <table id="runsum"><thead><tr><th>arm</th><th>wrong flagged</th><th>right flagged</th><th>AUROC</th></tr></thead><tbody></tbody></table>
+    <p class="note">From <code>results/stage2-run-N.json</code>. AUROC 0.5 means chance. Exact noiseless stages come from <code>experiments/export_window.py</code>.</p>
+  </section>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+"use strict";
+const STAGES = ["encode", "entangle", "evolve 1", "evolve 2", "collapse", "readout"];
+const DESC = {
+  "encode": "Each claim is a separate qubit: tilted toward the equator by its confidence and turned toward yes or no by its solved phase. Nothing is entangled yet, so the state is just the list of claims.",
+  "entangle": "An RZZ gate links every related pair, with strength set by the relation. Dashed links show the pairs that are now entangled. Each claim's own amplitude dims, because part of what it means now lives in the whole state.",
+  "evolve 1": "Trotter step 1: a short evolution under the relation web's Ising energy (supporting claims pulled to agree, contradicting ones to disagree) plus a mixer that pulls toward uncommitted.",
+  "evolve 2": "Trotter step 2, with more weight on the relation web and less on the mixer. This is the state that gets measured.",
+  "collapse": "Measured in the yes/no basis. Each node now shows the probability its claim comes out yes-aligned. The histogram is the weighted vote: mass in both outer bands (|vote| ≥ 1/3) means two strongly opposed camps, and that mass is the conflict score.",
+  "readout": "The archived runs. The histogram shows arm A as run, with 1,000 shots on the noisy simulator, over the exact distribution. The side panel compares every arm against its own threshold.",
+};
+const HUE_YES = 190, HUE_NO = 16;
+const $ = s => document.querySelector(s);
+const SVGNS = "http://www.w3.org/2000/svg";
+let INDEX = null, ITEM = null, stage = 0, timer = null;
+const cache = new Map();
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+// Diverging colour: the yes/no component of the phase, cos(phase), sets hue and saturation.
+// phase 0 = yes -> cyan, phase pi = no -> orange, phase +-pi/2 (neither) -> grey.
+function colourOf(phase, amp, light0, lightSpan) {
+  const x = Math.cos(phase), hue = x >= 0 ? HUE_YES : HUE_NO, sat = 8 + 82 * Math.abs(x);
+  return `hsl(${hue} ${sat.toFixed(0)}% ${(light0 + lightSpan * amp).toFixed(1)}%)`;
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function wrap(text, width, lines) {
+  const words = text.split(/\s+/), out = []; let cur = "";
+  for (const w of words) {
+    if ((cur + " " + w).trim().length > width) { out.push(cur.trim()); cur = w; if (out.length === lines) break; }
+    else cur += " " + w;
+  }
+  if (out.length < lines && cur.trim()) out.push(cur.trim());
+  const used = out.join(" ").length;
+  if (used < text.length - 1 && out.length) out[out.length - 1] = out[out.length - 1].replace(/[\s,.;:]*\S{0,3}$/, "") + "…";
+  return out;
+}
+
+// ------------------------------------------------------------------ data
+async function getJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(url + ": HTTP " + r.status);
+  return r.json();
+}
+async function loadItem(id) {
+  if (!cache.has(id)) cache.set(id, await getJSON("data/" + id + ".json"));
+  return cache.get(id);
+}
+
+// ---------------------------------------------------------------- picker
+function filtered() {
+  const run = +$("#f-run").value, role = $("#f-role").value, pat = $("#f-pat").value, q = $("#f-q").value.trim().toLowerCase();
+  return INDEX.items.filter(it => {
+    if (it.run !== run) return false;
+    if (role === "test" && !it.role.startsWith("test")) return false;
+    if (!["test", "all"].includes(role) && it.role !== role) return false;
+    const f = it.flags, others = ["A", "C", "D", "A0"].some(a => f[a]);
+    if (pat === "A" && !f.A) return false;
+    if (pat === "onlyE" && !(f.E && !others)) return false;
+    if (pat === "EnotA" && !(f.E && !f.A)) return false;
+    if (pat === "AnotE" && !(f.A && !f.E)) return false;
+    if (pat === "none" && (f.E || others)) return false;
+    if (q && !(it.id.toLowerCase().includes(q) || it.question.toLowerCase().includes(q))) return false;
+    return true;
+  }).sort((a, b) => (a.role > b.role ? -1 : a.role < b.role ? 1 : a.id.localeCompare(b.id)));
+}
+function renderList() {
+  const items = filtered(), list = $("#list");
+  $("#count").textContent = items.length + " item" + (items.length === 1 ? "" : "s");
+  list.innerHTML = "";
+  for (const it of items) {
+    const row = document.createElement("div");
+    row.className = "row" + (ITEM && ITEM.id === it.id ? " sel" : "");
+    row.setAttribute("role", "option");
+    const mark = it.correct === false ? '<span class="mark" style="color:var(--bad)" title="model wrong">✗</span>'
+                                      : '<span class="mark" style="color:var(--ok)" title="model right">✓</span>';
+    const chips = ["A", "C", "D", "E", "A0"].map(a => `<span class="chip ${it.flags[a] ? "on" : ""}">${a}</span>`).join("");
+    row.innerHTML = `${mark}<span class="id">${esc(it.id)}</span><span class="chips">${chips}</span>`;
+    row.title = it.question;
+    row.onclick = () => select(it.id);
+    list.appendChild(row);
+  }
+}
+
+// ----------------------------------------------------------------- cloud
+function layout(item) {
+  const n = item.claims.length, idx = [...Array(n).keys()];
+  const yes = idx.filter(k => item.claims[k].lean > 0).sort((a, b) => item.claims[b].confidence - item.claims[a].confidence);
+  const no = idx.filter(k => item.claims[k].lean < 0).sort((a, b) => item.claims[b].confidence - item.claims[a].confidence);
+  const zero = idx.filter(k => item.claims[k].lean === 0);
+  const pos = new Array(n), cx = 500, cy = 300, R = 205;
+  const arc = (ks, a0, a1) => ks.forEach((k, t) => {
+    const a = ks.length === 1 ? (a0 + a1) / 2 : a0 + (a1 - a0) * t / (ks.length - 1);
+    pos[k] = [cx + R * Math.cos(a * Math.PI / 180), cy + R * 1.0 * Math.sin(a * Math.PI / 180), a];
+  });
+  arc(yes, -46, 46); arc(no, 226, 134);
+  const top = zero.filter((_, t) => t % 2 === 0), bot = zero.filter((_, t) => t % 2 === 1);
+  const span = c => Math.min(44, 22 * (c - 1));
+  arc(top, -90 - span(top.length), -90 + span(top.length));
+  arc(bot, 90 - span(bot.length), 90 + span(bot.length));
+  return pos;
+}
+function nodeState(item, s) {
+  const name = STAGES[s];
+  if (name === "collapse" || name === "readout") {
+    const st = item.stages[item.stages.length - 2];      // final evolved state's per-qubit X-basis marginals
+    return st.qubits.map(q => {
+      const p = q.p_yes;
+      return { amp: Math.abs(2 * p - 1), phase: Math.acos(Math.max(-1, Math.min(1, 2 * p - 1))), p_yes: p, purity: q.purity };
+    });
+  }
+  return item.stages[s].qubits;
+}
+function renderCloud() {
+  const item = ITEM, svg = $("#cloud"), name = STAGES[stage];
+  svg.innerHTML = "";
+  const defs = el("defs", {}, svg);
+  const f = el("filter", { id: "glow", x: "-100%", y: "-100%", width: "300%", height: "300%" }, defs);
+  el("feGaussianBlur", { stdDeviation: "7", result: "b" }, f);
+  const mg = el("feMerge", {}, f); el("feMergeNode", { in: "b" }, mg); el("feMergeNode", { in: "SourceGraphic" }, mg);
+  const pos = layout(item), ns = nodeState(item, stage);
+  // axis hint
+  el("text", { x: 980, y: 585, "text-anchor": "end", "font-size": 12.5, fill: "hsl(190 60% 55%)", opacity: .7 }, svg).textContent = "claims written as leaning yes →";
+  el("text", { x: 20, y: 585, "text-anchor": "start", "font-size": 12.5, fill: "hsl(16 70% 60%)", opacity: .7 }, svg).textContent = "← claims written as leaning no";
+  // relation web underlay
+  if ($("#show-web").checked) for (const r of item.relations) {
+    const a = pos[r.i], b = pos[r.j];
+    el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: r.J > 0 ? "#3fae7a" : "#d0544e",
+      "stroke-width": 0.6 + 2.2 * Math.abs(r.J), opacity: 0.16 }, svg);
+  }
+  // entanglement links
+  const negSrc = (name === "collapse" || name === "readout") ? item.stages[item.stages.length - 2] : item.stages[stage];
+  item.relations.forEach((r, e) => {
+    const N = negSrc.negativity ? negSrc.negativity[e] : 0;
+    if (N < 0.002) return;
+    const a = pos[r.i], b = pos[r.j];
+    const op = Math.min(1, N / 0.20) * ((name === "collapse" || name === "readout") ? 0.35 : 1);
+    const ln = el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: "#cfd8ff", "stroke-width": 1.6,
+      "stroke-dasharray": "6 5", opacity: op.toFixed(3) }, svg);
+    ln.addEventListener("mousemove", ev => tip(ev, `<b>${r.i} ↔ ${r.j}</b> ${r.relation} (J = ${r.J})<br>negativity ${N.toFixed(3)}`));
+    ln.addEventListener("mouseleave", untip);
+  });
+  // nodes
+  item.claims.forEach((c, k) => {
+    const [x, y, ang] = pos[k], q = ns[k];
+    const amp = Math.max(0, Math.min(1, q.amp));
+    const g = el("g", { transform: `translate(${x},${y})`, style: "cursor:default" }, svg);
+    el("circle", { r: 9 + 15 * amp, fill: colourOf(q.phase, 1, 60, 0), opacity: (0.10 + 0.55 * amp).toFixed(3), filter: "url(#glow)" }, g);
+    el("circle", { r: 7 + 7 * amp, fill: colourOf(q.phase, amp, 16, 52), stroke: colourOf(q.phase, 1, 75, 0),
+      "stroke-opacity": (0.25 + 0.6 * amp).toFixed(3), "stroke-width": 1.2 }, g);
+    el("text", { y: 4, "text-anchor": "middle", "font-size": 10.5, "font-weight": 700, fill: amp > .55 ? "#0b0d12" : "#e6e8ee" }, g).textContent = k;
+    // label
+    const right = Math.cos(ang * Math.PI / 180) > 0.5, left = Math.cos(ang * Math.PI / 180) < -0.5;
+    const lx = right ? 30 : left ? -30 : 0, anchor = right ? "start" : left ? "end" : "middle";
+    const mid = !right && !left, lines = mid ? wrap(c.text, 21, 2) : wrap(c.text, 34, 2), top = Math.sin(ang * Math.PI / 180) < -0.6 && mid;
+    const ly0 = top ? -30 - 15 * lines.length : (mid ? 34 : -8);
+    const t = el("text", { x: lx, y: ly0, "text-anchor": anchor, "font-size": 12.5, fill: "#d9deea" }, g);
+    lines.forEach((ln, i) => { const ts = el("tspan", { x: lx, dy: i ? 15 : 0 }, t); ts.textContent = ln; });
+    const extra = (name === "collapse" || name === "readout") ? `P(yes) ${q.p_yes.toFixed(2)}` : `amp ${amp.toFixed(2)}`;
+    const ts = el("tspan", { x: lx, dy: 15, "font-size": 11.5, fill: "#8d95a8" }, t);
+    ts.textContent = mid ? `conf ${c.confidence.toFixed(2)} · ${extra}`
+                         : `conf ${c.confidence.toFixed(2)} · ${c.lean > 0 ? "leans yes" : c.lean < 0 ? "leans no" : "neutral"} · ${extra}`;
+    g.addEventListener("mousemove", ev => tip(ev, `<b>Claim ${k}</b> ${esc(c.text)}<br><span style="color:#9aa1b2">confidence ${c.confidence} · lean ${c.lean} · amplitude ${amp.toFixed(3)} · phase ${(q.phase * 180 / Math.PI).toFixed(0)}° · purity ${q.purity !== undefined ? q.purity.toFixed(3) : "–"}</span>`));
+    g.addEventListener("mouseleave", untip);
+  });
+  // stage stamp
+  el("text", { x: 20, y: 30, "font-size": 15, "font-weight": 650, fill: "#e6e8ee" }, svg).textContent = name;
+  const st = item.stages[Math.min(stage, item.stages.length - 1)];
+  const negs = (negSrc.negativity || []);
+  const mx = negs.length ? Math.max(...negs) : 0;
+  el("text", { x: 20, y: 50, "font-size": 12, fill: "#9aa1b2" }, svg).textContent =
+    `${item.claims.length} qubits · ${item.relations.length} related pairs · max pair negativity ${mx.toFixed(3)}`;
+}
+
+// ------------------------------------------------------------- histogram
+function renderHist() {
+  const svg = $("#hist"), item = ITEM, name = STAGES[stage];
+  svg.innerHTML = "";
+  const W = 420, H = 170, L = 30, B = 140, T = 12, n = 21, bw = (W - L - 10) / n;
+  const exact = (name === "readout" ? item.stages[item.stages.length - 1] : item.stages[Math.min(stage, item.stages.length - 1)]).vote_hist;
+  const ran = name === "readout" && item.arms.A ? item.arms.A.counts_summary.vote_hist : null;
+  const vmax = Math.max(0.05, ...exact, ...(ran || []));
+  // strong bands
+  const xOf = m => L + (m + 1) / 2 * (W - L - 10);
+  el("rect", { x: L, y: T, width: xOf(-1 / 3) - L, height: B - T, fill: "hsl(16 80% 50%)", opacity: .07 }, svg);
+  el("rect", { x: xOf(1 / 3), y: T, width: W - 10 - xOf(1 / 3), height: B - T, fill: "hsl(190 80% 50%)", opacity: .07 }, svg);
+  exact.forEach((v, b) => {
+    const m = -1 + (b + .5) * 2 / n, h = (B - T) * v / vmax;
+    el("rect", { x: L + b * bw + 1, y: B - h, width: bw - 2, height: h, rx: 2,
+      fill: m > 0.02 ? "hsl(190 70% 55%)" : m < -0.02 ? "hsl(16 80% 58%)" : "#8a90a0", opacity: ran ? .35 : .9 }, svg);
+  });
+  if (ran) ran.forEach((v, b) => {
+    const h = (B - T) * v / vmax;
+    el("rect", { x: L + b * bw + bw * .3, y: B - h, width: bw * .4, height: h, fill: "#f2f4f8", opacity: .85 }, svg);
+  });
+  el("line", { x1: L, y1: B, x2: W - 10, y2: B, stroke: "#3a4256" }, svg);
+  [[-1, "−1 all no"], [-1 / 3, "−⅓"], [0, "0"], [1 / 3, "+⅓"], [1, "+1 all yes"]].forEach(([m, s]) => {
+    el("text", { x: xOf(m), y: B + 16, "text-anchor": m === -1 ? "start" : m === 1 ? "end" : "middle", "font-size": 11, fill: "#9aa1b2" }, svg).textContent = s;
+  });
+  el("text", { x: L, y: B + 30, "font-size": 11, fill: "#5d6476" }, svg).textContent = "weighted vote m of one measurement";
+  const st = name === "readout" ? item.stages[item.stages.length - 1] : item.stages[Math.min(stage, item.stages.length - 1)];
+  let note = `P(strong yes) ${st.p_strong_yes.toFixed(3)} · P(strong no) ${st.p_strong_no.toFixed(3)} → conflict score <b>${st.conflict_score.toFixed(3)}</b> (exact, noiseless) · P(yes) ${st.p_yes.toFixed(3)}`;
+  if (ran) note += `<br>White bars: arm A as run (noisy simulator, ${item.arms.A.counts_summary.shots} shots), conflict score ${item.arms.A.conflict_score.toFixed(3)}.`;
+  $("#hist-note").innerHTML = note;
+}
+
+// ------------------------------------------------------------ trajectory
+function renderTraj() {
+  const svg = $("#traj"), item = ITEM;
+  svg.innerHTML = "";
+  const W = 420, H = 170, L = 36, R = 16, T = 12, B = 132;
+  const a = item.stages.slice(0, -1).map(s => s.conflict_score);
+  const c = item.stages_unentangled.map(s => s.conflict_score);
+  const thrA0 = item.arms.A0 ? item.arms.A0.threshold : null, ranA = item.arms.A ? item.arms.A.conflict_score : null, thrA = item.arms.A ? item.arms.A.threshold : null;
+  const ymax = Math.max(0.3, ...a, ...c, thrA0 || 0, ranA || 0, thrA || 0) * 1.1;
+  const nx = a.length + 1, xOf = i => L + i * (W - L - R) / (nx - 1), yOf = v => B - (B - T) * v / ymax;
+  for (let g = 0; g <= 4; g++) {
+    const v = ymax * g / 4;
+    el("line", { x1: L, x2: W - R, y1: yOf(v), y2: yOf(v), stroke: "#1f2431" }, svg);
+    el("text", { x: L - 6, y: yOf(v) + 4, "text-anchor": "end", "font-size": 10.5, fill: "#7d8496" }, svg).textContent = v.toFixed(2);
+  }
+  if (thrA0 !== null) {
+    el("line", { x1: L, x2: xOf(nx - 2), y1: yOf(thrA0), y2: yOf(thrA0), stroke: "#f5c84c", "stroke-dasharray": "4 4", opacity: .7 }, svg);
+    el("text", { x: L + 4, y: yOf(thrA0) - 4, "font-size": 10.5, fill: "#f5c84c", opacity: .85 }, svg).textContent = "A0 threshold";
+  }
+  const path = (vals, col, w) => {
+    el("polyline", { points: vals.map((v, i) => `${xOf(i)},${yOf(v)}`).join(" "), fill: "none", stroke: col, "stroke-width": w }, svg);
+    vals.forEach((v, i) => el("circle", { cx: xOf(i), cy: yOf(v), r: i === Math.min(stage, vals.length - 1) && stage < 4 ? 5 : 3, fill: col }, svg));
+  };
+  path(c, "#7f8aa6", 1.6); path(a, "#cfd8ff", 2.4);
+  if (ranA !== null) {
+    el("circle", { cx: xOf(nx - 1), cy: yOf(ranA), r: 6, fill: item.arms.A.flagged ? "#f5c84c" : "#6b7da8", stroke: "#e6e8ee", "stroke-width": stage >= 4 ? 2 : 0 }, svg);
+    el("line", { x1: xOf(nx - 1) - 12, x2: xOf(nx - 1) + 12, y1: yOf(thrA), y2: yOf(thrA), stroke: "#f5c84c", "stroke-width": 2 }, svg);
+  }
+  const labels = ["encode", "entangle", "evolve 1", "evolve 2", "A as run"];
+  labels.forEach((s, i) => el("text", { x: xOf(i), y: B + 16, "text-anchor": i === labels.length - 1 ? "end" : "middle", "font-size": 10.5, fill: "#9aa1b2" }, svg).textContent = s);
+  el("text", { x: L, y: B + 33, "font-size": 11, fill: "#cfd8ff" }, svg).textContent = "━ A entangled";
+  el("text", { x: L + 110, y: B + 33, "font-size": 11, fill: "#7f8aa6" }, svg).textContent = "━ C no entangling gates";
+  const sa = INDEX.runs[String(item.run)].stage_auroc_exploratory;
+  if (sa) {
+    const fmt = arm => Object.entries(sa[arm]).map(([k, v]) => `${k} ${v === null ? "–" : v.toFixed(2)}`).join(" · ");
+    $("#stage-auroc").innerHTML = `<b style="color:#c4c9d6">Across this run's test set</b> (exploratory, not pre-registered), the AUROC if the state were read out at each stage is:<br>A: ${fmt("A")}<br>C: ${fmt("C")}`;
+  }
+}
+
+// ------------------------------------------------------------ side panel
+function renderSide() {
+  const it = ITEM, run = INDEX.runs[String(it.run)];
+  const wrong = it.correct === false;
+  $("#facts").innerHTML = [
+    ["id", `${esc(it.id)} · run ${it.run} · ${it.role.replace("_", " ")}`],
+    ["category", esc(it.category || "–")],
+    ["truth", `<b class="${it.truth}">${it.truth}</b>`],
+    ["model said", `<b class="${it.model_answer}">${it.model_answer}</b> ${wrong ? '<span style="color:var(--bad)">✗ wrong</span>' : '<span style="color:var(--ok)">✓ right</span>'}`],
+    ["claims", `${it.claims.length} · ${it.relations.length} related pairs · ${it.relations.filter(r => r.J < 0).length} contradictions`],
+  ].map(([k, v]) => `<div>${k}</div><div>${v}</div>`).join("");
+  const tb = $("#arms tbody"); tb.innerHTML = "";
+  for (const a of ["A", "B", "C", "D", "E", "A0"]) {
+    const x = it.arms[a];
+    if (!x) { if (a === "B") tb.insertAdjacentHTML("beforeend", `<tr><td class="arm">B</td><td class="small">real hardware</td><td colspan="4" class="small">not run: simulator gate not met</td></tr>`); continue; }
+    const ratio = x.threshold > 0 ? x.conflict_score / x.threshold : (x.conflict_score > 0 ? 2 : 0);
+    const w = Math.min(100, ratio * 50);
+    tb.insertAdjacentHTML("beforeend", `<tr><td class="arm">${a}</td><td class="small">${esc(x.label)}</td>
+      <td>${x.conflict_score.toFixed(3)}</td><td class="small">${x.threshold.toFixed(3)}</td>
+      <td><div class="bar"><i class="${x.flagged ? "on" : ""}" style="width:${w}%"></i><b></b></div></td>
+      <td>${x.flagged ? '<span class="flag">flag</span>' : ""}</td></tr>`);
+  }
+  // reading
+  const f = a => it.arms[a] && it.arms[a].flagged;
+  const enc = it.stages[1].conflict_score, fin = it.stages[it.stages.length - 2].conflict_score;
+  let r = wrong ? "The model got this item wrong, so a good error detector should flag it. " : "The model got this item right, so a good error detector should leave it alone. ";
+  if (f("E") && !f("A")) r += `The contradiction count flags it (${it.arms.E.contradiction_count} contradictions, total strength ${it.arms.E.conflict_score.toFixed(1)}), but the entangled readout does not. `;
+  else if (f("A") && !f("E")) r += `The entangled readout flags it, but the contradiction count does not (total strength ${it.arms.E.conflict_score.toFixed(1)}). `;
+  else if (f("A") && f("E")) r += "Both the entangled readout and the contradiction count flag it. ";
+  else r += "Neither the entangled readout nor the contradiction count flags it. ";
+  r += `In the exact state, the conflict score goes from ${it.stages[0].conflict_score.toFixed(3)} at encode to ${enc.toFixed(3)} after entangling and ${fin.toFixed(3)} after evolution. Without entangling gates it stays at ${it.stages_unentangled[it.stages_unentangled.length - 1].conflict_score.toFixed(3)}. `;
+  r += "Watch the histogram at collapse: conflict needs mass in both outer bands.";
+  $("#reading").textContent = r;
+  const rs = $("#runsum tbody"); rs.innerHTML = "";
+  for (const a of ["A", "C", "D", "E", "A0"]) {
+    const s = run.summary[a]; if (!s) continue;
+    const nw = run.summary[a].test_wrong_flagged, nr = run.summary[a].test_right_flagged;
+    rs.insertAdjacentHTML("beforeend", `<tr><td class="arm">${a}</td><td>${nw}</td><td>${nr}</td><td>${s.auroc_test === null ? "–" : s.auroc_test.toFixed(2)}</td></tr>`);
+  }
+}
+
+function renderClaims() {
+  const ol = $("#claims"); ol.innerHTML = "";
+  const fin = ITEM.stages[ITEM.stages.length - 2].qubits;
+  ITEM.claims.forEach((c, k) => {
+    ol.insertAdjacentHTML("beforeend", `<li><span class="k">${k}</span><span class="${c.lean > 0 ? "yes" : c.lean < 0 ? "no" : ""}">${c.lean > 0 ? "yes" : c.lean < 0 ? "no" : "–"}</span> · conf ${c.confidence.toFixed(2)} · final P(yes) ${fin[k].p_yes.toFixed(2)} — ${esc(c.text)}</li>`);
+  });
+}
+
+function renderStage() {
+  $("#stage").value = stage;
+  $("#ticks").innerHTML = STAGES.map((s, i) => `<span class="${i === stage ? "cur" : ""}">${s}</span>`).join("");
+  $("#stage-desc").textContent = DESC[STAGES[stage]];
+  renderCloud(); renderHist(); renderTraj();
+  const u = new URL(location); u.searchParams.set("item", ITEM.id); u.searchParams.set("stage", stage); history.replaceState(null, "", u);
+}
+
+async function select(id) {
+  ITEM = await loadItem(id);
+  $("#qtext").textContent = ITEM.question;
+  $("#qmeta").innerHTML = `${esc(ITEM.id)} · truth <b class="${ITEM.truth}">${ITEM.truth}</b> · model <b class="${ITEM.model_answer}">${ITEM.model_answer}</b>${ITEM.correct === false ? ' <span style="color:var(--bad)">(wrong)</span>' : ' <span style="color:var(--ok)">(right)</span>'} · ${esc(ITEM.source || "")}`;
+  renderSide(); renderClaims(); renderStage(); renderList();
+}
+
+function tip(ev, html) { const t = $("#tip"); t.innerHTML = html; t.style.display = "block"; t.style.left = Math.min(ev.clientX + 14, innerWidth - 380) + "px"; t.style.top = (ev.clientY + 14) + "px"; }
+function untip() { $("#tip").style.display = "none"; }
+
+function play() {
+  if (timer) { clearInterval(timer); timer = null; $("#play").textContent = "▶ Play"; return; }
+  if (stage >= STAGES.length - 1) stage = 0;
+  $("#play").textContent = "❚❚ Pause";
+  renderStage();
+  timer = setInterval(() => { if (stage >= STAGES.length - 1) { play(); return; } stage++; renderStage(); }, 1300);
+}
+
+async function init() {
+  try { INDEX = await getJSON("data/index.json"); }
+  catch (e) {
+    const err = $("#err"); err.style.display = "block";
+    err.innerHTML = `<b>Could not load <code>data/index.json</code>.</b> Browsers block local file loading, so serve the folder:<br><br><code>python3 -m http.server -d window 8000</code> &nbsp;then open <code>http://localhost:8000/</code><br><br>If the data folder is empty, regenerate it with <code>.venv/bin/python experiments/export_window.py</code>.<br><span class="small">${esc(e.message)}</span>`;
+    return;
+  }
+  const p = new URLSearchParams(location.search);
+  const want = p.get("item"), meta = want && INDEX.items.find(i => i.id === want);
+  if (meta) { $("#f-run").value = String(meta.run); $("#f-role").value = meta.role.startsWith("test") ? "test" : "all"; }
+  stage = Math.max(0, Math.min(STAGES.length - 1, +(p.get("stage") || 0)));
+  ["#f-run", "#f-role", "#f-pat"].forEach(s => $(s).addEventListener("change", renderList));
+  $("#f-q").addEventListener("input", renderList);
+  $("#stage").addEventListener("input", e => { stage = +e.target.value; renderStage(); });
+  $("#play").addEventListener("click", play);
+  $("#show-web").addEventListener("change", renderCloud);
+  document.addEventListener("keydown", e => {
+    if (e.target.tagName === "INPUT" && e.target.type === "search") return;
+    if (e.key === "ArrowRight") { stage = Math.min(STAGES.length - 1, stage + 1); renderStage(); }
+    if (e.key === "ArrowLeft") { stage = Math.max(0, stage - 1); renderStage(); }
+    if (e.key === " ") { e.preventDefault(); play(); }
+  });
+  renderList();
+  const first = meta ? meta.id : (filtered()[0] || INDEX.items[0]).id;
+  await select(first);
+}
+init();
+</script>
+</body>
+</html>
