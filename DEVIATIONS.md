@@ -1065,6 +1065,23 @@ Where several audits targeted one sentence, their replacements were composed in 
 
 It is to be frozen as DP2 in its own commit before any run. Nothing has been run.
 
+## D54 — Five overnight tests relabelled as exploratory re-analyses, not frozen tests
+
+**Date:** 2026-11-04 13:20 MST, after the audit (`audits/record-accuracy.md`, `audits/SUMMARY.md` "Cross-cutting holes" 1).
+
+**Why.** README and the morning brief said each overnight test was frozen "before its data were opened". For five of them that is false.
+- **The five:** D34 (direction 9, NSIT), D35 (direction 3's anchor-gap free look), D40 (confirmation), D41 (serial position) and D42 (contrast sign).
+- **What they analyse:** each re-analyses archived experiment-4 or experiment-5 conversations that earlier analyses had already opened.
+- **When their plans were committed:** 15 to 90 seconds before the analysis ran.
+- **What such a plan does:** it fixes the statistic against later change. It cannot keep the choice of contrast or bar blind to the data.
+
+**What changed.**
+- **README's overnight section:** six frozen tests (D36–D39, D43, D44) and five exploratory re-analyses, named.
+- **The morning brief:** the rules line, the five findings' headings (items 1, 2, 7, 8, 9), the five rows of the technical table, and a note above that table.
+- **Unchanged:** the analyses and their numbers.
+
+**Not relabelled.** D46 (test F′, `gm3c`) is also an archival re-analysis of gm3b's calls; the audit counts it as the sixth of 14 with the robustness wave. The relabelling asked for covers the five overnight tests, so D46 keeps its label for now. Its own audit verdict is UNDETERMINED (`audits/gm3c-heldout-format.md`).
+
 ---
 
 # Probes branch (`probes`): entry DP1

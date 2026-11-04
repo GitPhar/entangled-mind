@@ -2,7 +2,7 @@
 
 Written 2026-11-04 (America/Denver) at the end of the unattended overnight run.
 - **What ran:** six gold-map directions, then five biomimetic-map tests, all at Sean's request.
-- **Rules:** each was pre-registered in its own commit before its analysis or first call; five reanalyse archives already opened in earlier analyses. Every new design used one scale direction (0 = certainly false, 100 = certainly true); direction 3's free look compares the two by design. Stop-on-refusal applied to every call.
+- **Rules:** six are frozen tests, each pre-registered in its own commit before its first call (directions 1–4, the identity test and the source test). Five are **exploratory re-analyses, not frozen tests**: direction 9, direction 3's free look, and the confirmation, serial-position and contrast tests (D34, D35, D40–D42). Each had a plan committed before it ran, but on archived data already opened in earlier analyses, so the plan was not blind to the data. Every new design used one scale direction (0 = certainly false, 100 = certainly true); direction 3's free look compares the two by design. Stop-on-refusal applied to every call.
 - **No call was refused.**
 - **Spend:** about **$4.2** in API calls (recorded $4.17, plus at most $0.20 lost in direction 1's crash), broken down in the technical table at the end. No QPU time.
 - **Updated later on 2026-11-04** with the three-run robustness wave (results 12–14, $2.18, no refusal) and the Sonnet and Opus replications from branch `multi-model` (see "How far it generalises").
@@ -30,13 +30,13 @@ On Haiku, no single credence explains the different questions' answers; one fitt
 
 ### The six gold-map directions
 
-1. **Asking changes the answer (direction 9, $0).** In experiment 5's archived conversations, putting an earlier question changes later answers in 5 of 6 kinds of comparison.
+1. **Asking changes the answer (direction 9, $0; exploratory re-analysis, D34).** In experiment 5's archived conversations, putting an earlier question changes later answers in 5 of 6 kinds of comparison.
    - Example: one sub-question asked first moves the main rating by about 12 points, against 3 from noise.
    - The exception: a midway yes/no choice in place of a filler turn has no detectable effect.
    - Because the model's whole state is its conversation, which can be copied, it always has a definite state. So these effects measure how much asking *disturbs* it. They are not evidence that it had no answer before. This holds for every sequential test run on a language model through its conversation, ours included.
    - Files: `results/gm9-nsit.md`; `paper/clonable-minds.md`.
 
-2. **The scale-flip gap shows no detectable link to errors: no evidence either way (direction 3's free look, $0).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall.
+2. **The scale-flip gap shows no detectable link to errors: no evidence either way (direction 3's free look, $0; exploratory re-analysis, D35).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall.
    - Which items it misread shows no detectable relation to which ones it gets wrong: AUROC 0.48 [0.28, 0.66], so only a large relation is ruled out. Its stated confidence on the same items predicts errors at 0.75.
    - File: `results/gm3a-anchor-gap.md`.
 
@@ -65,11 +65,11 @@ On Haiku, no single credence explains the different questions' answers; one fitt
 
 ### The five biomimetic tests (Sean's list, run with the revision-2 criteria of `paper/biomimetic-map.md`, D40)
 
-7. **No confirmation bias detected toward another person's number ($0).** In run 3's archived calls, the model shows no detectable extra uptake of an estimate that agrees with its own side (β₁ −0.18 [−0.83, +0.28]). Accept rates hardly differ (9.7% against 11.3%). File: `results/bm3-confirmation.md`.
+7. **No confirmation bias detected toward another person's number ($0; exploratory re-analysis, D40).** In run 3's archived calls, the model shows no detectable extra uptake of an estimate that agrees with its own side (β₁ −0.18 [−0.83, +0.28]). Accept rates hardly differ (9.7% against 11.3%). File: `results/bm3-confirmation.md`.
 
-8. **No U-shape detected in how the evidence is weighted ($0).** The competing-accumulator account survives. The striking part: the model's final verdict barely tracks the four sub-ratings it just gave, at 2–4 points per 50 points of sub-rating. File: `results/bm7-serial-position.md`.
+8. **No U-shape detected in how the evidence is weighted ($0; exploratory re-analysis, D41).** The competing-accumulator account survives. The striking part: the model's final verdict barely tracks the four sub-ratings it just gave, at 2–4 points per 50 points of sub-rating. File: `results/bm7-serial-position.md`.
 
-9. **Assimilation after a sub-question ($0).** After rating a sub-claim, the shift in the main rating rises with the sub-claim's level (β +0.27), mostly because the main rating is less extreme after a sub-question; a direct pull toward the sub-claim's number is not separately detectable. This replicates on the separate run-2 conversations. File: `results/bm9-contrast.md`.
+9. **Assimilation after a sub-question ($0; exploratory re-analysis, D42).** After rating a sub-claim, the shift in the main rating rises with the sub-claim's level (β +0.27), mostly because the main rating is less extreme after a sub-question; a direct pull toward the sub-claim's number is not separately detectable. This replicates on the separate run-2 conversations. File: `results/bm9-contrast.md`.
 
 10. **Fallacies that nearly cancel ($0.05).** The model commits the conjunction fallacy on 8 of 16 vignettes, yet P(A) + P(B) − P(A and B) − P(A or B) comes out near zero (−0.03 [−0.07, +0.00]; equivalence undetermined), with no detectable item-by-item slope (+0.02 [−0.17, +0.16]).
     - It does not fit coherent probability, which can't produce the fallacy.
@@ -172,17 +172,19 @@ If one latent predicts a left-out format close to that format's own ceiling, the
 
 ## Technical details
 
+Rows 1, 2, 7, 8 and 9 are exploratory re-analyses of already-opened archives, not frozen tests: their "pre-registration" is a plan committed before the analysis ran, and their "pre-registered reading" is that plan's reading.
+
 | # | test | pre-registration (commit) | primary statistic | pre-registered reading | cost |
 |---|---|---|---|---|---|
-| 1 | direction 9, NSIT | `experiments/gm9-nsit.md` (`7f0dd3e`, D34) | 6 families, permutation Σd², Holm | invasive in 5 of 6 (Holm p = 0.0012); N4 (midway choice) p = 0.16 | $0 |
-| 2 | direction 3a, anchor gap | `experiments/gm3a-anchor-gap.md` (`a1bc421`, D35) | AUROC of the gap for errors | 0.48 [0.28, 0.66]: no evidence either way | $0 |
+| 1 | direction 9, NSIT (*exploratory re-analysis*) | `experiments/gm9-nsit.md` (`7f0dd3e`, D34) | 6 families, permutation Σd², Holm | invasive in 5 of 6 (Holm p = 0.0012); N4 (midway choice) p = 0.16 | $0 |
+| 2 | direction 3a, anchor gap (*exploratory re-analysis*) | `experiments/gm3a-anchor-gap.md` (`a1bc421`, D35) | AUROC of the gap for errors | 0.48 [0.28, 0.66]: no evidence either way | $0 |
 | 3 | direction 1, self vs other | `experiments/gm1-self-knowledge.md` (`28a20b2`, D36 + 2 amendments) | I = HH + SS − SH − HS | −0.055 [−0.103, −0.007] all; −0.14 [−0.50, +0.23] on disagreement: **no self-advantage** | $2.82 recorded (≤ $3.02) |
 | 4 | direction 2, transcripts | `experiments/gm2-self-conditioning.md` (`9e23b6f`, D37) | R = OE_redacted / OE_shown | 1.91 [0.92, 4.90]: **question-driven**; b_MF 1.27 [0.70, 2.14] | $0.55 |
 | 5 | direction 3, six formats | `experiments/gm3b-format-invariance.md` (`34eb191`, D38) | held-out ΔLL (L6 − L1) per claim | +19.4 [+16.5, +22.1], 86% positive: **no single credence** | $0.41 |
 | 6 | direction 4, menus | `experiments/gm4-evidence-seeking.md` (`e913227`, D39) | EIG and confirmatory excess; discriminating menus | **mixed**: EIG − confirmatory −0.24 [−0.52, +0.04] (D5) | $0.11 |
-| 7 | biomimetic, confirmation | `experiments/bm3-confirmation.md` (`9c29a94`, D40) | β₁ (consistent anchor) | −0.18 [−0.83, +0.28]: **no asymmetry** | $0 |
-| 8 | biomimetic, serial position | `experiments/bm7-serial-position.md` (D41) | U-shape contrasts | u₁ +0.7 [−2.3, +4.3], u₄ −1.6 [−4.7, +1.1]: **flat; LCA survives** | $0 |
-| 9 | biomimetic, contrast sign | `experiments/bm9-contrast.md` (D42) | β (S level → M shift) | +0.27 [+0.11, +0.43]: **assimilation** | $0 |
+| 7 | biomimetic, confirmation (*exploratory re-analysis*) | `experiments/bm3-confirmation.md` (`9c29a94`, D40) | β₁ (consistent anchor) | −0.18 [−0.83, +0.28]: **no asymmetry** | $0 |
+| 8 | biomimetic, serial position (*exploratory re-analysis*) | `experiments/bm7-serial-position.md` (D41) | U-shape contrasts | u₁ +0.7 [−2.3, +4.3], u₄ −1.6 [−4.7, +1.1]: **flat; LCA survives** | $0 |
+| 9 | biomimetic, contrast sign (*exploratory re-analysis*) | `experiments/bm9-contrast.md` (D42) | β (S level → M shift) | +0.27 [+0.11, +0.43]: **assimilation** | $0 |
 | 10 | biomimetic, PT+N identity | `experiments/bm2-sampling-identity.md` (D43) | split-half Z slope | +0.02 [−0.17, +0.16]: **flat**; mean Z −0.03 [−0.07, +0.00] | $0.05 |
 | 11 | biomimetic, source dependence | `experiments/bm1-serial-dependence.md` (D44) | s_own, s_own − s_other | s_own +0.42 [+0.25, +0.60], s_other +0.05; difference +0.37 [+0.17, +0.57]: **source-dependent self-consistency** | $0.24 |
 | 12 | robustness, direction 2 on 40 items | `experiments/gm2b-self-conditioning-40.md` (`4894bfc`, D45; result `758609a`) | R = OE_redacted / OE_shown | 1.23 [0.75, 2.02]: **question-driven**; 30 new 0.99 [0.51, 1.61]; without h191/h261 0.99 [0.62, 1.49]; b_MF 0.85 [0.65, 1.13] | $1.68 |

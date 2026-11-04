@@ -18,10 +18,10 @@ Quantum-cognition models describe human judgment with amplitudes, interference a
 
 ## Overnight, 2026-11-04: is there a belief to read?
 
-Eleven pre-registered tests, six from `paper/gold-map.md` and five from `paper/biomimetic-map.md`, each frozen in its own commit before its analysis or first call. Five of them (D34, D35, D40–D42) reanalyse archived data that earlier analyses had already opened. Every new design used one scale direction (D35 compares the two by design). About $4.2 in all, with no refusals. The summary is in [`paper/morning-brief.md`](paper/morning-brief.md).
+Eleven analyses, six from `paper/gold-map.md` and five from `paper/biomimetic-map.md`. **Six are frozen tests** (D36–D39, D43, D44), each pre-registered in its own commit before its first call. **Five are exploratory re-analyses, not frozen tests** (D34 NSIT, D35 anchor gap, D40 confirmation, D41 serial position, D42 contrast sign): their plans were committed seconds to minutes before they ran, but on archived data that earlier analyses had already opened, so the plan could not be blind to the data. Every new design used one scale direction (D35 compares the two by design). About $4.2 in all, with no refusals. The summary is in [`paper/morning-brief.md`](paper/morning-brief.md).
 
 **Our reading: on Haiku, the answer is largely constructed by the asking** (partly on Sonnet; on Opus the format finding is contradicted, F′ Q = 0.94 [0.90, 0.97]: [`results/mm-gm3b-opus-completion.md`](results/mm-gm3b-opus-completion.md)).
-- Asking earlier questions is invasive (NSIT, 5 of 6 families).
+- Asking earlier questions is invasive (NSIT, 5 of 6 families; an exploratory re-analysis of experiment 5's archive, D34).
 - Order effects survive hiding the model's own earlier answers (R = 1.23 [0.75, 2.02] on all 40 items; 0.99 on the 30 new ones), though the order pattern under hiding is largely different from the shown one.
 - On Haiku, six ways of asking the same 160 statements fit held-out repeats better with one credence per format than with one per statement (86% of claims), and one credence recovers only 39% [30%, 50%] of a left-out format. The formats put 11–25% of statement pairs in opposite orders, against 1–5% between halves of one format's repeats (a baseline computed after the run).
 - A number planted as the model's own earlier answer pulls its re-rating (slope +0.42); the same number credited to another person, under different wording, barely does (+0.05).
