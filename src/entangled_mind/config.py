@@ -19,6 +19,7 @@ JUDGE_EFFORT = "low"
 PRICES = {
     "claude-sonnet-5-5": (2.00, 10.00),
     "claude-haiku-5-5": (0.10, 0.50),
+    "claude-opus-5-5": (4.00, 20.00),   # multi-model branch (DM1)
 }
 API_BUDGET_USD = 10.0
 

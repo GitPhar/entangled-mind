@@ -696,3 +696,56 @@ Concentration and within-order SD are reported alongside.
 - The lag arm at ±30 only.
 
 **Run order.** The run waits for D45 to finish, so the two API runs do not compete. The analysis was tested on simulated data before freezing.
+
+---
+
+# Multi-model branch (`multi-model`): entries DM1–DM6
+
+Numbered DM so as not to collide with D-entries written on `main` at the same time. Budget set by Sean: **$20** for the three replications and **$3** for the calibration demonstration, allocated here.
+
+## DM1 — Multi-model set-up: settings, batch runner and a cost pilot
+
+**Date:** 2026-11-04 07:45 MST, before any pre-registration on this branch.
+
+**Settings.** The paper's runs disable thinking on Haiku. The other two models do not allow that:
+- `claude-sonnet-5-5` rejects `thinking: disabled`; its thinking-off mode is `thinking: {"type": "between_tools"}`;
+- `claude-opus-5-5` cannot disable thinking at any effort, so it runs at effort `low`, the minimum. Its thinking text is never returned, and no thinking block is ever placed in a later turn.
+
+`config.PRICES` gains Opus 5.5 at $4 / $20 per million tokens.
+
+**Batch runner.** All calls on this branch go through the Message Batches API, at 50% of list price (`experiments/mm_common.py`). The overnight stop rules are kept:
+- a cap per run, checked before each batch is submitted;
+- the run stops at the first refusal, with the batch ID and message ID recorded (batch results carry no HTTP request ID);
+- API errors are resubmitted unchanged, at most twice;
+- max_tokens hits are recorded as no answer.
+
+**Pilot** (`results/mm-pilot-calls.json`, **$0.031**).
+- Contents: 12 synchronous calls (Sonnet and Opus: two six-format prompts and a 3-turn direction-2 conversation each, with a planted and a redacted turn; one Opus base answer and one Opus matched-prompt judge call), plus a 2-request batch.
+- Item: hard-pool question h002, which is not one of the 40 experiment-5 items. It is one of direction 1's 298 questions; the pilot's Opus answer to it is not used.
+- Findings:
+  - the batch API accepts both settings with structured outputs, and returned in about 2 minutes;
+  - per call, Sonnet ≈ $0.0008 and Opus ≈ $0.0016 single-turn, ≈ $0.003 in later multi-turn turns (Opus thinks briefly there even at low effort);
+  - an Opus base answer ≈ $0.011 on an easy question;
+  - edited assistant turns are accepted by both models.
+
+**Allocation of the $20** (caps at the batch rate, enforced in code; unspent cap is not moved between runs):
+
+| run | design | cap |
+|---|---|---|
+| DM2, six formats, Sonnet | 80 claims × 6 × 10 | $2.20 |
+| DM2, six formats, Opus | 80 claims × 6 × 10 | $4.30 |
+| DM3, self-knowledge, Sonnet × Opus | Opus answers 298 questions; 3 new judge cells × 298 | $4.60 |
+| DM4, transcripts, Sonnet | 10 items × 5 chains × 4 conditions × R = 4 | $2.40 |
+| DM4, transcripts, Opus | same | $6.00 |
+| pilot | | $0.03 |
+| **total** | | **$19.53** |
+
+## DM2 — Multi-model replication 1 of 3: six formats on Sonnet and Opus pre-registered
+
+**Date:** 2026-11-04 07:50 MST, before any call for this test. Recorded in `experiments/mm-gm3b-format-invariance.md`.
+
+**Design.** D38's design and analysis, unchanged, on 80 of the 160 claims: the chain claims of experiment-5 candidates 1–10 and 21–30, i.e. 10 items Haiku answered wrongly and 10 it answered rightly.
+
+**Reference.** The Haiku reference on the same 80 claims (from D38's archive) was computed while the code was being tested, before freezing: ΔLL +19.42 [+15.40, +23.21], 86% positive.
+
+**Secondary.** Test F′ (D46) runs on the new calls with its frozen code, which forms 3 item folds at 20 items.
