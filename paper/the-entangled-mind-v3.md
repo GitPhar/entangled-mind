@@ -64,7 +64,7 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
   - The pre-registered estimator meant to separate a quantum account from anchoring on the first answer turned out to be close to circular, so the mechanism is undetermined.
 - **Experiment 5** (pre-registered, 12,600 conversations, $1.93). On 40 hard-pool questions the model rated chains of its own competing claims, in many orders.
   - Order effects are real: 40 of 80 claim–question pairs survive a Holm-corrected permutation test (60 exceed 0.10, about 27 by chance).
-  - **The verdict is a tie.** A dynamic quantum belief state built from the encoder and a matched classical updater could not be told apart on the test chains (F5 − A5 = +67 [−34, +212] rating points²).
+  - **The verdict is classical (re-issued, D52; first issued as a tie, now superseded).** The QQ signature is contradicted on the single scale direction (mean q −0.345 [−0.517, −0.181]), and a dynamic quantum belief state built from the encoder and a matched classical updater could not be told apart on the test chains (F5 − A5 = +67 [−34, +212] rating points²).
   - Neither parameter-free quantum signature appeared. The QQ statistic was near zero only when the two scale directions were pooled; on one scale it is not supported (q = −0.146 [−0.439, +0.137], run 2). A mid-chain choice did not detectably change later confidence (Δ_K = +0.29 [−1.12, +1.65]).
   - Where the quantum state predicted better (on 8 held-out items), a dephased version, which is a classical Markov chain, did equally well.
 
@@ -599,7 +599,7 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **Order effects are real.** 60 of 80 adjacent (claim, main) pairs have an order effect above 0.10 with an interval excluding 0 (about 27 expected by chance; 40 survive a Holm-corrected permutation test), and the main-rating means span a median of 24.7 points across orders and omissions (13.2 expected from repeat noise alone).
 - **q was near zero only when the anchors were pooled; it is not supported on one scale.** On those 60 pairs the mean q is +0.005 [−0.058, +0.065], just wider than the pre-registered ±0.05. But that average pools the two scale directions, whose effects have opposite signs. The single-scale re-run (run 2, below) gives −0.146 [−0.439, +0.137].
 - **The per-pair z values are overdispersed** against N(0, 1) (KS p < 0.001).
-- **So the signature is not present. It is not contradicted on the pooled data, but on run 1's single-scale conversations (anchor a, not a pre-registered subset) mean q is −0.345 [−0.517, −0.181], which would meet the contradiction rule.**
+- **So the signature is not present. It is not contradicted on the pooled data, but on run 1's single-scale conversations (anchor a, not a pre-registered subset) mean q is −0.345 [−0.517, −0.181], which meets the contradiction rule; the verdict is re-issued on it as classical (D52).**
 - **The encoder's a priori prediction of where order effects appear is not supported:** 1 win against 2 losses over the only 3 items with distinct predictions (p = 0.875, D32).
 
 **Parameter-free check 2, Kvam-style interference.**
@@ -611,7 +611,7 @@ Paired item-bootstrap differences (MSE in rating points²):
 - When the main question is asked first and again after the chain, the two ratings agree within 5 points in 84% of conversations.
 - **A measurement artefact:** after recoding, baseline main ratings average 33.8 under one anchor direction ("0 = false") and 71.3 under the other ("0 = true"). The model does not reliably reverse the scale. That adds variance shared by every model, so the comparisons are fair but noisier than necessary.
 
-**Verdict (§7.5): tie.**
+**Verdict (§7.5): classical, re-issued in D52.** As first issued: tie, on the pooled q (superseded). On run 1's single-direction conversations the QQ signature is contradicted, and with a primary that is not a pass the frozen rule gives classical (`results/exp5-verdict-reissue.md`).
 
 **Run 2: one scale direction** (`results/exp5-run-2.md`, `bffc4ab`; pre-registered in D33, `fbc2fbf`). The baseline and the QQ block were re-run on the first 10 candidates with every conversation on "0 = certainly false, 100 = certainly true": 1,700 conversations, $0.14, descriptive, with nothing refitted.
 
@@ -622,7 +622,7 @@ Paired item-bootstrap differences (MSE in rating points²):
 | run 1, both scales pooled | 16 of 20 | +0.031 [−0.098, +0.166] | p = 0.002 | 20.6 |
 
 - **The order effects are not a scale artefact.** 12 of the 16 run-1 pairs with large order effects are still large on one scale.
-- **Run 1's near-zero q was an anchor-pooling artefact.** On one scale the mean q leans negative, is far from the ±0.05 band, and the per-pair z values are overdispersed. **The QQ equality is not supported.** Run 1's verdict, a tie, does not depend on it.
+- **Run 1's near-zero q was an anchor-pooling artefact.** On one scale the mean q leans negative, is far from the ±0.05 band, and the per-pair z values are overdispersed. **The QQ equality is not supported.** Run 1's verdict was first issued as a tie on the pooled q; re-issued on the single-direction q under the same rule, it is classical (D52).
 - **The scale flip was the main noise source.** Baseline between-repeat SD is 7.1 points on one scale against 20.6 pooled.
 
 
@@ -822,7 +822,7 @@ The sequential phenomena that quantum cognition was built to explain are present
 - **Kvam interference.** A mid-chain decision does not detectably change later confidence (Δ_K = +0.29 [−1.12, +1.65]), consistent with any read-out or Markov model.
 - **Main ratings.** A classical belief-adjustment model predicts them best.
 
-**Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them with no detectable loss against the quantum ones.
+**Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration anticipated for this reason that A5 and F5 would be close (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them with no detectable loss against the quantum ones.
 
 **What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remained was to set the first rating as the model's *own* earlier answer in the transcript. Gold-map direction 2 did that for experiment 5's chains (Section 5.13). Planted own answers do move later ratings, about 1.3 points per point. Hiding the answers does not remove the order effect. So in those chains, the question and the record both act. That run did not use experiment 4's conjunction items, so for conjunctions the mechanism remains open.
 
@@ -873,7 +873,7 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 - Experiment 5 and its single-scale re-run are complete.
 - The six overnight gold-map tests (Section 5.13) are complete. Directions 5–8, 10 and 11 need new tooling or QPU time, and none is pre-registered.
 
-**The readings fixed in advance.** `paper/next-steps.md` fixed the reading of experiment 5's tie before the run: no detectable advantage for quantum probability over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
+**The readings fixed in advance.** `paper/next-steps.md` fixed the reading of a tie or classical verdict in experiment 5 before the run (the verdict is classical, re-issued in D52): no detectable advantage for quantum probability over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
 
 **The project's answer for this model** is a null on both the static question (error prediction) and the sequential one.
 - Its primary verdicts are pre-registered.

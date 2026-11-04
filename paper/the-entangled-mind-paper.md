@@ -16,7 +16,7 @@ Quantum-cognition models describe human judgment with amplitudes, interference a
 - **The fixed encoding** scored AUROC 0.55 [0.41, 0.67]. That is below the same circuit without entangling gates (0.68; difference +0.14 [−0.01, +0.29]) and a plain contradiction count (0.64; +0.10 [−0.07, +0.26]), and the data rule out the pre-registered +0.10 advantage over either.
 - **A learned encoding** tied a classical twin with the same parameters and fitting rule, 0.83 against 0.84. The fit drove its couplings near zero.
 - **An exploratory stage-by-stage readout** shows where the signal goes. It is present in the unentangled product state (0.63) and is destroyed by the entangling and coupled-evolution steps (0.49).
-- **Sequential judgment.** A dynamic quantum belief state tied a matched classical updater in predicting order-dependent ratings, with no parameter-free quantum signature.
+- **Sequential judgment.** A dynamic quantum belief state could not be told apart from a matched classical updater in predicting order-dependent ratings, and its parameter-free QQ signature is contradicted on the single scale direction: the verdict, first issued as a tie, is re-issued as classical (D52).
 
 **Two results are positive.**
 - **The hardware works.** On IBM's `ibm_fez`, a pre-registered witness certified that the encoded states are physically entangled, on 3 of 3 items chosen as the most entangled of 80 (pairwise; one pair decoupled).
@@ -154,7 +154,7 @@ Graded ratings move with sequence. In experiment 3's yes/no design no order effe
 - **Neither parameter-free signature appears.**
   - The QQ statistic looked near zero only when two scale directions were pooled. On one scale it is −0.146 [−0.439, +0.137], with overdispersed per-pair values.
   - No effect of a midway choice on later confidence, beyond a filler turn, was detected: Δ_K = +0.29 [−1.12, +1.65].
-- **The encoder had little to offer here.** It predicted non-commuting sub-questions for only 12 of 160 claims, so the tie was predicted in the pre-registration (§8.6).
+- **The encoder had little to offer here.** It predicted non-commuting sub-questions for only 12 of 160 claims, so the pre-registration (§8.6) anticipated that A5 and F5 would be close.
 
 ### 3.5 A second base model, and what its edge was
 

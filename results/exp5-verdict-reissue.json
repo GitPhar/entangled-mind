@@ -1,0 +1,64 @@
+{
+ "primary": "tie",
+ "primary_delta_F5_minus_A5": [
+  66.96787503229098,
+  -34.067544039186046,
+  211.49760674345066
+ ],
+ "kvam_commitment": false,
+ "kvam_signature_present": false,
+ "pooled_qq": {
+  "n_pairs": 80,
+  "n_large_OE": 60,
+  "mean_q": 0.005416666666666668,
+  "mean_q_ci95": [
+   -0.05750646551724138,
+   0.06473460199757869
+  ],
+  "KS_D": 0.3848904280251802,
+  "KS_p": 2.0454885685859587e-08,
+  "signature_present": false,
+  "signature_contradicted": false
+ },
+ "verdict_as_issued": "tie",
+ "audit_single_direction_q": {
+  "anchor": "a",
+  "n_large_OE": 32,
+  "mean_q": -0.345,
+  "mean_q_ci95": [
+   -0.517,
+   -0.181
+  ]
+ },
+ "audit_q_contradicted": true,
+ "frozen_code_by_anchor": {
+  "a": {
+   "n_pairs": 80,
+   "n_large_OE": 33,
+   "mean_q": -0.3393939393939394,
+   "mean_q_ci95": [
+    -0.5097033410138249,
+    -0.16804534313725497
+   ],
+   "KS_D": 0.66111042871548,
+   "KS_p": 1.4418579376756477e-13,
+   "signature_present": false,
+   "signature_contradicted": true
+  },
+  "b": {
+   "n_pairs": 80,
+   "n_large_OE": 47,
+   "mean_q": 0.24148936170212765,
+   "mean_q_ci95": [
+    0.11775946969696968,
+    0.37022215269086356
+   ],
+   "KS_D": 0.5834134024488218,
+   "KS_p": 7.061121637543417e-15,
+   "signature_present": false,
+   "signature_contradicted": true
+  }
+ },
+ "verdict_reissued": "classical",
+ "verdict_reissued_frozen_code_check": "classical"
+}

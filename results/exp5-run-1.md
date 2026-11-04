@@ -4,7 +4,7 @@ Frozen pre-registration: `experiments/exp5-sequential-judgment.md` (D22–D26). 
 
 Predicted non-commutativity at encode: |sin Δφ| > 10⁻⁶ on 12 of 160 chain claims across the 40 items (max 0.424); every other chain claim's sub-question commutes with the main question at encode.
 
-> As the pre-registration put it before any data (§8.6): *the anchored phase solve works against A5 … Expect A5 and F5 to be close on most claims.* A tie is therefore the predicted outcome, not a surprise.
+> As the pre-registration put it before any data (§8.6): *the anchored phase solve works against A5 … Expect A5 and F5 to be close on most claims.* The pre-registration anticipated that A5 and F5 would be close; it designated no verdict as predicted.
 
 ## Fits (train / validation MSE, rating points²)
 
@@ -159,7 +159,9 @@ Paired item-bootstrap differences (positive favours the first-named model's comp
 - Quantum signature (CI below 0): **False**; commitment (CI above 0): **False**.
 - Mean total-probability residual: +0.58 points. A5⁰'s predicted sign of Δ_K agrees on 53% of items.
 
-## Verdict (§7.5): **TIE**
+## Verdict (§7.5), as first issued on the pooled q: **TIE** (superseded)
+
+Superseded by D52: re-issued under the same rule on the single-direction q as **CLASSICAL** (`results/exp5-verdict-reissue.md`).
 
 ## Reported alongside
 
@@ -178,15 +180,15 @@ Paired item-bootstrap differences (positive favours the first-named model's comp
 
 ## Reading
 
-- **Verdict: tie, the outcome the pre-registration predicted (§8.6).** On the test chains the fitted quantum belief state A5 and its classical twin F5 are not distinguishable (Δ = +67 [−34, +212] rating points²). Neither parameter-free quantum signature is present.
+- **Verdict: classical, re-issued (D52); first issued as a tie, now superseded.** As first issued: tie, on the pooled QQ statistic; the pre-registration (§8.6) had anticipated that A5 and F5 would be close. On the test chains the fitted quantum belief state A5 and its classical twin F5 are not distinguishable (Δ = +67 [−34, +212] rating points²). Neither parameter-free quantum signature is present.
 - **Order effects are real in graded sequential ratings, unlike in yes/no form (experiments 3 and 4).**
   - 60 of 80 adjacent (S_k, M) pairs have an order effect above 0.10, with an interval excluding 0 (about 27 expected by chance; 40 survive a Holm-corrected permutation test).
   - The main-rating means span a median 24.7 points across orderings and omissions (13.2 expected from repeat noise alone).
-- **The pooled QQ statistic is near zero only because the two scale directions cancel.** On the 60 pairs, the pooled mean q is +0.005 [−0.058, +0.065], but by anchor direction it is −0.345 [−0.517, −0.181] (a, 32 pairs) and +0.241 [+0.118, +0.370] (b, 47 pairs); at the pre-registered cut of 70 the pooled value is −0.157 [−0.257, −0.053]. The per-pair z values are overdispersed against N(0, 1) (KS p < 0.001). So the signature is not present, and it is not contradicted either.
+- **The pooled QQ statistic is near zero only because the two scale directions cancel.** On the 60 pairs, the pooled mean q is +0.005 [−0.058, +0.065], but by anchor direction it is −0.345 [−0.517, −0.181] (a, 32 pairs) and +0.241 [+0.118, +0.370] (b, 47 pairs); at the pre-registered cut of 70 the pooled value is −0.157 [−0.257, −0.053]. The per-pair z values are overdispersed against N(0, 1) (KS p < 0.001). So the signature is not present. As first issued, on the pooled q, it was not contradicted (superseded). On the single scale direction (anchor a) the CI excludes 0, which §7.3 calls contradicted, and with a primary that is not a pass §7.5 then gives **classical** (D52).
 - **No Kvam interference was detected.** Confidence after a mid-chain choice is not detectably different from confidence after a matched filler (Δ_K = +0.29 [−1.12, +1.65]; effects larger than about 1 point are excluded), the total-probability residual is +0.58 [−3.05, +4.15] points, and A5⁰'s predicted signs agree on 53% of items, about chance.
 - **No support for the a priori prediction of where order effects should appear.** After the anchored phase solve, only 12 of 160 chain claims are off the yes/no axis. Only 3 items had pairs with distinct predicted non-commutativity, and the sub-test is 1 win to 2 losses (p = 0.875, D32).
 - **Where A5 does better than F5, coherence is not the reason.** On the 8 held-out items, A5 beats F5 (+207 [+52, +388]); this is reported outside the verdict. But the dephased model D5, which is a classical Markov chain on the same states, is not detectably different from A5 there (−11 [−61, +45]) or on the test chains (+4 [−22, +31]). Removing the couplings also costs nothing significant (κ = 0: +24 [−8, +61] test; +33 [−24, +104] held-out).
   - What F5 lacks is between-question mixing: it fitted λ = 0, which gives no dynamics. D5's bit-flip dynamics are classical.
   - The classical belief-adjustment model BA5 is the best predictor of main ratings on the test chains: 827 against A5's 873, a difference of −46 [−94, +14].
 - **A measurement artefact to fix before any rerun: anchor direction.** After recoding, baseline main ratings average 33.8 under anchor (a), "0 = false", and 71.3 under anchor (b), "0 = true". The model does not reliably reverse the scale. That adds variance shared by every model, so the comparisons are fair but noisier than they need be. A rerun should use one anchor direction, or check the scale explicitly.
-- **Net:** the base model's sequential ratings show order effects, but nothing here needs a quantum account. A matched classical updater ties, and a classical Markov chain does as well as the coherent quantum state.
+- **Net:** the base model's sequential ratings show order effects, but nothing here needs a quantum account. A matched classical updater could not be told apart from the quantum state on the primary, a classical Markov chain is not detectably behind it (D5 − A5 test +3.8 [−21.8, +30.9]), and on one scale direction the quantum QQ signature is contradicted.

@@ -156,7 +156,7 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 
 - The training-pool replication was halted after two extractor refusals (D20, D25).
 
-**Experiment 5: sequential judgment** ([`results/exp5-run-1.md`](results/exp5-run-1.md)). The verdict is a **tie**, as the pre-registration predicted (§8.6: "expect A5 and F5 to be close on most claims").
+**Experiment 5: sequential judgment** ([`results/exp5-run-1.md`](results/exp5-run-1.md)). The verdict, re-issued under its own §7.5 rule (D52, [`results/exp5-verdict-reissue.md`](results/exp5-verdict-reissue.md)), is **classical**: the primary is a tie (F5 − A5 = +67 [−34, +212] rating points², not a pass), and on the single scale direction the QQ signature is contradicted (mean q −0.345 [−0.517, −0.181]). It was first issued as a tie on a q pooled over two scale directions, which run 2 showed to be an artefact; that reading is superseded.
 - Graded sequential ratings show order effects: 40 of 80 adjacent pairs survive a Holm-corrected permutation test (60 pass the pre-registered OE > 0.10 rule, about 27 of them expected by chance).
 - The QQ equality is **not** supported. Run 1's near-zero mean q (+0.005) came from pooling two scale directions. A pre-registered single-scale rerun on 10 items ([`results/exp5-run-2.md`](results/exp5-run-2.md)) gives q = −0.146 [−0.439, +0.137], while the order effects survive (12 of 16 large pairs).
 - No Kvam interference was detected (Δ_K = +0.29 [−1.12, +1.65]; effects beyond about 1 point of folded confidence are excluded).

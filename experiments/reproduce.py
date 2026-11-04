@@ -121,6 +121,8 @@ def main() -> int:
     step("exp5-run-1.md", lambda: importlib.import_module("exp5_analyse").md_only())
     step("exp4-run-3.md", lambda: importlib.import_module("exp4_run3").main())          # all calls cached: no API use
     step("exp5-run-2.md", lambda: importlib.import_module("exp5_rerun").main())          # all calls cached: no API use
+    if "exp5-verdict-reissue.md" in committed:     # D52: run 1's verdict on the single-direction q
+        step("exp5-verdict-reissue.md", lambda: importlib.import_module("exp5_reissue").main())
     step("gm9-nsit.md", lambda: importlib.import_module("gm9_nsit").main())
     if "gm3c-heldout-format.md" in committed:
         step("gm3c-heldout-format.md", lambda: importlib.import_module("gm3c_heldout_format").main())

@@ -23,6 +23,7 @@ POOL = config.RESULTS / "pool-run-3.json"
 CONV = config.RESULTS / "exp5-conversations.json"
 OUT_JSON, OUT_MD = config.RESULTS / "exp5-run-1.json", config.RESULTS / "exp5-run-1.md"
 FIT_JSON = config.RESULTS / "exp5-fit.json"
+REISSUE = config.RESULTS / "exp5-verdict-reissue.json"     # D52
 SEEDS = {"A5": 501, "F5": 502, "D5": 503, "BA5": 504, "A5k0": 505, "A5plain": 506}
 N_BOOT = 2000
 
@@ -426,7 +427,7 @@ def write_md(o) -> None:
              f"{o['noncommuting_chain_claims'][1]} chain claims across the 40 items (max {o['noncommuting_chain_claims'][2]:.3f}); "
              "every other chain claim's sub-question commutes with the main question at encode.", "",
              "> As the pre-registration put it before any data (§8.6): *the anchored phase solve works against A5 … "
-             "Expect A5 and F5 to be close on most claims.* A tie is therefore the predicted outcome, not a surprise.", "",
+             "Expect A5 and F5 to be close on most claims.* The pre-registration anticipated that A5 and F5 would be close; it designated no verdict as predicted.", "",
              "## Fits (train / validation MSE, rating points²)", "", "| model | train | validation | parameters |", "|---|---|---|---|"]
     for k, fd in o["fits"].items():
         ps = ", ".join(f"{n}={x:.3g}" for n, x in zip(fd["names"], fd["final"]["params"]))
@@ -468,7 +469,10 @@ def write_md(o) -> None:
               f"- Quantum signature (CI below 0): **{k['signature_present']}**; commitment (CI above 0): **{k['commitment']}**.",
               f"- Mean total-probability residual: {k['mean_TP_residual']:+.2f} points. A5⁰'s predicted sign of Δ_K agrees on "
               f"{k['A5_0_sign_agreement']:.0%} of items.", "",
-              f"## Verdict (§7.5): **{o['verdict'].upper()}**", "",
+              f"## Verdict (§7.5), as first issued on the pooled q: **{o['verdict'].upper()}** (superseded)", "",
+              *([f"Superseded by D52: re-issued under the same rule on the single-direction q as "
+                 f"**{json.loads(REISSUE.read_text())['verdict_reissued'].upper()}** (`results/exp5-verdict-reissue.md`).", ""]
+                if REISSUE.exists() else []),
               "## Reported alongside", "",
               f"- Replicability in MF (|M₂ − M₁| ≤ 5 points): {o['descriptive']['MF_replicability_rate']:.0%}.",
               f"- B0 mean rating by anchor direction (after recoding): {', '.join(f'{a_} {v:.1f}' for a_, v in o['descriptive']['B0_mean_by_anchor'].items())}.",
