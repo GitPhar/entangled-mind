@@ -287,3 +287,18 @@ At Sean's request, the order test is re-run on run 1's 7 fallacy items with grad
 - Temperature is the model default (1.0); no explicit parameter is sent, because the API rejects one for this model.
 - The graded analogue of "beyond repetition" is anchoring of the second rating on the first, fitted by regression.
 - q_QQ and Γ are dropped, because they are defined only for binary answers. The marginal shifts OE_X, OE_Y and OSS are kept.
+
+## D18 — Second base model (claude-sonnet-5-5): replication set-up
+
+**Date:** 2026-11-03, before any Sonnet replication call.
+
+At Sean's request, the hard pool (pool run 4, already defined in D6) and the training pool (new pool run 6) are run through `claude-sonnet-5-5` as base, at default effort with adaptive thinking. The extractor and judge are unchanged.
+
+G, L, H and the **already-fitted** A2 and F2 are scored on Sonnet's errors, using the frozen v2 parameters in `results/v2-fit.json`. Nothing is refitted.
+
+**Budget.** At about $0.02 per item, both pools (1,348 items) would cost about $27, against Sean's $15 budget. So:
+- the pool runs are capped at $12 together and arm G at $3, both enforced in code;
+- run 4 (the full hard pool) goes first;
+- run 6 processes the locked v2 test questions first, so a budget stop still covers them, then as much of the rest as the budget allows.
+
+What actually ran is reported in `results/sonnet-replication.md`.
