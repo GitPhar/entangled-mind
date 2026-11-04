@@ -8,7 +8,11 @@
 
 Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. This project asks whether the same idea is useful as an architecture around a language model. For each yes/no question, a language model answers and briefly explains the considerations for and against. Those claims are extracted, and every pair is judged to support, contradict, or be unrelated to the other. The resulting web becomes one entangled quantum state: one qubit per claim, with confidence setting the amplitude and a solved phase setting the stance. RZZ gates link related claims, and a short Ising-style evolution runs before measurement in a "yes"-oriented basis. The readout gives a judgment, a confidence, and a conflict flag for shots that split between strongly opposed configurations. The pre-registered test is whether that flag picks out the model's wrong answers better than three controls: the same circuit with no entanglement, the same circuit with a shuffled relation web, and plain classical contradiction-counting. The last is the control that matters most.
 
-**Status:** Stage 2 (runs 1, 2 and 2b), version two (v2 and v2.1) and experiments 3–4 are complete. **Every pre-registered quantum-advantage test has failed or tied:** the entangled readout flags errors worse than its controls (H2 fails), and the learned quantum encodings tie their classical twins. The base model's own stated confidence predicts its errors as well as anything here. On real hardware the encoded belief states are **certified entangled** (3 of 3 items, 44 QPU s). Next: a graded experiment 4, a Sonnet replication, and experiment 5 (sequential judgment).
+**Status:** every planned experiment has run.
+- **No quantum advantage.** Every pre-registered test of a quantum advantage failed or tied: the entangled readout, the learned v2 and v2.1 encodings, sequential judgment (experiment 5), and the order-effect tests (experiments 3 and 4).
+- **Every positive quantum-vs-classical difference is classical.** Each one, on held-out data and on a second base model, is matched by a classical model given the same per-claim readout.
+- **Self-report does as well.** The base model's own stated confidence predicts its errors as well as anything here, for both Haiku and Sonnet.
+- **Hardware.** The encoded belief states are certified entangled on real hardware (3 of 3 items, 44 QPU s).
 
 ## Hypotheses, and the null result that falsifies each
 
@@ -105,6 +109,36 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 - Graded ratings show conjunction fallacies on 7 of 16 items, and no double fallacies.
 - The binary QQ phase saturated completely: "Is it true that <Y>?" was answered "no" every time.
 - A graded run 2 is pre-registered (D17).
+
+**Experiment 4, run 2: graded order test** ([`results/exp4-run-2.md`](results/exp4-run-2.md)).
+- Graded ratings show real order effects of about +0.10, and R2 holds on all 3 scored items.
+- The pre-registered anchoring estimator turned out to be near-tautological (D19), so the mechanism is undetermined.
+
+**What the secondary quantum edges are** ([`results/sonnet-ablation.md`](results/sonnet-ablation.md), Addenda D and E). Both outcomes are pre-registered outcome 1: single-claim readout geometry, carried by a classical model.
+- Setting A2's couplings to exactly 0 changes nothing (−0.009 and −0.006).
+- A classical twin given A2's per-claim tilted-readout marginal (F2+) matches A2 on all three sets:
+  - Haiku's locked test set: +0.015 [−0.042, +0.073];
+  - Sonnet's hard pool: +0.004 [−0.032, +0.042];
+  - Haiku's run-2 held-out set: −0.019 [−0.073, +0.029].
+
+**Second base model, `claude-sonnet-5-5`** ([`results/sonnet-replication.md`](results/sonnet-replication.md)). On Sonnet's 298 hard-pool answers (30 wrong), the frozen v2 models transfer:
+
+| model | AUROC |
+|---|---|
+| A2 | 0.90 |
+| F2 | 0.82 |
+| L | 0.73 |
+| H | 0.66 |
+| Sonnet's own self-reported confidence | **0.91** |
+
+- The training-pool replication was halted after two extractor refusals (D20, D25).
+
+**Experiment 5: sequential judgment** ([`results/exp5-run-1.md`](results/exp5-run-1.md)). The verdict is a **tie**, as the pre-registration predicted (§8.6: "expect A5 and F5 to be close on most claims").
+- Graded sequential ratings show large order effects: 60 of 80 adjacent pairs.
+- The QQ equality is close (mean q = +0.005 [−0.058, +0.065]) but not certified.
+- There is no Kvam interference (Δ_K = +0.29 [−1.12, +1.65]).
+- A classical Markov chain (D5) does as well as the coherent quantum state, so coherence is not what any A5 advantage rests on.
+- 12,600 conversations, $1.93.
 
 ## Related work
 
