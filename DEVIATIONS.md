@@ -412,3 +412,24 @@ Arm G is marked **not scored**, because it needs Sonnet calls and the replicatio
 
 - **Addendum D** (`experiments/preregistration-v2.md`): A2(κ=0) frozen, and F2+ (F2 plus A2's per-claim tilted-readout marginal, 10 parameters against A2's 9) fitted on the v2 train split. Each is scored once on Haiku's locked test set and on Sonnet's 298 hard-pool records, with the decision rule fixed in advance.
 - **Arm G on Sonnet** (Sean's instruction): one self-confidence call per hard-pool item to `claude-sonnet-5-5`. This is the base model, not the extractor, and it sees only its own visible answer. The budget is $2, enforced in code. Any refusal stops the run and records the request ID, with nothing retried.
+
+## D29 — Dates use local America/Denver time throughout
+
+**Date:** 2026-11-03, at Sean's instruction.
+
+Some documents carried 2026-11-04 for work done on the evening of 2026-11-03 Denver time: the UTC date, or a wrong date. Git's local timestamps (MST, UTC−7) are the reference. From now on, every date in the repository is local.
+
+**Corrected:**
+- D14 and D15 above;
+- the writing dates of Addenda B and C in `experiments/preregistration-v2.md`;
+- the writing date of `experiments/exp5-sequential-judgment.md`.
+
+The two pre-registration files are frozen. **Only the expression of the date changed; no instant and no word of the design.** For example, "2026-11-04 00:45 UTC" became "2026-11-03 17:45 MST", which is the same moment. The exp5 text's "Written 2026-11-04" was simply wrong: it was written at 19:19 MST on 2026-11-03 (`2dc435b`).
+
+Also corrected:
+- `experiments/exp4-run-3.md`, `paper/next-steps.md`, `paper/the-entangled-mind-v3.md` and `paper/references.bib` (a comment);
+- the hand-written Reading section of `results/stage1-run-1.md`.
+
+**Not changed:**
+- machine-written UTC fields in `results/` (the IBM usage ledger, the job-status log, the calibration tables) and in archived JSON, which their writers produce and `experiments/reproduce.py` checks byte for byte. Switching those writers to local time is a code change, logged separately if made;
+- commit messages, which cannot be edited. One says "2026-11-04" (`34f5de4`).
