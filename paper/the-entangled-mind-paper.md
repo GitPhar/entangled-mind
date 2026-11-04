@@ -13,14 +13,14 @@ Correspondence: seanm.pharris@gmail.com. Code, data and pre-registrations: https
 Quantum-cognition models describe human judgment with amplitudes, interference and entanglement rather than classical probabilities. We built such a model into a language model's judgment. For each question, `claude-haiku-5-5` answered and explained itself. The claims in its explanation were extracted and related to each other, and the resulting web was encoded as one entangled state on 5–16 qubits, evolved and measured.
 
 **The main result is negative.** Pre-registered tests asked whether this state flags the model's wrong answers better than classical controls.
-- **The fixed encoding** scored AUROC 0.55 [0.41, 0.67]. That is worse than the same circuit without entangling gates (0.68) and worse than a plain contradiction count (0.64).
+- **The fixed encoding** scored AUROC 0.55 [0.41, 0.67]. That is below the same circuit without entangling gates (0.68; difference +0.14 [−0.01, +0.29]) and a plain contradiction count (0.64; +0.10 [−0.07, +0.26]), and the data rule out the pre-registered +0.10 advantage over either.
 - **A learned encoding** tied a classical twin with the same parameters and fitting rule, 0.83 against 0.84. The fit drove its couplings near zero.
 - **An exploratory stage-by-stage readout** shows where the signal goes. It is present in the unentangled product state (0.63) and is destroyed by the entangling and coupled-evolution steps (0.49).
 - **Sequential judgment.** A dynamic quantum belief state tied a matched classical updater in predicting order-dependent ratings, with no parameter-free quantum signature.
 
 **Two results are positive.**
-- **The hardware works.** On IBM's `ibm_fez`, a pre-registered witness certified that the encoded states are physically entangled, on 3 of 3 items.
-- **Two classical signals carry the error information.** The model's own stated confidence predicted its errors better than every structural reading of its explanation (0.82). And the one edge the learned quantum model ever showed, on a second base model's errors, was a per-claim readout angle that a classical model with the same angle reproduces exactly.
+- **The hardware works.** On IBM's `ibm_fez`, a pre-registered witness certified that the encoded states are physically entangled, on 3 of 3 items chosen as the most entangled of 80 (pairwise; one pair decoupled).
+- **Two classical signals carry the error information.** The model's own stated confidence predicted its errors better than every fixed structural reading of its explanation (0.82) and as well as the learned encodings (0.82–0.84 on the same items). And the learned quantum model's edges, on a second base model's errors and on Haiku's held-out set, came from a per-claim readout angle; a classical model given the same angle is not detectably behind it.
 
 Entanglement is real on the hardware, and useless for this judgment.
 
@@ -38,7 +38,7 @@ We pre-registered a simple version of that hope. If the entangled state captures
 - a second base model;
 - a move to sequential judgment, where the human evidence for quantum cognition actually lies.
 
-Every pre-registered comparison against a matched classical model was a tie or a loss. This paper reports the result plainly, shows where the signal is lost (Figure 1), and records what the hardware did (Figure 2). It also states the two positive side results: the model's stated confidence, and a per-claim readout angle.
+Every primary pre-registered comparison against a matched classical model was a tie or a loss, and no secondary edge was detectably larger than a classical model with the same readout achieves. This paper reports the result plainly, shows where the signal is lost (Figure 1), and records what the hardware did (Figure 2). It also states the two positive side results: the model's stated confidence, and a per-claim readout angle.
 
 ---
 
@@ -130,10 +130,10 @@ Inspection of individual items shows two mechanisms:
 | G, self-reported confidence | 0.83 [0.78, 0.89] |
 
 - **The primary criterion is not met.** The paired difference A2 − F2 is −0.007 [−0.079, +0.062].
-- **A2's couplings fitted small.** The support and contradiction scales came out at 0.12 and 0.21, against 1 in version one, with a single Trotter step. Other climbed candidates reach the same train AUROC with couplings anywhere from 0.06 to 1.5, so the fit does not depend on them.
-- **Version 2.1 also ties:** A2.1 0.84 against F2.1 0.82. Both fits set the new hedge term's weight to 0, and the noisy simulator changes nothing.
+- **A2's couplings fitted small.** The support and contradiction scales came out at 0.12 and 0.21, against 1 in version one, with a single Trotter step. Setting the couplings to 0 costs nothing detectable (−0.009 [−0.029, +0.009]), while v1-strength couplings lower train AUROC from 0.82 to 0.61.
+- **Version 2.1 also ties:** A2.1 0.84 against F2.1 0.82. Both fits set the new hedge term's weight to 0, and the noisy simulator changes nothing detectable (+0.000 [−0.020, +0.023]).
 
-### 3.3 The hardware: the states are certified entangled
+### 3.3 The hardware: three selected states are certified entangled
 
 **The witness.** It certified entanglement on 3 of 3 items (Figure 2), against a pre-registered rule of at least 2 of 3. The run used 39 circuits × 4,000 shots and 44 QPU seconds.
 
@@ -143,17 +143,17 @@ At 5–16 qubits every state is exactly simulable, so the hardware's role was ce
 
 ![Figure 2](figures/fig2-witness.svg)
 
-**Figure 2. The encoded belief states are physically entangled on `ibm_fez`.** Negativity N of the two-qubit reduced state of each item's most-entangled related pair, with 95% intervals from 500 parametric bootstrap resamples. N = 0 for every separable state and 0.5 for a Bell pair. An item is certified if the lower bound of its readout-mitigated hardware interval exceeds 0. All three are certified, also without readout mitigation (open circles). Physical qubit pairs: h221 on 10 and 9; h088 on 44 and 37; h268 on 4 and 16. Job `dbl6e1d8mdtc73d5gesg` (`results/witness-run-1.md`).
+**Figure 2. Three selected belief states are pairwise entangled on `ibm_fez`.** Negativity N of the two-qubit reduced state of each item's most-entangled related pair, with 95% intervals from 500 parametric bootstrap resamples. N = 0 for every separable state and 0.5 for a Bell pair. An item is certified if the lower bound of its readout-mitigated hardware interval exceeds 0. All three are certified, also without readout mitigation (open circles). Physical qubit pairs: h221 on 10 and 9; h088 on 44 and 37; h268 on 4 and 16. Job `dbl6e1d8mdtc73d5gesg` (`results/witness-run-1.md`).
 
 ### 3.4 Sequential judgment: real order effects, classical account
 
-Graded ratings move with sequence. Binary yes/no answers do not: in experiment 3 the model gave the same answer in all 5 baseline runs for 85% of items. In experiment 5:
-- **The order effects are large.** 60 of 80 claim–question pairs show an order effect above 0.10, and the main-rating means span a median of 24.7 points across orders and omissions.
-- **The prediction contest ties.** The quantum belief state and its classical twin do not differ in predicting test-chain ratings: F5 − A5 = +67 [−34, +212] rating points².
-- **The held-out edge is classical.** On 8 held-out items A5 does better (+207 [+52, +388]). But a dephased version, which is a classical Markov chain on the same states, matches it (−11 [−61, +45]).
+Graded ratings move with sequence. In experiment 3's yes/no design no order effect was detectable (the model gave the same answer in all 5 baseline runs for 85% of items), although experiment 4 run 1's yes/no audit showed order shifts in the first conjunct (OE_X up to +0.67). In experiment 5:
+- **The order effects are large.** 60 of 80 claim–question pairs show an order effect above 0.10 (about 27 expected by chance; 40 survive a Holm-corrected permutation test), and the main-rating means span a median of 24.7 points across orders and omissions (13.2 from repeat noise alone).
+- **The prediction contest ties.** The quantum belief state and its classical twin could not be told apart in predicting test-chain ratings: F5 − A5 = +67 [−34, +212] rating points².
+- **The held-out edge is classical.** On 8 held-out items A5 does better (+207 [+52, +388]). But a dephased version, which is a classical Markov chain on the same states, is not detectably behind it (−11 [−61, +45]).
 - **Neither parameter-free signature appears.**
   - The QQ statistic looked near zero only when two scale directions were pooled. On one scale it is −0.146 [−0.439, +0.137], with overdispersed per-pair values.
-  - A midway choice leaves later confidence where a filler turn leaves it: Δ_K = +0.29 [−1.12, +1.65].
+  - No effect of a midway choice on later confidence, beyond a filler turn, was detected: Δ_K = +0.29 [−1.12, +1.65].
 - **The encoder had little to offer here.** It predicted non-commuting sub-questions for only 12 of 160 claims, so the tie was predicted in the pre-registration (§8.6).
 
 ### 3.5 A second base model, and what its edge was
@@ -161,19 +161,19 @@ Graded ratings move with sequence. Binary yes/no answers do not: in experiment 3
 **The frozen v2 models were scored on Sonnet's 298 hard-pool records,** with nothing refitted. A2 beat F2: 0.90 against 0.82, a paired +0.078 [+0.018, +0.137].
 
 **A pre-registered ablation (Addendum D) found what the edge consists of.**
-- Setting A2's couplings to exactly 0 changes nothing: −0.006 [−0.029, +0.013].
-- A classical twin given A2's per-claim tilted readout (F2+, Section 4.2) matches A2: 0.90, a difference of +0.004 [−0.032, +0.042].
+- Setting A2's couplings to exactly 0 changes nothing detectable: −0.006 [−0.029, +0.013].
+- A classical twin given A2's per-claim tilted readout (F2+, Section 4.2) is level with A2: 0.90, a difference of +0.004 [−0.032, +0.042].
 - The same holds for Haiku's earlier held-out edges (Addendum E): F2+ − A2 = −0.019 [−0.073, +0.029].
 
-**Every positive quantum-versus-classical difference in this project is matched by a classical model with the same per-claim readout.**
+**No positive quantum-versus-classical difference in error prediction is significantly larger than what a classical model with the same per-claim readout achieves** (F2+ recovers 1.05 [0.73, 2.50] of the Sonnet edge and 0.68 [0.20, 1.21] of the held-out A2.1 edge).
 
 ---
 
 ## 4. Positive side results
 
-### 4.1 Stated confidence is the best error signal, and a good reading of the answer
+### 4.1 Stated confidence is the best or tied-best error signal, and a good reading of the answer
 
-**One call asking the model how confident it is outperforms every structural analysis of its reasoning**, quantum or classical:
+**One call asking the model how confident it is does as well as every structural analysis of its reasoning**, quantum or classical (no paired difference with the best structural model excludes 0):
 - 0.82 on run 2's test set and 0.83 on the locked test set for Haiku;
 - 0.91 [0.86, 0.95] for Sonnet on its own hard-pool errors.
 
@@ -183,7 +183,7 @@ It is the best arm in every subgroup of the split analysis. The relation web add
 - Authorship does not help. The judge × author interaction is −0.055 [−0.103, −0.007].
 - Sonnet predicts Haiku's errors better than Haiku does: 0.93 against 0.85.
 
-So the signal is in the answer text, and a capable reader finds it. The practical lesson: a pipeline that wants an error flag should first ask for a confidence rating, from the author or from a stronger reader, and should require any structural method to beat that baseline. Ours did not.
+So authorship adds nothing detectable to a fresh-context confidence rating, and a judge that knows the answer does better. The practical lesson: a pipeline that wants an error flag should first ask for a confidence rating, from the author or from a stronger reader, and should require any structural method to beat that baseline. Ours did not.
 
 ### 4.2 A per-claim readout angle carries a real, classical signal
 
@@ -204,7 +204,7 @@ P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2.
 
 ## 5. Discussion
 
-**Entanglement does not help here.** Four pre-registered comparisons on error prediction agree. In none of them does the entangled state add anything over a matched classical model:
+**Entanglement does not help here.** Four pre-registered comparisons on error prediction agree. In none of them does the entangled state add anything detectable over a matched classical model:
 - the fixed encoding against its controls;
 - the learned encoding against its twin;
 - the honest-hedge encoding against its twin;
@@ -212,16 +212,16 @@ P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2.
 
 The obvious explanations are ruled out:
 - **Not noise:** the noiseless circuit is worse.
-- **Not one bad choice of constants:** the learned fit made the couplings whatever it liked, because they did not matter.
+- **Not one bad choice of constants:** the learned fit was free to set the couplings, and setting them to 0 costs nothing detectable.
 - **Not the hedge encoding:** removing that distortion changed nothing.
-- **Not a frame bug in the phase solve:** correcting it left the AUROCs unchanged.
+- **Not a frame bug in the phase solve:** correcting it changed the AUROCs by no detectable amount (A0 −0.015 [−0.054, +0.016]).
 
 Figure 1 shows that the coupled steps destroy a signal the product state already has. When the fit was free to choose, it chose a nearly unentangled state.
 
 **What this does and does not say.**
 - It does not refute quantum cognition, which models human aggregates.
 - It does show that an indecomposable entangled whole, certified on hardware (Figure 2), is not by itself an advantage for this kind of judgment.
-- In sequential judgment, where quantum cognition's human evidence lies, the model shows the phenomena: large order effects, and single but not double conjunction fallacies (experiment 4, on Yearsley & Trueblood's, 2018, items and rules). A classical Markov chain describes them as well as the quantum state does.
+- In sequential judgment, where quantum cognition's human evidence lies, the model shows the phenomena: large order effects, and single but not double conjunction fallacies (experiment 4, on Yearsley & Trueblood's, 2018, items and rules). In experiment 5, a classical Markov chain describes the order effects as well as the quantum state does; experiment 4's fallacies were not modelled.
 
 **A methodological point.** Build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. This method can return "no", and here it did, repeatedly.
 
@@ -284,7 +284,7 @@ The pre-registrations were committed before the data they govern. The files are:
 | **D12** | Version two pre-registered; pass criterion read as non-overlapping intervals; fitting on exact noiseless scores. | Before any fitting. | The strongest version of the quantum model is tested. |
 | **D13** | Experiment 3 implementation choices. | Logged before any result. | None. |
 | **D14** | Hedge baseline H and the v2.1 honest hedge. | Prompted by an exploratory window observation (W4); added before any v2 test evaluation. | The run-2 held-out set is not independent of the suggestion; the locked test set is. |
-| **D15** | The phase solver's frame drifts off axis; a stronger-anchor correction was characterised. | Found by inspecting the window. | Archived results keep the as-run solver; AUROCs are unchanged by the fix. |
+| **D15** | The phase solver's frame drifts off axis; a stronger-anchor correction was characterised. | Found by inspecting the window. | Archived results keep the as-run solver; the fix changes the AUROCs by no detectable amount. |
 | **D16** | v2.1 fitted noiseless, evaluated noiseless and on the noisy simulator. | Before any v2.1 fit. | The pass criterion uses the noiseless comparison. |
 | **D17** | Experiment 4 run 2, graded, pre-registered; temperature cannot be set for this model. | Run 1's binary phase saturated. | Graded ratings at the default temperature of 1.0. |
 | **D18** | Second base model (`claude-sonnet-5-5`) replication set up. | To test whether results depend on one base model. | — |
@@ -293,7 +293,7 @@ The pre-registrations were committed before the data they govern. The files are:
 | **D21** | Replication resumed with the refused item `h101` excluded; the extractor is unchanged, and a second refusal stops the run again. | Sean's decision after D20. | The Sonnet hard pool has 299 items. |
 | **D22–D24** | Experiment 5 frozen; pilot items clarified (the 5-per-category cap left no further right items, so the next 2 in the uncapped ranking are used); split and runner committed; one pilot item's 4th chain slot filled. | Gaps in the draft's wording, found and fixed before any call. | None on the 40 scored items. |
 | **D25** | Sonnet replication stopped on a second `reasoning_extraction` refusal (`t368`, training pool). The scorer was not run, because its arm-G step would make further Sonnet calls. | The project's rule and Sean's instruction. | Arm G cannot be scored on Sonnet. |
-| **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
+| **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Committed during full-run collection, before any fit or result. | — |
 | **D27** | Sonnet's 298 hard-pool records scored offline (L, H, A2, F2) with frozen v2 parameters; every API client blocked in code; G not scored; the 82 training-pool records not scored. | Sean's request after D25. | A secondary transfer test, with nothing refitted. |
 | **D28** | Addendum D, the coupling ablation A2(κ=0) and the classical twin F2+ with A2's per-claim readout, with its outcome rule fixed in advance; and arm G on Sonnet's hard pool. | To test what the Sonnet edge is. | Outcome 1: single-claim geometry, carried by a classical model (Section 5.11). |
 | **D29** | Every date in the repository uses local America/Denver time. The frozen pre-registrations changed only in how the same instants are written. | Sean's instruction. | None. |

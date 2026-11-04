@@ -9,10 +9,10 @@ Pre-registered in `experiments/bm3-confirmation.md` (D40), committed before the 
 **What we found.** No, and if anything the reverse.
 - **Uptake by side.** On average the model ignored or pushed back on estimates that agreed with its side: mean uptake −0.03. It moved a little toward estimates on the other side: +0.21.
 - **After controlling for distance and extremity,** the regression difference is −0.18 [−0.83, +0.28], which is not reliable either way.
-- **Acceptance.** The model *accepted* agreeing estimates less often, and that difference is reliable: −0.29 [−0.79, −0.03] in accept probability.
+- **Acceptance.** Raw accept rates are 9.7% (agreeing) against 11.3%. With covariates the coefficient is −0.29 [−0.79, −0.03], but it rests on one item-order (co05 X; without it −0.18 [−0.48, +0.02]), and it is one of 15 secondary coefficients.
 - **The confidence gate,** meaning that the asymmetry grows with how sure the model is, is not shown: +0.70 [−0.81, +2.53].
 
-**What it means.** There is no sign of confirmation bias toward another person's number. The direction, if any, matches Kumaran et al.'s LLMs, which over-weight *opposing* advice. Haiku simply doesn't treat someone else's number as its own commitment.
+**What it means.** No confirmation bias toward another person's number was detected (−0.18 [−0.83, +0.28]). The direction, if any, matches Kumaran et al.'s LLMs, which over-weight *opposing* advice.
 
 **Caveats.**
 - The test is weak by design: only 13 of 30 item-orders have estimates on both sides of 50.

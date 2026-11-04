@@ -5,39 +5,40 @@ Written 2026-11-04 (America/Denver) after the multi-model runs on branch `multi-
 - direction 2, edited transcripts (test T);
 - direction 3, six formats (test F).
 
-Each was re-run with `claude-sonnet-5-5` and `claude-opus-5-5` as the base model. Every test used the same design and the same pre-registered criteria as the Haiku original, one scale direction and stop-on-refusal, and each was pre-registered in its own commit before its first call. No call was refused.
+Each was re-run with `claude-sonnet-5-5` and `claude-opus-5-5` as the base model. Every test used the Haiku original's prompts, analysis code and pre-registered criteria, at reduced scale (see Budget), with one scale direction and stop-on-refusal, and each was pre-registered in its own commit before its first call. No call was refused.
 
 ## In plain English
 
-**Self-report is still not privileged.** This is the finding that travels best.
+**No self-advantage was detected on the Sonnet × Opus pair either.**
 - Sonnet and Opus each rated how likely each other's answers were to be right, and how likely their own were, with an identical prompt.
 - Opus spots Sonnet's mistakes better than Sonnet does: AUROC 0.96 against 0.90.
-- On Opus's own answers, being the author adds almost nothing: Opus reaches 0.90, Sonnet reading the same answers 0.89.
-- With each judge's overall skill cancelled out, the authorship effect is −0.045 [−0.107, +0.017]. That is the same sign and size as for Haiku and Sonnet (−0.055).
+- On Opus's own answers, no advantage from being the author was detected: Opus reaches 0.90, Sonnet reading the same answers 0.89 (+0.011 [−0.056, +0.072]).
+- With each judge's overall skill cancelled out, the authorship effect is −0.045 [−0.107, +0.017]. That is the same sign and about the same size as for Haiku and Sonnet (−0.055), though that interval excluded 0 and this one does not.
 - The pre-registered reading is again **no self-advantage**.
 
 **The question alone still changes the judgment on Sonnet. On Opus the effect is small and the test is not decisive.**
 - Sonnet's order effect survives hiding its earlier answers. The ratio is 2.95 [0.99, 12.55], read as *question-driven*. As with Haiku, much of it comes from 2 of the 10 items, one of them the item that dominated Haiku's result (h191).
-- Opus barely shows an order effect at all: 4.4 points, against Sonnet's 6.1 and Haiku's 9.3.
+- Opus shows a smaller order effect (4.4 points [0.8, 6.9], gate p = 0.004), against Sonnet's 6.1 and Haiku's 9.3; with the record hidden it comes from one item (h058).
 - With only 2 conversations per cell for Opus (a budget fallback), its ratio of 0.93 has an interval from 0.06 to 7.3. It is read as *leaning question-driven, not decisive*.
 
 **All three models lean on their own record.**
 - When the model can see its first answer, it repeats it within 5 points 78% (Haiku), 88% (Sonnet) and 95% (Opus) of the time.
 - When the first answer is hidden, the shares fall to 25%, 35% and 65%.
-- So the apparent stability is partly memory in every model. Opus is the most stable without it.
+- So in every model, the repeated answer leans partly on the visible first answer. Opus is the most stable without it.
 
-**The "no format-free credence" finding weakens sharply as the model gets stronger.**
+**On Sonnet, one credence is partly usable (F′); on Opus, once its arm was completed (D49), one credence is usable by F′, though on both the held-out-repeats test is undecided.**
 - Haiku, re-analysed on the same 80 statements, clearly fails the one-credence test.
 - Sonnet's formats disagree beyond what one credence can absorb on 92% of statements. But one extreme statement pulls the interval across zero, so the pre-registered reading is *mixed*.
 - On test F′, one credence predicts a left-out format from the other five about two-thirds as well as that format predicts itself (Q = 0.69 [0.53, 0.82], *partial*). Haiku's Q on the same 80 statements is 0.29.
-- Opus's run was stopped by its budget after 26 statements. On those, one credence per statement does as well as one per format (ΔLL +0.42 [−1.83, +2.69]), and its formats agree closely (Kendall's W 0.86, against 0.71 for Sonnet and 0.54 for Haiku).
-- So the stronger the model, the more its different ways of answering look like readings of one belief. That matches Smolin & Wilder's (2026) finding for other capable models.
+- Opus's run was stopped by its budget after 26 statements. On those, the test was undecided (ΔLL +0.42 [−1.83, +2.69], *mixed*), though its formats ranked the statements closely alike (Kendall's W 0.86, against 0.71 for Sonnet and 0.54 for Haiku).
+- **Update (D49, after this summary was written):** Opus's arm was completed to 68 of 80 statements (`results/mm-gm3b-opus-completion.md`). The held-out-repeats test is still *mixed* (ΔLL +1.90 [−0.82, +4.65]), and test F′ gives Q = 0.94 [0.90, 0.97], *a usable single belief*.
+- Across these three models, the formats agree more for the stronger models (item-matched Kendall's W on Opus's 68 statements: 0.56, 0.76 and 0.87, exploratory; F′ Q 0.29 and 0.69 on 80 statements, 0.94 on Opus's 68). That matches Smolin & Wilder's (2026) finding for other capable models.
 
 **What this means for the paper.**
-- Its claim about self-report (Section 4.4) holds on all three models.
-- Its claim that the record conditions later answers (Section 4.2's memory result) holds on all three.
-- Its claim that the question alone constructs the judgment holds on Sonnet. On Opus it is untested at useful power.
-- Its strongest claim, that there is no format-free credence (Section 4.5), is a claim about Haiku, and to a lesser degree Sonnet. It should not be stated for language models in general. On Opus, the evidence available points the other way.
+- On its claim about self-report (Section 4.4), no self-advantage was detected on any of the three models.
+- Its claim that the record conditions later answers (Section 4.2) holds on all three: hiding the first answer lowers repeat agreement on every model.
+- Its claim that the question alone changes the judgment holds on Sonnet (*question-driven*). On Opus it is untested at useful power.
+- Its strongest claim, that there is no format-free credence (Section 4.5), is a claim about Haiku, and to a lesser degree Sonnet. It should not be stated for language models in general. On Opus the held-out-repeats test is undecided, on the 26 claims run here and on the 68 of the completion (D49); by D49's frozen F′ rule the claim is contradicted there (D50).
 
 ## Budget
 

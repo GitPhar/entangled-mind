@@ -8,10 +8,10 @@ Pre-registered in `experiments/bm7-serial-position.md` (D41), committed before t
 
 **What we found.**
 - **No U-shape**, so the LCA survives this test.
-- **The weights are small.** Each position moves the final verdict by only 2–4 points across the full range of the model's own sub-rating. Within a question, the verdict barely tracks the sub-ratings the model just gave.
+- **The weights are small.** Each position moves the final verdict by only 2–4 points per 50 points of the model's own sub-rating (4–9 points across its full range). Within a question, the verdict barely tracks the sub-ratings the model just gave.
 - **No reliable slope with position.** The weights drift slightly downward, a faint first-heavy pattern (+2.3 [−1.6, +7.3]). That is the opposite of the last-heavy pattern experiment 5's fitted belief-adjustment model implies, but it is not reliable.
 
-**What it means.** The shape of the weighting doesn't discriminate between accounts here. The notable result is how weakly the verdict depends on the model's own stated sub-ratings. That fits direction 2: the questions being asked matter more than the numbers the model gives in answer to them.
+**What it means.** The shape of the weighting doesn't discriminate between accounts here. The notable result is how weakly the verdict depends on the model's own stated sub-ratings.
 
 ## Weight of each position on the final main rating
 

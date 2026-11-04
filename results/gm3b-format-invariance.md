@@ -20,22 +20,23 @@ Each was scored on repeats it had not been fitted on.
 
 **What we found.** There is no single belief to read out.
 - **The separate-belief model predicts held-out answers far better** on 86% of the statements, by a wide margin: +19.4 log-likelihood units per statement [+16.5, +22.1].
-- **Disagreement grows with the formats compared.** Taking any two formats, the order in which they rank the statements agrees only moderately (rank correlations 0.37–0.74). Overall agreement across all six is W = 0.56.
-- **The rating and the other formats often order the same two statements differently.** For 20–34% of statement pairs, the 0–100 rating and another format put them in opposite orders.
+- Taking any two formats, the order in which they rank the statements agrees only moderately (rank correlations 0.37–0.74). Overall agreement across all six is W = 0.56.
+- **The rating and the other formats often order the same two statements differently.** For 12–25% of statement pairs (20–30% of the pairs both formats separate), the 0–100 rating and another format put them in opposite orders.
 - **No fixed distortion explains that.** No one-to-one mapping can turn one ordering into another. "Statement A is likelier than B" in one format becomes "B is likelier than A" in another.
 - **The coin comparison** is the most out of line: the model picks the statement over the coin 79% of the time, when its average 0–100 rating is 55.
 
-**What it means.** On these statements, Haiku's "credence" is put together by the question format. The question is not reading a stored number. This is the gold map's overturning direction, which it had put at 0.25 after Smolin & Wilder (2026), who found single beliefs fit other capable models well.
+**What it means.** On these statements, no single credence reproduces Haiku's answers in all six formats. This is the gold map's overturning direction, which it had put at 0.25 after Smolin & Wilder (2026), who found single beliefs fit other capable models well.
 
 Two things could explain the difference:
 - **The material.** Their statements were standalone cases. Ours are the model's own contested claims about hard questions, where it may simply have no settled view.
 - **The model.** Claude was not among the models they tested.
 
-**Noise baseline (computed after the run, not pre-registered).** Is the reordering more than repeat noise? Compare one half of a format's repeats with the other half of the same format: they order statement pairs differently only 4–8% of the time. Compare the 0–100 rating's even repeats with another format's odd repeats, the same amount of data, and the figure is 21–35%. The cross-format reordering is about four to six times the noise.
+**Noise baseline (computed after the run, not pre-registered).** Is the reordering more than repeat noise? Compare one half of a format's repeats with the other half of the same format: they put only 1–5% of statement pairs in opposite orders. Compare the 0–100 rating's even repeats with another format's odd repeats, the same amount of data, and the figure is 11–25%. The cross-format reordering is about five to ten times the noise. (An earlier version reported 4–8% and 21–35%; those are the (1 − τ_b)/2 index, not shares of pairs.)
 
 **Caveats.**
 - **Two different criteria.** The test compares on held-out *repeats*. Smolin & Wilder judged usefulness on held-out *framings*. Haiku's repeats vary little, so any reproducible statement-by-format deviation favours the separate-belief model, even if one belief would still predict a new format reasonably well. "No single credence" holds by the pre-registered rule. It does not show that a single latent is useless, and it does not contradict Smolin & Wilder. A like-for-like follow-up would predict each left-out format from the other five. That would need its own pre-registration. (Point raised by the literature session.)
 - One model (Haiku), one context per statement.
+- **The per-format table below comes from an under-converged L1 fit** (its objective is at least 9.5 below the optimum, per the audit), so the by-format ΔLL and slopes depend on the optimiser. The headline survives an independent refit (+19.6 [+16.1, +22.9], 87% of claims).
 - Some formats, such as the coin comparison, may carry their own response biases. The per-format link absorbs any bias that is monotone, so a monotone bias is not the explanation. The ranking disagreements are.
 
 ## One credence (L1) against one credence per format (L6), held-out repeats
@@ -77,7 +78,7 @@ Two things could explain the difference:
 | pairwise vs coin – verbal 7-point | +0.49 |
 | frequency /100 – verbal 7-point | +0.52 |
 
-| format | share of claim pairs ordered differently from the 0–100 rating |
+| format | (1 − τ_b)/2 against the 0–100 rating (a discordance index, not a share of pairs) |
 |---|---|
 | yes/no | 26% |
 | bet | 27% |

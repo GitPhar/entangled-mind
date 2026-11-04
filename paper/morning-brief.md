@@ -2,7 +2,7 @@
 
 Written 2026-11-04 (America/Denver) at the end of the unattended overnight run.
 - **What ran:** six gold-map directions, then five biomimetic-map tests, all at Sean's request.
-- **Rules:** each was pre-registered in its own commit before its archive was opened or its first call. Every design used one scale direction (0 = certainly false, 100 = certainly true). Stop-on-refusal applied to every call.
+- **Rules:** each was pre-registered in its own commit before its analysis or first call; five reanalyse archives already opened in earlier analyses. Every new design used one scale direction (0 = certainly false, 100 = certainly true); direction 3's free look compares the two by design. Stop-on-refusal applied to every call.
 - **No call was refused.**
 - **Spend:** about **$4.2** in API calls (recorded $4.17, plus at most $0.20 lost in direction 1's crash), broken down in the technical table at the end. No QPU time.
 - **Updated later on 2026-11-04** with the three-run robustness wave (results 12–14, $2.18, no refusal) and the Sonnet and Opus replications from branch `multi-model` (see "How far it generalises").
@@ -11,20 +11,20 @@ Written 2026-11-04 (America/Denver) at the end of the unattended overnight run.
 
 **The question for the night.** When we ask the model how likely something is, are we reading out a belief it holds, or is the answer put together by the act of asking?
 
-**Mostly the second.** The model's numbers are built at the moment of asking, from three ingredients:
+**Mostly the second, on our reading.** The model's numbers behave as if built at the moment of asking, from three ingredients:
 - the question that is put to it;
 - the format the question is asked in;
 - the model's own earlier answers sitting in the conversation.
 
-There is no stored, format-free credence behind them that the different questions all read out. The model's sense of whether its *answer* is right is also not privileged: a stronger model reading the same answer judges it better than its author does.
+On Haiku, no single credence explains the different questions' answers; one fitted on five formats recovers only about 40% of the sixth's reproducible answer. The model's sense of whether its *answer* is right is also not privileged: a stronger model reading the same answer judges it better than its author does.
 
 **After the robustness wave.**
 - **The question finding survives on 40 items.** The question alone carries roughly the whole order effect, spread across items.
 - **Format-free belief is the smaller part on Haiku.** One belief predicts a left-out format only 39% as well as that format predicts itself.
-- **The model is bound to its own answers.** Its own planted answers bind it at every distance and after intervening turns, while another person's are ignored.
-- **The format finding is specific to Haiku**, and partly to Sonnet. Opus's formats agree closely enough to read as one belief. The self-report and own-record findings hold on all three models.
+- **The model leans on its own answers.** Numbers planted as its own answer pull its re-rating at every distance tested and after three filler turns, while the same numbers credited to another person, in a differently worded prompt, have no reliable pull.
+- **The format finding is specific to Haiku**, and partly to Sonnet. On Opus's 68 statements, one belief fitted on five formats predicts the sixth at 94% of its ceiling (Q = 0.94 [0.90, 0.97], *a usable single belief*, D49), though the stricter held-out-repeats test is undecided (*mixed*). The own-record finding holds on all three models, and no self-advantage was detected on any of them.
 
-**What is stable is narrower than a belief.** Within a fixed prompt the answers repeat closely. The model reliably picks out which of its claims bear on a question. And its probability ratings combine in a way that cancels its own fallacies. Those are stable dispositions in how it answers. They are not a number it holds and reports.
+**What is stable is narrower than a belief.** Within a fixed prompt the answers repeat closely. Offered its own claims to check, the model picks the same one on repeats (87%), and beats chance for claims that bear strongly on the question. And its probability ratings combine in a way that nearly cancels its own fallacies (equivalence undetermined). Those are stable dispositions in how it answers. They are not a number it holds and reports.
 
 ## What each test found, in plain English
 
@@ -33,89 +33,88 @@ There is no stored, format-free credence behind them that the different question
 1. **Asking changes the answer (direction 9, $0).** In experiment 5's archived conversations, putting an earlier question changes later answers in 5 of 6 kinds of comparison.
    - Example: one sub-question asked first moves the main rating by about 12 points, against 3 from noise.
    - The exception: a midway yes/no choice in place of a filler turn has no detectable effect.
-   - Because the model's whole state is its conversation, which can be copied, it always has a definite state. So these effects measure how much asking *disturbs* it. They are not evidence that it had no answer before. This holds for every quantum-cognition test run on a language model, ours included.
+   - Because the model's whole state is its conversation, which can be copied, it always has a definite state. So these effects measure how much asking *disturbs* it. They are not evidence that it had no answer before. This holds for every sequential test run on a language model through its conversation, ours included.
    - Files: `results/gm9-nsit.md`; `paper/clonable-minds.md`.
 
-2. **The scale-flip slip is just a slip (direction 3's free look, $0).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall.
-   - Which items it misread tells us nothing about which ones it gets wrong: AUROC 0.48, chance. Its stated confidence on the same items predicts errors at 0.75.
+2. **The scale-flip gap shows no detectable link to errors: no evidence either way (direction 3's free look, $0).** In experiment 5 the model misread a reversed 0–100 scale on many items: a 37-point gap overall.
+   - Which items it misread shows no detectable relation to which ones it gets wrong: AUROC 0.48 [0.28, 0.66], so only a large relation is ruled out. Its stated confidence on the same items predicts errors at 0.75.
    - File: `results/gm3a-anchor-gap.md`.
 
 3. **No privileged self-knowledge (direction 1, $2.82).** Haiku and Sonnet each rated their confidence in their own and the other's answers to 298 hard questions, with an identical prompt.
    - Being the author does not help. Sonnet spots Haiku's errors better than Haiku does (AUROC 0.93 against 0.85).
    - With each judge's overall skill cancelled out, the author's advantage is slightly *negative*: −0.055 [−0.103, −0.007].
-   - Paraphrasing the answers, or saying "your answer", changes nothing.
-   - So the model's best error signal is good reading of the answer text, not access to anything inside.
+   - Paraphrasing the answers, or saying "your answer", makes no detectable difference overall.
+   - So there is no sign that authorship adds anything to the error signal beyond what a capable reader of the answer finds; this design does not test access to internal state.
    - File: `results/gm1-self-knowledge.md`.
 
 4. **The question itself changes the judgment, and the model leans on its own record (direction 2, $0.55).** We edited the transcript between turns: the model's earlier ratings were shown, hidden, or swapped for numbers 15 points higher or lower.
-   - **Hidden answers:** the order of the questions still changes the verdict, and the order effect gets larger, not smaller: 16.7 points against 8.7. Being asked, in a given order, changes the judgment even when the model can't see what it answered.
+   - **Hidden answers:** the order of the questions still changes the verdict (16.7 points hidden against 8.7 shown on these 10 items, mostly from h191; on all 40 items 12.0 against 9.8, result 12). Being asked, in a given order, changes the judgment even when the model can't see what it answered.
    - **Planted numbers** pull the later ratings toward themselves.
-   - **Memory, not stability:** the model's famous consistency (repeating its main rating within 5 points 81% of the time) drops to 23% when it can't see its first answer.
+   - **The record holds it steady:** the model repeats its main rating within 5 points 81% of the time after a chain of questions, but only 23% when it can't see its first answer (fresh first ratings agree 74% of the time).
    - File: `results/gm2-self-conditioning.md`.
 
 5. **No single credence across ways of asking (direction 3, $0.41).** The same 160 statements were asked six ways: a 0–100 rating, yes/no, a bet, against a coin toss, "how many out of 100", and a verbal scale.
    - A separate belief per format predicts held-out answers far better than one belief read through six fixed lenses, on 86% of statements.
-   - The formats put pairs of statements in opposite orders 21–35% of the time, against 4–8% between two halves of the same format.
+   - The formats put 11–25% of statement pairs in opposite orders, against 1–5% between two halves of the same format.
    - The test compares on held-out repeats rather than held-out formats, so it does not show that one latent number is *useless* (literature-session caveat).
    - File: `results/gm3b-format-invariance.md`.
 
-6. **Evidence-seeking is mixed (direction 4, $0.11).** Offered four of its own claims to check, the model consistently (87%) picks ones that bear strongly on its question, and avoids the most uncertain-sounding one.
+6. **Evidence-seeking is mixed (direction 4, $0.11).** Offered four of its own claims to check, the model picks the same claim 87% of the time, beats chance for claims that bear strongly on its question, and avoids the most uncertain-sounding one.
    - It cannot be told apart whether it prefers the *informative* check or the one that *supports its own answer*. Where the two differ, it leans confirmatory, but not reliably.
    - File: `results/gm4-evidence-seeking.md`.
 
 ### The five biomimetic tests (Sean's list, run with the revision-2 criteria of `paper/biomimetic-map.md`, D40)
 
-7. **No confirmation bias toward another person's number ($0).** In run 3's archived calls, the model takes up an estimate no more when it agrees with its own side. It *accepts* agreeing estimates less often. File: `results/bm3-confirmation.md`.
+7. **No confirmation bias detected toward another person's number ($0).** In run 3's archived calls, the model shows no detectable extra uptake of an estimate that agrees with its own side (β₁ −0.18 [−0.83, +0.28]). Accept rates hardly differ (9.7% against 11.3%). File: `results/bm3-confirmation.md`.
 
-8. **No U-shape in how the evidence is weighted ($0).** The competing-accumulator account survives. The striking part: the model's final verdict barely tracks the four sub-ratings it just gave, at 2–4 points each. File: `results/bm7-serial-position.md`.
+8. **No U-shape detected in how the evidence is weighted ($0).** The competing-accumulator account survives. The striking part: the model's final verdict barely tracks the four sub-ratings it just gave, at 2–4 points per 50 points of sub-rating. File: `results/bm7-serial-position.md`.
 
-9. **Assimilation to its own last number ($0).** After rating a claim, the model's main rating moves about a quarter of the way toward the number it just gave, beyond what the claim's content implies. This replicates on the separate run-2 conversations. File: `results/bm9-contrast.md`.
+9. **Assimilation after a sub-question ($0).** After rating a sub-claim, the shift in the main rating rises with the sub-claim's level (β +0.27), mostly because the main rating is less extreme after a sub-question; a direct pull toward the sub-claim's number is not separately detectable. This replicates on the separate run-2 conversations. File: `results/bm9-contrast.md`.
 
-10. **Fallacies that cancel ($0.05).** The model commits the conjunction fallacy on 8 of 16 vignettes, yet P(A) + P(B) − P(A and B) − P(A or B) comes out near zero (−0.03), with no item-by-item slope.
-    - That is the signature of the original "probability theory plus noise" model.
+10. **Fallacies that nearly cancel ($0.05).** The model commits the conjunction fallacy on 8 of 16 vignettes, yet P(A) + P(B) − P(A and B) − P(A or B) comes out near zero (−0.03 [−0.07, +0.00]; equivalence undetermined), with no detectable item-by-item slope (+0.02 [−0.17, +0.16]).
     - It does not fit coherent probability, which can't produce the fallacy.
     - It does not fit the later sampler versions, which need the slope.
     - File: `results/bm2-sampling-identity.md`.
 
-11. **Its own numbers bind it; other people's don't (source dependence, $0.24).** We took run 3's numbers, which the model had ignored or pushed against when they came from "another person", and planted them as the model's *own* earlier answer.
+11. **Its own numbers pull it far more than other people's (source dependence, $0.24).** We took run 3's numbers, which the model had ignored or pushed against when they came from "another person", and planted them as the model's *own* earlier answer.
     - Now they pull its re-rating strongly: a slope of 0.42 against 0.05, a difference of +0.37 [+0.17, +0.57].
     - In 42% of conversations it simply repeats the planted number.
     - Where another person's higher number had pushed it lower, its "own" version pulls it up, on 6 of 7 item-orders.
-    - The model treats its own past answers as commitments.
+    - This fits the model treating its own past answers as commitments, but the own and other prompts also differ in wording, so the test does not show why.
     - File: `results/bm1-serial-dependence.md`.
 
 ### The robustness wave (later on 2026-11-04, Sean's list; each pre-registered in its own commit)
 
 12. **The question-alone finding holds on all 40 items, but is smaller than it first looked (D45, $1.68).** Direction 2's design was run on the other 30 experiment-5 items and pooled with last night's 10.
     - With the model's earlier answers hidden, the order of the questions still moves the final verdict by about as much as with them shown: R = 1.23 [0.75, 2.02], still *question-driven*. It is 0.99 on the 30 new items alone, and 0.99 without the two items that dominated last night.
-    - **Revised from result 4:** the hidden-answer order effect is *not* larger than the shown one. Last night's 16.7 against 8.7 came mostly from one item (h191). Across 40 items the two are 12.0 and 9.8 points.
+    - **Revised from result 4:** the hidden-answer order effect is *not detectably* larger than the shown one. Last night's 16.7 against 8.7 came mostly from one item (h191). Across 40 items the two are 12.0 and 9.8 points.
     - The effect is broad (82% of items), and the placeholder turn adds no noise of its own (within-order SD 5.1 shown, 5.4 hidden).
-    - Memory still makes the model look stable: 86% repeat agreement shown against 36% hidden. A planted first answer pulls the final one 0.85 points per point.
+    - The visible record still makes the model look stable: 86% repeat agreement shown against 36% hidden. A planted first answer pulls the final one 0.85 points per point.
     - File: `results/gm2b-self-conditioning-40.md`.
 
-13. **One belief recovers little of each format (D46, $0; the test recommended below).** For each of the six formats, one belief per statement was fitted on the other five and used to predict it.
+13. **One belief recovers well under half of each format (D46, $0; the test recommended below).** For each of the six formats, one belief per statement was fitted on the other five and used to predict it.
     - It recovers 39% [30%, 50%] of what that format reproducibly says (mean R² 0.37, against the formats' own split-half ceilings of 0.88–0.97).
     - The pre-registered reading is *little format-free belief*, though the interval's top end (0.499) only just misses the 0.5 line for "partial".
     - The coin comparison is the least predictable (17%), the 0–100 rating the most (53%).
     - File: `results/gm3c-heldout-format.md`.
 
-14. **Its own answers bind it at every distance and over time; other people's don't (D47, $0.50).** The model's own planted answer was set 10, 30 or 60 points from its view and compared with the same number credited to another person. In a further condition, three "continue" turns were inserted before the re-rating.
+14. **The own-answer framing beats the other-person framing at every distance tested, and after three filler turns (D47, $0.50).** The model's own planted answer was set 10, 30 or 60 points from its view and compared with the same number credited to another person. In a further condition, three "continue" turns were inserted before the re-rating.
     - **Own beats other at every distance:** the model takes up 71%, 44% and 21% of its own answer at 10, 30 and 60 points, against +19%, −11% and −13% of another person's. Pooled, own minus other is +0.46 [+0.21, +0.84].
-    - **The pull has a limit.** The movement toward its own answer peaks around 35 points away and shrinks beyond that, but never reverses. This test cannot tell whether that is tuning or the model discarding an implausible "own" answer.
-    - **It does not fade.** After three intervening turns the uptake is 57%, if anything higher than with none (44%; difference −0.13 [−0.25, −0.00]).
-    - **Reading:** *self-consistency*. This is a commitment to its visible answers, not generic attraction to recent numbers. The $0.50 cap cut the lag condition to 17 of its 20 repeats (D47a).
+    - **The pull has a limit.** The movement toward its own answer is smaller at 60 points than at 30, but never reverses. This test cannot tell whether that is tuning or the model discarding an implausible "own" answer.
+    - **After three filler turns.** The uptake is 57%, if anything higher than with none (44%; difference −0.13 [−0.25, −0.00]).
+    - **Reading:** *self-consistency*. The two framings still differ in wording, so this does not isolate a commitment mechanism. The $0.50 cap cut the lag condition to 17 of its 20 repeats (D47a).
     - File: `results/bm0-source-distance-lag.md`.
 
 ### How far it generalises: Sonnet and Opus (branch `multi-model`, merged; DM1–DM6, $16.28)
 
 Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, at reduced scale.
-- **No privileged self-knowledge holds on all three models.** Opus spots Sonnet's errors better than Sonnet does (0.96 against 0.90). The judge × author interaction is −0.045 [−0.107, +0.017].
+- **No self-advantage was detected on any of the three models.** Opus spots Sonnet's errors better than Sonnet does (0.96 against 0.90). The judge × author interaction is −0.045 [−0.107, +0.017].
 - **Leaning on its own record holds on all three.** Repeat agreement, shown against hidden, is 78% → 25% (Haiku), 88% → 35% (Sonnet) and 95% → 65% (Opus).
 - **No format-free credence holds for Haiku, partly for Sonnet, and not for Opus.**
   - Agreement across the six formats rises with model strength: Kendall's W is 0.54, 0.71 and 0.86.
   - On the same 80 statements, one belief recovers 29% of a left-out format on Haiku and 69% on Sonnet.
-  - On Opus's 26 statements (budget-stopped), one belief per statement fits as well as one per format.
-- **The question alone constructs the judgment on Sonnet** (R = 2.95). On Opus the test is not decisive.
+  - On Opus's 68 statements (completed in D49), one belief recovers 94% of a left-out format (Q = 0.94 [0.90, 0.97], *a usable single belief*), while the held-out-repeats test is undecided (ΔLL +1.90 [−0.82, +4.65], *mixed*).
+- **On Sonnet the order effect survives hiding the record** (R = 2.95 [0.99, 12.55]; 2 items carry most of it). On Opus the test is not decisive.
 - **The paper.** `paper/no-credence-to-read.md` was narrowed to these limits (D48, new Section 4.6).
 
 ## What it means: a belief to read, or an answer built by the asking?
@@ -124,27 +123,26 @@ Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, 
 - **One:** asking disturbs the answer (1).
 - **Two:** the question alone does it, without the record of the answer (4).
 - **Three:** the "same" credence comes out in different orders depending on how it is asked (5).
-- **Four:** the model pulls each new number toward the last one it gave (4, 9), and binds itself to its own earlier answers far more than to anyone else's (11). Its apparent stability is consistency with its own transcript (4).
-- **Five:** its confidence about being right carries nothing that a reader of its answer lacks (3).
+- **Four:** the model's re-ratings follow numbers in its own turn far more than numbers credited to another person under different wording (11).
+- **Five:** being the author gives its confidence about being right no detectable advantage over a capable reader of its answer (3).
 
 **What points to something stable.**
 - Within one prompt, answers repeat closely.
-- Its scale-reading slips are noise, unrelated to its errors (2).
-- It consistently picks the claims that matter to a question (6).
-- Its ratings obey a noise-cancelling identity despite its fallacies (10).
-- It resists other people's numbers rather than absorbing them (7, 11).
+- Its scale-reading gap shows no detectable relation to its errors (2; AUROC 0.48 [0.28, 0.66]).
+- It picks the same claim to check on repeats, and beats chance for claims that bear strongly on the question (6).
+- Its ratings nearly satisfy a noise-cancelling identity despite its fallacies (10; Z = −0.03 [−0.07, +0.00], equivalence undetermined).
+- It largely ignores other people's numbers (7 and 11, both from run 3's archived calls; 14 finds them neither taken up nor resisted).
 
-**The two fit together.** There is a stable *generator*: a fixed way of turning a prompt and a transcript into a number, sensitive to relevance and roughly coherent in how ratings combine. There is no stable *credence* that the generator merely reports. So what the project's quantum-cognition tests have been measuring is the generator's sensitivity to context. That sensitivity is large, classical, and dominated by the questions themselves and the model's own earlier outputs.
+**The two fit together, on our reading.** There is a stable *generator*: a fixed way of turning a prompt and a transcript into a number, sensitive to relevance and roughly coherent in how ratings combine. On Haiku there is no stable *credence* that the generator merely reports. So what the project's quantum-cognition tests have been measuring is the generator's sensitivity to context. That sensitivity is large, classical, and dominated by the questions themselves and the model's own earlier outputs.
 
 **What the robustness wave and the replications change.**
 - **The construction-by-asking reading is firmer on Haiku.**
   - The question effect is broad, not two items (12).
   - The formats share only the smaller part of their answers (13).
-  - The model's own-record binding behaves like a commitment, not a fading echo (14).
 - **"No credence to read" is a finding about Haiku, not about language models.**
-  - On Sonnet a single belief is partly usable. On Opus the six formats read as one.
-  - What travels to the stronger models is the transcript part: answers lean on the model's own visible record, and self-report adds nothing a reader lacks.
-  - So the stronger the model, the more there is a belief to read. In every model tested, how that belief is reported still depends on the conversation it is asked in.
+  - On Sonnet a single belief is partly usable. On Opus's 68 statements a single belief predicts each left-out format at 94% of its ceiling (*a usable single belief*, D49), though the held-out-repeats test is undecided (*mixed*).
+  - What travels to the stronger models is the transcript part: answers lean on the model's own visible record, and self-report shows no detectable advantage over a reader of the answer.
+  - So, across these three models, the stronger model shows more format-free agreement (item-matched Kendall's W 0.56, 0.76 and 0.87, exploratory); three models are too few to call it a trend. In every model tested, how that belief is reported still depends on the conversation it is asked in.
 
 ## The one next test I would recommend
 
@@ -161,7 +159,7 @@ Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, 
 **Held-out-format prediction on the archived six-format data ($0).**
 - **Design:** fit the one-credence model on five formats and predict the sixth, for each format in turn. Compare that prediction with the sixth format's own split-half reliability, the noise ceiling.
 - **Why this one:**
-  - It is the like-for-like comparison with Smolin & Wilder (2026), who found single latents useful for other models.
+  - It applies the usefulness criterion of Smolin & Wilder (2026), who found single latents useful for other models.
   - It decides between two readings of last night's strongest result: "the credence is there but bent by each format" or "there is nothing format-free to recover".
   - It costs nothing and needs no new calls.
   - It must be pre-registered before the fit is run.

@@ -307,7 +307,7 @@ def write_md(r):
     for k, v in r["spearman"].items():
         a, b = k.split("-")
         lines.append(f"| {NAMES[a]} – {NAMES[b]} | {v:+.2f} |")
-    lines += ["", "| format | share of claim pairs ordered differently from the 0–100 rating |", "|---|---|"]
+    lines += ["", "| format | (1 − τ_b)/2 against the 0–100 rating (a discordance index, not a share of pairs) |", "|---|---|"]
     for f, v in r["discordant_vs_F1"].items():
         lines.append(f"| {NAMES[f]} | {v:.0%} |")
     lines += ["", f"## Pre-registered reading: **{r['reading']}**"]

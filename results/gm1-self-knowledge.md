@@ -6,16 +6,16 @@ Pre-registered in `experiments/gm1-self-knowledge.md` (D36), committed before an
 
 **The question.** The model's own stated confidence is the project's best signal of when it is wrong. Is that because the model knows something private about its own weak spots, or does it just read its answer well? We had each model, Haiku and Sonnet, rate its confidence in both its own and the other model's answers to the same 298 hard questions. Every rating used the same prompt ("an answer another assistant gave"), so authorship was the only difference.
 
-**What we found.** Being the author does not help. If anything it hurts slightly.
+**What we found.** Being the author does not help.
 - **Haiku's answers:** Sonnet spots Haiku's mistakes better than Haiku does (AUROC 0.93 against 0.85).
 - **Sonnet's answers:** Sonnet is slightly better than Haiku (0.90 against 0.87).
-- **The combined self-advantage**, which cancels out the fact that Sonnet is the stronger judge, is slightly *negative*: −0.055 [−0.103, −0.007]. Being the author makes a model a slightly worse judge of its own errors, not a better one.
-- **The questions where exactly one model got it right** (26 of them) are where privileged knowledge should show most. The combined advantage there is −0.14 [−0.50, +0.23], with no sign of self-advantage. On those questions Haiku is close to chance at judging its own answers (0.43) while Sonnet judges them well (0.85).
-- **Saying "an answer you gave"** instead of "another assistant" makes no difference (−0.01 and +0.01).
+- **The combined self-advantage**, which cancels out the fact that Sonnet is the stronger judge, is slightly *negative*: −0.055 [−0.103, −0.007]. The negative sign comes from questions where the other model knew the answer; it reflects the judge's knowledge, not a cost of authorship.
+- **The questions where exactly one model got it right** (26 of them) are where privileged knowledge should show most. The combined advantage there is −0.14 [−0.50, +0.23], so no self-advantage was detected. On those questions Haiku is close to chance at judging its own answers (0.43) while Sonnet judges them well (0.85).
+- **Saying "an answer you gave"** instead of "another assistant" makes no difference on all questions (−0.01 and +0.01), though on the 26 disagreement questions Sonnet's self cell falls from 0.87 to 0.71 (archived ratings from an earlier run).
 - **Paraphrasing the answers** leaves the picture unchanged: −0.04 on the paraphrased set.
-- **Recognition.** Haiku cannot recognise its own writing (0.51 on originals), so self-recognition could not have helped in the first place.
+- **Recognition.** Haiku shows no detectable recognition of its own writing (0.51 [0.36, 0.67] on 30 + 30 originals); Sonnet's recognition check did not run.
 
-**What it means.** The model's confidence is a good reading of the answer, not privileged access. A stronger model reading the same text does as well or better. On this test, the 0.82–0.91 error signal is "text-reading". This matches Xiao et al.'s finding that the strongest model is the best judge of everyone's answers.
+**What it means.** On this design, where every rating is a fresh call that sees only the answer, being the model that wrote the answer adds nothing detectable. A stronger model reading the same text does as well or better. On this test, the 0.82–0.91 error signal is matched or beaten by another model reading the same answer, especially one that knows the right answer. This matches Xiao et al.'s finding that the strongest model is the best judge of everyone's answers.
 
 **What was cut.**
 - The run cost more per Sonnet call than planned, and one call crashed the runner (DEVIATIONS D36, amendments 1 and 2). As a result, the paraphrase arm covers 60 of its 80 planned questions, and Sonnet's recognition check did not run.

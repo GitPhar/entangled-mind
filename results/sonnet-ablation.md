@@ -11,7 +11,7 @@ F2+ fit: train AUROC 0.839, validation 0.842; s_theta=0.903, k_sup=0.909, k_con=
 | F2 (frozen v2) | 9 | 0.84 [0.78, 0.89] | 0.82 [0.75, 0.88] |
 | F2+: F2 with A2's tilted-readout marginal | 10 | 0.85 [0.77, 0.91] | 0.90 [0.84, 0.95] |
 
-Paired bootstrap AUROC differences (2,000 stratified resamples):
+Paired bootstrap AUROC differences (1,000 stratified resamples; Addendum D specified 2,000, and the rule outcomes are the same at 2,000):
 
 | difference | Haiku locked v2 test (209) | Sonnet hard pool (298) |
 |---|---|---|
@@ -25,14 +25,14 @@ Paired bootstrap AUROC differences (2,000 stratified resamples):
 ## Reading
 
 - **Pre-registered outcome 1:** the Sonnet edge is single-claim geometry, and a classical model carries it.
-  - **Couplings do not matter.** Setting A2's couplings to exactly 0 (a product state of tilted single-claim qubits) changes AUROC by −0.009 on Haiku's locked test set and −0.006 on Sonnet's hard pool. Both intervals contain 0.
-  - **A classical twin with the same readout matches A2.** F2+ is F2 whose prior marginal is P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2: what an uncoupled qubit gives when measured along an axis tilted by α. It matches A2 on both sets (+0.015 and +0.004, intervals containing 0). On Sonnet's items it scores 0.90, the same as A2.
+  - **No effect of the couplings was detected.** Setting A2's couplings to exactly 0 (a product state of tilted single-claim qubits) changes AUROC by −0.009 on Haiku's locked test set and −0.006 on Sonnet's hard pool. Both intervals contain 0.
+  - **A classical twin with the same readout is not detectably different from A2.** F2+ is F2 whose prior marginal is P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2: what an uncoupled qubit gives when measured along an axis tilted by α. No difference from A2 is detected on either set (+0.015 and +0.004, intervals containing 0). On Sonnet's items it scores 0.90, the same as A2.
 - **What the geometry does.** The tilt mixes each claim's uncommitted component (cos θ, large when confidence is low) into its vote. Low-confidence claims are pushed toward one answer, which sharpens the conflict score on items whose deliberation contains weakly held claims. It is a per-claim reweighting by confidence, with no superposition across claims, no interference between them and no entanglement.
-- **F2+ beats plain F2 on Sonnet's items** (+0.082 [+0.045, +0.120]), which accounts for the whole A2 − F2 gap there (+0.078). On Haiku's locked test set, the feature adds nothing (+0.009 [−0.057, +0.065]), where A2 and F2 already tied.
+- **F2+ beats plain F2 on Sonnet's items** (+0.082 [+0.045, +0.120]), which accounts for the whole A2 − F2 gap there (+0.078). On Haiku's locked test set, the feature adds nothing detectable (+0.009 [−0.057, +0.065]), where A2 and F2 already tied.
 - **Parameter counts:** A2 has 9, A2(κ=0) has 9 with 2 pinned at 0 (7 effective), F2 has 9, and F2+ has 10. F2+ has one parameter more than A2, the readout angle that A2 already had.
 - **For the paper:** the Sonnet edge, the one positive quantum-vs-classical difference tested here, is accounted for by a classical model with the same per-claim readout.
   - The secondary edges on Haiku's run-2 held-out set (A2 − F2 = +0.108 in v2; A2.1 − F2.1 = +0.116 in v2.1) were **not** re-tested against F2+.
-  - **Closed by Addendum E (below):** the frozen F2+ scored on that set matches A2 (−0.019 [−0.073, +0.029]) and A2.1 (−0.037 [−0.089, +0.012]). So every positive quantum-vs-classical difference in the project is now accounted for by a classical model with the same per-claim readout.
+  - **Closed by Addendum E (below):** the frozen F2+ scored on that set is not detectably different from A2 (−0.019 [−0.073, +0.029]) or A2.1 (−0.037 [−0.089, +0.012]). So no quantum-vs-classical edge in error prediction survives as a significant difference against F2+: it recovers the whole Sonnet edge (1.05 [0.73, 2.50] of it) and most of Haiku's held-out edges (0.82 [0.42, 1.64] of A2's, 0.68 [0.20, 1.21] of A2.1's). All three edges are on the same hard-pool questions.
 
 ## Addendum E: the frozen F2+ on Haiku's run-2 held-out set (40 wrong, 40 right)
 

@@ -1,6 +1,6 @@
 # Pool run 1: base `claude-sonnet-5-5` (effort xhigh, adaptive thinking)
 
-127 questions processed; 10 hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; base model wrong on **0** of 117 answered. API cost $4.2440. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
+127 questions processed; 10 hit the 16,000-token cap, gave no FINAL ANSWER or failed claim extraction, and are excluded; base model wrong on **0** of 117 answered. API cost $4.2440. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
 
 No wrong items, so no test set can be formed from this run.
 

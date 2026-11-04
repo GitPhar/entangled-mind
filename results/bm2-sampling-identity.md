@@ -7,18 +7,18 @@ Pre-registered in `experiments/bm2-sampling-identity.md` (D43), committed before
 **The question.** One account of human probability judgment says estimates come from a few noisy recalled samples. Its fallacy-producing versions predict a specific pattern: the combination Z = P(A) + P(B) − P(A and B) − P(A or B) should rise item by item with P(A) + P(B) − 1. We asked the model for all four ratings on the 16 experiment-4 vignettes, 20 times each, on one scale.
 
 **What we found.**
-- **The conjunction fallacy is there.** The model rates "A and B" above the less likely of A and B on 8 of 16 items, including 6 of the 7 run-2 fallacy items. It shows the disjunction fallacy on 7.
-- **Yet Z does not follow the sampler's slope.** The slope is +0.02 [−0.17, +0.16], flat.
+- **The conjunction fallacy is there.** The mean rating of "A and B" exceeds the less likely conjunct on 8 of 16 items, but by under 1 point on 4 of them; it is clear on 4 (co05, co06, co-lin08, co01). It shows the disjunction fallacy on 7.
+- **Yet no sampler slope is detected in Z.** The slope is +0.02 [−0.17, +0.16], flat by the pre-registered rule.
 - **Z sits near zero:** −0.03 [−0.07, +0.00]. That is close to Costello & Watts' human values but not tight enough to pass the ±0.05 band.
 - **Repeat-to-repeat spread is largest for mid-scale statements** (r = −0.54). That fits a Bayesian sampler, but floor and ceiling effects predict the same.
 
 **What it means.** The model commits the classic fallacies, yet its four ratings nearly cancel in Costello & Watts' combination, with no item-by-item slope.
 - **Coherent probability** cannot produce the fallacies at all, so it is ruled out, along with any shared distortion of coherent values.
 - **The later fallacy-producing sampler versions** need the slope, and it isn't there.
-- **The original PT+N 2014 model fits best.** Its noise produces fallacies and then cancels in Z.
+- **No pre-registered account fits both facts.** Mean-level fallacies rule out coherent, affine and PT+N 2014 (whose mean is affine); the flat slope disfavours the extra-noise versions.
 - **The variance evidence points the other way.** The mid-scale peak in spread favours the Bayesian sampler over PT+N 2014, which predicts constant spread, but floors and ceilings confound that.
 
-The test separates the sampling family's variants. It does not show that the model samples.
+The slope test is flat, as pre-registered; the fallacy pattern is not explained by any account in the flat class.
 
 ## Z = P(X) + P(Y) − P(X∧Y) − P(X∨Y)
 

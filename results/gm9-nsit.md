@@ -8,7 +8,7 @@ Pre-registered in `experiments/gm9-nsit.md` (D34), committed before this analysi
 
 **What we found.** Asking an earlier question changes later answers, in 5 of the 6 kinds of comparison.
 - **One sub-question asked just before the main question** moves the main rating by about 12 points on average, against about 3 points expected from repeat-to-repeat noise. The shift goes up on some items and down on others, so it averages out to nothing overall.
-- **The main question asked first** raises the next sub-question's rating by about 8 points, in a consistent direction.
+- **The main question asked first** raises the next sub-question's rating by about 8 points on average (+8.0 [+2.7, +13.3]), though 30 of the 80 cells move the other way.
 - **All four sub-questions asked first** move the main rating by about 23 points, against 5 from noise.
 - **The main question asked at the start of a chain** lowers the main rating at the end by about 10 points, compared with chains that never asked it at the start.
 - **A midway yes/no choice, in place of a filler turn,** has no detectable effect: 5 points against 3 from noise, p = 0.16. This matches experiment 5's null on the Kvam test.

@@ -955,6 +955,66 @@ As a result, each pre-registered cell rests on 68–199 of 300 questions.
 - The self-knowledge and own-record findings, which hold on all three models.
 - The title.
 
+## D51 — The audit's cuts applied to every results, README and paper file (one pass)
+
+**Date:** 2026-11-04 (America/Denver), after the audit branch was merged (`7a5af8f`). No new data, and no statistic changed except where the audit found it wrong.
+
+**Source.** `audits/SUMMARY.md` and its 41 audit files. Each audit's "Overclaims to cut" section names a target `file:line`, quotes the sentence and gives a replacement; there are 369 entries in all, on results, README and paper files. Targets were located by their quoted text, because line numbers had drifted since the audit's base commit `0c64baa`.
+
+**Order.** The cuts were applied in the order of SUMMARY's "What the main session should cut first":
+1. nulls written as findings;
+2. mechanism words;
+3. the named README lines;
+4. the miscounts in "Numbers found wrong";
+5. experiment 5's tie, which is handled separately in D52;
+6. the D48 collision, already renumbered DP1 at the probes merge.
+
+Where several audits targeted one sentence, their replacements were composed in that order into one sentence that keeps every correction.
+
+**Counts** (per-file logs kept by the session):
+
+| | entries |
+|---|---|
+| applied as written | 273 |
+| adapted | 78 |
+| obsolete (text already rewritten by D49/D50, defect gone) | 5 |
+| left for D52 (experiment 5's verdict label) | 7 |
+| deferred to the record update (Standing section, coverage line) or to D53 | 6 |
+
+"Adapted" covers two cases:
+- two audits composed onto one sentence;
+- a replacement written before D49/D50, brought to the current state: Opus's format arm at 68 claims, F′ Q 0.94 [0.90, 0.97], DM2 *mixed*, item-matched W 0.56 / 0.76 / 0.87 (exploratory), "contradicted on Opus".
+
+**Sweep.** SUMMARY's categories 1 and 2 say "every". About 134 further instances in the same files were fixed in the same style. In each, the cited data are an interval that includes 0 or a mechanism read from a behavioural contrast, so the sentence now gives the interval or says "not detected", or states the mechanism as a reading.
+
+**Numbers corrected** (SUMMARY's "Numbers found wrong" table):
+- experiment 4 run 3: the counts become 6 of 32 item-orders, 17 of 32 at 0% accept, and 5 reliable;
+- gm3b: the "% of pairs" figures relabelled as the (1 − τ_b)/2 index. The shares in opposite order (11–25% split-half, 12–25% full data, against 1–5%) are given where a share is meant, and the under-converged L1 fit is noted;
+- bm7: 4–9 points;
+- h018's exclusion reason;
+- frame-fix-check: 15% of all items;
+- stage2-run-2b: arm F's window of 1–16;
+- sonnet-ablation: 1,000 resamples;
+- the paper's "outperforms every structural analysis" and v3's "do not differ";
+- calibration: 60 True/False questions;
+- the api-usage ledger's scope.
+
+**Writer prose changed** so that the generated parts still reproduce (prose only, no computation):
+- `gm3b_format_invariance.py` (the table header names the index);
+- `run_pool.py` (the pool-run exclusion header; the api-usage scope line);
+- `sonnet_ablation.py` (the resample count; the file is in SKIPPED).
+
+**Other changes.**
+- **No Credence paper:** the title is now "… Construct Claude Haiku's Judgments, and Partly Sonnet's". Its status line notes the few numbers taken from audit files.
+
+**Not edited: earlier DEVIATIONS entries.** The log stays as written. The audit's corrections to it are recorded here instead:
+- **D26 heading:** "fixed before any full-run data were examined" is author testimony. The analysis commit came after 606 full-run conversations existed, though before any fit or result.
+- **Pool run 4 (line 376):** "1 hit the token cap" should read "1 (h018, answered correctly) was excluded because the extractor returned 1 claim".
+- **DM6 (line 852):** "About 120" True/False questions should be 60, and the open-form exclusion was omitted.
+- **DP1's exploratory line:** the probe's +0.14 is +0.14 [−0.23, +0.46], an association not detected rather than shown absent.
+
+**Not edited: frozen files.** The pre-registrations in `experiments/*.md`, the audits themselves, and `experiments/probe-dissociation.md`'s line 44 (see D53).
+
 ---
 
 # Probes branch (`probes`): entry DP1

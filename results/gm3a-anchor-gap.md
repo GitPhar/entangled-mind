@@ -6,12 +6,12 @@ Pre-registered in `experiments/gm3a-anchor-gap.md` (D35), committed before this 
 
 **The question.** In experiment 5 the model answered the same main question on two scale directions: "0 = certainly false" and "0 = certainly true". After recoding, the two averages should agree. They differed by 37 points overall. We asked whether the items with a large gap are the ones the model gets wrong.
 
-**What we found.** They are not. The gap does not predict the model's errors:
-- **The gap:** AUROC 0.48 [0.28, 0.66]. That is chance, and the same holds on the larger set of identical first turns, at 0.47. If anything the gap is slightly larger on items the model got right (41 points) than on items it got wrong (34).
+**What we found.** No evidence either way. The gap shows no detectable relation to the model's errors, but 40 items can only detect a large one:
+- **The gap:** AUROC 0.48 [0.28, 0.66]. That is not distinguishable from chance, and the same holds on the larger set of identical first turns, at 0.47. If anything the gap is slightly larger on items the model got right (41 points) than on items it got wrong (34).
 - **The model's own stated confidence** on the same 40 items does predict errors, at 0.75 [0.58, 0.89].
 - **How extreme its anchor-(a) rating is** also predicts errors, at 0.70.
 
-**What it means.** The scale-direction gap looks like a reading slip in the reversed scale, not a sign of items where the model has no settled view. Whatever makes the model unsure of its answer, the 37-point gap is not tracking it. This is weak evidence for a stored credence: the distortion does not carry information about the model's uncertainty. With 40 items it can only rule out a large effect. The six-format run (direction 3) is the real test.
+**What it means.** The scale-direction gap looks like a reading slip in the reversed scale, not a sign of items where the model has no settled view. We could not detect the 37-point gap tracking whatever makes the model unsure of its answer. With 40 items it can only rule out a large effect. The six-format run (direction 3) is the real test.
 
 ## Results
 

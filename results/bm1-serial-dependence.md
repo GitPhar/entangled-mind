@@ -8,17 +8,17 @@ Pre-registered in `experiments/bm1-serial-dependence.md` (D44), committed before
 
 **What we found.** It matters a great deal.
 - **As its own earlier answer,** a number pulls the model's re-rating strongly. The rating moves about 0.42 of the way toward it [0.25, 0.60]. In 42% of conversations the model simply repeats the planted number.
-- **As another person's estimate,** the same number has essentially no pull: 0.05 [−0.08, +0.17].
+- **As another person's estimate,** no pull from the same number was detected: 0.05 [−0.08, +0.17].
 - **The difference** is +0.37 [+0.17, +0.57].
-- **Reversal.** Run 3 had 7 item-orders where another person's higher number made the model go *lower*. On 6 of them, the same number framed as its own answer pulls it *up*.
+- **Reversal.** On the 7 item-orders where run 3's slope was negative (two of them within 0.06 of zero), the own slope is positive on 6, about the same rate as on all 32 (27).
 
-**What it means.** The model treats its own past answers as commitments to stay consistent with. It does not treat other people's numbers that way. This matches Kumaran et al.'s finding in other models that the "stickiness" of an earlier answer disappears when it is attributed to someone else. It favours choice-dependent self-consistency over stimulus-history serial dependence, which would have the model attracted to any recent number.
+**What it means.** A number planted as the model's own answer and followed by "give your rating again" pulls the re-rating far more than the same number offered as another person's estimate under "accept or revise". The two framings differ in wording and format as well as source, so this does not isolate source. This matches Kumaran et al.'s finding in other models that the "stickiness" of an earlier answer disappears when it is attributed to someone else. It favours choice-dependent self-consistency over stimulus-history serial dependence, which would have the model attracted to any recent number.
 
-Taken with direction 2 and the assimilation result (`results/bm9-contrast.md`), a large part of the model's apparent belief stability is consistency with its own transcript.
+Taken with direction 2 and the assimilation result (`results/bm9-contrast.md`), this is consistent with the model leaning on its own transcript.
 
 **Caveats.**
 - The two conditions also differ in wording: "Please give your rating again" here, against "accept or revise" in run 3.
-- Revision 2 of the map withdrew the "sign flip by source" as a unique prediction of any mechanism. The flip seen here is a finding, not a confirmation of one.
+- Revision 2 of the map withdrew the "sign flip by source" as a unique prediction of any mechanism. The sign change on run 3's 7 negative item-orders occurs at about the base rate, so it is neither a confirmation of one nor evidence of a flip by source.
 - The distance and lag cells that would separate the accounts further were not run.
 
 ## Slope of the re-rating r₁ on the shown value A

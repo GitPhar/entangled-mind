@@ -11,7 +11,7 @@ Version 3, November 3, 2026, updated November 4 with the gold-map tests (version
 - Version 2 reported the first experiments.
 - This version reports everything on the project's `main` branch as of the evening of November 3, 2026: the re-scoring of run 2, the split analysis, the learned encodings (v2 and v2.1), experiments 3 and 4, the IBM calibration at job time, and the second-model replication, which completed the hard pool and then stopped on a second refusal.
 - It reports experiment 5, the pre-registered test of sequential, context-dependent judgment, and the two single-scale follow-ups: experiment 4 run 3 (untestable: the model resists provided first ratings) and experiment 5 run 2 (order effects survive; the QQ near-zero did not).
-- The November 4 update adds the overnight gold-map tests (Section 5.13). Each was pre-registered before its data, and each is reported as it landed.
+- The November 4 update adds the overnight gold-map tests (Section 5.13). Each was pre-registered before its analysis or first call, and each is reported as it landed.
 
 **Number conventions.**
 - **Results** are quoted verbatim from the files in `results/` of the project repository (https://github.com/GitPhar/entangled-mind).
@@ -38,46 +38,46 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
 - **The fixed encoding fails.**
   - On an 80-item test set (40 wrong, 40 right), the entangled readout scored AUROC 0.55 [0.41, 0.67].
   - The same circuit without entangling gates scored 0.68, a shuffled relation web 0.65, and a plain contradiction count 0.64.
-  - The model's own stated confidence scored 0.82 [0.71, 0.90], better than every structural arm.
+  - The model's own stated confidence scored 0.82 [0.71, 0.90], above every fixed structural arm (A–F).
   - The real relation web scored below 99% of 200 random webs of the same strengths.
 - **The learned encodings tie their classical twins.**
-  - Version 2: the learned encoding (9 parameters) scored 0.83 against 0.84 for a classical twin with the same parameters and fitting rule. Its couplings fitted small, and the fit did not depend on them.
-  - Version 2.1, which stops forcing hedging claims into camps: 0.84 against 0.82. Both fits set the new hedge term's weight to 0, and simulated hardware noise changed nothing.
+  - Version 2: the learned encoding (9 parameters) scored 0.83 against 0.84 for a classical twin with the same parameters and fitting rule. Its couplings fitted small: strong couplings lowered the fit, and zero couplings did as well as the fitted ones.
+  - Version 2.1, which stops forcing hedging claims into camps: 0.84 against 0.82. Both fits set the new hedge term's weight to 0, and simulated hardware noise changed nothing detectable (+0.000 [−0.020, +0.023]).
   - Self-reported confidence scored 0.83 on the same locked test set.
 - **Secondary transfer to a second model.** The frozen v2 models were scored offline on `claude-sonnet-5-5`'s hard-pool errors. A2 scored 0.90 against F2's 0.82, a paired +0.078 [+0.018, +0.137].
   - **A pre-registered ablation identifies the edge** (Addendum D). It is single-claim readout geometry, and a classical model carries it.
     - Setting A2's couplings to exactly 0 changes nothing: −0.006 [−0.029, +0.013].
     - A classical twin given A2's per-claim tilted readout (F2+) matches A2: 0.90, and +0.004 [−0.032, +0.042].
-  - **Sonnet's own stated confidence scores 0.91 [0.86, 0.95]**, level with A2. Self-report again matches the best structural model.
-  - **The same holds for Haiku's earlier held-out edges** (Addendum E). The frozen F2+ matches A2 and A2.1 there. Every positive quantum-vs-classical difference in error prediction is matched by a classical model with the same per-claim readout.
+  - **Sonnet's own stated confidence scores 0.91 [0.86, 0.95]**, level with A2. Self-report is again not detectably different from the best structural model (G − A2 = +0.008 [−0.061, +0.080]).
+  - **The same holds for Haiku's earlier held-out edges** (Addendum E). The frozen F2+ is not detectably different from A2 and A2.1 there. No positive quantum-vs-classical difference in error prediction is significantly larger than a classical model with the same per-claim readout achieves (F2+ recovers 1.05 [0.73, 2.50] of the Sonnet edge and 0.68 [0.20, 1.21] of the held-out A2.1 edge).
 
 **Hardware: positive, and narrow.**
-- On IBM's `ibm_fez`, a pre-registered witness certified that the encoded belief states are physically entangled: 3 of 3 items, negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
+- On IBM's `ibm_fez`, a pre-registered witness certified pairwise entanglement in the 3 most-entangled belief states (3 of 3 certified; one pair decoupled from its state), negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
 - Calibration logged at job time shows median CZ error of about 2 × 10⁻³ and median T₁ of 134–146 µs.
 - The device washed the states out more than its noise model predicts.
 
 **Sequential judgment: real order effects, no quantum signature.** The evidence for quantum cognition is about one judgment changing the next.
-- **Yes/no answers.** The model is near-deterministic: in experiment 3 it gave the same answer in all 5 runs on 85% of items, so order effects were undetectable.
+- **Yes/no answers.** The model is near-deterministic: in experiment 3 it gave the same answer in all 5 runs on 85% of items, and experiment 3's design detected no order effect (p = 0.24). Experiment 4 run 1's yes/no audit did show order shifts in the first conjunct (OE_X up to +0.67).
 - **Graded ratings.**
   - Experiment 4 found single conjunction fallacies (7 of 16 items) and no double fallacies.
   - Order effects of about +0.10 satisfied the Yearsley–Trueblood bound R2 on 3 of 3 scored items.
   - The pre-registered estimator meant to separate a quantum account from anchoring on the first answer turned out to be close to circular, so the mechanism is undetermined.
 - **Experiment 5** (pre-registered, 12,600 conversations, $1.93). On 40 hard-pool questions the model rated chains of its own competing claims, in many orders.
-  - The order effects are large: 60 of 80 claim–question pairs show one above 0.10.
-  - **The verdict is a tie.** A dynamic quantum belief state built from the encoder and a matched classical updater do not differ in predicting held-out ratings.
-  - Neither parameter-free quantum signature appeared. The QQ statistic was near zero only when the two scale directions were pooled; on one scale it is not supported (q = −0.146 [−0.439, +0.137], run 2). A mid-chain choice left later confidence unchanged.
+  - Order effects are real: 40 of 80 claim–question pairs survive a Holm-corrected permutation test (60 exceed 0.10, about 27 by chance).
+  - **The verdict is a tie.** A dynamic quantum belief state built from the encoder and a matched classical updater could not be told apart on the test chains (F5 − A5 = +67 [−34, +212] rating points²).
+  - Neither parameter-free quantum signature appeared. The QQ statistic was near zero only when the two scale directions were pooled; on one scale it is not supported (q = −0.146 [−0.439, +0.137], run 2). A mid-chain choice did not detectably change later confidence (Δ_K = +0.29 [−1.12, +1.65]).
   - Where the quantum state predicted better (on 8 held-out items), a dephased version, which is a classical Markov chain, did equally well.
 
 **What remains.** Experiment 4 run 3, the last test of the original programme, was untestable: the model resisted provided first ratings.
 
-**After the programme: six gold-map tests on November 4,** each pre-registered before its data (Section 5.13).
-- **Asking is invasive.** Earlier questions change later ratings in 5 of 6 comparisons on the archived experiment 5 data. A midway yes/no choice is the exception.
+**After the programme: six gold-map tests on November 4,** each pre-registered before its analysis or first call; two reanalyse archived experiment-5 data (Section 5.13).
+- **Asking is invasive.** Earlier questions change later ratings in 5 of 6 comparisons on the archived experiment 5 data. A midway yes/no choice is the exception: no effect was detected (p = 0.16).
   - The model's state is its copyable conversation, so it has a definite state at every turn. The effects therefore measure how asking disturbs it, not an absence of definite judgments (`paper/clonable-minds.md`).
-- **Question and record both act.** The order effect survives hiding the model's earlier answers: on all 40 items the ratio is 1.23 [0.75, 2.02] against a bar of 0.5, so the question carries roughly all of the order effect. Planted own answers pull later ratings. The model's consistency on a repeated question is memory of its answer (86% agreement shown, 36% hidden).
+- **Question and record both act.** The order effect survives hiding the model's earlier answers: on all 40 items the ratio is 1.23 [0.75, 2.02] against a bar of 0.5, though the order pattern under hiding is largely different from the shown one. Planted own answers pull later ratings. The model's consistency on a repeated question depends on seeing its answer (86% agreement shown, 36% hidden, against 77% between fresh first answers).
 - **No privileged self-knowledge.** Authorship does not help a model judge its own errors: judge × author interaction −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does.
-- **No single credence.** Across six question formats, format-specific credences predict held-out answers better for 86% of claims. The formats rank the claims differently, four to six times beyond repeat noise.
-- **Evidence seeking is mixed.** The model's choice of which claim to check beats chance for informative and confirming checks alike, and prefers neither when they differ.
-- **The scale gap is not an error signal.** The 37-point scale-direction gap does not mark the model's errors (AUROC 0.48).
+- **No single credence.** Across six question formats, format-specific credences predict held-out answers better for 86% of claims. The formats rank the claims differently, four to six times beyond repeat noise (an exploratory baseline).
+- **Evidence seeking is mixed.** The model's choice of which claim to check beats chance for informative and confirming checks alike; when they differ, whether it prefers either is undecided (the estimates lean confirmatory).
+- **The scale gap shows no detectable error signal.** The 37-point scale-direction gap scores AUROC 0.48 [0.28, 0.66] for the model's errors: no evidence either way on 40 items.
 
 **Keywords:** quantum cognition, entanglement, language models, error prediction, order effects, pre-registration, classical twin, entanglement witness
 
@@ -91,14 +91,14 @@ The first version of this project proposed putting the three in one room. Take t
 
 This version reports a clean negative result on the question the project was built to answer, and an open question in the place it should have looked first.
 
-**The negative result.** As an error detector, the quantum state adds nothing.
+**The negative result.** As an error detector, the quantum state adds nothing detectable.
 - With fixed constants, it is worse than every classical control.
 - With learned constants, it ties a classical twin given the same parameters and fitting rule.
 - In every comparison, the model's own one-line statement of confidence matches or beats both.
 
 The search did not stop at the first failure. It went from fixed to learned encodings, then to an "honest hedge" encoding, then to a second base model. That replication collected the hard pool and then stopped on a second refusal. The frozen v2 models were later scored on its hard-pool records offline, without self-report (Section 5.11).
 
-**The sequential question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our first sequential experiments were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. Experiment 5 then tested sequential judgment with graded ratings. The order effects were real and large, and a matched classical model accounted for them as well as the quantum one.
+**The sequential question.** The places where quantum cognition has its evidence are sequences of judgments: question order, intermediate decisions and evidence order. Error flagging is not one of them. Our first sequential experiments were limited by the base model's near-deterministic yes/no answers and by one flawed estimator. Experiment 5 then tested sequential judgment with graded ratings. The order effects were real, and the quantum model did not detectably outpredict a matched classical one.
 
 ---
 
@@ -150,7 +150,7 @@ A fuller version, with every paper's design, numbers and limitations, is in `pap
 | standard (run 2) | 125 | as above | `claude-haiku-5-5`, default effort (D5) | **4** of 125 | `results/pool-run-2.md` |
 | hard (run 3) | 300 (D6) | 120 SimpleQA, 120 MMLU-Pro physics/chemistry, 60 author-written claims | `claude-haiku-5-5` | **44** of 300 | `results/pool-run-3.md` |
 | training, v2 (run 5) | 1,048 (D9) | SimpleQA, MMLU-Pro biology/engineering/physics/chemistry, computed puzzles, verified claims | `claude-haiku-5-5` | **158** of 1,048 | `results/pool-run-5.md` |
-| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). L, H, A2 and F2 scored offline with frozen v2 parameters (D27); G scored with 298 Sonnet calls, $0.88, no refusal (D28) | `results/pool-run-4.md`, `results/sonnet-replication.md` |
+| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1, h018, excluded when the extractor returned a single claim). L, H, A2 and F2 scored offline with frozen v2 parameters (D27); G scored with 298 Sonnet calls, $0.88, no refusal (D28) | `results/pool-run-4.md`, `results/sonnet-replication.md` |
 | training, second model (run 6) | locked-test questions first (D18) | the training pool | `claude-sonnet-5-5` | [HALTED] after 82 items, 7 wrong, on a second refusal (D25) | `results/refusal-sonnet-replication-2.md` |
 
 Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04. The Sonnet replication cost $4.07 (hard pool, including the $1.39 spent before the first stop) and $1.10 (training pool, before the second stop). Experiment 5's pilot cost $0.21.
@@ -173,7 +173,7 @@ For every question:
   - Judgment = yes if P(m > 0) ≥ 0.5.
   - Conflict score = 2 · min(P(m ≥ 1/3), P(m ≤ −1/3)).
 
-**A known defect (D15, found after all pre-registered runs).** The phase solve's lean anchors are weak against the relation couplings, so in 20% of run-2 items the yes camp sits more than 30° off the readout axis.
+**A known defect (D15, found after Stage 2 and before v2's locked-test result).** The phase solve's lean anchors are weak against the relation couplings, so in 20% of the 225 run-2 items with both a yes and a no camp (44 of 300 items) the yes camp sits more than 30° off the readout axis.
 - A stronger-anchor solve (`solve_phases_anchored`) fixes most of this.
 - It leaves the error-detection AUROCs unchanged: arm A0 goes from 0.49 to 0.47 and arm C from 0.68 to 0.67 (exploratory, `results/frame-fix-check.md`).
 - Every archived result uses the solver as run.
@@ -241,7 +241,7 @@ Every arm's flag threshold is the 75th percentile of its own scores on a calibra
 
 ### 3.8 Experiment 5: sequential, context-dependent judgment
 
-The design is in `experiments/exp5-sequential-judgment.md`, frozen at D22 before any call. The implementation details (D23–D24) and model details (D26) were fixed before any full-run data were examined.
+The design is in `experiments/exp5-sequential-judgment.md`, frozen at D22 before any call. The implementation details (D23–D24) were fixed before any call; the model details (D26) were committed while the full run was collecting (606 of its conversations existed by then), before any fitting or result.
 
 **Items and chains.**
 - 40 hard-pool questions, each with at least 4 claims that contradict claims leaning the other way.
@@ -305,7 +305,7 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D36** | Direction 1 pre-registered with a judge × author interaction as the primary statistic, matched framing in all four cells, and a recognition check for the paraphrase arm. | Changed from the gold map's sketch before freezing, after full-text reads (Xiao et al.; Panickssery et al.; Ashuach et al.). | Section 5.13. |
 | **D36 amendments** | Direction 1's step order changed mid-run, before steps 3 and 4, when Sonnet calls cost more than assumed. A token-cap crash then lost up to $0.20 of calls; token-capped judge calls are recorded as no rating. | Budget. | The paraphrase arm covers 60 of 80 questions and Sonnet's recognition check did not run. The primary result is unaffected. Spend may have exceeded the $3 cap by up to $0.02. |
 | **D37–D39** | Gold-map directions 2 (shown / redacted / planted transcripts), 3 (six formats) and 4 (evidence-seeking menus) pre-registered, each in its own commit, before any call. | The overnight brief. Changes from the gold map were made before freezing, after the full-text reads: plants ±15 rather than ±30 (Kumaran et al.); a 7-point verbal scale in place of the reversed scale; a most-uncertain baseline beside EIG. | Section 5.13. |
-| **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
+| **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Committed during full-run collection, before any fit or result. | — |
 
 **On sequencing.** The analysis grew in stages:
 - Addendum A came after run 2.
@@ -313,7 +313,7 @@ The pre-registrations were committed before the data they govern (`experiments/p
 - v2.1 came after an exploratory observation.
 - Experiment 4's graded run came after run 1 saturated.
 
-Each addition was committed before its data existed. Even so, every addition after run 2 was designed knowing that run 2 had failed.
+Each addition was committed before it was scored, though some implementation details followed their first calls (D9, D13, D26, D28's code). Even so, every addition after run 2 was designed knowing that run 2 had failed.
 
 ---
 
@@ -339,8 +339,8 @@ Hardware washed the state out far more than the `ibm_fez` noise model predicts. 
 From `results/stage2-run-1.md`, with 4 wrong and 10 hard-right items.
 - **H1** passes (0.86).
 - **H2** is underpowered, with only 4 wrong items.
-- **H3** is falsified: A 0.45, C 0.51.
-- **H4** fails: A 0.45, D 0.42.
+- **H3** is too noisy to call (nominally falsified: A 0.45, C 0.51; dropping one item reverses it).
+- **H4** is too noisy to call (nominally fails: A 0.45, D 0.42; dropping one item makes it pass, dropping others falsifies it).
 - Contradiction strength E scored 0.69.
 
 ### 5.3 Stage 2, runs 2 and 2b: hard pool, 40 wrong + 40 right
@@ -360,9 +360,9 @@ From `results/stage2-run-2.md` and `results/stage2-run-2b.md`. The calibration p
 
 - **H2 fails**, both under its original controls and with F and G held to the same bar.
 - **H3 and H4 are falsified.**
-- **The model's own stated confidence is the best error signal by a wide margin.**
+- **The model's own stated confidence is the best of the fixed arms** (its lead over C and D, +0.14 and +0.17, is significant only before a multiplicity correction).
 - **The real relation web is worse than random ones.** 200 shuffles of each item's web (the same strengths on random pairs) give a null AUROC with mean 0.62 and central 95% range [0.57, 0.68]. Arm A's 0.55 is below 99% of them (p = 0.99).
-- **Arm F is degenerate, as pre-registered.** Its near-minimum-energy window holds 1–6 configurations per item and never contains both camps, so every score is 0. It is reported as is. Redefining F after seeing this would be post hoc.
+- **Arm F is degenerate, as pre-registered.** Its near-minimum-energy window holds 1–16 configurations per item and never contains both camps, so every score is 0. It is reported as is. Redefining F after seeing this would be post hoc.
 
 ### 5.4 Split analysis (run 2, nothing refitted)
 
@@ -375,7 +375,7 @@ From `results/stage2-run-2-split.md`, using each arm's existing threshold. The g
 | ≥ 3 contradictions (29 / 24) | 0.52 | 0.65 | 0.68 | 0.63 | **0.75** |
 | < 3 contradictions (11 / 16) | 0.63 | 0.75 | 0.58 | 0.68 | **0.93** |
 
-- Self-reported confidence is the best arm in every group.
+- Self-reported confidence has the highest point estimate in every group, tied with arm C in SimpleQA (0.74 vs 0.72).
 - The entangled readout is near chance in every group.
 - Items whose webs contain many contradictions, where an entangled representation should matter most, are not an exception.
 
@@ -392,7 +392,7 @@ From `results/v2-run-1.md`. Locked test set: 32 wrong, 177 right.
 | H hedge baseline (no fitting) | 0.67 [0.57, 0.76] | 0.77 [0.66, 0.87] |
 
 - **The primary criterion is not met. The learned quantum encoding ties its classical twin.** The paired A2 − F2 difference is −0.007 [−0.079, +0.062].
-- **The fit made no use of the couplings.** A2's coupling scales fitted to k_sup = 0.12 and k_con = 0.21, against 1 in version one, with one Trotter step. Other climbed candidates reach the same train AUROC with couplings from 0.06 to 1.5, so the fit does not depend on them. Entanglement is irrelevant to error prediction here.
+- **The fit chose weak couplings.** A2's coupling scales fitted to k_sup = 0.12 and k_con = 0.21, against 1 in version one, with one Trotter step. Setting the couplings to 0 costs nothing detectable (−0.009 [−0.029, +0.009]), while v1-strength couplings lower train AUROC from 0.82 to 0.61. Entanglement adds nothing detectable to error prediction here, and at v1 strength it degrades it.
 - **F2 also fitted to a static model,** with zero sweeps.
 - **The structure of the explanation does not beat the model's self-report.** L scores 0.79 and 0.66, against G's 0.83 and 0.82.
 - **On the run-2 held-out set (secondary),** A2 beats F2 by +0.108 [+0.012, +0.215]. But G matches A2 there, and with A2's couplings near zero the gain cannot be credited to entanglement.
@@ -408,11 +408,11 @@ From `results/v2.1-run-1.md`.
 | F2.1 honest-hedge classical twin | 0.82 [0.76, 0.88] | 0.72 [0.60, 0.83] |
 
 - **The primary criterion is not met. The honest-hedge encoding ties its classical twin.** The paired A2.1 − F2.1 difference is +0.017 [−0.064, +0.095].
-- **The hedge change did nothing.**
+- **The hedge change did nothing detectable.**
   - **Hedge term:** both fits set the hedge-uncertainty weight λ_h to **0**.
   - **Against v2:** A2.1 is indistinguishable from A2 (paired +0.002 [−0.042, +0.047]), and F2.1 is slightly worse than F2 (−0.021 [−0.044, −0.004]).
   - **The hedge baseline:** H, the exploratory observation that motivated v2.1, scores 0.67 on the locked test set.
-- **Noise has no effect.** A2.1 noisy minus noiseless is +0.000 [−0.020, +0.023]. A2.1 chose N = 0 and small couplings, so its circuit is shallow and close to a product state.
+- **No detectable effect of noise.** A2.1 noisy minus noiseless is +0.000 [−0.020, +0.023]. A2.1 chose N = 0 and small couplings, so its circuit is shallow and close to a product state.
 - **On the held-out set, A2.1 beats F2.1** by +0.116 [+0.013, +0.225], almost all of it on SimpleQA (0.92 against 0.67). With no evolution and weak couplings, the quantum model's distinctive ingredient is its tilted readout basis, which belongs to single-claim geometry, not to entanglement. This set also motivated v2.1, so it is not an independent test (D14).
 
 ### 5.7 Entanglement witness, and calibration at job time
@@ -485,11 +485,11 @@ The point estimate leans slightly toward the classical twin.
 
 **Run 3, a manipulated first rating** (`results/exp4-run-3.md`, `de38306`; frozen with a one-scale amendment in D33, `fbc2fbf`; 6,720 calls, $0.30).
 - **Design:** before rating the conjunction, the model was shown another person's estimate for one conjunct, low or high, and asked to accept or revise it. The aim was to move its first rating independently of the item.
-- **Verdict: untestable.** The pre-registered manipulation check required the first rating to move at least 10 points between low and high estimates. Only 5 of 32 item-orders passed, and only 1 item (co06) passed in both orders, against the 3 required.
+- **Verdict: untestable.** The pre-registered manipulation check required the first rating to move at least 10 points between low and high estimates. Only 6 of 32 item-orders passed, and only 1 item (co06) passed in both orders, against the 3 required.
 - **The model resists provided first ratings.**
-  - Its accept rate is 0% in 15 of 32 item-orders, and its revisions return close to its own value.
-  - In 6 item-orders a *higher* provided estimate produced a *lower* first rating, down to −0.50 on Marta (co-lin10). That is a contrast or reactance effect, not anchoring.
-  - **Followed up on November 4** (`results/bm1-serial-dependence.md`, D44; `results/bm0-source-distance-lag.md`, `e2c3b90`, D47). The same values planted as the model's *own* earlier answer pull its re-rating (slope +0.42 against +0.05 for another person's). Own beats other at 10, 30 and 60 points from the model's view (pooled +0.46 [+0.21, +0.84]), and the pull does not fade over three intervening turns. Another person's number is ignored rather than resisted (mean uptake +0.02). So run 3's resistance is about whose number it is, not about provided numbers as such. The accept-or-revise wording still differs between the two conditions.
+  - Its accept rate is 0% in 17 of 32 item-orders, and its first rating moves toward the provided value by a median of only 9% of the gap.
+  - In 5 item-orders, all on the three Linda-family vignettes, a *higher* provided estimate produced a reliably *lower* first rating, down to −0.50 on Marta (co-lin10); the mechanism is not identified.
+  - **Followed up on November 4** (`results/bm1-serial-dependence.md`, D44; `results/bm0-source-distance-lag.md`, `e2c3b90`, D47). The same values planted as the model's *own* earlier answer pull its re-rating (slope +0.42 against +0.05 for another person's). Own beats other at 10, 30 and 60 points from the model's view (pooled +0.46 [+0.21, +0.84]), and uptake after three filler turns is not lower (lag 0 − lag 3 = −0.13 [−0.25, −0.00]). Another person's number is ignored rather than resisted (mean uptake +0.02). Run 3's resistance does not carry over to the own-answer framing, though the accept-or-revise wording also differs between the two conditions.
 - **The ceiling held.** The conjunction rating almost never exceeded the first rating (at most 10% of conversations).
 - **Run 2's order effects only partly replicate under the explicit scale wording.** Bill holds at +0.10, but Marta falls to +0.02 and co05 to +0.04.
 
@@ -497,14 +497,14 @@ The point estimate leans slightly toward the classical twin.
 
 These analyses are not pre-registered. They come from `paper/window-vignettes.md`, using exact statevectors on run 2.
 - **The error signal is lost at the entangling step.** Reading the conflict score at each stage, arm A's test-set AUROC goes from 0.63 at encode to 0.60 after entangling and 0.49 after evolution. Without entangling gates it rises to 0.68.
-- **Hedging claims are forced into camps** by the phase solve. That observation motivated v2.1, which then changed nothing (Section 5.6).
+- **Hedging claims are forced into camps** by the phase solve. That observation motivated v2.1, which then changed nothing detectable (Section 5.6).
 
 ### 5.11 Second base model: collected, then halted
 
 The replication on `claude-sonnet-5-5` (D18) stopped at 102 of 300 hard-pool questions, with 12 wrong, at $1.39. The extractor call for `h101` was refused under `reasoning_extraction` (request `req_011Cgh7v49vVQNR6AgY3EDui`, D20). It is the first refusal since the D3 redesign, after 1,473 Haiku-based items and 102 Sonnet-based ones.
 
 Following the project's rule, the run stopped at once, and nothing was reworded or retried. Sean then decided to drop `h101` and resume (D21).
-- **The hard pool completed:** 299 items processed, 1 hit the token cap, and Sonnet was wrong on **30** of 298 answered, for $4.07. Haiku was wrong on 44 of 300.
+- **The hard pool completed:** 299 items processed, 1 was excluded for a one-claim extraction, and Sonnet was wrong on **30** of 298 answered, for $4.07. Haiku was wrong on 44 of 300.
 - **The training pool (run 6) then stopped** on a second extractor refusal, for question `t368` (request `req_011CghAdzJQ9nFBMocCLUMhf`, D25), after 82 items (7 wrong, $1.10).
 - **Both refusals** came on SimpleQA items with Sonnet as the base model. Before them, 1,473 Haiku-based items and 381 Sonnet-based items had passed through the same extractor prompt without one.
 - **Per Sean's rule,** the replication is halted, and nothing was retried. The scorer was **not run**, because its arm-G step would make further Sonnet calls.
@@ -547,8 +547,8 @@ Arm G, Sonnet's own stated confidence, was then scored with 298 Sonnet calls und
 | F2+ − A2 | +0.015 [−0.042, +0.073] | +0.004 [−0.032, +0.042] |
 | F2+ − F2 | +0.009 [−0.057, +0.065] | **+0.082 [+0.045, +0.120]** |
 
-- **The pre-registered outcome is outcome 1: the edge is single-claim geometry, and a classical model carries it.** Removing the couplings changes nothing on either set, and F2+ matches A2 on both.
-- **On Sonnet's items, the per-claim readout feature alone (F2+ − F2, +0.082) accounts for the whole A2 − F2 gap (+0.078).** On Haiku's locked test set it adds nothing, and there A2 and F2 already tied.
+- **The pre-registered outcome is outcome 1: the edge is single-claim geometry, and a classical model carries it.** Removing the couplings changes nothing detectable on either set, and F2+ is not detectably different from A2 on both.
+- **On Sonnet's items, the per-claim readout feature alone (F2+ − F2, +0.082) accounts for the whole A2 − F2 gap (+0.078).** On Haiku's locked test set it adds nothing detectable, and there A2 and F2 already tied.
 - **What the geometry does.** The tilt mixes each claim's uncommitted component (cos θ, large when confidence is low) into its vote. It is a per-claim reweighting by confidence, with no superposition across claims, no interference between them and no entanglement.
 **The Haiku held-out edges, tested next (Addendum E, D30; pre-registered in `52e80a0` at 21:49 MST, scored in `a9ab42c`).** The frozen F2+, never refitted and with no API calls, was scored once on Haiku's run-2 held-out set (40 wrong, 40 right).
 
@@ -561,7 +561,7 @@ Arm G, Sonnet's own stated confidence, was then scored with 298 Sonnet calls und
 | A2 − F2 (the v2 edge, for reference) | +0.108 [+0.012, +0.215] |
 | A2.1 − F2.1 (the v2.1 edge, for reference) | +0.116 [+0.013, +0.225] |
 
-**The pre-registered outcome is outcome 1: the held-out edges are also single-claim readout geometry, carried by a classical model.** F2+ matches A2 and A2.1 on this set, and the readout feature alone recovers most of the gap over plain F2.
+**The pre-registered outcome is outcome 1: the held-out edges are also single-claim readout geometry, carried by a classical model.** F2+ is not detectably different from A2 and A2.1 on this set (−0.019 [−0.073, +0.029] and −0.037 [−0.089, +0.012]), and the readout feature alone recovers most of the gap over plain F2.
 
 ### 5.12 Experiment 5: sequential, context-dependent judgment
 
@@ -590,22 +590,22 @@ Paired item-bootstrap differences (MSE in rating points²):
 | (A5, κ = 0) − A5 (does entanglement matter?) | +24.4 [−8.0, +60.5] | +33.2 [−23.6, +103.5] |
 | BA5 − A5, main ratings | −45.8 [−94.1, +14.1] | +5.9 [−75.7, +103.6] |
 
-- **The primary comparison is a tie.** A5 and F5 do not differ on the test chains.
-- **On the 8 held-out items, outside the verdict, A5 beats F5.** But the dephased D5 matches A5 there and on the test chains. D5 has no coherence: it is a classical Markov chain on the same states, with bit-flip dynamics between questions. Removing the couplings also costs nothing significant.
+- **The primary comparison is a tie.** A5 and F5 could not be told apart on the test chains.
+- **On the 8 held-out items, outside the verdict, A5 beats F5.** But the dephased D5 is not detectably different from A5 there or on the test chains. D5 has no coherence: it is a classical Markov chain on the same states, with bit-flip dynamics between questions. Removing the couplings also costs nothing significant.
 - **What F5 lacks is dynamics, not quantumness.** It fitted λ = 0, so it has no mixing between questions.
 - **The best predictor of the main ratings on the test chains is the classical belief-adjustment model BA5** (827 against A5's 873).
 
 **Parameter-free check 1, the QQ equality.**
-- **Order effects are large.** 60 of 80 adjacent (claim, main) pairs have an order effect above 0.10 with an interval excluding 0, and the main-rating means span a median of 24.7 points across orders and omissions.
+- **Order effects are real.** 60 of 80 adjacent (claim, main) pairs have an order effect above 0.10 with an interval excluding 0 (about 27 expected by chance; 40 survive a Holm-corrected permutation test), and the main-rating means span a median of 24.7 points across orders and omissions (13.2 expected from repeat noise alone).
 - **q was near zero only when the anchors were pooled; it is not supported on one scale.** On those 60 pairs the mean q is +0.005 [−0.058, +0.065], just wider than the pre-registered ±0.05. But that average pools the two scale directions, whose effects have opposite signs. The single-scale re-run (run 2, below) gives −0.146 [−0.439, +0.137].
 - **The per-pair z values are overdispersed** against N(0, 1) (KS p < 0.001).
-- **So the signature is not present, and not contradicted.**
+- **So the signature is not present. It is not contradicted on the pooled data, but on run 1's single-scale conversations (anchor a, not a pre-registered subset) mean q is −0.345 [−0.517, −0.181], which would meet the contradiction rule.**
 - **The encoder's a priori prediction of where order effects appear is not supported:** 1 win against 2 losses over the only 3 items with distinct predictions (p = 0.875, D32).
 
 **Parameter-free check 2, Kvam-style interference.**
-- **A mid-chain choice leaves final confidence where a matched filler leaves it:** Δ_K = +0.29 [−1.12, +1.65] points, with a total-probability residual of +0.58 points.
+- **A mid-chain choice did not detectably move final confidence from where a matched filler leaves it:** Δ_K = +0.29 [−1.12, +1.65] points, with a total-probability residual of +0.58 points.
 - **A5⁰'s predicted sign agrees on 53% of items,** about chance.
-- **So there is no interference, and no commitment effect either.**
+- **So neither interference nor a commitment effect was detected.**
 
 **Also reported.**
 - When the main question is asked first and again after the chain, the two ratings agree within 5 points in 84% of conversations.
@@ -648,12 +648,12 @@ Paired item-bootstrap differences (MSE in rating points²):
     - asking M first raises the next sub-question's rating by +8.0 [+2.7, +13.3];
     - asking M first and again at the end lowers the final M by −10.1 [−18.2, −2.9].
   - The N1 families replicate on the run-2 conversations: 17.4 against 2.9, and 15.7 against 2.3.
-- **A midway choice is not invasive beyond a filler** (N4, p = 0.16), consistent with experiment 5's Kvam null.
-- **What it means.** The model's state at each turn is its copyable conversation, so it has a definite state by construction, and the "not asked" condition is an exact counterfactual. Every one of these effects is therefore invasiveness: asking adds text to the state. None is evidence that a judgment lacked a definite value before it was asked. The same holds for every order-effect or QQ test run on a language model through its context, ours included (`paper/clonable-minds.md`).
+- **A midway choice shows no detectable effect beyond a filler** (N4, p = 0.16, 5 conversations per arm), consistent with experiment 5's Kvam null.
+- **What it means.** By argument, the model's state at each turn is its copyable conversation, so it has a definite state by construction, and the "not asked" condition is an exact counterfactual at the level of the response distribution. Every one of these effects is therefore invasiveness: asking adds text to the state. None is evidence that a judgment lacked a definite value before it was asked. The same holds for every order-effect or QQ test run on a language model through its context, ours included (`paper/clonable-minds.md`).
 - **What it cannot say.** This analysis cannot tell whether the question or the recorded answer does the work. That is direction 2.
 
 **Direction 3, free look: does the scale-direction gap mark the model's errors?** (`results/gm3a-anchor-gap.md`, `43592e5`; pre-registered in `experiments/gm3a-anchor-gap.md`, `a1bc421`, D35; $0)
-- **The gap does not predict errors.** The per-item gap between the "0 = false" and "0 = true" baseline ratings scores AUROC **0.48 [0.28, 0.66]** for the model's hard-pool errors, and 0.47 on the larger set of identical first turns.
+- **No evidence that the gap predicts errors.** The per-item gap between the "0 = false" and "0 = true" baseline ratings scores AUROC **0.48 [0.28, 0.66]** for the model's hard-pool errors, and 0.47 on the larger set of identical first turns.
 - **The model's stated confidence does,** on the same 40 items: 0.75 [0.58, 0.89]. The paired difference is −0.27 [−0.49, −0.05].
 - **The pre-registered reading is "no evidence either way".** The CI includes 0.5, and 40 items rule out only a large effect.
 - **Direction.** If anything the gap is larger on the items the model got right (41.3 points) than on those it got wrong (33.9). The 37-point gap looks like a reading slip in the reversed scale, not a mark of items with no settled view. The six-format run is the real test of direction 3.
@@ -671,15 +671,15 @@ Paired item-bootstrap differences (MSE in rating points²):
 
 (Cells read judge then author: SH is Sonnet judging Haiku's answers.)
 
-- **No self-advantage, and a small self-*disadvantage*.** Sonnet judges Haiku's errors better than Haiku does: 0.93 against 0.85. On the 26 questions where exactly one model was right, Haiku is near chance on its own answers (0.43) while Sonnet scores 0.85 on them.
-- **The framing makes no difference:** "an answer you gave" against "another assistant" changes the self cells by −0.011 (Haiku) and +0.007 (Sonnet).
+- **No self-advantage.** The interaction is slightly negative, which comes from questions where the other model knew the answer. Sonnet judges Haiku's errors better than Haiku does: 0.93 against 0.85. On the 26 questions where exactly one model was right, Haiku is near chance on its own answers (0.43) while Sonnet scores 0.85 on them.
+- **The framing makes no difference overall:** "an answer you gave" against "another assistant" changes the self cells by −0.011 (Haiku) and +0.007 (Sonnet) on all 298 questions.
 - **Haiku does not recognise its own answers:** AUROC 0.51 [0.36, 0.67] on originals.
 - **What was cut, and the cap.**
   - The run cost more per Sonnet call than planned, and a token-cap crash lost some calls (D36 amendments 1 and 2).
   - The paraphrase arm covers 60 of 80 planned questions, and Sonnet's recognition check did not run.
   - Recorded spend is $2.82. The lost calls add at most $0.20, so the run may have exceeded its $3 cap by up to $0.02.
   - The primary result uses all 298 questions and is not affected.
-- **Reading.** The 0.82–0.91 self-report signal of Sections 5.3–5.11 is a good reading of the answer text, not privileged self-knowledge. A stronger reader of the same text does better.
+- **Reading.** The 0.82–0.91 self-report signal of Sections 5.3–5.11 carries no detectable authorship advantage: another model reading the same answer text matches or beats it. A stronger reader of the same text does better.
 
 
 **Direction 2: is the order effect the question, or the model seeing its own answers?** (`results/gm2-self-conditioning.md`, `4c5c34f`; pre-registered in `experiments/gm2-self-conditioning.md`, `9e23b6f`, D37; 2,000 conversations, $0.55)
@@ -697,7 +697,7 @@ Paired item-bootstrap differences (MSE in rating points²):
 
 - **Pre-registered verdict: question-driven.** R = OE_redacted / OE_shown = **1.91 [0.92, 4.90]**, wholly above the 0.5 bar. With no record of its answers, the order of the questions still changes the final rating. In the gold map's terms this is the overturning direction, which it had put at P = 0.25.
 - **The record also steers.** The final main rating follows a planted first main rating at 1.27 [0.70, 2.14] points per point. Planting higher earlier ratings raises the next ratings by 5.6 [3.4, 7.6] points and the final rating by 10.4 [4.2, 16.8].
-- **The consistency is memory.** The main question repeated after the chain agrees with the first answer 81% of the time when that answer is visible, and 23% when it is hidden. Experiment 5's 84% replicability was the model reading its own earlier answer, not a stable judgment reached again.
+- **The consistency depends on the visible answer.** The main question repeated after the chain agrees with the first answer 81% of the time when that answer is visible, and 23% when it is hidden. Experiment 5's 84% replicability depends on the visible first answer: without it, the intervening questions move the final rating.
 - **Caveats, stated in the results file.**
   - There are only 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).
   - "[rating recorded]" is itself an unusual turn. The redacted order effect is *larger* than the shown one, and the planted conditions, which keep a number in place, show smaller order effects than either. So the redaction placeholder may add variance of its own. The verdict that asking alone produces an order effect stands by the rule. The excess over the shown condition should not be read as the question's effect.
@@ -705,9 +705,9 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **On all 40 items** (`results/gm2b-self-conditioning-40.md`, `758609a`; pre-registered at `4894bfc`, D45; 6,000 new conversations, $1.68, no refusal). The same design, with the other 30 experiment-5 items added.
   - **Still question-driven:** R = **1.23 [0.75, 2.02]**. Order effect 9.8 [5.8, 13.5] shown against 12.0 [7.3, 15.9] redacted.
   - **Not two items.** The 30 new items alone give 0.99 [0.51, 1.61]; all 40 without h191 and h261 give 0.99 [0.62, 1.49]. On 82% of 39 items the redacted order effect is at least half the shown one.
-  - **Not the placeholder.** The spread within one order is the same shown and redacted (SD 5.1 against 5.4).
+  - **No added noise from the placeholder.** The spread within one order is the same shown and redacted (SD 5.1 against 5.4); systematic placeholder effects are not excluded.
   - **The record still steers,** less than on the first 10: b_MF 0.85 [0.65, 1.13]; next-rating pull 5.2 [3.7, 6.5]; final-rating shift 9.0 [5.4, 12.6]. MF repeat agreement is 86% shown against 36% redacted (planted high 38%, low 45%).
-  - **What changes.** Both caveats above are resolved. The redacted effect is no longer larger than the shown one: the first 10 items' R of 1.91 came mostly from h191 (0.4 points shown, 38 redacted). On these items the question carries roughly all of the order effect, and the record adds little to it.
+  - **What changes.** The two-item caveat is resolved; the placeholder caveat is not. The redacted effect is no longer larger than the shown one: the first 10 items' R of 1.91 came mostly from h191 (0.4 points shown, 38 redacted). On these items hiding the record leaves an order effect of about the same size, but with a largely different pattern.
 
 
 **Direction 3, six formats: does the model hold one credence per statement?** (`results/gm3b-format-invariance.md`, `1fd521d`; pre-registered in `experiments/gm3b-format-invariance.md`, `34eb191`, D38; 9,600 calls, $0.41)
@@ -722,19 +722,19 @@ Paired item-bootstrap differences (MSE in rating points²):
 - **Pre-registered verdict: no single credence.** L6 beats L1 on held-out repeats for **86%** of claims. The mean ΔLL is **+19.4 [+16.5, +22.1]** per claim.
 - **The formats rank the claims differently, which no monotone link can absorb:**
   - pairwise Spearman correlations between formats are 0.37–0.74, and Kendall's W across all six is 0.56;
-  - 20–34% of claim pairs are ordered differently from the 0–100 rating;
+  - 12–25% of claim pairs are in opposite order to the 0–100 rating ((1 − τ_b)/2 = 0.20–0.34);
   - the coin comparison is the most out of line, choosing the statement 79% of the time where the mean rating is 55.
 - **Against the precedent.** Smolin & Wilder (2026) found one latent belief describes capable models well (concordance 0.8–0.95, held-out R² 60–90%). The gold map had lowered P from 0.45 to 0.25 for that reason. Their test and ours differ in three ways:
   - **The criterion.** They asked whether one latent *predicts* new framings usefully. Ours asks whether format-specific credences predict held-out *repeats* better. A latent can be useful by their criterion and still lose by ours whenever format deviations are reproducible, which is likely for a model whose repeats barely vary.
   - **The material.** Our statements are the model's own contested claims about hard questions.
   - **The model.** Claude was not in their set.
   So the two results need not conflict. Ours says this model's credences are not format-invariant on contested claims; it does not say a single latent is useless.
-- **Noise baseline** (exploratory: computed after the run, not pre-registered). Two halves of the *same* format's repeats order claim pairs differently only 4–8% of the time. The 0–100 rating's even repeats against another format's odd repeats, the same amount of data, disagree 21–35% of the time. So the cross-format reordering is four to six times the noise.
-- **The held-out-format follow-up** (`results/gm3c-heldout-format.md`, `52aedb6`; pre-registered at `1f2a837`, D46; $0) is the like-for-like comparison with Smolin & Wilder. One credence fitted on five formats predicts the sixth with mean R² 0.37 [0.28, 0.47], against split-half ceilings of 0.88–0.97.
+- **Noise baseline** (exploratory: computed after the run, not pre-registered). Two halves of the *same* format's repeats put only 1–5% of claim pairs in opposite order ((1 − τ_b)/2 = 4–8%). The 0–100 rating's even repeats against another format's odd repeats, the same amount of data, put 11–25% in opposite order ((1 − τ_b)/2 = 21–35%). So the cross-format reordering is four to six times the noise on that index, and larger on the count of reversed pairs.
+- **The held-out-format follow-up** (`results/gm3c-heldout-format.md`, `52aedb6`; pre-registered at `1f2a837`, D46; $0) applies Smolin & Wilder's usefulness criterion (not their framings or items). One credence fitted on five formats predicts the sixth with mean R² 0.37 [0.28, 0.47], against split-half ceilings of 0.88–0.97.
   - It recovers **Q = 0.39 [0.30, 0.50]** of each format's reproducible answer, ranging from 0.17 for the coin comparison to 0.53 for the 0–100 rating.
   - The pre-registered reading is *little format-free belief*. The interval's upper end, 0.499, sits just under the 0.5 line.
   - Smolin & Wilder's 0.60–0.90 on other models is above every format here.
-  - So the difference from their result is not only the criterion. On this model and these statements, the format-free part of the answer is the smaller part.
+  - So the difference from their result is probably not only the criterion, though framings and items also differ. On this model and these statements, the format-free part of the answer is the smaller part.
 
 
 **Direction 4: does the model seek the evidence that would settle its own conflict?** (`results/gm4-evidence-seeking.md`, `bc9e70d`; pre-registered in `experiments/gm4-evidence-seeking.md`, `e913227`, D39; 1,200 calls, $0.11)
@@ -751,7 +751,7 @@ Paired item-bootstrap differences (MSE in rating points²):
   - confirmatory: +0.21 [+0.11, +0.31].
 - **It avoids the most uncertain claim:** −0.13 [−0.21, −0.04].
 - **Pre-registered verdict: mixed.** On the menus where the EIG and confirmatory choices differ, the model leans confirmatory, but neither difference is reliable: −0.24 [−0.52, +0.04] under D5 (46 menus) and −0.14 [−0.40, +0.14] under BA5 (26 menus). So neither "tracks EIG" nor "confirmatory" holds under either model.
-- **Reading.** The model picks claims that bear strongly on its answer. When the informative and the confirming check come apart, it does not prefer the informative one. Active-inference-style evidence seeking is not shown, and neither is a clear confirmation bias.
+- **Reading.** The model picks claims that bear strongly on its answer. When the informative and the confirming check come apart, it shows no detectable preference for the informative one, and the point estimates lean confirmatory. Active-inference-style evidence seeking is not shown, and neither is a clear confirmation bias.
 - **Caveat.** EIG is computed from our fitted models of the model, which the chooser never sees. A miss may be a miss of those models: the D5 and BA5 argmax choices agree on only 41 of 120 menus.
 
 
@@ -767,31 +767,31 @@ Four pre-registered comparisons agree:
 - the honest-hedge encoding against its twin (v2.1);
 - and every structural arm against the model's self-report (run 2b).
 
-In none of them does the quantum state add anything to error prediction.
+In none of them does the quantum state add anything detectable to error prediction.
 
 The data rule out the easy explanations.
-- **It is not noise.** The noiseless state scores 0.49, and A2.1 scores the same noisy and noiseless.
-- **It is not one flawed choice of constants.** Version two learned them, and the fit set the couplings to whatever it liked, because they did not matter.
+- **It is not noise.** The noiseless state scores 0.49, and A2.1 noisy and noiseless differ by +0.000 [−0.020, +0.023].
+- **It is not one flawed choice of constants.** Version two learned them; the fit chose weak couplings, because strong ones lowered train AUROC and weak ones did no better than none.
 - **It is not the hedge encoding.** v2.1 removed that distortion, and the hedge term was fitted to zero.
 - **It is not the frame bug.** Correcting it leaves the AUROCs unchanged (D15).
 
 The window shows *where* the fixed encoding loses the signal: at the entangling and coupled-evolution steps. The learned encodings avoid the loss by switching those steps nearly off.
 
-**The only positive differences between quantum and classical models are secondary, and every one is classical.**
+**The only positive differences between quantum and classical models are secondary, sit on the same hard-pool questions, and none survives against a classical twin with the same per-claim readout.**
 - A2 and A2.1 beat their twins on Haiku's run-2 held-out set, which motivated v2.1.
 - A2 beat F2 on Sonnet's hard-pool errors (+0.078).
 
 In every case the learned quantum model has near-zero coupling. Two pre-registered tests settled what the edges are:
-- **Addendum D:** setting the couplings to 0 changes nothing.
-- **Addenda D and E:** a classical twin with the same per-claim readout, F2+, matches the quantum model on every set where the quantum model had led: Sonnet's hard pool and Haiku's run-2 held-out set.
+- **Addendum D:** setting the couplings to 0 changes nothing detectable.
+- **Addenda D and E:** a classical twin with the same per-claim readout, F2+, is not detectably different from the quantum model on every set where the quantum model had led: Sonnet's hard pool and Haiku's run-2 held-out set.
 
-**Every positive quantum-vs-classical difference in error prediction is matched by a classical model with the same per-claim readout.** The one in sequential judgment is matched too: experiment 5's held-out edge of A5 over F5 is equalled by D5, a dephased classical Markov chain (Section 5.12). Where self-report was measured, on both base models, it matched the best structural model.
+**No positive quantum-vs-classical difference in error prediction is significantly larger than a classical model with the same per-claim readout achieves (F2+ recovers 1.05 [0.73, 2.50] of the Sonnet edge and 0.68 [0.20, 1.21] of the held-out A2.1 edge).** The one in sequential judgment does not survive either: on experiment 5's held-out items, D5, a dephased classical Markov chain, is not detectably different from A5 (D5 − A5 = −11.3 [−61.4, +44.9], Section 5.12). Where self-report was measured, on both base models, it was not detectably different from the best structural model.
 
 ### 6.2 What does predict the model's errors
 
 **The model's own statement of confidence does.**
 - AUROC 0.82 on the run-2 test set, and 0.83 on the locked test set.
-- It is the best arm in every subgroup of the split analysis.
+- It has the highest point estimate in every subgroup of the split analysis, tied with arm C in SimpleQA (0.74 vs 0.72).
 
 **The structure of the model's explanation adds nothing beyond that self-report.** Version 2 of this paper reported the contradiction signal (arm E, 0.64) as "a modest but real finding" and left open whether it adds to self-report. It does not:
 - E scores 0.64 against G's 0.82;
@@ -804,31 +804,31 @@ The relation judge's labels of *which* claims support or contradict which carry 
 
 This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On both models, the model can see them, and says so when asked.
 
-**But the self-report is not privileged.** Gold-map direction 1 (Section 5.13) had each model judge both models' answers with the same prompt. Authorship does not help: the judge × author interaction is −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does (0.93 against 0.85). The error signal is in the answer text, and a capable reader finds it.
+**But the self-report is not privileged.** Gold-map direction 1 (Section 5.13) had each model judge both models' answers with the same prompt. Authorship does not help: the judge × author interaction is −0.055 [−0.103, −0.007]. Sonnet judges Haiku's errors better than Haiku does (0.93 against 0.85). The error signal is available from the answer text to a capable reader, especially one that knows the answer.
 
 ### 6.3 Sequential judgment: real effects, classical account
 
 **What the graded ratings show.**
 - Single but not double conjunction fallacies, the pattern the quantum account predicts, which Imannezhad et al. (2026) also find in GPT-5.
 - Order effects that satisfy R2 in experiment 4.
-- Large order and omission effects in experiment 5, where 60 of 80 claim–question pairs moved by more than 0.10.
+- Order effects in experiment 5, where 40 of 80 claim–question pairs survive a Holm-corrected permutation test.
 
 The sequential phenomena that quantum cognition was built to explain are present in this model's graded judgments.
 
 **None of them needs a quantum account.**
 - **The prediction contest.** In experiment 5, the quantum belief state and its matched classical twin tie.
-- **Coherence.** Where the quantum state predicts better, a dephased classical Markov chain with the same parameters does equally well.
+- **Coherence.** Where the quantum state predicts better, a dephased classical Markov chain with the same parameters is not detectably worse.
 - **The QQ equality.** It is not supported: q looked near zero only when the two scale directions were pooled, and on one scale it leans negative with overdispersed per-pair values.
-- **Kvam interference.** A mid-chain decision leaves later confidence unchanged, which is what any read-out or Markov model predicts.
+- **Kvam interference.** A mid-chain decision does not detectably change later confidence (Δ_K = +0.29 [−1.12, +1.65]), consistent with any read-out or Markov model.
 - **Main ratings.** A classical belief-adjustment model predicts them best.
 
-**Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them as well as the quantum ones.
+**Why the encoder could not do better here.** The anchored phase solve puts 148 of 160 chain claims exactly on the yes/no axis. Those claims commute with the main question at encode, so the quantum model's distinctive source of order effects is absent before any data. The pre-registration predicted the tie for this reason (§8.6). The order effects the model shows must come from somewhere the encoder does not put non-commutation, and the classical dynamics capture them with no detectable loss against the quantum ones.
 
 **What remains open.** Whether this model's order effect on conjunctions is numeric anchoring or content-driven updating. A rank-one quantum model and anchoring predict the same form, c · (P(X) − P(Y)), whenever the item fixes the first rating, so run 2 could not separate them (D19). Experiment 4 run 3 tried to move the first rating with a provided estimate, and was untestable, because the model resists such estimates (Section 5.9). The manipulation that remained was to set the first rating as the model's *own* earlier answer in the transcript. Gold-map direction 2 did that for experiment 5's chains (Section 5.13). Planted own answers do move later ratings, about 1.3 points per point. Hiding the answers does not remove the order effect. So in those chains, the question and the record both act. That run did not use experiment 4's conjunction items, so for conjunctions the mechanism remains open.
 
 ### 6.4 The hardware result
 
-The witness separates two claims that behavioural Bell tests conflate: *the system holds an entangled state*, and *the outcomes shift with context*. For our belief states, the first is certified on real hardware. The second, the claim that the entanglement helps judgment, has been answered negatively for error prediction.
+The witness separates two claims that behavioural Bell tests conflate: *the system holds an entangled state*, and *the outcomes shift with context*. For three of our belief states, selected as the most entangled, the first is certified on real hardware. The second, the claim that the entanglement helps judgment, has been answered negatively for error prediction.
 
 At 5–16 qubits every state is exactly classically simulable, so the hardware's role was certification, and it played that role. The job-time calibration shows an ordinary device on an ordinary day. The gap between hardware and its noise model is therefore a property of the noise model, not of bad luck.
 
@@ -838,11 +838,11 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 **Physics.** A real quantum processor held the entangled states of a language model's belief webs, with certified negativity on 3 of 3 items. That is a modest near-term use of hardware: certification, not speed. The device washed states out more than its own noise model and calibration predict. Any claim about "cognitive work" done by entanglement on current hardware should budget for that.
 
-**Psychology.** Our results neither confirm nor refute quantum cognition, which models human aggregates. What we offer is a method: build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. The negative results show that method can return "no". Pointed at the effects the field rests on, sequential order and intermediate decisions, it finds the effects present in a language model's graded judgments, and finds a classical account of them as good as the quantum one.
+**Psychology.** Our results neither confirm nor refute quantum cognition, which models human aggregates. What we offer is a method: build the state per item from stated reasons, and compare it against a classical twin with the same inputs, parameter budget and fitting rule. The negative results show that method can return "no". Pointed at the effects the field rests on, sequential order and intermediate decisions, it finds the effects present in a language model's graded judgments, and finds a classical account of them that the quantum one does not detectably beat.
 
-**Philosophy of mind.** A judgment layer built as a certified-entangled whole judged no better than one built as a list. When it was free to choose, it chose to be nearly a list. That does not settle anything about minds. It does show that being an indecomposable whole is not, by itself, an advantage for this kind of judgment.
+**Philosophy of mind.** A judgment layer built as an entangled whole (certified pairwise on three states) judged no better than one built as a list. When it was free to choose, it chose to be nearly a list. That does not settle anything about minds. It does show that being an indecomposable whole is not, by itself, an advantage for this kind of judgment.
 
-**Artificial intelligence.** The practical finding is about self-report, not quantum structure. For this model, on hard factual and scientific questions, one call asking how confident it is predicts its errors better than any analysis of its written reasoning we built, quantum or classical. A pipeline that wants an error flag should ask for a confidence rating first, and should require any structural method to beat that baseline. Ours did not. The rating need not come from the model that wrote the answer: a stronger model reading the same answer did better than the author itself (direction 1, Section 5.13).
+**Artificial intelligence.** The practical finding is about self-report, not quantum structure. For this model, on hard factual and scientific questions, one call asking how confident it is predicts its errors as well as the best analysis of its written reasoning we built, quantum or classical. A pipeline that wants an error flag should ask for a confidence rating first, and should require any structural method to beat that baseline. Ours did not. The rating need not come from the model that wrote the answer: a stronger model reading the same answer did better than the author itself (direction 1, Section 5.13).
 
 ---
 
@@ -854,8 +854,8 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 - **Error types.** The model's errors are mostly ignorance and multi-step science, not the judgment errors quantum cognition studies.
 - **Moderate test sets.**
   - Run 2's test set has 80 items, and the locked v2 test set 209 items with 32 wrong. Intervals are reported throughout, and many overlap.
-  - The only positive quantum-vs-classical differences are secondary: A2 and A2.1 on Haiku's held-out set, which motivated v2.1, and A2 on Sonnet's hard pool. All are reproduced by a classical twin with the same per-claim readout (Addenda D and E). The F2+ comparisons are additional single scorings of frozen models on sets that had been scored before.
-- **Analysis grew after the primary result.** Every addition was pre-registered before its data, but designed knowing run 2 had failed (Section 4).
+  - The only positive quantum-vs-classical differences are secondary: A2 and A2.1 on Haiku's held-out set, which motivated v2.1, and A2 on Sonnet's hard pool. None is significantly larger than a classical twin with the same per-claim readout achieves (Addenda D and E); the twin recovers all of the Sonnet edge and roughly two thirds (95% CI one fifth to all) of the held-out A2.1 edge. The F2+ comparisons are additional single scorings of frozen models on sets that had been scored before.
+- **Analysis grew after the primary result.** Every addition was pre-registered before it was scored, but designed knowing run 2 had failed; four (D9, D13, D26, D28's code) were committed after their first calls had begun (Section 4).
 - **Hardware scope.** The witness certified one pair in each of 3 items, and arm B never ran.
 - **Sequential experiments are limited by the measurement.**
   - The yes/no answers saturate, and temperature cannot be raised.
@@ -873,20 +873,20 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 - Experiment 5 and its single-scale re-run are complete.
 - The six overnight gold-map tests (Section 5.13) are complete. Directions 5–8, 10 and 11 need new tooling or QPU time, and none is pre-registered.
 
-**The readings fixed in advance.** `paper/next-steps.md` fixed the reading of experiment 5's tie before the run: quantum probability adds nothing over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
+**The readings fixed in advance.** `paper/next-steps.md` fixed the reading of experiment 5's tie before the run: no detectable advantage for quantum probability over a matched classical updater, in sequential judgment as in error prediction. That is a clean, pre-registered negative result, and we report it as one.
 
 **The project's answer for this model** is a null on both the static question (error prediction) and the sequential one.
-- That answer is pre-registered throughout.
+- Its primary verdicts are pre-registered.
 - Every positive quantum-vs-classical difference along the way was traced to a classical mechanism.
 - The one parameter-free quantum signature that looked close, the QQ equality, came from pooling two scale directions.
 
 **What the gold-map tests settled.**
-- The model's self-reported confidence is text-reading, not privileged self-knowledge.
-- Its order effects come from both the question and its own recorded answers.
-- On contested claims, the question format constructs its credence.
+- The model's self-reported confidence shows no privileged self-knowledge: it has no authorship advantage over another model reading the same answer, which does as well or better.
+- Its order effects survive hiding its recorded answers, though with a largely different pattern, while its recorded answers steer the level of later ratings.
+- On contested claims, one credence per claim does not explain its answers across question formats.
 
 **The follow-ups each result names.** Each would need its own pre-registration:
-- a held-out-*format* test of a single credence, the like-for-like comparison with Smolin & Wilder;
+- a held-out-*format* test of a single credence, applying Smolin & Wilder's usefulness criterion (since run as D46, Section 5.13);
 - a redaction placeholder that is less unusual than "[rating recorded]";
 - direction 2's design on experiment 4's conjunction items, where the mechanism of the order effect is still open.
 

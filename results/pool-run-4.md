@@ -1,6 +1,6 @@
 # Pool run 4: base `claude-sonnet-5-5` (effort default, adaptive thinking)
 
-299 questions processed; 1 hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; base model wrong on **30** of 298 answered. API cost $4.0667. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
+299 questions processed; 1 hit the 16,000-token cap, gave no FINAL ANSWER or failed claim extraction, and are excluded; base model wrong on **30** of 298 answered. API cost $4.0667. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
 
 Test set rule: D6: all wrong items (at most 40, at random) + an equal number of right items at random (seed 2026). Test set: 30 wrong + 30 right. Calibration pool: 238 items.
 

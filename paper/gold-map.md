@@ -3,8 +3,8 @@
 Written 2026-11-03 (America/Denver), after experiment 5's tie (`75744dc`) and the freezing of experiment 4 run 3 (D33). It is a docs-only scan. The literature notes were gathered by web fetch; nothing was run.
 
 **What the project has established.**
-- **Error prediction is closed.** No quantum edge survives a matched classical twin on two base models (Addenda D and E). The model's own stated confidence is the best error signal, at 0.82 on Haiku and 0.91 on Sonnet.
-- **Sequential judgment is real but classical so far.** Graded ratings show large order effects: a median span of 24.7 points, and 60 of 80 claim–question pairs above 0.10. A matched classical updater ties the quantum state, and a dephased Markov chain matches it.
+- **Error prediction is closed.** No quantum edge survives a matched classical twin on two base models (Addenda D and E). The model's own stated confidence is the best or tied-best error signal, at 0.82 on Haiku and 0.91 on Sonnet.
+- **Sequential judgment is real but classical so far.** Graded ratings show order effects: a median span of 24.7 points (13.2 expected from noise), and 40 of 80 claim–question pairs significant after Holm correction. A matched classical updater ties the quantum state, and a dephased Markov chain is not detectably behind it.
 
 **What Sean wants next.** A finding that overturns an assumption about minds, judgment or reality, that the field has slept on, and that this stack can test.
 
@@ -130,7 +130,7 @@ The test is still worth running: either outcome settles what the project's best 
 
 **Cost.** About 10 items × 5 chain types × 4 conditions × 10 conversations = 2,000 chains, about $0.50 at experiment 5's rate.
 
-**Update (23:17).** Experiment 4 run 3 (`de38306`) found the model resists *another person's* provided first rating: accept rate 0% in 15 of 32 item-orders, and sometimes it moves away from the estimate. That makes the planted-own-answer condition here the remaining way to move a first rating independently of the item.
+**Update (23:17).** Experiment 4 run 3 (`de38306`) found the model barely takes up *another person's* provided first rating: accept rate 0% in 17 of 32 item-orders, and on three Linda-family items it moves away from the estimate. That makes the planted-own-answer condition here the remaining way to move a first rating independently of the item.
 
 **Design note from experiment 5 run 2.** Use one scale direction. The baseline between-repeat SD is 7.1 points on one scale against 20.6 pooled.
 
@@ -206,7 +206,7 @@ If anything, this sides with construction at answer time.
 **P(no single latent credence) = 0.25** (lowered from 0.45 after the full reads).
 - **Smolin & Wilder.** Their single-latent model fits capable models across 16 framings.
 - **Zhu & Griffiths.** The Sampler predicts distortions that per-format links absorb.
-- **Direction 3's free look** (`results/gm3a-anchor-gap.md`). The 37-point gap does not track the model's errors: AUROC 0.48 [0.28, 0.66], against 0.75 for its stated confidence. That points to a reading slip, not a missing credence.
+- **Direction 3's free look** (`results/gm3a-anchor-gap.md`). No evidence that the 37-point gap tracks the model's errors: AUROC 0.48 [0.28, 0.66], against 0.75 for its stated confidence.
 - **What would count as a pass.** Per-format monotone links absorb the gap, so a pass now needs the *rank order* of propositions to disagree across formats. The reversed-scale, pairwise and frequency formats are where that could still happen.
 
 ---
@@ -431,10 +431,10 @@ Each first test below was pre-registered on `main` before its data (D34–D39) a
 
 | direction | P given | outcome | in the overturning direction? |
 |---|---|---|---|
-| 9, NSIT on archived data | 0.20 (conceptual) | invasive in 5 of 6 families; the midway choice is not (`results/gm9-nsit.md`) | the conceptual result is written up in `paper/clonable-minds.md` |
-| 3, free look | — | the anchor gap does not predict errors, AUROC 0.48 (`results/gm3a-anchor-gap.md`) | no evidence either way |
-| 1, self-knowledge | 0.15 | no self-advantage; interaction −0.055 [−0.103, −0.007] (`results/gm1-self-knowledge.md`) | no: self-report is text-reading |
-| 2, self-conditioning | 0.25 | question-driven, R = 1.91 [0.92, 4.90]; the planted record also pulls (`results/gm2-self-conditioning.md`). On all 40 items (D45): R = 1.23 [0.75, 2.02], 0.99 without the two items, placeholder adds no spread (`results/gm2b-self-conditioning-40.md`) | yes, by the rule; the caveats are resolved at 40 items |
+| 9, NSIT on archived data | 0.20 (conceptual) | invasive in 5 of 6 families; no effect of the midway choice detected (p = 0.16; `results/gm9-nsit.md`) | the conceptual result is written up in `paper/clonable-minds.md` |
+| 3, free look | — | no evidence that the anchor gap predicts errors, AUROC 0.48 [0.28, 0.66] (`results/gm3a-anchor-gap.md`) | no evidence either way |
+| 1, self-knowledge | 0.15 | no self-advantage; interaction −0.055 [−0.103, −0.007] (`results/gm1-self-knowledge.md`) | no: no authorship advantage |
+| 2, self-conditioning | 0.25 | question-driven, R = 1.91 [0.92, 4.90]; the planted record also pulls (`results/gm2-self-conditioning.md`). On all 40 items (D45): R = 1.23 [0.75, 2.02], 0.99 without the two items, within-order SD 5.1 shown vs 5.4 redacted (`results/gm2b-self-conditioning-40.md`) | yes, by the rule; the two-item caveat is resolved at 40 items, the placeholder caveat is not |
 | 3, six formats | 0.25 | no single credence: 86% of claims, ΔLL +19.4 (`results/gm3b-format-invariance.md`) | yes, by a held-out-repeats criterion stricter than Smolin & Wilder's |
 | 4, evidence seeking | 0.20 | mixed: beats chance for EIG and confirmatory alike (`results/gm4-evidence-seeking.md`) | no |
 

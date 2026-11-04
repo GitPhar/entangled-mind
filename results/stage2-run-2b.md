@@ -24,13 +24,13 @@ Re-scoring of Stage 2 run 2 (`results/stage2-run-2.md`) with the arms and statis
 
 ## Reading
 
-- **Self-reported confidence is the best error signal, by a wide margin.** Arm G, 100 minus the base model's own stated confidence, reaches AUROC **0.82** [0.71, 0.90]. That is far above every arm built from the deliberation structure: the entangled readout A (0.55), the unentangled circuit C (0.68), the shuffled web D (0.65) and contradiction strength E (0.64).
-- **G against the deliberation-structure features (Sean's question).** The structural features do **not** beat self-reported confidence.
+- **Self-reported confidence is the best error signal among the fixed arms.** Arm G, 100 minus the base model's own stated confidence, reaches AUROC **0.82** [0.71, 0.90]. That is above every fixed structural arm: the entangled readout A (0.55; G − A +0.28 [+0.10, +0.45]), the unentangled circuit C (0.68; +0.14 [+0.02, +0.27]), the shuffled web D (0.65; +0.17 [+0.02, +0.33]) and contradiction strength E (0.64; +0.18 [+0.04, +0.32]). The C and D gaps do not survive a correction for four comparisons, and this comparison was not itself pre-registered.
+- **G against the deliberation-structure features (Sean's question).** The structural features do **not** detectably beat self-reported confidence.
   - Here, plain contradiction strength E scores 0.64 against G's 0.82.
   - In v2, the learned 8-feature relation-web model L scores 0.79 on the locked test set and 0.66 on this held-out set (`results/v2-run-1.md`). Paired with G, that is 0.83 and 0.82.
-  - Wherever the two are compared, the model's own confidence matches or beats the structure extracted from its explanation.
+  - Wherever the two are compared, no model built from the structure extracted from its explanation detectably beats the model's own confidence.
 - **The real relation web is worse than random ones.** Over 200 independent shuffles, a web with the same relation strengths placed on random pairs gives a mean AUROC of 0.62 [0.57, 0.68]. The real web (arm A) gives 0.55, below 99% of the shuffles (p = 0.99). Whatever error signal survives the encoding does not come from *which* claims the judge says support or contradict each other.
-- **Arm F, the classical Ising twin, is degenerate as pre-registered.** Its conflict score counts strongly opposed camps among the configurations within 10% of the minimum energy. That window holds only 1–6 configurations per item, and in none of the 300 items does it contain both camps. Every score is 0, and the AUROC is 0.50.
+- **Arm F, the classical Ising twin, is degenerate as pre-registered.** Its conflict score counts strongly opposed camps among the configurations within 10% of the minimum energy. That window holds only 1–16 configurations per item (at most 6 for 284 of 300), and in none of the 300 items does it contain both camps. Every score is 0, and the AUROC is 0.50.
   - Even the 52 items with a degenerate ground state split only on claims with negligible lean, because the lean field breaks the yes/no symmetry.
   - This is reported as is; redefining F after seeing it would be post hoc. The informative classical-twin comparison is v2's learned twin F2, which tied the learned quantum encoding A2 (0.84 against 0.83 on the locked test set).
 - **H2 is not met under the original controls (C, D, E), nor with F and G added.**

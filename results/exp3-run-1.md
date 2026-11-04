@@ -238,10 +238,10 @@ Pre-registration: `experiments/exp3-order-effects.md`. Base model `claude-haiku-
 
 ## Reading
 
-- **Inconclusive, and the reason is upstream of either model.** The base model shows almost no order effects to predict.
+- **Inconclusive.** Both models predict order effects far below this design's 0.2 resolution (quantum at most 0.046, classical at most 0.017), and the base model shows almost no order effects to predict.
   - Only 27 of 218 item-pairs show any difference between orders at all.
   - The order-label permutation test cannot distinguish the observed effects from run-to-run variability (p = 0.24).
   - On its own, the model gives the same answer in all 5 baseline runs for 85% of the items.
-- **This is the saturation caveat of Kang (2026)** (arXiv:2607.17219): near-deterministic answers leave no dispersion for an order effect to show up in.
+- **This resembles the saturation caveat of Kang (2026)** (arXiv:2607.17219): on 185 of 218 pairs all 10 answers are identical, so only a flip between orders could show, and none of size ≥ 0.8 occurred.
 - **The point estimate leans against the quantum account.** The classical twin's predictions correlate slightly better (ρ = +0.08) than the quantum ones (ρ = −0.03).
 - **No discrimination between the two models is possible here.** Under the pre-registration's own rule, that is what gets reported.

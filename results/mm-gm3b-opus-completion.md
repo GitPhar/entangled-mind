@@ -22,7 +22,7 @@ Pre-registered in `experiments/mm-gm3b-opus-completion.md` (D49), committed befo
 **For the paper.** By the rule frozen before the run, the "no format-free credence" claim **does not hold on Opus**. The claim goes from "not supported" on Opus to "contradicted": one belief there predicts each left-out format close to its own ceiling.
 
 **Checks.**
-- Adding h291, the item that ran past the stopping rule, changes nothing: Q 0.94 [0.90, 0.97]; ΔLL +1.55 [−1.00, +4.17], mixed; W 0.85 (`mm-gm3b-opus-completion-with-h291.md`).
+- Adding h291, the item that ran past the stopping rule, changes no reading: Q 0.94 [0.90, 0.97]; ΔLL +1.55 [−1.00, +4.17], mixed; W 0.85 (`mm-gm3b-opus-completion-with-h291.md`).
 - The earlier 26 statements are not special. Refitted jointly with the rest, their mean ΔLL is +2.42 against +1.57 for the others. The per-claim values differ from DM2's (+0.42) because the format links are now fitted on more statements.
 - No call was refused, and no answer hit the token limit.
 

@@ -53,10 +53,10 @@ Verdict, run 2's 7 fallacy items: **untestable (fewer than 3 items pass the mani
 
 ## Reading
 
-- **Untestable, by the pre-registered manipulation check.** The design needed the provided first rating to move the model's own first rating r₁ by at least 10 points between the low and high anchors. Only 5 of 32 item-orders passed, and only 1 item (co06) passed in both orders, against the 3 required. The mechanism question (anchoring vs content-driven updating, and rank-one quantum vs Bayes) cannot be answered from these data.
+- **Untestable, by the pre-registered manipulation check.** The design needed the provided first rating to move the model's own first rating r₁ by at least 10 points between the low and high anchors. Only 6 of 32 item-orders passed, and only 1 item (co06) passed in both orders, against the 3 required. The mechanism question (anchoring vs content-driven updating, and rank-one quantum vs Bayes) cannot be answered from these data.
 - **The informative outcome the draft anticipated (§6): the model's first ratings resist social anchors.**
-  - **It usually rejects the provided estimate.** The accept rate is 0% in 15 of 32 item-orders, and when it revises it returns close to its own value.
-  - **It sometimes reacts against the anchor.** In 6 item-orders, a higher provided estimate produced a *lower* first rating, down to −0.50 on Marta (co-lin10, X first). That is a contrast or reactance effect, not anchoring.
+  - **It usually rejects the provided estimate.** The accept rate is 0% in 17 of 32 item-orders; the first rating moves toward the provided value by a median of only 9% of the low-to-high gap.
+  - **It sometimes reacts against the anchor.** In 5 item-orders, a higher provided estimate produced a reliably *lower* first rating, down to −0.50 on Marta (co-lin10, X first). These reliable reversals all occur on the three Linda-family vignettes, often as a fixed answer (Marta: 35 in 40 of 40 against a provided 98); their mechanism is not identified.
   - **The ceiling held.** The conjunction rating almost never exceeded the first rating (r₂ > r₁ in at most 10% of conversations, and 0% in most item-orders), as both content-driven accounts require.
 - **Where r₁ barely moved, the regression estimates are unstable** (for example β₀ = +2.17 or +3.25) and should not be read. Those item-orders are marked not scored.
 - **Run 2's order effect only partly replicates under the explicit scale wording.**

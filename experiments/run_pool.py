@@ -109,7 +109,8 @@ def cap(run: int) -> float:
 def write_usage() -> None:
     lines = ["# Anthropic API usage", "",
              "Prices per MTok: " + ", ".join(f"`{m}` ${a:.2f} in / ${b:.2f} out" for m, (a, b) in config.PRICES.items())
-             + ". Thinking tokens bill as output. Extractor `claude-sonnet-5-5`, judge `claude-haiku-5-5` in every run."]
+             + ". Thinking tokens bill as output. Extractor `claude-sonnet-5-5`, judge `claude-haiku-5-5` in every run."
+             + " This ledger covers the pool runs only; every later run's API cost is stated in its own results file."]
     for run, spec in RUNS.items():
         recs = load(run)["records"]
         if not recs:
@@ -229,7 +230,7 @@ def main(run: int) -> None:
     out.write_text(json.dumps({"base_model": spec["base_model"], "base_effort": spec["base_effort"],
                                "split": s, "records": records}, indent=1))
     lines = [f"# Pool run {run}: base `{spec['base_model']}` (effort {spec['base_effort'] or 'default'}, adaptive thinking)", "",
-             f"{len(records)} questions processed; {n_trunc} hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; "
+             f"{len(records)} questions processed; {n_trunc} hit the 16,000-token cap, gave no FINAL ANSWER or failed claim extraction, and are excluded; "
              f"base model wrong on **{n_wrong}** of {len(records) - n_trunc} answered. "
              f"API cost ${sum(r['cost_usd'] for r in records):.4f}. "
              "Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).", ""]

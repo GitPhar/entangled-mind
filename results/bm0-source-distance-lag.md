@@ -9,19 +9,18 @@ Pre-registered in `experiments/bm0-source-distance-lag.md` (D47), committed befo
 **Own beats other at every distance.**
 - At 10 points away, the model takes up 71% of its own planted answer and 19% of another person's. At 30 points it takes up 44% against −11%, and at 60 points 21% against −13%.
 - Pooled over distances, own minus other is **+0.46 [+0.21, +0.84]**. The interval is well above zero at each distance on its own.
-- Another person's number is essentially ignored: mean uptake +0.02 at ±10 and ±60. It is not resisted either: about a quarter of cells move away, and no more.
+- No pull from another person's number was detected: mean uptake +0.02 at ±10 and ±60, and its interval includes 0 at each distance. No resistance was detected either: about a quarter of cells move away, and no more.
 
 **The pull of its own answer has a limit.**
-- The further away the planted answer, the smaller the share the model takes up. The actual movement peaks for answers about 35 points away and then falls.
+- The further away the planted answer, the smaller the share the model takes up. The actual movement is similar at 10 and 30 points and smaller at 60.
 - Even at 60 points the model still moves toward its "own" answer, by about 6 points. It never moves away, so there is no reversal.
 - By the pre-registered rule this is the *non-monotone* shape that serial-dependence tuning predicts. The named confound is that it is equally what a model would do if it discards an "own" answer as implausible once it is far from its view (Kumaran et al.). This test cannot tell the two apart.
 
-**Three intervening turns do not weaken it.**
+**After three filler turns, uptake is if anything higher (lag 0 − lag 3 = −0.13 [−0.25, −0.00]).**
 - After three "continue" turns, the model takes up 57% of its own planted answer at ±30, against 44% with no turns in between.
 - Lag 0 minus lag 3 is −0.13 [−0.25, −0.00], so by the pre-registered rule the uptake *grows*, but the interval's upper end only just clears zero.
-- Attraction to any recent number would decay over intervening turns. A commitment to answers that stay visible in the transcript would not. The data side with the commitment.
 
-**Pre-registered reading: self-consistency.** Own > other holds, and the pull does not decay over lag. The model treats its own visible answers as commitments, weighted down when they sit far from its view. It does not show generic attraction to recent numbers.
+**Pre-registered reading: self-consistency.** The own framing beats the other framing at every distance, and uptake does not fall after three filler turns (it rises, at the edge of the CI). The framings differ in wording as well as source.
 
 **Limits.**
 - **Wording.** The own and other conditions still differ in wording ("give your rating again" against "accept or revise"), as in bm1.

@@ -17,8 +17,9 @@ Pre-registered in `experiments/cal-format-order.md` (DM6), committed before any 
 - **Neither model's ECE changes detectably with question order:** +0.022 for Haiku and +0.055 for Sonnet, both intervals spanning 0.
 - **The same question asked inside a conversation rather than fresh changes ECE for both models:** −0.15 for Haiku and −0.11 for Sonnet, both intervals excluding 0.
 
-**The run had two flaws, so these numbers need care.**
-- **About 120 of the pool's questions are phrased "Is this claim true?".** The models answered "True"/"False", which the frozen parsing rule (yes/no only) rejected.
+**The run had three flaws, so these numbers need care.**
+- **60 of the pool's questions are phrased "Is the following claim true?".** The models answered "True"/"False", which the frozen parsing rule (yes/no only) rejected.
+- **Open-form guesses.** On many "Is the (correct) answer X?" questions the models gave their own answer ("Guess: 43 ft") instead of yes/no. These were unparsed: 93–118 per probability cell against 35–41 per frequency cell for Haiku, and 80–155 per cell for Sonnet.
 - **Some answers were dropped.** Some answers worked the problem out and ran past the 300-token limit. In a conversation, the frozen rule ends the conversation there.
 - **The result:** each cell rests on 68–199 of its 300 questions, not 300.
 
@@ -33,15 +34,15 @@ Which reading a model uses depends on the format and on the conversation:
 So changing the format, or putting the question in a conversation, changes *which quantity the model reports*, not only how much it reports.
 
 **The exploratory re-analysis.** With True/False mapped to yes/no, and scoring as Tian intended:
-- Sonnet's ECE ranges from **0.06 to 0.27** across the same 300 questions, depending only on format and context. Replicate noise is about 0.01.
+- Sonnet's ECE ranges from **0.06 to 0.27** across cells (each on 111–167 parsed questions). Replicate noise is about 0.01.
 - Sonnet's format effect stays clear (−0.083 [−0.137, −0.032]).
 - Question order still makes no detectable difference for either model.
 - Scored the other way (the number as the probability of X), several contrasts change sign.
 
 **What it means.**
-- **A calibration number from this standard protocol is a number about a model, a format and a context together.** For Sonnet, the format alone moves ECE by a factor of about 1.7 to 2.9 (exploratory scoring A; 2.0 to 2.9 in the pre-registered cells), far beyond run-to-run noise.
-- **Aggregate ECE was robust to question order here.** The individual confidences did move more between orders than between fresh replicates: mean |Δ| 0.22 against 0.10 for Haiku, and 0.65 against 0.14 for Sonnet in the probability format.
-- **Part of the format effect is the format changing the question the model answers.** That is the paper's point about construction in a very concrete form. It is also a warning that Tian's protocol needs adapting before it is used on yes/no questions.
+- **For Sonnet, a calibration number from this protocol depended on the format and the context; for Haiku, on the context only. The direction of Sonnet's format effect depends on how the number is read.** For Sonnet, the format alone moves ECE by a factor of about 1.7 to 2.9 (exploratory scoring A; 2.0 to 2.9 in the pre-registered cells), far beyond run-to-run noise.
+- **No effect of question order on aggregate ECE was detected here** (Haiku +0.022 [−0.076, +0.104], Sonnet +0.055 [−0.088, +0.162]). The individual confidences did move more between orders than between fresh replicates: mean |Δ| 0.22 against 0.10 for Haiku, and 0.65 against 0.14 for Sonnet in the probability format.
+- **Part of the format effect is the format changing the question the model answers.** It is also a warning that Tian's protocol needs adapting before it is used on yes/no questions.
 - **Budget:** $2.61 of the $3 (Haiku $0.12, Sonnet $2.49, batch rate).
 
 # Pre-registered analysis (DM6, strict parse rule)
@@ -150,5 +151,5 @@ Computed by `experiments/cal_format_explore.py` after the tables above had been 
 | conversation − fresh | −0.118 [−0.165, −0.067] | +0.081 [+0.034, +0.134] | −0.060 [−0.114, −0.006] | +0.057 [+0.010, +0.101] |
 
 **Reading.**
-- **Order:** null in every version.
+- **Order:** not detected in any version.
 - **The format effect for Sonnet** and the **conversation-against-fresh effect for both models** are far larger than replicate noise in every version. Their sign depends on which reading of the number is scored, because the format and the context change which reading the model uses.

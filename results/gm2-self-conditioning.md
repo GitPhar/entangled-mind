@@ -11,13 +11,13 @@ Pre-registered in `experiments/gm2-self-conditioning.md` (D37), committed before
 
 **What we found.** Both parts matter, and the question alone is enough for an order effect.
 - **The question.** With the model's earlier answers hidden, the order of the sub-questions still changes its final verdict, by even more than when the answers are shown: an order effect of 16.7 points against 8.7. The ratio is 1.9 [0.9, 4.9], which passes the pre-registered bar of 0.5. Being asked the questions, in a particular order, changes the judgment even when the model can't see what it answered.
-- **The record.** The numbers in the transcript pull later ratings. Planting a higher earlier rating raises the model's next ratings by about 6 points and its final verdict by about 10. When its first answer to the main question is planted, the final answer follows it almost point for point, and then some: 1.27 [0.70, 2.14] points per point.
-- **Memory, not stability.** In experiment 5, the model repeated its main rating within 5 points 84% of the time after a chain of questions. Here that is 81% when it can see its first answer, but only 23% when the answer is hidden. The consistency was the model reading its own earlier answer, not a stable judgment it reached again.
+- **The record.** The numbers in the transcript pull later ratings. Planting higher earlier ratings raises the model's later sub-question ratings by about 3 points and its final verdict by about 10. When its first answer to the main question is planted, the final answer follows it at about a point per point (median item 1.00; mean 1.27 [0.70, 2.14], inflated by one item, h238).
+- **Repeat agreement depends on seeing the first answer.** In experiment 5, the model repeated its main rating within 5 points 84% of the time after a chain of questions. Here that is 81% when it can see its first answer, but only 23% when the answer is hidden. Seeing its first answer raises repeat agreement sharply; without it, the intervening questions move the final rating away from the first.
 
 **What it means.**
 - The order effects are not only self-anchoring. The questions themselves change the judgment. In the gold map's terms, that is "measurement in the strict sense", the overturning direction, which the gold map had put at 0.25.
-- But the model also anchors heavily on its own recorded answers. That anchoring, not a settled belief, produces its apparent consistency.
-- So the judgment is built by the asking in two ways: by the questions put to the model, and by its own earlier answers, treated as evidence.
+- But the model also anchors heavily on its own recorded answers. That anchoring keeps its repeated answer close to its first one after a chain of questions.
+- One reading is that the judgment is built by the asking in two ways: by the questions put to the model, and by its own earlier answers, treated as evidence.
 
 **Caveats.**
 - 10 items, and much of the redacted order effect comes from 2 of them (h191, h261).

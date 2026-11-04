@@ -91,7 +91,7 @@ def main() -> None:
                    ("F2P", "F2+: F2 with A2's tilted-readout marginal")):
         pc = counts["A2(κ=0)" if k == "A2k0" else ("F2+" if k == "F2P" else k)]
         lines.append(f"| {lab} | {pc} | " + " | ".join(f(r["auroc"][k]) for r in results.values()) + " |")
-    lines += ["", "Paired bootstrap AUROC differences (2,000 stratified resamples):", "",
+    lines += ["", "Paired bootstrap AUROC differences (1,000 stratified resamples; Addendum D specified 2,000, and the rule outcomes are the same at 2,000):", "",
               "| difference | " + " | ".join(results) + " |", "|---|" + "---|" * len(results)]
     for key, lab in (("A2k0_minus_A2", "A2(κ=0) − A2"), ("F2P_minus_A2", "F2+ − A2"), ("F2P_minus_F2", "F2+ − F2"),
                      ("A2_minus_F2", "A2 − F2")):

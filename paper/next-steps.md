@@ -17,8 +17,8 @@ Written 2026-11-03. It reflects `main` at 92048fb. Numbers are copied from `resu
 - **The primary test failed.** The paired A2 − F2 difference is −0.007 [−0.079, +0.062]. The primary required A2's lower bound to exceed F2's upper bound.
 - **A2's couplings fitted small.**
   - k_sup = 0.12 and k_con = 0.21, against 1 in version one, with a single Trotter step.
-  - This was not a sharp optimum at zero: other climbed candidates reach the same train AUROC with couplings anywhere from 0.06 to 1.5.
-  - The plain statement is that **error prediction on this task does not depend on the entangling structure.**
+  - Zero couplings do as well as the fitted ones, and v1-strength couplings lower train AUROC from 0.82 to 0.61; the equally good candidates with large couplings read out near the Z axis, where couplings barely matter.
+  - The plain statement is that **error prediction on this task shows no detectable dependence on the entangling structure.**
 - **F2 fitted to a static model.** It chose zero sweeps, so it uses no dynamics.
 - **The hard-pool held-out set (secondary) favours A2,** 0.82 against F2's 0.71. But G also scores 0.82 there, and with A2's couplings near zero the gain comes from A2's learned single-claim geometry, not from entanglement.
 

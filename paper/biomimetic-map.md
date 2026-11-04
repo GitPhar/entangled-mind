@@ -28,14 +28,14 @@ The brief lists six features. Two of them are weaker in the record than the one-
 
 | id | feature | evidence (repo) | status |
 |---|---|---|---|
-| **F1** | Judgment is constructed at ask time, with large graded order effects | Exp 5: the main-rating means span a median of **24.7 points** across orders and omissions; 60 of 80 (S, M) pairs have OE > 0.10. Run 2 on one scale: 12 of the 16 large pairs survive (`bffc4ab`). Relabelling the scale moves the baseline from 33.8 to 71.3 (exp 5 run 1). | measured |
+| **F1** | Large graded order effects (read as judgment constructed at ask time) | Exp 5: the main-rating means span a median of **24.7 points** across orders and omissions; 60 of 80 (S, M) pairs have OE > 0.10. Run 2 on one scale: 12 of the 16 large pairs survive (`bffc4ab`). Relabelling the scale moves the baseline from 33.8 to 71.3 (exp 5 run 1). | measured |
 | **F2** | Self-anchoring on its own prior answer | Exp 4 run 2: "static twin with anchoring", but the estimator is near-tautological (D19). Exp 5: the main question repeated after a chain lands within 5 points 84% of the time (MF). The belief-adjustment model BA5 predicts main ratings best (827 against A5's 873; Δ = −46 [−94, +14], so the interval includes 0). | **inferred, not isolated.** Run 3 could not test it, and the planted-own-answer condition (gold map §2) has not been run |
-| **F3** | Resistance, and some reactance, to another person's provided rating | Exp 4 run 3 (`de38306`): the accept rate is 0% in 15 of 32 item-orders, and revisions return close to the model's own value. In 6 item-orders a higher anchor gave a *lower* first rating, down to −0.50 (co-lin10, X first). The manipulation check passed in both orders on 1 of 16 items. r₂ > r₁ in at most 10% of conversations. | measured (resistance robust; reactance in 6 of 32 item-orders) |
-| **F4** | Stated confidence is the best error signal on two models | Haiku run 2: G = 0.82 [0.71, 0.90], above every structural arm. Haiku locked test: G = 0.83 (A2 0.83, F2 0.84). Sonnet: G = 0.91, the same as A2 (0.90; +0.008). | measured: **best or tied-best**. It strictly beats the structural readings only on Haiku run 2 |
+| **F3** | Low uptake of, and some reversal against, another person's provided rating | Exp 4 run 3 (`de38306`): the accept rate is 0% in 17 of 32 item-orders, and the first rating moves a median 9% of the way to the provided value. In 5 item-orders, all Linda-family items, a higher anchor gave a reliably *lower* first rating, down to −0.50 (co-lin10, X first). The manipulation check passed in both orders on 1 of 16 items. r₂ > r₁ in at most 10% of conversations. | measured (low uptake robust; reversal in 5 of 32 item-orders, all on three Linda-family items) |
+| **F4** | Stated confidence is the best error signal on two models | Haiku run 2: G = 0.82 [0.71, 0.90], above every structural arm. Haiku locked test: G = 0.83 (A2 0.83, F2 0.84). Sonnet: G = 0.91, level with A2 (0.90; +0.008 [−0.061, +0.080]). | measured: **best or tied-best**. It strictly beats only the fixed v1 arms on Haiku run 2 (the learned A2.1 scores 0.84 there) |
 | **F5** | Weakly held claims tilt the vote through a per-claim readout angle | The F2+ readout P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2 mixes each claim's uncommitted component (cos θ, large at low confidence) into its vote. F2+ − F2 = +0.082 [+0.045, +0.120] on Sonnet's pool and +0.088 [+0.014, +0.167] on Haiku's run-2 held-out set, but +0.009 [−0.057, +0.065] on Haiku's locked test. | measured on 2 of 3 sets; **one of the two positive sets is Sonnet's** |
-| **F6** | Graded ratings are dispersive where yes/no answers are deterministic | Exp 3: 85% of items give the same yes/no answer in all 5 runs, and the order effect is not significant (permutation p = 0.243). Exp 4 run 1: the binary phase saturated. Graded: the B0 between-repeat SD is 7.1 points on one scale (exp 5 run 2). But in exp 4 run 2, repeats barely vary (SD 0.00–0.05 on the 0–1 scale). | measured. The robust contrast is **order effects in graded form, none in yes/no**. Graded *repeat* noise depends on the item and the design |
-| **C1** | No interference; a classical Markov chain suffices | Kvam Δ_K = +0.29 [−1.12, +1.65] on folded confidence \|r − 50\|. One-scale q = −0.146 [−0.439, +0.137], so QQ is not supported. The dephased Markov D5 matches A5 (+3.8 [−21.8, +30.9] on the test chains). | measured. **Literature comparison:** Kvam et al.'s human effect on the same folded statistic was −1.19 points (83.96 after a choice against 85.15 without one). The project's interval only barely excludes a raw effect that size, so C1 is *consistent with* a Markov walk; it does not rule out a human-sized interference effect |
-| **C2** | Couplings between claims carry nothing | A2(κ=0) − A2 = −0.009 (Haiku) and −0.006 (Sonnet). A5 with κ = 0 costs +24.4 [−8.0, +60.5] on the test chains. | measured |
+| **F6** | Graded ratings are dispersive where yes/no answers are deterministic | Exp 3: 85% of items give the same yes/no answer in all 5 runs, and the order effect is not significant (permutation p = 0.243). Exp 4 run 1: the binary phase saturated. Graded: the B0 between-repeat SD is 7.1 points on one scale (exp 5 run 2). But in exp 4 run 2, repeats barely vary (SD 0.00–0.05 on the 0–1 scale). | measured. The robust contrast is **large graded order effects against near-deterministic yes/no answers**; yes/no order effects appear in experiment 4 run 1's marginals but not in experiment 3's design. Graded *repeat* noise depends on the item and the design |
+| **C1** | No interference detected; a classical Markov chain suffices | Kvam Δ_K = +0.29 [−1.12, +1.65] on folded confidence \|r − 50\|. One-scale q = −0.146 [−0.439, +0.137], so QQ is not supported. The dephased Markov D5 is not detectably behind A5 (+3.8 [−21.8, +30.9] on the test chains). | measured. **Literature comparison:** Kvam et al.'s human effect on the same folded statistic was −1.19 points (83.96 after a choice against 85.15 without one). The project's interval only barely excludes a raw effect that size, so C1 is *consistent with* a Markov walk; it does not rule out a human-sized interference effect |
+| **C2** | Couplings between claims carry nothing detectable | A2(κ=0) − A2 = −0.009 (Haiku) and −0.006 (Sonnet). A5 with κ = 0 costs +24.4 [−8.0, +60.5] on the test chains. | measured |
 
 ---
 
@@ -399,7 +399,7 @@ Revision 1's lag prediction ("attraction grows with intervening turns") was the 
 
 ## 4. What no mechanism here explains
 
-- **Reactance to another person's number** (the 6 contrast item-orders in run 3). After the full reads, no mechanism derives it:
+- **Reversal against another person's number** (the 5 reliable contrast item-orders in run 3, all on Linda-family items). After the full reads, no mechanism derives it:
   - serial-dependence repulsion needs sensory adaptation and a perceptual readout;
   - normalization's "contrast" is not in the paper;
   - Lieder's anchoring never goes beyond the belief;
@@ -409,8 +409,8 @@ Revision 1's lag prediction ("attraction grows with intervening turns") was the 
 
   If §3.0's "other" cells reproduce it, it is a finding with no biological model in this map.
 - **The scale-relabelling gap (33.8 against 71.3).** This is a failure to read the instruction, not a way of resolving a conflict. D33's one-scale designs control for it rather than explain it.
-- **The scale wording shrinks order effects** (exp 4 run 3: Marta from about +0.10 to +0.02). §3.0 and §3.4 reuse the exp-4 items and must keep run 3's wording.
-- **F5 on Haiku's locked test.** The readout tilt adds nothing there (+0.009). Every mechanism that claims F5 must explain why it helps on Sonnet's pool and on Haiku's run-2 held-out set but not on Haiku's locked test. None does.
+- **The scale wording may shrink some order effects** (exp 4 run 3: Marta from about +0.10 to +0.02, co05 +0.07 to +0.04; Bill unchanged). §3.0 and §3.4 reuse the exp-4 items and must keep run 3's wording.
+- **F5 on Haiku's locked test.** The readout tilt adds nothing detectable there (+0.009 [−0.057, +0.065]). Every mechanism that claims F5 must explain why it helps on Sonnet's pool and on Haiku's run-2 held-out set but not on Haiku's locked test. None does.
 
 ## 5. Recommended order
 
@@ -419,7 +419,7 @@ Revision 1's lag prediction ("attraction grows with intervening turns") was the 
    - K1 against K0 sensitivity (§3.7);
    - the sampler/PT+N variance shape (§3.4);
    - the low-power run-3 asymmetry, recoded by sign (§3.1).
-2. **§3.0, the source × distance × lag test** (≈ $0.46; ≈ $0.28 without lag). It decides the top two mechanisms, completes gold map §2's planted-answer condition, and re-probes the unexplained reactance. Share its pre-registration with gold map §2.
+2. **§3.0, the source × distance × lag test** (≈ $0.46; ≈ $0.28 without lag). It decides the top two mechanisms, completes gold map §2's planted-answer condition, and re-probes the unexplained reversals. Share its pre-registration with gold map §2.
 3. **§3.4's Z-slope test** (≈ $0.05) and **§3.3's prime × confidence test** (≈ $0.15–0.25).
 4. **§3.6's reconsider/filler test** (≈ $0.10) and **gold map §4 with fixed preferences** (≈ $0.10).
 5. **Before citing 2DSD's resolution claim,** obtain Pleskac & Busemeyer 2010 in full.

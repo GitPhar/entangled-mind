@@ -15,7 +15,7 @@ Pre-registered in `experiments/gm4-evidence-seeking.md` (D39), committed before 
 - **It avoids the most uncertain-sounding claim,** picking it 13 points less often than chance. So "informative" here is not "most hedged".
 - **The decisive comparison is undecided.** On the menus where the informative and confirmatory checks differ (46 and 26 menus), the model picks the confirmatory claim more often: −0.24 [−0.52, +0.04] and −0.14 [−0.40, +0.14]. Neither difference is reliable. Under the pre-registered rule the verdict is **mixed**.
 
-**What it means.** The model reliably chooses claims that bear strongly on its question, which is partly what an inquiring mind would do. It does not prefer the informative check over the confirmatory one when they come apart; if anything it leans confirmatory, as Jhaveri et al. found for hypothesis testing. Active-inference-style evidence seeking is not shown. Neither is a clear confirmation bias.
+**What it means.** The model reliably chooses claims that bear strongly on its question, which is partly what an inquiring mind would do. When they come apart it shows no detectable preference for the informative check; if anything it leans confirmatory, as Jhaveri et al. found for hypothesis testing. Active-inference-style evidence seeking is not shown. Neither is a clear confirmation bias.
 
 **Caveat.** "Informative" is computed from our own fitted models of the model, which the chooser never sees. A miss could be a miss of those models.
 

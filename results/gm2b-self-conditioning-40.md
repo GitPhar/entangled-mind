@@ -9,22 +9,22 @@ Pre-registered in `experiments/gm2b-self-conditioning-40.md` (D45), committed be
 **The question alone still changes the judgment, and not because of two items.**
 - With every earlier answer replaced by "[rating recorded]", the order of the questions still moves the final rating by about as much as when the answers are visible: R = **1.23 [0.75, 2.02]** on all 40 items. The interval lies above the pre-registered 0.5 line, so the reading is again *question-driven*.
 - It holds on the 30 new items alone (R = 0.99 [0.51, 1.61]) and with h191 and h261 dropped (0.99 [0.62, 1.49]).
-- The effect is spread across items. On 82% of them the redacted order effect is at least half the shown one.
+- No single item carries it (dropping any one leaves the CI above 0.5), though a few items dominate the size. On 82% of them the redacted order effect is at least half the shown one.
 
 **The redacted effect is no longer larger than the shown one.**
 - Last night's R of 1.91 came mostly from h191, which has almost no order effect when its answers are visible (0.4 points) and a large one when they are hidden (38 points).
 - Across 40 items, the two are about equal (12.0 and 9.8 points). Without h191 and h261, they are the same (9.9 and 10.0).
-- **The placeholder check passes.** The spread of final ratings within one order is the same shown and redacted (SD 5.1 against 5.4). So the placeholder turn does not add noise of its own, and the redacted order effect is not an artefact of it.
-- The honest summary is that, on these items, **the question carries roughly all of the order effect, and the record adds little to it.**
+- **The placeholder check passes.** The spread of final ratings within one order is the same shown and redacted (SD 5.1 against 5.4). So the placeholder turn does not add noise of its own; whether it adds order-specific shifts is not tested by this check.
+- The honest summary is that, on these items, **hiding the record leaves an order effect of about the same size, but a largely different one: the record changes which orders move the verdict.**
 
-**The record still steers, and stability is still largely memory.**
+**The record still steers, and keeps the repeated answer close to the first.**
 - A planted first answer pulls the final answer to the same question by 0.85 [0.65, 1.13] points per point. That is smaller than last night's 1.27, but clearly above zero.
 - Planted-high earlier ratings raise the next actual rating by 5.2 points and the final rating by 9.0 points over planted-low.
 - With its first answer visible, the model repeats it within 5 points 86% of the time. Hidden, it does so 36% of the time (last night: 81% and 23%).
 
 **What changes in the paper.**
 - The direction 2 numbers move to the 40-item values.
-- The caveats about two items carrying the effect, and about the placeholder adding variance, can be dropped.
+- The caveat about two items carrying the effect can be dropped; the placeholder caveat stands.
 - The question-driven reading stands. "The redacted effect is larger than the shown" should no longer be said.
 
 ## Order effect and its decomposition

@@ -11,9 +11,9 @@ Pre-registered in `experiments/gm3c-heldout-format.md` (D46), committed before t
 - **The format's own other half of repeats** predicts them with an R² of 0.88–0.97.
 - **The ratio:** the cross-format prediction recovers only 39% [30%, 50%] of what is reproducible in each format. That is below the pre-registered 0.5 line, though only just: the upper end of the interval is 0.499.
 - **The worst case** is the comparison with a coin toss (17% recovered). The best are the 0–100 rating (53%) and the verbal scale (47%).
-- **Against the precedent:** Smolin & Wilder found held-out R² of 60–90% on other models. Haiku, on its own deliberation claims, is well below that range.
+- **Against the precedent:** Smolin & Wilder found held-out R² of 60–90% on other models. Haiku, on its own deliberation claims, is below that range, though their framings, items and statistic differ from ours, so the comparison is only indicative.
 
-**What it means.** The answers are highly reproducible within a format and only loosely related across formats. Most of what the model reproducibly says about a statement in one format cannot be recovered from how it answers in the others. So last night's result is not just a belief that each format bends slightly: on these statements, most of the answer is made by the format of the question. There is a common thread, since a third to a half is shared, but it is the smaller part.
+**What it means.** The answers are highly reproducible within a format and only loosely related across formats. Most of what the model reproducibly says about a statement in one format cannot be recovered from how it answers in the others. So last night's result is not just a belief that each format bends slightly: on these statements, somewhat more than half of each format's reproducible answer is not shared with the other formats. There is a common thread, since a third to a half is shared, but it is the smaller part.
 
 **Caveats.**
 - One model, one context per statement.

@@ -26,5 +26,5 @@ Most frequent hardware bitstrings (qubit 0 rightmost; 0 = yes-aligned):
 ## Reading
 
 - The job waited in the Open Plan queue from 13:16 to 16:06 MST (2 h 50 min).
-- Hardware decoheres the state much more than the `ibm_fez` noise model predicts: P(yes) 0.50 on hardware vs 0.25 on the noisy simulator and 0.29 ideal, with 336 distinct bitstrings out of 1,000 shots.
+- On this one circuit, hardware departs from the `ibm_fez` noise model far beyond shot noise: P(yes) 0.50 on hardware vs 0.25 on the noisy simulator and 0.29 ideal (z = 12), with 336 distinct bitstrings out of 1,000 shots. Some qubits overshoot 50/50 (qubit 1: 0.25 ideal, 0.70 hardware), so this is not decoherence alone.
 - The QPU time was first logged as 0.0 s by a parsing bug (DEVIATIONS.md, D10), since repaired.

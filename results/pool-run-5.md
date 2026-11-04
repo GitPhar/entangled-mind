@@ -1,6 +1,6 @@
 # Pool run 5: base `claude-haiku-5-5` (effort default, adaptive thinking)
 
-1048 questions processed; 0 hit the 16,000-token cap or gave no FINAL ANSWER and are excluded; base model wrong on **158** of 1048 answered. API cost $8.3268. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
+1048 questions processed; 0 hit the 16,000-token cap, gave no FINAL ANSWER or failed claim extraction, and are excluded; base model wrong on **158** of 1048 answered. API cost $8.3268. Contentions are the claims in the visible answer (DEVIATIONS.md, D1–D3).
 
 Test set rule: none (v2 split locked separately in experiments/split-v2.json). Test set: 0 wrong + 0 right. Calibration pool: 0 items.
 
