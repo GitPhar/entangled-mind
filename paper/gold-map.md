@@ -104,6 +104,10 @@ Two rules are fixed in advance across all directions:
 
 **Cost.** About 10 items × 5 chain types × 4 conditions × 10 conversations = 2,000 chains, about $0.50 at experiment 5's rate.
 
+**Update (23:17).** Experiment 4 run 3 (`de38306`) found the model resists *another person's* provided first rating: accept rate 0% in 15 of 32 item-orders, and sometimes it moves away from the estimate. That makes the planted-own-answer condition here the remaining way to move a first rating independently of the item.
+
+**Design note from experiment 5 run 2.** Use one scale direction. The baseline between-repeat SD is 7.1 points on one scale against 20.6 pooled.
+
 **P(the overturning direction) = 0.25. P(a decisive result either way) ≈ 0.7.** Kumaran's data suggest self-anchoring is strong, so the expected outcome is the classical one.
 
 ---
@@ -263,7 +267,7 @@ Quantum theory says they cannot all hold. A violation does not overturn quantum 
 
 **What today's data say.** Experiment 5's QQ block:
 - only 1 of 80 pairs has Γ > 0 (h248, Γ = +0.20). That is exploratory, and about what chance gives across 80 pairs;
-- the mean q is +0.005 [−0.058, +0.065].
+- the mean q is +0.005 [−0.058, +0.065] pooled over both scale directions. But on one scale (run 2, `bffc4ab`) it is −0.146 [−0.439, +0.137], so the near-zero was an anchor-pooling artefact.
 
 **Cheapest test.** 6 contexts × 2 orders × 3 states = 36 mid-circuit circuits.
 
