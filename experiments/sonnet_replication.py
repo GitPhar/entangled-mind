@@ -132,17 +132,26 @@ def offline() -> None:
             kw = {"feat_mu": np.array(mm["feature_mu"]), "feat_sd": np.array(mm["feature_sd"])} if model == "L" else {}
             scores[model] = vf.ParallelScorer(model, items, pool, **kw).scores(np.array(mm["final"]["params"]))
     scores["H"] = np.array([v2.hedge_scores(i)[0] for i in items])
+    g_cache = json.loads(G_CACHE.read_text()) if G_CACHE.exists() else {}
+    have_g = all(i.id in g_cache for i in items)
+    if have_g:   # D28: Sonnet's self-confidence, from cached calls (no API call here)
+        scores["G"] = np.array([100 - g_cache[i.id]["confidence"] for i in items], float)
     res = {"n": len(items), "n_wrong": int(y.sum()), "models": {}}
     for mname, sc in scores.items():
         p_, lo, hi = vf.boot(list(sc[y]), list(sc[~y]))
         res["models"][mname] = {"auroc": p_, "ci95": [lo, hi]}
     res["A2_minus_F2"] = vf.paired_diff(scores["A2"], scores["F2"], y)
     res["L_minus_H"] = vf.paired_diff(scores["L"], scores["H"], y)
+    if have_g:
+        res["G_minus_L"] = vf.paired_diff(scores["G"], scores["L"], y)
+        res["G_minus_A2"] = vf.paired_diff(scores["G"], scores["A2"], y)
+        res["G_cost_usd"] = sum(g_cache[i.id]["usage"]["cost_usd"] for i in items)
     cats = {}
     for i, r in zip(items, recs):
         cats.setdefault("science" if r["category"].startswith("science") else r["category"], []).append(i.wrong)
-    OUT_JSON.write_text(json.dumps({"mode": "offline", "hard_pool": res, "arm_G": "not scored (would need Sonnet calls; "
-                                    "replication halted, DEVIATIONS.md D25)"}, indent=1))
+    OUT_JSON.write_text(json.dumps({"mode": "offline", "hard_pool": res,
+                                    "arm_G": "scored from cached Sonnet calls (D28)" if have_g else
+                                    "not scored (would need Sonnet calls; replication halted, DEVIATIONS.md D25)"}, indent=1))
     f = lambda r: f"{r['auroc']:.2f} [{r['ci95'][0]:.2f}, {r['ci95'][1]:.2f}]"
     d = lambda x: f"{x[0]:+.3f} [{x[1]:+.3f}, {x[2]:+.3f}]"
     m_ = res["models"]
@@ -150,8 +159,10 @@ def offline() -> None:
     lines = ["# Second base model: claude-sonnet-5-5 (offline scoring of the hard pool)", "",
              "Sonnet's own answers to the hard pool (pool run 4, `h101` excluded after a refusal, DEVIATIONS.md D21) were "
              "scored offline. Each item's archived claims and relation table go through the **already-fitted** v2 models, with "
-             "frozen parameters from `results/v2-fit.json`. Nothing is refitted, and **no API call was made** (the client is "
-             "blocked in code). The training-pool run stopped on a second refusal (D25), so only the hard pool is scored here.", "",
+             "frozen parameters from `results/v2-fit.json`. Nothing is refitted, and **no API call was made** during scoring (the "
+             "client is blocked in code). The training-pool run stopped on a second refusal (D25), so only the hard pool is scored here."
+             + (f" Arm G comes from {len(items)} separate self-confidence calls to Sonnet, ${res['G_cost_usd']:.2f}, with no refusal (D28)."
+                if have_g else ""), "",
              f"Sonnet answered {res['n']} items and got **{res['n_wrong']} wrong** "
              f"({', '.join(f'{k} {sum(v)}/{len(v)}' for k, v in sorted(cats.items()))}).", "",
              "| model | Sonnet, hard pool (all 298) | Haiku, run-2 held-out (80), for reference |", "|---|---|---|",
@@ -159,8 +170,10 @@ def offline() -> None:
              f"| F2 learned classical twin | {f(m_['F2'])} | {f(hk['F2'])} |",
              f"| L relation-web features | {f(m_['L'])} | {f(hk['L'])} |",
              f"| H hedge baseline | {f(m_['H'])} | {f(hk['H'])} |",
-             f"| G self-reported confidence | **not scored** (needs Sonnet calls; halted, D25) | {f(hk['G'])} |", "",
-             f"Paired bootstrap on Sonnet's items: A2 − F2 = {d(res['A2_minus_F2'])}; L − H = {d(res['L_minus_H'])}.", "",
+             (f"| G self-reported confidence | {f(m_['G'])} | {f(hk['G'])} |" if have_g else
+              f"| G self-reported confidence | **not scored** (needs Sonnet calls; halted, D25) | {f(hk['G'])} |"), "",
+             f"Paired bootstrap on Sonnet's items: A2 − F2 = {d(res['A2_minus_F2'])}; L − H = {d(res['L_minus_H'])}"
+             + (f"; G − A2 = {d(res['G_minus_A2'])}; G − L = {d(res['G_minus_L'])}." if have_g else "."), "",
              "The two sets differ in composition: Sonnet's set is the whole hard pool, with 30 wrong of 298, while Haiku's held-out "
              "set is 40 wrong and 40 right. AUROC does not depend on that balance, but the intervals do."]
     OUT_MD.write_text("\n".join(lines) + "\n")
