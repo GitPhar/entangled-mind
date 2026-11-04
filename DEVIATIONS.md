@@ -761,3 +761,19 @@ Numbered DM so as not to collide with D-entries written on `main` at the same ti
 **Not run, for budget:** the paraphrase and recognition arms.
 
 **Cap:** $4.60 (batch rate).
+
+## DM4 — Multi-model replication 3 of 3: transcripts on Sonnet and Opus pre-registered
+
+**Date:** 2026-11-04 08:10 MST, before any call for this test. Recorded in `experiments/mm-gm2-self-conditioning.md`.
+
+**Design.** D37's design and analysis, unchanged, at **R = 4**: 800 conversations per model.
+
+**Planted values.** Set by D37's rule from each model's own first-turn ratings (16 per question), fixed after wave 1.
+
+**Running.** Batch waves, one per turn.
+
+**Budget fallback.** Checked after every wave; it drops a repeat index while the projected total exceeds the cap.
+
+**Reference.** The Haiku reference at R = 4 (D37's archive, repeats 0–3) was computed while the code was being tested, before freezing: R = 2.01 [1.04, 4.43].
+
+**Caps:** $2.40 (Sonnet) and $6.00 (Opus).
