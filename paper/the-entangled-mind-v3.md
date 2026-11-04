@@ -44,9 +44,10 @@ Do machines need quantum minds? Quantum-cognition models describe human judgment
   - Version 2.1, which stops forcing hedging claims into camps: 0.84 against 0.82. Both fits set the new hedge term's weight to 0, and simulated hardware noise changed nothing.
   - Self-reported confidence scored 0.83 on the same locked test set.
 - **Secondary transfer to a second model.** The frozen v2 models were scored offline on `claude-sonnet-5-5`'s hard-pool errors. A2 scored 0.90 against F2's 0.82, a paired +0.078 [+0.018, +0.137].
-  - That matches the direction of the secondary held-out results on Haiku, but the primary comparison remains a tie.
-  - A2's couplings are near zero, so the edge comes from single-claim geometry and the readout, not entanglement.
-  - Sonnet's self-reported confidence could not be scored.
+  - **A pre-registered ablation identifies the edge** (Addendum D). It is single-claim readout geometry, and a classical model carries it.
+    - Setting A2's couplings to exactly 0 changes nothing: −0.006 [−0.029, +0.013].
+    - A classical twin given A2's per-claim tilted readout (F2+) matches A2: 0.90, and +0.004 [−0.032, +0.042].
+  - **Sonnet's own stated confidence scores 0.91 [0.86, 0.95]**, level with A2. Self-report again matches the best structural model.
 
 **Hardware: positive, and narrow.**
 - On IBM's `ibm_fez`, a pre-registered witness certified that the encoded belief states are physically entangled: 3 of 3 items, negativity 0.147, 0.063 and 0.067, in 44 QPU seconds.
@@ -135,7 +136,7 @@ A fuller version, with every paper's design, numbers and limitations, is in `pap
 | standard (run 2) | 125 | as above | `claude-haiku-5-5`, default effort (D5) | **4** of 125 | `results/pool-run-2.md` |
 | hard (run 3) | 300 (D6) | 120 SimpleQA, 120 MMLU-Pro physics/chemistry, 60 author-written claims | `claude-haiku-5-5` | **44** of 300 | `results/pool-run-3.md` |
 | training, v2 (run 5) | 1,048 (D9) | SimpleQA, MMLU-Pro biology/engineering/physics/chemistry, computed puzzles, verified claims | `claude-haiku-5-5` | **158** of 1,048 | `results/pool-run-5.md` |
-| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). L, H, A2 and F2 scored offline with frozen v2 parameters (D27); G [NOT SCORED] | `results/pool-run-4.md`, `results/sonnet-replication.md` |
+| hard, second model (run 4) | 300 planned (D18) | the hard pool | `claude-sonnet-5-5`, default effort | **30** of 298 answered (299 processed, `h101` excluded after a refusal, D20–D21; 1 hit the token cap). L, H, A2 and F2 scored offline with frozen v2 parameters (D27); G scored with 298 Sonnet calls, $0.88, no refusal (D28) | `results/pool-run-4.md`, `results/sonnet-replication.md` |
 | training, second model (run 6) | locked-test questions first (D18) | the training pool | `claude-sonnet-5-5` | [HALTED] after 82 items, 7 wrong, on a second refusal (D25) | `results/refusal-sonnet-replication-2.md` |
 
 Every item records its source and licence. Anthropic API spend through the training pool was $16.19 (`results/api-usage.md`). Experiments 3 and 4 add $1.63, $0.23 and $0.04. The Sonnet replication cost $4.07 (hard pool, including the $1.39 spent before the first stop) and $1.10 (training pool, before the second stop). Experiment 5's pilot cost $0.21.
@@ -251,6 +252,8 @@ The pre-registrations were committed before the data they govern (`experiments/p
 | **D22–D24** | Experiment 5 frozen; pilot items clarified (the 5-per-category cap left no further right items, so the next 2 in the uncapped ranking are used); split and runner committed; one pilot item's 4th chain slot filled. | Gaps in the draft's wording, found and fixed before any call. | None on the 40 scored items. |
 | **D25** | Sonnet replication stopped on a second `reasoning_extraction` refusal (`t368`, training pool). The scorer was not run, because its arm-G step would make further Sonnet calls. | The project's rule and Sean's instruction. | Arm G cannot be scored on Sonnet. |
 | **D27** | Sonnet's 298 hard-pool records scored offline (L, H, A2, F2) with frozen v2 parameters; every API client blocked in code; G not scored; the 82 training-pool records not scored. | Sean's request after D25. | A secondary transfer test, with nothing refitted. |
+| **D28** | Addendum D, the coupling ablation A2(κ=0) and the classical twin F2+ with A2's per-claim readout, with its outcome rule fixed in advance; and arm G on Sonnet's hard pool. | To test what the Sonnet edge is. | Outcome 1: single-claim geometry, carried by a classical model (Section 5.11). |
+| **D29** | Every date in the repository uses local America/Denver time. The frozen pre-registrations changed only in how the same instants are written. | Sean's instruction. | None. |
 | **D26** | Experiment 5's model details left open by the frozen text, and the verdict's "contradicted" case, fixed in code. | Fixed before any full-run data were examined. | — |
 
 **On sequencing.** The analysis grew in stages:
@@ -449,7 +452,7 @@ Following the project's rule, the run stopped at once, and nothing was reworded 
 - the parameters were frozen from `results/v2-fit.json`, and nothing was refitted;
 - every API client was blocked in code, so no call was made.
 
-Arm G needs Sonnet calls, so it was not scored.
+Arm G, Sonnet's own stated confidence, was then scored with 298 Sonnet calls under D28, for $0.88 and with no refusal.
 
 | model | Sonnet, hard pool (30 wrong of 298) | Haiku, run-2 held-out (40 / 40), for reference |
 |---|---|---|
@@ -457,13 +460,36 @@ Arm G needs Sonnet calls, so it was not scored.
 | F2 learned classical twin | 0.82 [0.75, 0.88] | 0.71 [0.59, 0.82] |
 | L relation-web features | 0.73 [0.64, 0.82] | 0.66 [0.53, 0.77] |
 | H hedge baseline | 0.66 [0.56, 0.76] | 0.77 [0.66, 0.87] |
-| G self-reported confidence | [NOT SCORED] | 0.82 [0.71, 0.90] |
+| G self-reported confidence | **0.91 [0.86, 0.95]** | 0.82 [0.71, 0.90] |
 
 - **The models transfer.** Trained on Haiku's errors, they score well above chance on Sonnet's, in the same order as on Haiku's held-out set: A2 > F2 > L.
 - **A2 beats F2 on Sonnet's errors.** The paired difference is +0.078 [+0.018, +0.137]. That matches the direction of Haiku's held-out results: v2 +0.108, v2.1 +0.116.
 - **This is a secondary transfer result, not a reversal.** On v2's primary test, the locked test set, A2 and F2 tied (−0.007 [−0.079, +0.062]).
-- **The edge is not entanglement.** A2's couplings are near zero (k_sup = 0.12, k_con = 0.21, with one weak Trotter step). Its advantage comes from the learned single-claim geometry and the tilted readout basis (α = 0.40), which a classical model given the same readout freedom could in principle match.
-- **Whether self-report again matches these models on Sonnet's errors is open.** On Haiku, G matched A2 on both sets.
+- **Self-report again matches the best structural model.** On Sonnet's errors:
+  - G − A2 = +0.008 [−0.061, +0.080];
+  - G beats the relation-web feature model L by +0.176 [+0.095, +0.257].
+
+**What the Sonnet edge is: the test (Addendum D, D28; `results/sonnet-ablation.md`).** The question was whether A2's edge over F2 on Sonnet comes from its small couplings or from single-claim geometry: the tilted readout α acting on each claim's confidence angle θ and phase φ. The test was pre-registered at 21:03 MST (`f7afd8a`), before any score, with four outcomes fixed in advance. It used two models, with no API calls:
+- **A2(κ=0):** A2's frozen parameters with both couplings set to exactly 0, so the state is a product of tilted single-claim qubits. It has 9 parameters, 7 effectively free.
+- **F2+:** F2 whose single-claim prior is P(yes) = (1 + sin θ cos φ cos α + cos θ sin α)/2. That is exactly what an uncoupled qubit gives when measured along the tilted axis. F2+ was fitted on the v2 train split only and has 10 parameters.
+
+| model | Haiku locked v2 test (209) | Sonnet hard pool (298) |
+|---|---|---|
+| A2 (frozen v2) | 0.83 [0.75, 0.90] | 0.90 [0.84, 0.95] |
+| A2(κ=0), couplings set to 0 | 0.82 [0.74, 0.89] | 0.89 [0.83, 0.95] |
+| F2 (frozen v2) | 0.84 [0.78, 0.89] | 0.82 [0.75, 0.88] |
+| F2+, F2 with A2's per-claim readout | 0.85 [0.77, 0.91] | 0.90 [0.84, 0.95] |
+
+| paired difference | Haiku locked v2 test | Sonnet hard pool |
+|---|---|---|
+| A2(κ=0) − A2 | −0.009 [−0.029, +0.009] | −0.006 [−0.029, +0.013] |
+| F2+ − A2 | +0.015 [−0.042, +0.073] | +0.004 [−0.032, +0.042] |
+| F2+ − F2 | +0.009 [−0.057, +0.065] | **+0.082 [+0.045, +0.120]** |
+
+- **The pre-registered outcome is outcome 1: the edge is single-claim geometry, and a classical model carries it.** Removing the couplings changes nothing on either set, and F2+ matches A2 on both.
+- **On Sonnet's items, the per-claim readout feature alone (F2+ − F2, +0.082) accounts for the whole A2 − F2 gap (+0.078).** On Haiku's locked test set it adds nothing, and there A2 and F2 already tied.
+- **What the geometry does.** The tilt mixes each claim's uncommitted component (cos θ, large when confidence is low) into its vote. It is a per-claim reweighting by confidence, with no superposition across claims, no interference between them and no entanglement.
+- **Scope.** F2+ was scored on these two sets only. The earlier secondary edges on Haiku's run-2 held-out set (v2 +0.108, v2.1 +0.116) were not re-tested against F2+. They come with the same near-zero couplings, but whether F2+ also closes them has not been measured.
 
 ---
 
@@ -487,7 +513,7 @@ The data rule out the easy explanations.
 
 The window shows *where* the fixed encoding loses the signal: at the entangling and coupled-evolution steps. The learned encodings avoid the loss by switching those steps nearly off.
 
-**The only positive differences between quantum and classical models are secondary.** On the set that motivated v2.1, A2 and A2.1 beat their twins (Haiku's run-2 held-out set), and A2 beat F2 on Sonnet's hard-pool errors (+0.078). In every case the learned quantum model has near-zero coupling. What transfers better than the classical twin is its single-claim geometry and tilted readout, not entanglement. Where self-report was measured, it matched A2.
+**The only positive differences between quantum and classical models are secondary, and the one that was tested is classical.** A2 and A2.1 beat their twins on Haiku's run-2 held-out set, which motivated v2.1. A2 beat F2 on Sonnet's hard-pool errors (+0.078). In every case the learned quantum model has near-zero coupling. For the Sonnet edge, a pre-registered ablation settled it: the couplings contribute nothing, and a classical twin with the same per-claim readout matches A2. The Haiku held-out edges were not re-tested against that twin. Where self-report was measured, on both base models, it matched A2.
 
 ### 6.2 What does predict the model's errors
 
@@ -502,7 +528,9 @@ The window shows *where* the fixed encoding loses the signal: at the entangling 
 
 The relation judge's labels of *which* claims support or contradict which carry no error signal that survives encoding. The counts and strengths behave like noisy proxies for how unsure the model already says it is.
 
-This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On this pool, the model can see them, and says so when asked.
+**The same holds on a second base model.** Sonnet's stated confidence scores 0.91 on its hard-pool errors, level with A2 (0.90), and 0.18 above the relation-web model L.
+
+This is a plain negative for version one's hope that the quantum layer would expose conflicts the model cannot see. On both models, the model can see them, and says so when asked.
 
 ### 6.3 Sequential judgment: what is and is not known
 
@@ -541,13 +569,13 @@ At 5–16 qubits every state is exactly classically simulable, so the hardware's
 
 ## 8. Limitations
 
-- **One base model for the primary results.** Every pre-registered comparison uses `claude-haiku-5-5`. The second model, `claude-sonnet-5-5`, contributes one secondary transfer test: its hard pool, scored offline with frozen parameters (D27). It has no self-report arm and no training-pool data, because the replication was halted by a second refusal (D25).
+- **One base model for the primary results.** Every pre-registered comparison uses `claude-haiku-5-5`. The second model, `claude-sonnet-5-5`, contributes a secondary transfer test on its hard pool: frozen parameters (D27), plus self-report and the Addendum D ablation (D28). It has no training-pool data, because the replication was halted by a second refusal (D25).
 - **Visible explanations, not deliberation.** Claims come from what the model writes for the reader (D1–D3).
 - **Models judging models.** The extractor and relation judge are language models, and their errors bound what any arm can find.
 - **Error types.** The model's errors are mostly ignorance and multi-step science, not the judgment errors quantum cognition studies.
 - **Moderate test sets.**
   - Run 2's test set has 80 items, and the locked v2 test set 209 items with 32 wrong. Intervals are reported throughout, and many overlap.
-  - The only positive quantum-vs-classical differences are secondary: A2 and A2.1 over their twins on Haiku's held-out set, which motivated v2.1, and A2 over F2 on Sonnet's hard pool, which has no self-report comparison.
+  - The only positive quantum-vs-classical differences are secondary. A2 and A2.1 beat their twins on Haiku's held-out set, which motivated v2.1, and those edges were not re-tested against F2+. A2 beat F2 on Sonnet's hard pool, and that edge is reproduced by a classical twin with the same per-claim readout (Addendum D).
 - **Analysis grew after the primary result.** Every addition was pre-registered before its data, but designed knowing run 2 had failed (Section 4).
 - **Hardware scope.** The witness certified one pair in each of 3 items, and arm B never ran.
 - **Sequential experiments are limited by the measurement.** The yes/no answers saturate, and temperature cannot be raised. Graded ratings vary between repeats by only 0–5 points. One pre-registered estimator was circular (D19).
