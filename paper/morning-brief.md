@@ -5,6 +5,7 @@ Written 2026-11-04 (America/Denver) at the end of the unattended overnight run.
 - **Rules:** each was pre-registered in its own commit before its archive was opened or its first call. Every design used one scale direction (0 = certainly false, 100 = certainly true). Stop-on-refusal applied to every call.
 - **No call was refused.**
 - **Spend:** about **$4.2** in API calls (recorded $4.17, plus at most $0.20 lost in direction 1's crash), broken down in the technical table at the end. No QPU time.
+- **Updated later on 2026-11-04** with the three-run robustness wave (results 12–14, $2.18, no refusal) and the Sonnet and Opus replications from branch `multi-model` (see "How far it generalises").
 
 ## The short version
 
@@ -16,6 +17,12 @@ Written 2026-11-04 (America/Denver) at the end of the unattended overnight run.
 - the model's own earlier answers sitting in the conversation.
 
 There is no stored, format-free credence behind them that the different questions all read out. The model's sense of whether its *answer* is right is also not privileged: a stronger model reading the same answer judges it better than its author does.
+
+**After the robustness wave.**
+- **The question finding survives on 40 items.** The question alone carries roughly the whole order effect, spread across items.
+- **Format-free belief is the smaller part on Haiku.** One belief predicts a left-out format only 39% as well as that format predicts itself.
+- **The model is bound to its own answers.** Its own planted answers bind it at every distance and after intervening turns, while another person's are ignored.
+- **The format finding is specific to Haiku**, and partly to Sonnet. Opus's formats agree closely enough to read as one belief. The self-report and own-record findings hold on all three models.
 
 **What is stable is narrower than a belief.** Within a fixed prompt the answers repeat closely. The model reliably picks out which of its claims bear on a question. And its probability ratings combine in a way that cancels its own fallacies. Those are stable dispositions in how it answers. They are not a number it holds and reports.
 
@@ -77,6 +84,40 @@ There is no stored, format-free credence behind them that the different question
     - The model treats its own past answers as commitments.
     - File: `results/bm1-serial-dependence.md`.
 
+### The robustness wave (later on 2026-11-04, Sean's list; each pre-registered in its own commit)
+
+12. **The question-alone finding holds on all 40 items, but is smaller than it first looked (D45, $1.68).** Direction 2's design was run on the other 30 experiment-5 items and pooled with last night's 10.
+    - With the model's earlier answers hidden, the order of the questions still moves the final verdict by about as much as with them shown: R = 1.23 [0.75, 2.02], still *question-driven*. It is 0.99 on the 30 new items alone, and 0.99 without the two items that dominated last night.
+    - **Revised from result 4:** the hidden-answer order effect is *not* larger than the shown one. Last night's 16.7 against 8.7 came mostly from one item (h191). Across 40 items the two are 12.0 and 9.8 points.
+    - The effect is broad (82% of items), and the placeholder turn adds no noise of its own (within-order SD 5.1 shown, 5.4 hidden).
+    - Memory still makes the model look stable: 86% repeat agreement shown against 36% hidden. A planted first answer pulls the final one 0.85 points per point.
+    - File: `results/gm2b-self-conditioning-40.md`.
+
+13. **One belief recovers little of each format (D46, $0; the test recommended below).** For each of the six formats, one belief per statement was fitted on the other five and used to predict it.
+    - It recovers 39% [30%, 50%] of what that format reproducibly says (mean R² 0.37, against the formats' own split-half ceilings of 0.88–0.97).
+    - The pre-registered reading is *little format-free belief*, though the interval's top end (0.499) only just misses the 0.5 line for "partial".
+    - The coin comparison is the least predictable (17%), the 0–100 rating the most (53%).
+    - File: `results/gm3c-heldout-format.md`.
+
+14. **Its own answers bind it at every distance and over time; other people's don't (D47, $0.50).** The model's own planted answer was set 10, 30 or 60 points from its view and compared with the same number credited to another person. In a further condition, three "continue" turns were inserted before the re-rating.
+    - **Own beats other at every distance:** the model takes up 71%, 44% and 21% of its own answer at 10, 30 and 60 points, against +19%, −11% and −13% of another person's. Pooled, own minus other is +0.46 [+0.21, +0.84].
+    - **The pull has a limit.** The movement toward its own answer peaks around 35 points away and shrinks beyond that, but never reverses. This test cannot tell whether that is tuning or the model discarding an implausible "own" answer.
+    - **It does not fade.** After three intervening turns the uptake is 57%, if anything higher than with none (44%; difference −0.13 [−0.25, −0.00]).
+    - **Reading:** *self-consistency*. This is a commitment to its visible answers, not generic attraction to recent numbers. The $0.50 cap cut the lag condition to 17 of its 20 repeats (D47a).
+    - File: `results/bm0-source-distance-lag.md`.
+
+### How far it generalises: Sonnet and Opus (branch `multi-model`, merged; DM1–DM6, $16.28)
+
+Directions 1, 2 and 3 were re-run with Sonnet and Opus as the model under test, at reduced scale.
+- **No privileged self-knowledge holds on all three models.** Opus spots Sonnet's errors better than Sonnet does (0.96 against 0.90). The judge × author interaction is −0.045 [−0.107, +0.017].
+- **Leaning on its own record holds on all three.** Repeat agreement, shown against hidden, is 78% → 25% (Haiku), 88% → 35% (Sonnet) and 95% → 65% (Opus).
+- **No format-free credence holds for Haiku, partly for Sonnet, and not for Opus.**
+  - Agreement across the six formats rises with model strength: Kendall's W is 0.54, 0.71 and 0.86.
+  - On the same 80 statements, one belief recovers 29% of a left-out format on Haiku and 69% on Sonnet.
+  - On Opus's 26 statements (budget-stopped), one belief per statement fits as well as one per format.
+- **The question alone constructs the judgment on Sonnet** (R = 2.95). On Opus the test is not decisive.
+- **The paper.** `paper/no-credence-to-read.md` was narrowed to these limits (D48, new Section 4.6).
+
 ## What it means: a belief to read, or an answer built by the asking?
 
 **What points to construction.**
@@ -95,7 +136,25 @@ There is no stored, format-free credence behind them that the different question
 
 **The two fit together.** There is a stable *generator*: a fixed way of turning a prompt and a transcript into a number, sensitive to relevance and roughly coherent in how ratings combine. There is no stable *credence* that the generator merely reports. So what the project's quantum-cognition tests have been measuring is the generator's sensitivity to context. That sensitivity is large, classical, and dominated by the questions themselves and the model's own earlier outputs.
 
+**What the robustness wave and the replications change.**
+- **The construction-by-asking reading is firmer on Haiku.**
+  - The question effect is broad, not two items (12).
+  - The formats share only the smaller part of their answers (13).
+  - The model's own-record binding behaves like a commitment, not a fading echo (14).
+- **"No credence to read" is a finding about Haiku, not about language models.**
+  - On Sonnet a single belief is partly usable. On Opus the six formats read as one.
+  - What travels to the stronger models is the transcript part: answers lean on the model's own visible record, and self-report adds nothing a reader lacks.
+  - So the stronger the model, the more there is a belief to read. In every model tested, how that belief is reported still depends on the conversation it is asked in.
+
 ## The one next test I would recommend
+
+**Done since:** the held-out-format test below ran as D46 (result 13). It reads *little format-free belief* on Haiku, *partial* on Sonnet (Q = 0.69), and was not computed on Opus.
+
+**Recommended now: finish Opus's six-format arm.** Run the remaining 54 of its 80 claims, about $6.40 at batch rates, under the frozen DM2 analysis, and compute test F′ (held-out-format prediction) on all 80.
+- It is the one cell that decides whether "the stronger the model, the more one belief" is a trend or an artefact.
+- Opus's current 26 claims all come from items Haiku answered wrongly, and its W is not item-matched with the other two models.
+
+*The overnight recommendation, kept for the record:*
 
 **Held-out-format prediction on the archived six-format data ($0).**
 - **Design:** fit the one-credence model on five formats and predict the sixth, for each format in turn. Compare that prediction with the sixth format's own split-half reliability, the noise ceiling.
@@ -122,6 +181,9 @@ If one latent predicts a left-out format close to that format's own ceiling, the
 | 9 | biomimetic, contrast sign | `experiments/bm9-contrast.md` (D42) | β (S level → M shift) | +0.27 [+0.11, +0.43]: **assimilation** | $0 |
 | 10 | biomimetic, PT+N identity | `experiments/bm2-sampling-identity.md` (D43) | split-half Z slope | +0.02 [−0.17, +0.16]: **flat**; mean Z −0.03 [−0.07, +0.00] | $0.05 |
 | 11 | biomimetic, source dependence | `experiments/bm1-serial-dependence.md` (D44) | s_own, s_own − s_other | s_own +0.42 [+0.25, +0.60], s_other +0.05; difference +0.37 [+0.17, +0.57]: **source-dependent self-consistency** | $0.24 |
+| 12 | robustness, direction 2 on 40 items | `experiments/gm2b-self-conditioning-40.md` (`4894bfc`, D45; result `758609a`) | R = OE_redacted / OE_shown | 1.23 [0.75, 2.02]: **question-driven**; 30 new 0.99 [0.51, 1.61]; without h191/h261 0.99 [0.62, 1.49]; b_MF 0.85 [0.65, 1.13] | $1.68 |
+| 13 | robustness, held-out format | `experiments/gm3c-heldout-format.md` (`1f2a837`, D46; result `52aedb6`) | mean Q = R²_cross / R²_ceiling | 0.39 [0.30, 0.50]: **little format-free belief** | $0 |
+| 14 | robustness, source × distance × lag | `experiments/bm0-source-distance-lag.md` (`8acc007`, D47; result `e2c3b90`) | pooled u_own − u_other; β₂; lag 0 − lag 3 | +0.46 [+0.21, +0.84]; β₂ −0.99 [−1.53, −0.48], no reversal; lag −0.13 [−0.25, −0.00]: **self-consistency** | $0.50 (cap; lag arm R = 17, D47a) |
 
 **Deviations worth knowing about.**
 - **D36 amendments.** Direction 1's Sonnet calls cost more than planned, and a token-cap call crashed the runner. Calls lost in the crash are bounded at $0.20. The paraphrase arm covers 60 of its 80 questions, and Sonnet's recognition check did not run. The primary result is unaffected.
@@ -132,4 +194,6 @@ If one latent predicts a left-out format close to that format's own ceiling, the
   - the contrast test is not read as normalization;
   - the identity test uses the split-half Z slope (the split was added before freezing, after a random-data check showed shared-noise bias);
   - the source test reads own > other, and the sign flip is withdrawn.
+- **D47a.** The cap stopped D47's lag arm at 17 of 20 repeats. Every distance cell is complete.
+- **D48.** The No Credence paper was narrowed to what replicated on Sonnet and Opus.
 - **Reproduction.** Every overnight analysis is in `experiments/reproduce.py` and is recomputed from its archived calls with the network blocked. Each results file opens with a hand-written "In plain English" section, which reproduce.py does not compare.
