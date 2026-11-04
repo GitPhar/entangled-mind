@@ -327,7 +327,7 @@ def cmd_pilot():
     recs = {r["id"]: r for r in json.loads(POOL.read_text())["records"]}
     jobs = run(PILOT, recs)
     g = gates(PILOT, recs)
-    cost = sum(v["cost"] for v in _cache.values())
+    cost = sum(_cache[j[0]]["cost"] for j in jobs if j[0] in _cache)   # the pilot's own conversations only
     PILOT_JSON.write_text(json.dumps({"gates": g, "n_conversations": len(jobs), "cost_usd": cost}, indent=1))
     lines = ["# Experiment 5: pilot (gates G1 and G2)", "",
              f"Frozen pre-registration: `experiments/exp5-sequential-judgment.md` (§7.1, D22-D23). Pilot items: "
