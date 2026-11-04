@@ -32,4 +32,26 @@ Paired bootstrap AUROC differences (2,000 stratified resamples):
 - **Parameter counts:** A2 has 9, A2(κ=0) has 9 with 2 pinned at 0 (7 effective), F2 has 9, and F2+ has 10. F2+ has one parameter more than A2, the readout angle that A2 already had.
 - **For the paper:** the Sonnet edge, the one positive quantum-vs-classical difference tested here, is accounted for by a classical model with the same per-claim readout.
   - The secondary edges on Haiku's run-2 held-out set (A2 − F2 = +0.108 in v2; A2.1 − F2.1 = +0.116 in v2.1) were **not** re-tested against F2+.
-  - Whether they also reduce to the readout geometry is therefore open. It could be closed by scoring the frozen F2+ on that set, with no API calls.
+  - **Closed by Addendum E (below):** the frozen F2+ scored on that set matches A2 (−0.019 [−0.073, +0.029]) and A2.1 (−0.037 [−0.089, +0.012]). So every positive quantum-vs-classical difference in the project is now accounted for by a classical model with the same per-claim readout.
+
+## Addendum E: the frozen F2+ on Haiku's run-2 held-out set (40 wrong, 40 right)
+
+Pre-registered in `experiments/preregistration-v2.md`, Addendum E (`52e80a0`), before this scoring. Frozen parameters only, no refitting and no API calls.
+
+| model | AUROC [95% CI] |
+|---|---|
+| A2 (frozen v2) | 0.82 [0.71, 0.91] |
+| A2.1 (frozen v2.1) | 0.84 [0.74, 0.92] |
+| F2 (frozen v2) | 0.71 [0.59, 0.82] |
+| F2.1 (frozen v2.1) | 0.72 [0.60, 0.83] |
+| F2+ (frozen, Addendum D) | 0.80 [0.69, 0.88] |
+
+| paired difference | value [95% CI] |
+|---|---|
+| F2+ − A2 | -0.019 [-0.073, +0.029] |
+| F2+ − A2.1 | -0.037 [-0.089, +0.012] |
+| F2+ − F2 | +0.088 [+0.014, +0.167] |
+| A2 − F2 (v2 edge, for reference) | +0.108 [+0.012, +0.215] |
+| A2.1 − F2.1 (v2.1 edge, for reference) | +0.116 [+0.013, +0.225] |
+
+**Rule outcome (Addendum E): 1: the held-out edges are also single-claim readout geometry, carried by a classical model.**
