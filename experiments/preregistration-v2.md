@@ -83,7 +83,7 @@ Secondary comparisons, reported but not part of the pass criterion: A2 against L
 
 ## Addendum B — hedge baseline (H) and version 2.1 "honest hedge" encoding
 
-**Written 2026-11-04 00:45 UTC.** At this point the v2 fit was still on train and validation, and **no test-set evaluation of any v2 model had been run**. The locked test set and the run-2 held-out set had not been scored.
+**Written 2026-11-03 17:45 MST.** At this point the v2 fit was still on train and validation, and **no test-set evaluation of any v2 model had been run**. The locked test set and the run-2 held-out set had not been scored.
 
 **Definition.** A **no-lean claim** (a *hedge*) is one whose extracted lean satisfies |lean| ≤ 0.1. Leans are extracted in steps of 0.05. On the train split, 10.3% of claims have a lean of exactly 0 and 11.2% have |lean| ≤ 0.1, and 55% of train items have at least one hedge.
 
@@ -119,7 +119,7 @@ Both have 10 parameters, so they are matched to each other.
 
 ## Addendum C — v2.1 evaluated noiseless and on the noisy simulator
 
-**Written 2026-11-03 18:36 MST (2026-11-04 01:36 UTC).** No v2.1 fit had started (`results/v2.1-fit.json` did not exist), and no v2 or v2.1 model had been scored on any test set.
+**Written 2026-11-03 18:36 MST.** No v2.1 fit had started (`results/v2.1-fit.json` did not exist), and no v2 or v2.1 model had been scored on any test set.
 
 1. **Fitting is on exact noiseless statevectors** for A2.1 and F2.1. What is learned is the mapping from claims to state, and noise adds nothing to it. Selection is on validation, exactly as in Addendum B. The fitting code already worked this way; this addendum makes it explicit.
 2. **Two evaluations, once each, on the locked v2 test set:**

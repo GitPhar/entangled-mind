@@ -2,7 +2,7 @@
 
 This is a chronological record of each question the project tested: its pre-registration, the test, the result, the diagnosis, and the redirect it led to.
 - Hashes are short commit ids on `main`.
-- Times are local (MST, UTC−7), as `git log main` records them.
+- Times are local, America/Denver (MST, UTC−7), as `git log main` records them. Every date in the repository uses this time zone.
 - Numbers are from `results/`, and decision labels (D1–D26) are from `DEVIATIONS.md`.
 
 **2026-10-25: proposal (version 1).** It proposed holding a language model's competing considerations as one entangled state, with five hypotheses: divergence, entanglement signal, contextuality, emergence and human-likeness. It was added to the repository as PDFs in `f09175d` (11-03 16:53).

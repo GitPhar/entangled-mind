@@ -219,7 +219,7 @@ The overstated sentences were corrected in `experiments/items-borrowed.json` (ru
 
 ## D14 — Pre-registered additions: hedge baseline H and version 2.1 "honest hedge" encoding
 
-**Date:** 2026-11-04 00:45 UTC, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
+**Date:** 2026-11-03 17:45 MST, before any test-set evaluation of v2 (the v2 fit was still running on train and validation).
 
 These were added at Sean's request, prompted by the exploratory window vignette W4 (`paper/window-vignettes.md`), which notes that the encoding forces hedging claims into a yes or no camp. Full definitions are in `experiments/preregistration-v2.md`, Addendum B.
 
@@ -235,7 +235,7 @@ Because W4 was an exploratory observation on run-2 data, v2.1 is a hypothesis su
 
 ## D15 — Correction: the phase solver's frame drifts off the yes/no axis (encoding bug, documented and characterised)
 
-**Date:** 2026-11-04. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
+**Date:** 2026-11-03. Prompted by Sean's frame check on window item h046. The work is exploratory and uses run-2 data only. It does not touch the locked v2 test set.
 
 **Finding.** Two causes were possible: (a) a display convention error in `export_window.py`, or (b) the encoding itself. It is **not (a)**: the exported encode-stage Bloch azimuth equals the solver's φ exactly, claim for claim. It **is (b)**, in a more specific form than a free rotation.
 

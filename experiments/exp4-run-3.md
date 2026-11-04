@@ -1,6 +1,6 @@
 # Experiment 4, run 3: a manipulated first rating (pre-registration draft)
 
-Written 2026-11-04, after run 2 (`results/exp4-run-2.md`, DEVIATIONS D19) and before any run-3 call. **Status: draft, not run.** Running it needs Sean's go-ahead. The design is frozen in a commit before the first call.
+Written 2026-11-03, after run 2 (`results/exp4-run-2.md`, DEVIATIONS D19) and before any run-3 call. **Status: draft, not run.** Running it needs Sean's go-ahead. The design is frozen in a commit before the first call.
 
 ## 1. Why run 3
 
