@@ -116,6 +116,10 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 - Graded ratings show real order effects of about +0.10, and R2 holds on all 3 scored items.
 - The pre-registered anchoring estimator turned out to be near-tautological (D19), so the mechanism is undetermined.
 
+**Experiment 4, run 3: manipulated first rating** ([`results/exp4-run-3.md`](results/exp4-run-3.md)). The run is **untestable**.
+- The model resists provided first ratings. It rejects them, revises back toward its own value, and sometimes moves *away* from a high anchor.
+- So the manipulation check failed, and anchoring vs content-driven updating stays undetermined.
+
 **What the secondary quantum edges are** ([`results/sonnet-ablation.md`](results/sonnet-ablation.md), Addenda D and E). Both outcomes are pre-registered outcome 1: single-claim readout geometry, carried by a classical model.
 - Setting A2's couplings to exactly 0 changes nothing (−0.009 and −0.006).
 - A classical twin given A2's per-claim tilted-readout marginal (F2+) matches A2 on all three sets:
@@ -137,7 +141,7 @@ H1 passes trivially. The judgment readout tracks the model's own answer, because
 
 **Experiment 5: sequential judgment** ([`results/exp5-run-1.md`](results/exp5-run-1.md)). The verdict is a **tie**, as the pre-registration predicted (§8.6: "expect A5 and F5 to be close on most claims").
 - Graded sequential ratings show large order effects: 60 of 80 adjacent pairs.
-- The QQ equality is close (mean q = +0.005 [−0.058, +0.065]) but not certified.
+- The QQ equality is **not** supported. Run 1's near-zero mean q (+0.005) came from pooling two scale directions. A pre-registered single-scale rerun on 10 items ([`results/exp5-run-2.md`](results/exp5-run-2.md)) gives q = −0.146 [−0.439, +0.137], while the order effects survive (12 of 16 large pairs).
 - There is no Kvam interference (Δ_K = +0.29 [−1.12, +1.65]).
 - A classical Markov chain (D5) does as well as the coherent quantum state, so coherence is not what any A5 advantage rests on.
 - 12,600 conversations, $1.93.
