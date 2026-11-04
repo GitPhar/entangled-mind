@@ -635,3 +635,19 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 **Primary test:** the item-level Z slope (map revision 2), with **split halves**. A check on random ratings before freezing showed that shared repeat noise alone gives b ≈ +0.95 without the split.
 
 **Secondary test:** mean Z within ±0.05.
+
+## D44 — Biomimetic run, 5 of 5: source dependence (run 3's anchors as the model's own answer) pre-registered
+
+**Date:** 2026-11-04 05:11 MST, before any call. Recorded in `experiments/bm1-serial-dependence.md`.
+
+**Design.**
+- Run 3's 16 items and ±30 anchors, with each anchor planted as the model's own earlier answer. The comparison is run 3's archived "another person" cells.
+- R = 40; one scale.
+- Budget $0.40 (estimate $0.23), enforced in code; stop on any refusal.
+
+**What it shares with direction 2 (D37):** the planted value sits in the model's own assistant turn, in its structured-output format, with the same model and settings. Direction 2's result, and biomimetic tests 1–4, were known at freezing.
+
+**Readings (map revision 2):**
+- own > other means source-dependent self-consistency;
+- attraction from both sources means stimulus-history serial dependence;
+- revision 1's sign-flip prediction is withdrawn.
