@@ -609,3 +609,10 @@ Revision 2's other recommendations are not run, because Sean did not list them:
 - the prime × confidence test.
 
 **Recorded in:** `experiments/bm3-confirmation.md`.
+
+## D41 — Biomimetic run, 2 of 5: serial-position weights pre-registered
+
+**Date:** 2026-11-04 05:08 MST, before the archive was opened for this analysis. Recorded in `experiments/bm7-serial-position.md`.
+- The data are experiment 5's O1–O4 chains, anchor (a) only.
+- Position weights are fitted with item fixed effects.
+- The primary reading is revision 2's U-shape exclusion for the LCA.
