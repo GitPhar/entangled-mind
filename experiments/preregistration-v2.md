@@ -150,3 +150,16 @@ Everything else in Addendum B is unchanged.
 2. **A2(κ=0) matches A2, but F2+ falls short:** the single-claim geometry is the finding, and the next test is designed around it.
 3. **A2(κ=0) does not match A2** (A2(κ=0) − A2 entirely below 0 on at least one set): the small couplings matter, and that is reported as such.
 4. **Any other combination** is reported as is, with no verdict beyond the intervals.
+
+## Addendum E — the frozen F2+ on Haiku's run-2 held-out set
+
+**Written 2026-11-03 21:49 MST, before F2+ was scored on this set.** Addendum D left open whether Haiku's run-2 held-out edges reduce to the per-claim readout geometry. Those edges are A2 − F2 = +0.108 [+0.012, +0.215] in v2 and A2.1 − F2.1 = +0.116 [+0.013, +0.225] in v2.1. F2+ (Addendum D) had not been scored on that set.
+
+**Scoring.** The **frozen** F2+ (parameters in `results/sonnet-ablation-fit.json`, fitted on the v2 train split only, never refitted) is scored once on the run-2 held-out set: 40 wrong and 40 right, from pool run 3. A2, F2, A2.1 and F2.1 are re-scored with their frozen parameters for the paired differences. No API calls are made.
+
+**Rule, as in Addendum D.** "Matches" means the paired-bootstrap 95% interval of the AUROC difference (2,000 stratified resamples) contains 0. "Falls short" means it lies entirely below 0.
+1. **F2+ − A2 matches, and F2+ − A2.1 matches:** the held-out edges are also single-claim readout geometry, carried by a classical model.
+2. **F2+ − A2 or F2+ − A2.1 falls short:** that held-out edge is not explained by the readout geometry, and it is reported as an open, unexplained secondary difference.
+3. **Anything else** is reported as is.
+
+F2+ − F2 is reported alongside. This is one scoring of one frozen model, and it is still a secondary comparison: v2's primary test remains the locked-test tie.
